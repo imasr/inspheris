@@ -1,0 +1,53 @@
+<div class="ins_popup select_headerimg_popup">
+  
+<div class="popup_header floatl">
+    <p class="popup_title">{{'Options' | translate}}</p>
+    <div class="close_btn" ng-click="coloseHeaderImage()"> X </div>  
+</div>
+
+<div class="popup_wrapper floatl">
+	<div class="headerimg_li">
+		<!--
+		<div class="left_part">
+			<div class="ca_header_img margin_bottom">
+		        <p ng-class="remoteImg.isReady == true ? 'hide' : 'show'">Preview</p>
+		        <img id="capreview_img" ng-class="remoteImg.isReady == true ? 'show' : 'hide'" src='{{$root.siteUrl+remoteImg.url | safeurl}}'>
+		     </div>	
+		</div>
+		-->
+		<div class="right_part">
+			<div type="file" class="rb_ct_db" ng-file-select ng-file-change="onImgSelect($files)" data-multiple="true" accept="image/*">
+            	{{ 'Browse' | translate }}
+            </div>
+		</div>
+		
+	</div>
+	
+	<div class="headerimg_li" ng-class="imageLoader == true ? 'show' : 'hide'">
+		<div class="loader">{{'Loading' | translate}}...</div>	
+	</div>
+	
+	<div ng-class="remoteImg.isReady == true ? 'show' : 'hide'">
+		<div class="headerimg_li">
+			<p><b>{{'Top_Image' | translate}}</b></p>
+			<div class="img_canvas">
+			<img-cropped src='{{remoteImg.url | safeurl}}' selected='cropTopImg(cords)' aspectratio="1.7793594306" minwidth="1000" minheight="562" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+			</div>
+		</div>
+
+		<div class="headerimg_li">
+			<p><b>{{'Bottom' | translate}}</b></p>
+			<div class="img_canvas">
+			<img-cropped src='{{remoteImg.url | safeurl}}' selected='cropBottomImg(cords)' aspectratio="1.7793594306" minwidth="1000" minheight="562" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+			</div>
+		</div>
+	</div>
+
+	<div class="headerimg_li">
+		<div class="ins_btn_ctext" ng-click="cropImages()">
+			<span>OK</span>
+		</div>
+	</div>
+</div>
+
+</div>

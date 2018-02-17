@@ -1,0 +1,43 @@
+<div class="panel panel-default widget widget-hastags marb20" id="widgethashtag">
+	<div class="disp_table widget-title">
+	<div class="tblr">
+	  <div class="tblc_m icn">
+	    <strong><span>#</span></strong>
+	  </div>
+	  <div class="tblc_m title">
+	    Hashtags
+	  </div>
+	  <!--<div class="tblc_m icn">
+	    <i class="fa fa-minus clk" onclick="widgetToggle('widgethashtag');"></i>
+	  </div>-->
+	</div>
+	</div>
+
+	<div class="panel-body">
+		<div class="hashtags-list">
+		 	<!--<div class="fc1 fs1 marb10 lbl_title">
+				<strong><span>#Hashtags:</span></strong>
+			</div>-->
+			<ul>
+				<li ng-repeat="tag in $parent.hashtags">
+				 	<a ui-sref="app.search.category({type: 'general', filter: 'all', category: 'global', text: tag, page: 0,internalSearch: true})">
+				 		<span class="tg" ng-bind="tag"></span>
+				 	</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--
+<div class="widget-hastags">
+	<div class="fc1 fs1 marb10 lbl_title">
+		<strong><span>#Hashtags:</span></strong>
+	</div>
+	<ul>
+		<li ng-repeat="tag in $parent.hashtags">
+		 	<span class="tg">{{tag}}</span>
+		</li>
+	</ul>
+</div>
+-->

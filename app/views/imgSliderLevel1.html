@@ -1,0 +1,197 @@
+<!-- Slideshow -->
+<div id="image_slider_wide" ng-if="$ctrl.imagesShow.length > 0" class="carousel slide wide_slider" data-ride="carousel"data-interval="false" ng-controller="HeaderSliderCtrl">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#image_slider_wide" ng-repeat="slide in $ctrl.imagesShow" data-slide-to="{{$index}}" once-class="($index == 0 ? 'active':'')" >
+    </li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner head_slider">
+
+    <div class="item animated fadeIn" once-class="$index == 0 ? 'active':''" ng-repeat="slide in $ctrl.imagesShow">
+      <a target-blank="{{!slide.openSameTab}}" once-href="(slide.url ? slide.url : 'javascript:void(0);')">
+       
+        <div class="slide-wrapper" ng-if="!slide.type || slide.type == 'image'">
+          <!-- <div class="slide_overlay"></div> -->
+          <img ng-src="{{slide.imageLevel1.sliderUrl}}" alt="...">
+          <div once-if="slide.displayTitle" class="carousel-text slide_top_overlay" once-style="{'background-color': slide.displayBackgroundColor ? slide.backgroundColor : transparent}"><!-- once-style="{'background-color': slide.backgroundColor}"-->
+              <h2 class="animated bounceIn" once-if="slide.title" once-style="{color: slide.titleColor}">{{slide.title}}</h2><!-- once-style="{color: slide.titleColor}">-->
+              <!--<hr align="left" width="30%" size="3">-->
+              <p class="animated fadeInRight" once-if="slide.subTitle" once-style="{color: slide.titleColor}">{{slide.subTitle}}</p> <!--once-style="{color: slide.titleColor}">-->
+          </div>
+          <!--<div class="carousel-caption slide_top_overlay">
+           
+          </div>-->
+        </div>
+        <div class="slide-wrapper" ng-if="slide.type == 'video'">
+     
+          <div class="carousel-text slide_top_overlay" once-style="{'background-color': slide.displayBackgroundColor ? slide.backgroundColor : transparent}">
+              <h2 class="animated bounceIn" once-if="slide.title" once-style="{color: slide.titleColor}">{{slide.title}}</h2>
+              <hr align="left" width="30%" size="3">
+              <p class="animated fadeInRight" once-if="slide.subTitle" once-style="{color: slide.titleColor}">{{slide.subTitle}}</p>
+          </div>
+          
+        
+          <div class="width100 floatl height100" style="background-color: #000;">
+            <div class="hori_center" ng-bind-html="slide.embedVideo | unsafehtml"></div>
+          </div>
+        </div>
+
+        </a>
+		
+		
+        <div class="slide-wrapper" once-if="!slide.type || slide.type == 'advertisement'">
+
+
+          <!-- <div class="slide_overlay"></div> -->
+          <img once-src="slide.imageLevel1.sliderUrl">
+		 
+          <div class="custom-elv-text container" style="text-transform: none;">
+
+          <div ng-if="slide.adTemplate==1" class="elv-slider-layout1 ht100">
+          <div class="col-sm-2 ht100">
+			<h2 class="news-j" once-if="slide.title" once-style="{color: slide.temp.titleColor}"><span ng-bind-html="slide.title"></span></h2>
+          </div>
+
+          <div class="col-sm-2 ht100">
+            <div class="offer" once-style="{background: slide.temp.discountBackground}">
+              <span once-if="slide.temp.discountText" once-style="{color: slide.temp.discountTextColor}"><span ng-bind-html="slide.temp.discountText"></span></span>
+				<span class="percent disp_blk" once-style="{color: slide.temp.discountColor}">-{{slide.adDiscount}}%</span>
+            </div>
+          
+            <div class="date" once-style="{background: slide.temp.dateBackground}">
+              <h2>
+				  <span one-if="slide.temp.dateText" once-style="{color: slide.temp.dateTextColor}"><span ng-bind-html="slide.temp.dateText"></span></span>
+				  <span class="disp_blk" once-style="{color: slide.temp.dateColor}">{{slide.adDate | date: 'dd/MM/yy'}}</span>
+			  </h2>
+            </div>
+          </div>
+
+          <div class="col-sm-8 ht100">
+            <div class="right-layer" once-style="{background: slide.temp.informationBackground}">
+                <h2 class="title" once-style="{color: slide.temp.subTitleColor}"><span ng-bind-html="slide.subTitle"></span></h2>
+                <h2 class="subtitle" once-style="{color: slide.temp.descriptionColor}"><span ng-bind-html="slide.description"></span></h2>
+                <h2><a target-blank="{{!slide.openSameTab}}" once-href="(slide.url ? slide.url : 'javascript:void(0);')" class="btn btn-danger" ng-style="{'color': slide.temp.linkColor,'background': slide.temp.linkBackground}">JE découvre <i class="fa fa-angle-right"></i></a></h2>
+            </div>
+            </div>
+          </div>
+          <!--elv-slider-layout1 END-->
+
+           <div ng-if="slide.adTemplate==2" class="elv-slider-layout1 elv-slider-layout2 ht100">
+          
+          <div class="col-sm-offset-2 col-sm-2 ht100">
+            <div class="offer" once-style="{background: slide.temp.discountBackground}">
+				<span once-if="slide.temp.discountText" once-style="{color: slide.temp.discountTextColor}"><span ng-bind-html="slide.temp.discountText"></span></span>
+				<span class="percent disp_blk" once-style="{color: slide.temp.discountColor}">-{{slide.adDiscount}}%</span>
+            </div>
+          
+            <div class="date" one-style="{background: slide.temp.dateBackground}">
+              <h2>
+					<span one-if="slide.temp.dateText" once-style="{color: slide.temp.dateTextColor}"><span ng-bind-html="slide.temp.dateText"></span></span>
+					<span class="disp_blk" once-style="{color: slide.temp.dateColor}">{{slide.adDate | date: 'dd/MM/yy'}}</span>
+			  </h2>
+            </div>
+            <h2 class="news-j" once-if="slide.title" once-style="{color: slide.temp.titleColor}"><span ng-bind-html="slide.title"></span></h2>
+          </div>
+
+          <div class="col-sm-8 ht100">
+            <div class="right-layer" ng-style="{'background': slide.temp.informationBackground,'opacity':0.7}">
+                <h2 class="title" once-style="{color: slide.temp.subTitleColor}"><span ng-bind-html="slide.subTitle"></span></h2>
+                <h2 class="subtitle" once-style="{color: slide.temp.descriptionColor}"><span ng-bind-html="slide.description"></span></h2>
+                <h2><a target-blank="{{!slide.openSameTab}}" once-href="(slide.url ? slide.url : 'javascript:void(0);')" class="btn btn-danger" ng-style="{'color': slide.temp.linkColor,'background': slide.temp.linkBackground}">J’EN PROFITE <i class="fa fa-angle-right"></i></a></h2>
+            </div>
+            </div>
+          </div> <!--elv-slider-layout2 END-->
+
+
+          <div ng-if="slide.adTemplate==3" class="elv-slider-layout1 elv-slider-layout3 ht100">
+          
+
+            <div class="col-sm-2 ht100">
+              <h2 class="news-j" once-if="slide.title" once-style="{color: slide.temp.titleColor}"><span ng-bind-html="slide.title"></span></h2>
+            </div>
+          <div class="col-sm-2 ht100" >
+            <div class="offer offer-red" ng-style="{'color': slide.temp.discountTextColor,'background': slide.temp.discountBackground}">
+              <span ng-bind-html="slide.temp.discountText"></span>
+            </div>
+          
+            
+          </div>
+
+          <div class="col-sm-8 ht100">
+            <div class="right-layer" ng-style="{'background': slide.temp.informationBackground,'opacity':0.9}">
+
+            <div class="price-white" once-style="{background: slide.temp.priceBackground}">
+              <span class="disp_blk" one-if= "slide.temp.priceText" once-style="{color: slide.temp.priceTextColor}">
+					<span ng-bind-html="slide.temp.priceText"></span>
+				</span>
+              <div class="price-tag" once-style="{color: slide.temp.priceColor}">{{slide.adPrice}}<span>€</span></div>
+              <span class="disp_blk">par personne</span>
+            </div>
+
+                <h2 class="title" once-style="{color: slide.temp.subTitleColor}"><span ng-bind-html="slide.subTitle"></span></h2>
+                <h2 class="subtitle-long" once-style="{color: slide.temp.descriptionColor}"><span ng-bind-html="slide.description"></span></h2>
+                <h2><a target-blank="{{!slide.openSameTab}}" once-href="(slide.url ? slide.url : 'javascript:void(0);')" class="btn btn-danger" ng-style="{'color': slide.temp.linkColor,'background': slide.temp.linkBackground}">J’EN PROFITE <i class="fa fa-angle-right"></i></a></h2>
+            </div>
+            </div>
+          </div> <!--elv-slider-layout3 END-->
+
+
+          <div ng-if="slide.adTemplate==4" class="elv-slider-layout1 elv-slider-layout4 ht100">
+           <a target-blank="{{!slide.openSameTab}}" once-href="(slide.url ? slide.url : 'javascript:void(0);')">
+
+            <div class="col-sm-2 ht100">
+              <h2 class="news-j" once-if="slide.title" once-style="{color: slide.temp.titleColor}">
+					<span ng-bind-html="slide.title"></span>
+				</h2>
+            </div>
+          <div class="col-sm-6 text-center ht100">
+          <div class="location">
+            <h2 once-style="{color: slide.temp.subTitleColor}">
+				<span ng-bind-html="slide.subTitle"></span>
+			</h2>
+          </div>
+            <div class="offer offer-circle" once-style="{background: slide.temp.dateBackground}">
+              <span class="disp_blk" once-if="slide.temp.discountText" once-style="{color: slide.temp.discountTextColor}">
+					<span ng-bind-html="slide.temp.discountText"></span>
+				</span>
+              <span class="offer-date">
+				  <span one-if="slide.temp.dateText" once-style="{color: slide.temp.dateTextColor}"><span ng-bind-html="slide.temp.dateText"></span></span>
+				  <span once-style="{color: slide.temp.dateColor}">{{slide.adDate| date: 'dd/MM/yyyy'}}</span>
+			  </span>
+            </div> 
+          </div>
+
+          <div class="col-sm-4 ht100">
+           <div class="right-layer">
+            <div class="price-white" once-style="{background: slide.temp.priceBackground}">
+              <span class="disp_blk" one-if="slide.temp.priceText" once-style="{color: slide.temp.priceTextColor}">
+					<span ng-bind-html="slide.temp.priceText"></span>
+			  </span>
+              <div class="price-tag" once-style="{color: slide.temp.priceColor}">{{slide.adPrice}}<span>€</span></div>
+              <span class="disp_blk">par personne</span>
+            </div>
+            </div>
+          </div>
+          </a>
+          </div>
+
+          </div><!--custom-elv-text container-->
+			
+          <!-- <div class="carousel-caption slide_top_overlay"></div> -->
+        </div>
+		
+
+    </div>
+
+  </div><!-- carousel-inner -->
+
+  <!-- Controls -->
+  <a class="left carousel-control slide_top_overlay" role="button" data-slide="prev" ng-click="$ctrl.onClickPrevImageSlider();">
+    <span class="slide-left"></span>
+  </a>
+  <a class="right carousel-control slide_top_overlay" role="button" data-slide="next" ng-click="$ctrl.onClickNextImageSlider();">
+    <span class="slide-right"></span>
+  </a>
+</div>

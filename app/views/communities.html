@@ -1,0 +1,265 @@
+
+<div class="container pt50">
+
+  <div class="row">
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      
+      <ul class="list-inline">
+        <li><h2 class="comm_lable">{{ 'Communities' | translate }}</h2></li>
+        <li class="comm-group-dropdown">
+          <div class="dropdown req_comm_btn" ng-click="loadGroups()">
+                <a id="dLabel" role="button" data-toggle="dropdown" class="" data-target="#" href="/page.html">
+                    {{'Group' | translate}} <span class="caret"></span>
+                </a>
+            <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+                  <li ng-class="{'active' : selectedGropUid == 'all'}">
+                        <a ng-click="loadCommunityByGroup('all')">{{'All' | translate}}</a>
+                      </li>
+                  <li ng-repeat="group in communityGroups" ng-class="{'active' : selectedGropUid == group.uid}">
+                        <a ng-click="loadCommunityByGroup(group.uid)">{{group.groupName}} </a>
+                      </li>
+                </ul>
+            </div>
+          </li>
+        </ul>
+
+
+    </div>
+
+    
+     <div class="col-md-6 col-sm-6 col-xs-12">
+      
+          <!--<div class="navbar-right align-nav-center">
+            <div class="list_icon" id="commListView" ng-click="toggleView('list');" ng-class="{active : activeView == 'list'}">
+              <i class="fa fa-bars"></i>
+            </div>
+            <div class="grid_icon" id="commGridView" ng-click="toggleView('grid');" ng-class="{active : activeView == 'grid'}">
+              <i class="fa fa-th-large"></i>
+            </div>
+          </div>-->
+
+          <div ng-if="$root.isShowTheRequestOfCommunityBtn && $root.userData.role != 'GlobalCommunityManager'" class="navbar-right align-nav-center">
+            <div class="req_comm_btn" ng-click="$root.openRequestCommunityPopup()">
+              <i class="fa fa-plus"></i>
+              {{ 'Request_a_community' | translate }}
+            </div>
+          </div>
+
+    </div>
+
+  </div><!--row END-->
+
+  <div class="row">
+    <div class="col-sm-12">
+
+     
+            <ul class="list-inline cty-name-active" role="menu" aria-labelledby="dropdownMenu">
+                  <li ng-class="{'active' : selectedGropUid == 'all'}">
+                        <span>{{'All' | translate}}</span>
+                      </li>
+                  <li ng-repeat="group in communityGroups" ng-class="{'active' : selectedGropUid == group.uid}">
+                        <span>{{group.groupName}}</span>
+                      </li>
+                </ul>
+
+    </div>
+  </div><!--row END-->
+
+    <!--<nav>
+          <div class="navbar-left">
+            <h2 class="comm_lable">{{ 'Communities' | translate }}</h2>
+          </div>
+
+          <div class="navbar-left align-nav-center">
+
+            
+            <div class="dropdown">
+            <a id="dLabel" role="button" data-toggle="dropdown" class="req_comm_btn" data-target="#" href="/page.html">
+                {{'Group' | translate}} <span class="caret"></span>
+            </a>
+        <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
+              <li ng-class="{'active' : selectedGropUid == 'all'}">
+                    <a ng-click="loadCommunityByGroup('all')">{{'All' | translate}}</a>
+                  </li>
+              <li ng-repeat="group in communityGroups" ng-class="{'active' : selectedGropUid == group.uid}">
+                    <a ng-click="loadCommunityByGroup(group.uid)">{{group.groupName}} </a>
+                  </li>
+            </ul>
+        </div>
+              
+                
+
+
+          </div>
+
+          <div class="navbar-right align-nav-center">
+            <div class="list_icon" id="commListView" ng-click="toggleView('list');" ng-class="{active : activeView == 'list'}">
+              <i class="fa fa-bars"></i>
+            </div>
+            <div class="grid_icon" id="commGridView" ng-click="toggleView('grid');" ng-class="{active : activeView == 'grid'}">
+              <i class="fa fa-th-large"></i>
+            </div>
+          </div>
+
+          <div class="navbar-right align-nav-center">
+            <div class="req_comm_btn" ng-click="$root.openRequestCommunityPopup()">
+              <i class="fa fa-plus"></i>
+              {{ 'Request_a_community' | translate }}
+            </div>
+          </div>
+    </nav>-->
+</div>
+
+
+<div class="container list_view" ng-if="activeView == 'list'">
+  <div class="row min-content-ht">
+      <div class="col-lg-8">
+        <div class="list-group comm_li_scroller">          
+         <div class="list-group-item marb10" ng-repeat="comm in pageData.communities">
+            <community-list-feed community="comm" ></community-list-feed>
+         </div>
+
+         <h5 ng-if="pageData.status == 2 && pageData.communities.communities.length <= 0">{{"No_Results_found" | translate}}</h5>
+         <h5 ng-if="pageData.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+         <h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+          <!--
+          <div class="list-group-item comm_li">
+            <img class="comm_li_thumb" src="images/media/art_img_140x140.png"/>
+            <div class="comm_desc_wraper">
+                <h4>Ressources Humaines</h4>
+                <p > Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ligula odio, sodales vel sollicitudin id, venenatis ac erat. Nulla gravida a tellus in ornare. Pellentesque tincidunt leo dui. </p>
+            </div>
+            <div class="comm_cntrl_wrapper">
+                <div class="comm_li_btn">
+                  
+                </div>
+                <div class="comm_li_btn">
+                  
+                </div>
+                <div class="comm_li_btn">
+                  
+                </div>
+            </div>
+          </div>
+          -->
+        </div>
+      </div><!-- /.col-lg-6 -->     
+
+      <div class="col-lg-4">
+
+        <div class="panel panel-default">
+              <div class="panel-heading">{{'Group' | translate}}</div>
+              <div class="panel-body">
+                <div class="list-group com_side_menu">
+                  <div class="list-group-item active" ng-class="{'active' : selectedGropUid == 'all'}">
+                    <a ng-click="loadCommunityByGroup('all')">{{'All' | translate}}</a>
+                  </div>
+                  <div ng-repeat="group in communityGroups">
+                    <div class="list-group-item" ng-class="{'active' : group.uid == selectedGropUid}"><a ng-click="loadCommunityByGroup(group.uid)">{{group.groupName}}</a></div>
+                  </div>
+                </div>
+              </div>
+        </div>
+
+        <div class="panel panel-default" ng-if="requestedCommunities.length > 0">
+              <div class="panel-heading">{{'Requested_Communities' | translate}}</div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="rcomm in requestedCommunities">
+                    <div class="disp_table width100">
+                      <div class="tblr">
+                        <div class="tblc">
+                          <strong><span>{{rcomm.label}}</span></strong>
+                          <br>
+                          <span>{{rcomm.description}}</span>
+                        </div>
+                        <div class="tblc_m tac" style="width: 55px;">
+                          <span class="badge" ng-click="declineRequestedCommunity(rcomm)">
+                            <i class="fa fa-trash-o"></i>
+                          </span>
+                          <span class="badge" ng-click="acceptRequestedCommunity(rcomm)">
+                            <i class="fa fa-check"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+        </div>
+
+        <div class="panel panel-default" ng-if="pageData.communities.length > 0">
+              <div class="panel-heading">{{'Delete_Community' | translate}}</div>
+              <div class="panel-body">
+                <ul class="list-group">
+                  <li class="list-group-item" ng-repeat="comm in pageData.communities">
+                    <div class="disp_table width100">
+                      <div class="tblr">
+                        <div class="tblc">
+                          <strong><span>{{comm.label}}</span></strong>
+                          <br>
+                          <span>{{comm.description}}</span>
+                        </div>
+                        <div class="tblc_m tac" style="width: 60px">
+                          <span class="badge" ng-click="deleteCommunity(comm.uid)">
+                            <i class="fa fa-trash-o"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+        </div>
+
+      </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+</div>
+
+<div class="container grid_view" ng-if="activeView == 'grid'">
+  <!--<div class="row marbottom40">
+    <div class="hori_wiget_wrapper">
+      <div class="floatl horiw_commbtn">
+        <a>{{'Group' | translate}}</a>
+        <div class="ver_seprator"> </div>
+      </div>
+      <div class="horiw_scroll_wrap">
+        <div class="floatl horiw_scroller">
+          <div style="width:1000px;">
+            <div class="horiw_item_out" ng-class="{'active' : selectedGropUid == 'all'}">
+              <span><a ng-click="loadCommunityByGroup('all')">{{'All' | translate}}</a></span>
+            </div>
+          </div>
+          <div style="width:1000px;" ng-repeat="group in communityGroups">
+            <div class="horiw_item_out" ng-class="{'active' : selectedGropUid == group.uid}"> <span> <a ng-click="loadCommunityByGroup(group.uid)">{{group.groupName}} </a></span> </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>-->
+
+    <div class="row min-content-ht">
+        <div ng-if="selectedGropUid == 'all'">
+         <div ng-repeat="group in communitiesByGroup">
+          <div class="col-xs-12 mart10">
+        	 	<h5 class="color-1">{{group.groupName}}</h5>
+          </div>
+          <div class="clearifix"></div>
+        	 	<div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" ng-repeat="comm in group.communities">
+                <community-grid-feed community="comm" ></community-grid-feed>
+            	</div>	
+        	</div><!-- /.col-lg-4 -->
+        	<h5 ng-if="pageData.status == 2 && pageData.communities.communities.length <= 0">{{"No_Results_found" | translate}}</h5>
+        	<h5 ng-if="pageData.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+        	<h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+        </div>
+        <div ng-if="selectedGropUid != 'all'">
+	        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12" ng-repeat="comm in pageData.communities">
+              <community-grid-feed community="comm" ></community-grid-feed>
+	        </div><!-- /.col-lg-4 -->
+	        <h5 ng-if="pageData.status == 2 && pageData.communities.communities.length <= 0">{{"No_Results_found" | translate}}</h5>
+	        <h5 ng-if="pageData.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+	        <h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+        </div>
+    </div><!-- /.row -->
+</div>

@@ -1,0 +1,16 @@
+<div class="member_block">
+  <!--<div class="mem-thumb" ng-if="people.thumbLogoUrl" ng-style="{'background-image': 'url('+people.thumbLogoUrl+')'}"></div>-->
+  <a class="mem-thumb img-circle" ui-sref="app.myprofile({uid: people.uid, activetab: 'About'})">
+    <div class="width100 ht100" profile-photo="{url: people.headerLogoUrl, firstName: people.firstName, lastName: people.lastName}"></div>
+  </a>
+  <div class="mem-info">
+    
+    <!--<span ng-if="people.displayName" class="iblk ttl">{{people.displayName}}</span>-->
+    <!-- <span class="iblk subttl">CEO/Project Manager</span> -->
+    <p><span ng-if="people.firstName" class="first-name">{{people.firstName}}</span>
+    <span ng-if="people.lastName" class="last-name">{{people.lastName}}</span></p>
+    <!--<span ng-if="people.lastName" class="iblk">{{people.telephone}}</span>-->
+    <span ng-if="people.email" class="iblk email">{{people.email}}</span>
+    <!-- <span class="iblk">123456789</span> -->
+  </div>
+</div>

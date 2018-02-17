@@ -1,0 +1,27 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CreateAttributeCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Create Attribute' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+
+		<input class="ins_input_tex marb10" ng-model="attribute.display_name" type="text" placeholder="{{'Display Name' | translate}}">
+
+		<input class="ins_input_tex marb10" ng-model="attribute.name" type="text" placeholder="{{'Name' | translate}}">
+		
+		<input class="ins_input_tex marb10" ng-model="attribute.description" type="text" placeholder="{{'Description' | translate}}">
+
+		<div class="ins_checkbox width100 floatl marb10">
+	        <input type="checkbox" ng-model="attribute.visibility" id="atrVisibility" name="atrVisibility" class="css-checkbox">
+	        <label for="atrVisibility" class="css-label" translate>Visibility</label>
+	    </div>
+
+		<div class="floatl width100">
+			<div class="ins_btn_ctext" ng-click="done()">
+				<span class="ng-binding">OK</span>
+			</div>
+		</div>
+	</div>
+</div>

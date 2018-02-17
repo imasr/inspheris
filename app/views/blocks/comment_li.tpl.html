@@ -1,0 +1,119 @@
+<div class="comment_li disp_table">
+  <div class="tblr">
+    <div class="tblc comment_li_lhs">
+      <div class="com_icon_outer">
+          <a ui-sref="app.myprofile({uid: $ctrl.comment.author.uid, activetab: 'About'})">
+            <div class="com_icon" profile-photo="{url: $ctrl.comment.author.headerLogoUrl, firstName: $ctrl.comment.author.firstName, lastName: $ctrl.comment.author.lastName}"> </div>
+            <img style="position: absolute;z-index: 1;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && $ctrl.comment.author.badge" src="{{$ctrl.comment.author.badge.image.url}}">
+          </a>
+      </div>
+    </div>
+    <div class="tblc">
+      <div class="comment_zone">
+        <a ui-sref="app.myprofile({uid: $ctrl.comment.author.uid, activetab: 'About'})">
+          <span class="unm" ng-bind-html="$ctrl.comment.author.firstName"></span> <span class="unm uppercase" ng-bind-html="$ctrl.comment.author.lastName"></span>
+          <img style="position: absolute;z-index: 1;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && $ctrl.comment.author.badge" src="{{$ctrl.comment.author.badge.image.url}}">
+          <span class="fs3 fc3 comment-date" once-text="$ctrl.comment.creationDate | date: $root.localDateFormat"></span>
+        </a>
+
+        <div class="comment-txt fc3 fs3" ng-bind-html="$ctrl.comment.parseText"> </div>
+
+        <div class="comment_toolbar">
+          <div class="art_btn btn_like floatl">
+            <div class="btn_icon" ng-click="likeComment()" ng-class="$ctrl.comment.userLiked ? 'liked' : 'unliked'">
+              <!-- <span class="lnr lnr-thumbs-up"></span> -->
+            </div>
+            <div class="lbl btn-lbl-wrap">
+			  <span ng-if= "$ctrl.comment.userLiked == false"><span class="lbl btn-lbl-txt" ng-click="likeComment()" ></span></span><!--once-text="'Like' | translate"-->
+              <span ng-if= "$ctrl.comment.userLiked == true"><span class="lbl btn-lbl-txt" ng-click="likeComment()"></span><!--once-text="'UnLike' | translate"-->
+              </span>
+              <span class="cnt-txt" ng-if="$ctrl.comment.likeCount > 0" ng-click="showMemberViewer()">({{$ctrl.comment.likeCount}})</span>
+            </div>
+          </div>
+
+          <span ng-if="$ctrl.feedTranslateOptn" class="btn_seprator floatl"> • </span>
+
+          <div ng-if="$ctrl.feedTranslateOptn" class="art_btn btn_lang floatl" data-placement="bottom" data-template-url="../app/views/blocks/comment_translate.tpl.html" data-content="{{ {uid: $ctrl.comment.uid, language: $ctrl.comment.language} }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="btn_icon">
+                <!-- <span class="lnr lnr-spell-check"></span> -->
+              </div>
+              <div class="btn-lbl-wrap">
+                <span class="lbl btn-lbl-txt"></span><!--once-text="'Translate' | translate"-->
+              </div>
+          </div>
+
+
+          <div class="btn-group drop-down3 hide">
+            <div class="dropdown-toggle art_btn btn_lang" data-toggle="dropdown" ng-click="showLanguageDropdown()">
+              <div class="btn_icon">
+                <span class="lbl btn-lbl-txt width100"> 
+                <!-- <span class="lnr lnr-spell-check"></span> -->
+              </span>
+              </div>
+              <!-- <div class="btn-lbl-wrap">
+                <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+              </div> -->
+            </div>
+            <ul ng-if="compileLangMenu" class="dropdown-menu pad5" role="menu">
+              <li ng-repeat="lang in languageOptions">
+                <div class="clk" ng-click="feedLanguageChanged(lang)">
+                  <a href="javascript:void(0)" translate once-text="lang.name"></a>
+                </div>
+              </li>
+            </ul>
+        </div>
+
+          <div class="floatr" ng-if="canEdit($ctrl.feed) && $ctrl.allowComment">
+            <div class="btn_delete floatr" ng-click="deleteComment($ctrl.feed, $ctrl.comment.uid)">
+               <div class="btn_icon">
+                <!-- <span class="lnr lnr-trash"></span> -->
+               </div>
+            </div>
+            <span class="btn_seprator floatr"> • </span>
+            <div class="btn_edit floatr" ng-click="openEditCommentPopup($ctrl.feed)">
+             <div class="btn_icon">
+              <!-- <span class="lnr lnr-pencil"></span> -->
+             </div>
+            </div>
+          </div>
+        </div>
+
+        <div ng-if="$ctrl.comment.images" class="block_group">
+          <div class="list_img_gallery">
+             <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="$ctrl.comment.images" 
+                  gallerytype="images" other="{feed: $ctrl.feed}"></div>
+          </div>
+
+        </div>
+
+        <div ng-if="$ctrl.comment.documents" class="block_group">
+          <div class="list_img_gallery">
+            <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="$ctrl.comment.documents" 
+                  gallerytype="documents" other="{feed: $ctrl.feed}"></div>
+          </div>
+        </div>
+
+        <div ng-if="$ctrl.comment.videos" class="block_group">
+          <!-- videoGallery -->
+          <div class="block_group">
+            <div class="list_img_gallery">
+              <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="$ctrl.comment.videos" 
+                  gallerytype="videos" other="{feed: $ctrl.feed}"></div>
+
+            </div>
+          </div>
+        </div>
+        
+        <div ng-if="$ctrl.comment.links" class="block_group">
+          <div class="block_group">
+            <div class="list_img_gallery">
+                <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="$ctrl.comment.links" 
+                  gallerytype="linkEmbed" other="{feed: $ctrl.feed}"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>    
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,190 @@
+<div class="ins_popup wide_popup" ng-controller="CreateCommunityCtrl">
+  
+  <div class="popup_header floatl">
+      <!--
+      <div class="user_image floatl"> <img src="images/media/user.png"> </div>
+      -->
+      <div class="popup_title">{{popupTitle | translate}}</div>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+
+  <div class="popup_wrapper" style="padding: 20px;">
+    <div ng-if="!modalStatus.isReady" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+    
+    <div ng-show="modalStatus.isReady">
+      
+      <div ng-show="modalData.mode == 'info'">
+        <input class="ins_input_tex marb10" ng-model="title" type="text" placeholder="{{'Title' | translate}}">
+
+        <textarea class="width100 marb10" placeholder="{{'Description' | translate}}" ng-model="desc" ng-trim="false" maxlength="500"></textarea>
+
+         <div class="width100 floatl marb10">
+          <div class="floatl" dropdown-select="groupSelOptions" dropdown-model="selectedGroup" dropdown-onchange="groupSelected(selected)" dropdown-item-label="groupName"></div>
+          
+          <div class="floatl marl20" style="padding-top:8px;"><span translate>Authorized Share</span>:</div>
+          <div class="floatl marl10" dropdown-select="authorComShare" dropdown-model="selectedAuthorComShare" dropdown-onchange="authorComShareSelected(selected)" dropdown-item-label="value"></div>
+        </div> 
+
+        <div class="ins_checkbox width100 floatl marb10">
+          <input type="checkbox" ng-model="isPrivate" id="ntnewsfeedit" name="ntnewsfeedit" class="css-checkbox">
+          <label for="ntnewsfeedit" class="css-label">{{'Private' | translate}}</label>
+        </div>
+
+        <div class="floatl width100">
+          <ul class="list-group" ui-sortable="sortableTabs" ng-model="tabs">
+            <li class="list-group-item" ng-if="tabs.length <= 0">
+              <span><strong>{{'Loading_available_tabs' | translate}}...</strong></span>
+            </li>
+            <li class="list-group-item" ng-repeat="tb in tabs" ng-init="index=$index">
+              <div class="disp_iblk">
+                <span>{{'Name' | translate}}: {{tb.tab.tabName}}</span> | <span>{{'Type' | translate}}: {{tb.tab.label | translate}}</span> | 
+                <span class="ins_checkbox">
+                  <input type="checkbox" ng-model="tb.tabSelected" id="tabselect{{$index}}" name="tabselect{{$index}}" class="css-checkbox">
+                  <label for="tabselect{{$index}}" class="css-label">{{'Active' | translate}}</label>
+                </span> | 
+                <span class="ins_checkbox">
+                  <input type="checkbox" ng-model="tb.privated" id="isprivate{{$index}}" name="isprivate{{$index}}" class="css-checkbox">
+                  <label for="isprivate{{$index}}" class="css-label">{{'Private' | translate}}</label>
+                </span> |
+                <span class="ins_checkbox">
+                  <input type="checkbox" ng-model="tb.defaultSelected" id="defaultSelected{{$index}}" name="defaultSelected{{$index}}" class="css-checkbox">
+                  <label for="defaultSelected{{$index}}" class="css-label">{{'Default Selected' | translate}}</label>
+                </span> |
+                <span class="ins_checkbox" ng-if="(tb.tab.tabType == 'document' || tb.tab.tabType == 'collection') && modalStatus.windriveOptn">
+                  <input type="checkbox" ng-model="tb.documentOnNfs" id="documentOnNfs{{$index}}" name="documentOnNfs{{$index}}" class="css-checkbox">
+                  <label for="documentOnNfs{{$index}}" class="css-label">{{'Document_On_Nfs' | translate}}</label>
+                </span>
+                <span>
+                	    <toggle-switch
+			              ng-model="tb.authorizeShare"
+			              on-label="{{'on' | translate}}"
+			              off-label="{{'off' | translate}}" class="switch-small"
+			              is-disabled="disableTabShare">
+			              
+			            </toggle-switch>
+                </span>
+              </div>
+              <div class="disp_iblk">
+                <div class="fixed marl10" dropdown-select="allAvailableTabs" dropdown-model="tb.tab" dropdown-item-label="label" dropdown-onchange="selectType(selected,index)"></div>
+              </div>
+              <div class="disp_iblk marl10">
+                <input ng-model="tb.tab.tabName" class="ins_input_tex fixed" placeholder="Name">
+              </div>
+              <!--  <div class="disp_iblk" ng-show="tb.tab.tabName.length==30" ng-style="{ 'width': tb.tab.tabName.length * 8 + 150 }"> 
+              	<span  ng-messages="" style="color:maroon" role="alert">
+				    <span ng-message="maxlength" translate>Your field is too long (limit 30 characters)</span>
+				</span>	
+              </div>-->
+			  <div class="disp_iblk marl10" ng-if="(tb.tab.tabType == 'gdrive')">
+              		<span class="css-label">{{'Folder GDrive Id'| translate}}</span>
+                	<input ng-model="tb.folderGDrive" class="ins_input_tex fixed" placeholder="FolderGDriveId">
+                	             
+              </div>
+              <div  class="disp_iblk marl10" ng-if="(tb.tab.tabType == 'gdrive')">
+              		<span class="css-label">{{'GDrive Key File'| translate}}</span>
+                	<input type="file" data-file-id="{{$index}}" onchange="angular.element(this).scope().setKeyFiles(event)">
+                	<label class="css-label">{{tb.uid}}</label>
+              </div>
+              <div ng-if="modalStatus.windriveOptn" class="disp_iblk marl10">
+                <input ng-if="tb.tab.tabType == 'document' || tb.tab.tabType == 'collection'" ng-model="tb.nfsRoot" class="ins_input_tex fixed" placeholder="WinDrive">
+              </div>
+
+
+              <!--
+              <span class="badge" ng-if="tabs.length > 1 && $index != 0" ng-click="shiftTabUp($index)">
+                <i class="fa fa-arrow-up"></i>
+              </span>
+              <span class="badge" ng-if="tabs.length > 1 && $index != (tabs.length-1)" ng-click="shiftTabDown($index)">
+                <i class="fa fa-arrow-down"></i>
+              </span>
+              
+              <span class="badge" ng-click="removeTab($index)">
+                <i class="fa fa-trash-o"></i>
+              </span>
+
+              <button class="disp_iblk" type="button" class="btn btn-primary fixed" ng-click="removeTab($index)">Remove Tab</button>
+              -->
+              <i class="fa fa-trash-o clk marl10" title="{{ 'delete' | translate }}" ng-click="removeTab(tb, $index)"></i>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="floatl width100 marb10">
+          <div class="floatl" dropdown-select="allAvailableTabs" dropdown-model="selectedTabType" dropdown-onchange="tabTypeSelected(selected)" dropdown-item-label="label"></div>
+          <!--
+          <input class="ins_input_tex width50" type="text" ng-model="tabTitle" placeholder="{{'Title' | translate}}">
+          -->
+          <button type="button" class="btn btn-primary" ng-click="addTab()">{{"Add Tab" | translate}}</button>
+        </div>
+        
+      </div>
+
+      <!-- logo and banner images -->
+      <!--
+      <div class="floatl marb10" ng-style="{'width': '130px'}">
+        <div class="res-rectangle" ng-style="{'padding-top' : getLogoImgHeight()}">
+          <div class="rect-content" ng-file-drop ng-file-select ng-file-change="logoImageSelect($files, $event)" ng-multiple="false" ng-accept="'image/*'" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}">
+            <img ng-if="commImg.uid" no-cache-src="{{commImg.urls[1]}}">
+            <div ng-show="!commImg || !commImg.uid" class="disp_table">
+              <div class="tblc">
+                <div class="no-img-thumb"></div>
+                <span class="lbl" >{{'Upload_Logo_Image' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      -->
+      <div class="floatl marb10" ng-style="{'width': '130px'}">
+        <div class="res-rectangle" ng-style="{'padding-top' : getLogoImgHeight()}">
+          <div class="rect-content" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="logoImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+            <img ng-if="commImg.uid" no-cache-src="{{commImg.urls[1]}}">
+            <div ng-show="!commImg || !commImg.uid" class="disp_table">
+              <div class="tblc">
+                <!--<span ng-hide="dropAvailable" class="lbl" >File Drop not available</span>-->
+                <span class="lbl" >{{'Upload_Logo_Image' | translate}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!--
+      <div class="floatl marb10" ng-style="{'width': '130px'}">
+        <div ngf-drop="" ngf-select="" ng-model="files" ng-model-rejected="rejFiles" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+          <div ng-hide="dropAvailable">File Drop not available</div>
+          <div ng-show="dropAvailable">Drop Images or PDFs</div>
+          <div>click to select</div>
+        </div>
+      </div>
+      -->
+
+      <div ng-if="commImg.uid" class="floatl width100 marb10">
+        <a href="javascript: void(0)" ng-click="logoImageRecrop()"><span translate>Recrop logo image</span></a>
+      </div>
+
+      <div class="res-rectangle marb10" ng-style="{'padding-top' : getBannerImgHeight()}">
+        <div class="rect-content"  ngf-drop ngf-select ng-model="bannerFiles" ng-model-rejected="rejBannerFiles" ngf-change="bannerImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable"><!-- ng-file-drop ng-file-select ng-file-change="bannerImageSelect($files, $event)" ng-multiple="false" ng-accept="'image/*'" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" -->
+          <img  ng-if="bannerImg.uid" no-cache-src="{{bannerImg.urls[1]}}">
+          <div ng-show="!bannerImg || !bannerImg.uid" class="disp_table">
+            <div class="tblc">
+              <div class="no-img-thumb"></div>
+              <span class="lbl" translate>Upload_banner_image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div ng-if="bannerImg.uid" class="floatl width100 marb10">
+        <a href="javascript: void(0)" ng-click="bannerImageRecrop()"><span translate>Recrop banner image</span></a>
+      </div>
+
+      <div class="floatl width100">
+        <div style="width: 150px;" class="hori_center">
+          <div class="ins_btn_ctext" ng-click="publishCommunity()" ng-class="{'disabled': isPublishing}">
+           <span>{{'Publish' | translate}}</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>

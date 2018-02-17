@@ -1,0 +1,22 @@
+<div class="ins_popup custom_popup stat_module" style="" ng-controller="StaticticReportCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Statistiques</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	<div style="" class="col-md-3">
+		<ul class="nav navbar-nav mart20 list-group">
+			<li ng-repeat="item in listReport track by $index" class="tab-report list-group-item pad0">
+			 	<a href="javascript: void(0)" data-toggle="collapse" href="#" ng-click="showReport(item.type)" class="ins_collapse h6 ng-class:{'active':item.type == reportType}" >
+                    	 {{item.name | translate}}
+                </a>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav mart20 list-group"><a href="javascript: void(0)" data-toggle="collapse" ng-click="downloadAllReport()">{{'Download All Reports' | translate}}</a></ul>
+		<ul class="nav navbar-nav mart20 list-group"><span translate>Last Updated</span> : {{lastUpdatedDate | date: $root.fullDateFormat}}</ul>
+	</div>
+
+	<div class="col-md-9" ng-include="'../app/views/popups/report.tpl.html'"></div>
+	
+
+</div>

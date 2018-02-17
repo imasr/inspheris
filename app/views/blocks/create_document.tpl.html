@@ -1,0 +1,9 @@
+<div class="texteditor_outer" ng-controller="CreateDocumentCtrl">
+	<input class="ins_input_tex" ng-model="document.title" type="text" placeholder="{{'Title' | translate}}">
+	<textarea class="floatl width100" placeholder="{{'Description' | translate}}" ng-model="document.description" ng-trim="false" maxlength="500"></textarea>
+	<div class="cad_btn floatl width50" style="position: relative;">
+	  <input type="file" class="file_select" ng-file-select="addDocument($files)" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;">
+	  <span ng-if="!document.attachedDocs">{{ 'Upload_Document' | translate }}</span>
+	  <span ng-if="document.attachedDocs">{{document.attachedDocs.fileName}}</span>
+	</div>
+</div>

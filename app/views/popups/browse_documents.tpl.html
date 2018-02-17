@@ -1,0 +1,59 @@
+<div class="ins_popup small_popup select-files-popup" ng-controller="BrowseDocumentCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title">{{ 'Browse_Documents' | translate }}</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div><!-- closeBrowseImgPopup() -->  
+	</div>
+
+	<div class="popup_wrapper">
+		<div class="floatl width100 marb10">
+			<div class="floatl width100" dropdown-select="fileSelectOptions" dropdown-model="selectedDocFile" dropdown-item-label="text" dropdown-onchange="filterFiles(selected)"></div>
+
+			<div class="search_wrapper">
+				<div class="input-group" style="width:100%;">
+                    <input type="text" class="form-control" ng-model="searchfile" placeholder="{{'Search' | translate}}">
+                    <span class="input-group-addon glyphicon glyphicon-search"></span>
+				</div>
+			</div>
+		</div>
+		<div id="scrollDocuments" class="imagelist_container floatl">
+			<ul class="imagecb_list" infinite-scroll="showMoreDocs()" infinite-scroll-container='"#scrollDocuments"'>
+				<li>
+					<div ng-if="remoteFiles.length <= 0">
+						<div class="loader">{{ 'LoadingBrowse_Documents' | translate }}...</div>	
+					</div>
+				</li>
+				
+				<li ng-repeat="rfile in remoteFiles | fileTypeFilter: filterModel: searchfile">
+					<div class="left_part">
+						<div class="ins_checkbox">
+				            <input type="checkbox" value="{{rfile.id}}" name="rfile.id" id="remotefile{{$index}}" class="css-checkbox" ng-click="toggleDocSelection(rfile)" ng-checked="getCheckedStatus(rfile)">
+				            <label for="remotefile{{$index}}" class="css-label"></label>
+				        </div>
+					</div>
+					<div class="right_part">
+					    <div class="fl_docu_container">
+				          <div class="left_part">
+				            <div class="floatl feedthumb_72">
+							  <thumbnail file="rfile"></thumbnail>
+					        </div>
+				          </div>
+					      <div class="right_part file_info">
+					            <div class="post-title" data-ng-bind="rfile.fileName" data-ellipsis-symbol="..." data-ellipsis>  </div>
+					       		<!--
+					          	<ng-include ng-init="ritchtextblock = 'Uploaded'" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+					          	-->
+					      </div>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="floatl width100">
+			<div class="ins_btn_ctext" ng-click="closeThisDialog({flag: 'ok', data: selectedDocuments})">
+				<span>{{ 'Ok' | translate }}</span>
+			</div>
+		</div>	
+	</div>
+
+</div>

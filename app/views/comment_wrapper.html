@@ -1,0 +1,238 @@
+<div class="comment_wrapper hide_all_cmnt" id="{{uniqueid}}" ng-init="uniqueid = getComputedId(); $feedindex = $index;" ng-controller="CommentWrapperCtrl">
+    <div class="comment_pointer"> </div>
+
+    <div ng-if="feed.commentCount > 0" class="comment_li vall_cmnt">
+        <span class="floatl" ng-click="viewAllComments('{{uniqueid}}')">{{'View_all_comments' | translate}}</span>
+        <div class="comment_close floatr" ng-click="closeAllComments('{{uniqueid}}')">
+          <span>{{'Close' | translate}}</span>
+          <span class="glyphicon"></span>
+        </div>
+    </div>
+
+    
+    <div ng-if="feed.commentCount > 0" ng-repeat="cmnt in feed.comments">
+        <div ng-if="$index <= 1" class="comment_li">
+            <div class="left_part">
+              <div class="com_icon_outer">
+                <img class="com_icon" src="images/feed/community_icon.png">
+                  <div class="fc3 fs3">
+                    {{cmnt.creationDate|timeago}}
+                  </div>
+              </div>
+            </div>
+            <div class="right_part">
+              <div class="comment_zone">
+                <span class="unm">{{cmnt.author.displayName}}</span>
+                <p> {{cmnt.text}} </p>
+
+                <div ng-if="cmnt.documents.length > 0" class="files">
+                  <div ng-repeat="file in cmnt.documents" ng-switch="file.fileType|getFileType">
+                  <div ng-switch-when="doc" class="file_wrap floatl">
+                    <a href="{{$root.siteUrl+file.path}}">
+                    <div class="file_icon doc"></div><span class="file_name">{{file.fileName}}</span>
+                    </a>
+                  </div>
+                  <div ng-switch-when="pdf" class="file_wrap floatl">
+                    <a href="{{$root.siteUrl+file.path}}">
+                    <div class="file_icon pdf"></div><span class="file_name">{{file.fileName}} </span>
+                    </a>
+                  </div>
+                  <div ng-switch-when="ppt" class="file_wrap floatl">
+                    <a href="{{$root.siteUrl+file.path}}">
+                    <div class="file_icon ppt"></div><span class="file_name">{{file.fileName}}</span>
+                    </a>
+                  </div>
+                  <div ng-switch-when="xls" class="file_wrap floatl">
+                    <a href="{{$root.siteUrl+file.path}}">
+                    <div class="file_icon xls"></div><span class="file_name">{{file.fileName}}</span>
+                    </a>
+                  </div>
+                  </div>
+                </div>
+
+                <div ng-if="cmnt.images.length > 0" class="files">
+                  <div ng-repeat="file in cmnt.images">
+                  <div class="ufile_outer floatl">
+                    <!-- <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div> -->
+                    <img class="feedthumb_140" src="{{file.thumbGalleryUrl}}"/>
+                  </div>
+                  </div>
+                </div>
+
+                <div ng-if="cmnt.videos" class="width100 floatl">
+                  <!-- videoGallery -->
+                  <div class="block_group">
+                    <div class="list_img_gallery">
+                      <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="cmnt.videos" gallerytype="videos" other="{feed: feed}"></div> 
+                    </div>
+                  </div>
+                </div>
+
+                <div class="comment_toolbar">
+                  <!--
+                  <div class="comment_like floatl"><p>Likes <span class="gray_font">(5)</span> </p></div>
+                  -->
+                  <div ng-click="likeComment(cmnt.uid)" class="art_btn btn_like floatl">
+                    <div class="btn_icon">
+                      <i class="fa fa-heart"></i>
+                    </div>
+                    <p>{{"Likes" | translate}} <span ng-if="cmnt.likeCount > 0" class="gray_font">({{cmnt.likeCount}})</span> </p>
+                  </div>
+
+                  <span class="btn_seprator floatl" ng-show="cmnt.language != 'EN'"> • </span>
+                  <div class="art_btn btn_lang floatl" ng-show="cmnt.language != 'EN'">
+                      <div class="btn_icon">
+                        <i class="fa fa-globe"></i>
+                      </div>
+                      <p>{{"Translate" | translate}}</p>
+                  </div>
+
+                  <div class="comment_delete" ng-click="deleteComment($feedindex, cmnt.uid)"> </div>
+                  <span class="btn_seprator floatr"> &bull; </span>
+              
+                  <div class="comment_edit" ng-click="openEditCommentPopup($feedindex, cmnt.uid, $index)"> </div>
+
+                </div>
+              </div>
+            </div>
+              
+        </div>
+        <div ng-if="$index > 1" class="more_cmnts">
+          <div class="comment_li">
+            <div class="left_part">
+              <div class="com_icon_outer">
+                  <img class="com_icon" src="images/feed/community_icon.png">
+                    <div class="fc3 fs3">
+                      {{cmnt.creationDate|timeago}}
+                    </div>
+              </div>
+            </div>
+            <div class="right_part">
+                <div class="comment_zone">
+                  <span class="unm">{{cmnt.author.displayName}}</span>
+                  <p> {{cmnt.text}} </p>
+                  <div class="comment_toolbar">
+
+                  <div ng-click="likeComment(cmnt.uid)" class="art_btn btn_like floatl">
+                    <div class="btn_icon">
+                      <i class="fa fa-heart"></i>
+                    </div>
+                    <p>{{"Likes" | translate}} <span ng-if="cmnt.likeCount > 0" class="gray_font">({{cmnt.likeCount}})</span> </p>
+                  </div>
+
+                  <span class="btn_seprator floatl" ng-show="cmnt.language != 'EN'"> • </span>
+                  <div class="art_btn btn_lang floatl" ng-show="cmnt.language != 'EN'">
+                      <div class="btn_icon">
+                        <i class="fa fa-globe"></i>
+                      </div>
+                      <p>{{"Translate" | translate}}</p>
+                  </div>
+
+                    <div class="comment_delete" ng-click="deleteComment($feedindex, cmnt.uid)"> </div>
+                    <span class="btn_seprator floatr"> &bull; </span>
+    
+                    <div class="comment_edit" ng-click="openEditCommentPopup($feedindex, cmnt.uid, $index)"> </div>
+
+                  </div>
+                </div>
+            </div>
+                
+          </div>
+        </div>
+    </div>
+    
+    <div class="comment_li">
+        <div class="left_part">
+          <div class="com_icon_outer">
+            <img class="com_icon" src="images/feed/community_icon.png">
+          </div>
+        </div>
+        <div class="right_part">
+          <div class="comment_zone">
+            <form enctype="multipart/form-data" id="cmntfrm_{{$index}}" ng-model="commentText">
+            <textarea class="comment_box" name="text" placeholder="{{'Write_a_comment' | translate}}" ng-focus="showCommentOptions(uniqueid)" id="lvcmnttxt{{uniqueid}}"  ng-model="commentText"></textarea><!--  ng-model="cmntAttachment[$feedindex].commentText" -->
+            <div class="comment_options hide">
+              <div class="comment_action"> 
+                <!--
+                <div class="attach_file" type="file" ng-file-select="onCmntFileSelect($files, $feedindex)" data-multiple="true" multiple accept="image/*, .doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf">
+                </div>
+                -->
+                
+                <!-- <input class="ins_file_input" type="file" ng-file-select="onCmntFileSelect($files, 'lvcmntfiles_'+$index)" data-multiple="true" multiple> -->
+                <div class="attach_file imgblk" ng-click="addImageGallery()">
+                </div>
+                <div class="attach_file docblk" ng-click="addDocGallery()">
+                </div>
+                <div class="attach_file vdoblk" ng-click="addVideoGallery()">
+                </div>
+                <div class="attach_file link" ng-click="addLinkEmbed()">
+                </div>
+                <div class="ins_btn_ctext" ng-click="addComment($feedindex, feed.uid);"> <span>{{'Publish' | translate}}</span> </div>
+              </div>
+              <div class="flcmnt_files" ng-if="attachedFiles.length > 0">
+              <!-- ng-if="(cmntAttachment[$feedindex].images.length > 0) || (cmntAttachment[$feedindex].document.length > 0)" -->
+                <div class="flcmnt_file_title floatl">
+                  <label class="floatl">{{"Files" | translate}}</label>
+                  <!--
+                  <span class="glyphicon glyphicon glyphicon-plus floatr rotate45deg"></span> -->
+                  <div class="close14x14 floatr" ng-click="removeAllAttachment($event)"></div>
+                </div>
+
+                <div class="ufiles_area floatl">
+                  <!--
+                  <div class="ufile_outer floatl">
+                    <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                    <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                  </div>
+                  <div class="ufile_outer floatl">
+                    <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                    <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                  </div>
+                  <div class="ufile_outer floatl">
+                    <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                    <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                  </div>
+                  -->
+                  <!-- for image files -->
+                  <ul class="cmnt_imgattach" ng-if="cmntAttachment[$feedindex].images.length > 0">
+                    <li class="afile" ng-repeat="filedata in cmntAttachment[$feedindex].images">
+                      <div class="delete_btn" ng-click="deleteImgAttachFile($feedindex, $index, $event)"></div>
+                      <img ng-src="{{filedata.thumbUrl}}"/>
+                    </li>
+                  </ul>
+                  <!-- for other files -->
+                  <ul class="cmnt_docattach files" ng-if="cmntAttachment[$feedindex].document.length > 0">
+                    <li class="afile" ng-repeat="filedata in cmntAttachment[$feedindex].document" ng-switch="filedata.fileType|getFileType">
+                      <div ng-switch-when="doc">
+                        <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                        <div class="file_icon doc"></div>
+                        <span class="file_name">{{filedata.fileName}}</span>
+                      </div>
+                      <div ng-switch-when="pdf">
+                        <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                        <div class="file_icon pdf"></div>
+                        <span class="file_name">{{filedata.fileName}}</span>
+                      </div>
+                      <div ng-switch-when="ppt">
+                        <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                        <div class="file_icon ppt"></div><span class="file_name">{{filedata.fileName}}</span>
+                      </div>
+                      <div ng-switch-when="xls" class="file_wrap floatl">
+                        <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                        <div class="file_icon xls"></div><span class="file_name">{{filedata.fileName}}</span>
+                      </div>
+                    </li>
+                  </ul>
+
+                  <div class="required_field" ng-repeat="attachment in attachedFiles">
+                    <media-gallery-upload-panel attachment="attachment" on-add-block="addContentBlock(attachment.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+           </form>
+          </div>
+        </div><!-- right part -->
+    </div>
+</div>

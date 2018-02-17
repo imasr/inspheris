@@ -1,0 +1,51 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="AttributeManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Attribute manager</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+
+		<button type="button" class="btn btn-default navbar-btn" translate ng-click="createAttribute()">Create Attribute</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+	      <ul class="list-group">
+	        <li class="list-group-item">
+	          <span><strong>{{'Loading' | translate}}...</strong></span>
+	        </li>
+	        <li class="list-group-item" ng-repeat="atr in attributeList">
+	        	<div class="disp_table width100">
+	        		<div class="tblr">
+	        			<div class="tblc">
+	        				<span class="fwb"> Display Name :</span> <span>{{atr.display_name}}</span>
+				        	<br>
+				        	<span class="fwb"> Name :</span> <span>{{atr.name}}</span>
+				        	<br>
+				        	<span class="fwb"> Description :</span> <span>{{atr.description}}</span>
+				        	<br>
+				        	<span class="fwb"> Visibility :</span> <span>{{atr.visiblity}}</span>
+				        	<span class="fwb"> Type :</span> <span>{{atr.type}}</span>		
+	        			</div>
+	        			<div class="tblc_m">
+	        				<div>
+						        <div class="btn_delete floatr" title="{{ 'delete' | translate }}" ng-click="deleteAttribute($index)">
+						           <div class="btn_icon">
+						            <!-- <i class="fa fa-trash-o"></i> -->
+						           </div>
+						        </div>
+						        <span class="btn_seprator floatr"> • </span>
+						        <div class="btn_edit floatr" title="{{ 'edit' | translate }}" ng-click="editAttribute($index)">
+						          <div class="btn_icon">
+						            <!-- <i class="fa fa-pencil-square-o"></i> -->
+						          </div>
+						        </div>
+					      	</div>
+	        			</div>
+	        		</div>
+	        	</div>
+	        </li>
+	      </ul>
+	    </div>
+	</div>
+</div>

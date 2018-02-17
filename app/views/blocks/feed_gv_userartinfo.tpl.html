@@ -1,0 +1,22 @@
+<div class="grid_li_title">
+    <div class="user_image floatl"> <img src="{{$root.siteUrl+tpl_uinfo.author.thumbLogoUrl}}"> </div>
+
+      <div class="grid_user_action floatl">
+        <span class="grid_action_unm"><a href="#">{{tpl_uinfo.author.displayName}}</a></span> <span class="grid_action_time"> {{tpl_uinfo.creationDate|timeago}}</span> <br><span class="grid_action_acti">{{ 'published_a' | translate }} {{tpl_uinfo.type}}</span> 
+        <!-- <span class="grid_action_comm"><a href="#">{{tpl_uinfo.community.label}}</a> </span> -->
+      </div>
+               
+      <div class="user_action_btns floatr">
+        <div class="btn_delete floatr" ng-click="deleteFeed(tpl_uinfo.uid);">
+          <div class="btn_icon">
+            <!-- <i class="fa fa-trash-o"></i> -->
+          </div>
+        </div>
+        <span class="btn_seprator floatr"> &bull; </span>
+          <div class="btn_edit floatr" ng-click="editArticle(tpl_uinfo)">
+            <div class="btn_icon">
+              <!-- <i class="fa fa-pencil-square-o"></i> -->
+            </div>
+          </div>
+      </div>
+</div>

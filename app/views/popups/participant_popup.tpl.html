@@ -1,0 +1,26 @@
+<div class="ins_popup wide_popup tour-operator" ng-controller="ParticipantCtrl">
+  <div class="popup_header floatl">
+      <p class="popup_title">
+      	<span ng-if="modalData.status == 'subscribed'" translate>Participants</span>
+      	<span ng-if="modalData.status == 'waiting'" translate>Waiting List</span>
+      </p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+  
+   <div class="popup_wrapper floatl width100" style="padding: 10px;">
+
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="participant in participants">
+            <div class=" gv-community-feed comm_li_to afkl-lazy-wrapper">
+					<div class="disp_table width100" style="text-align:center;">
+						<div class="tblr">  
+							<div style="width:100px;height: 100px; margin:5px auto;" class="org-result-profile-pic circle-image" profile-photo="{url: participant.headerLogoUrl, firstName: participant.firstName, lastName: participant.lastName}"></div>
+							
+							<a target="_blank" ui-sref="app.myprofile({uid: participant.uid, activetab: 'About'})">
+				              <span style="" >{{participant.firstName}} {{participant.lastName}}</span>
+				            </a>
+						</div>
+					</div>
+			</div>
+		</div>
+  </div>
+</div>

@@ -1,0 +1,128 @@
+<div class="cust1_feed_li bl_lv_feed" ng-controller="DigestFeedCtrl">
+  <div class="tblr">
+    <div class="tblc com_icon_outer animated fadeIn">
+ 			  <!-- Checkbox feeds -->
+	  	<div class="ins_checkbox" ng-hide="reviewPanel">
+            <input type="checkbox" value="{{feed.uid}}" name="feed.uid" id="commcheckbox{{$index}}" class="css-checkbox" ng-click="toggleContentSelection(feed, $event)" ng-checked="getCheckedStatus(feed.uid)">
+            <label for="commcheckbox{{$index}}" class="css-label"></label>
+        </div>
+        <!--End  Checkbox feeds -->
+          <div ng-click="toggleContentSelection(feed, $event)" class="clkbl">
+            <div class="com_icon" profile-photo="{url: feed.author.headerLogoUrl, firstName: feed.author.firstName, lastName: feed.author.lastName}"></div>
+          </div>
+          <div class="fc3 other-info">
+          	<span>{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+          </div>
+    </div>
+    <div class="tblc feed_line_outer hidden-sm hidden-xs">
+      <div>
+        <div class="feed_status">
+              
+        </div>
+      </div>
+    </div>
+    <div class="tblc">
+      <div class="feed_content_wrapper">        			          
+          <!-- Feed content -->
+          <div class="feed_content animated fadeIn clkbl" ng-click="toggleContentSelection(feed, $event)">
+
+				  <div class="fcf_div">
+				    <div>
+								<feed-user-info show-feed-status="{{showFeedStatus}}" 
+									action-sentence="actSentence" 
+									feed-staus-loader="feedStausLoader"
+									enable-tootip="{{enableTootip}}"
+									selected-feed-status="selectedFeedStatus"
+									feed-status-selection ="feedStatusSelection"
+									on-change="feedStautsChanged(option)"
+									type-view="listview"
+									></feed-user-info>
+				    </div>
+				
+				    <div class="fl_article_container">
+				      <!-- specific for canal -->
+				      <div once-if="feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki' || feed.type == 'imageGallery'">
+				          <div  ng-if="headerImg.imageGridviewSmallThumb" class="left_part">
+				            <a>
+											<feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"
+                          small-image ="headerImg.smallImage" 
+                          background-color ="headerImg.imageGridviewSmallThumbBackroundColor"
+                          posX ="headerImg.imageGridviewSmallThumbPosX"
+                          posY ="headerImg.imageGridviewSmallThumbPosY"
+              				></feed-thumb>
+				              <!--<ng-include ng-init="imgsrc = headerImg.imageGridviewSmallThumb;smallImage = headerImg.smallImage;backgroundColor = headerImg.imageGridviewSmallThumbBackroundColor; posX = headerImg.imageGridviewSmallThumbPosX; posY = headerImg.imageGridviewSmallThumbPosY" src="'../app/views/blocks/feed_thumb.tpl.html'"></ng-include>-->
+				            </a>
+				          </div>
+				          
+				          <div class="right_part">
+				            <a>
+				              <div class="post-title"> {{artTitle}}</div>
+				            </a> 
+				                <div data-ng-bind="artText" once-if="artText != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+												            
+				            <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+				              <div class="list_img_gallery">
+				                <div once-if="mediaGalleryType == 'imageGallery'">
+				                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+				                </div>
+				                <div once-if="mediaGalleryType == 'videoGallery'">
+				                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+				                </div>
+				                <div once-if="mediaGalleryType == 'documentGallery'">
+				                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+				                </div>
+				              </div>
+				            </div>
+				          </div>
+				      </div>
+				
+				      <div once-if="feed.type == 'event'">
+				        <a>
+				          <div class="left_part">
+										 <feed-event-thumb event="eventBlock"></feed-event-thumb>
+				          </div>
+				          <div class="right_part">
+				              <div class="post-evt-title">{{artTitle}}</div>
+				              <div class="post-evt-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+				          </div>
+				        </a>
+				      </div>
+				
+				    <!-- document container -->
+				    
+				    <div once-if="feed.type == 'document'" class="fl_docu_container">
+				      <a>
+				        <div once-if="mediaGalleryFiles.length > 0" class="left_part">
+				          
+				          <div class="feedthumb_72" once-if="mediaGalleryFiles.length == 1">
+										<thumbnail file="mediaGalleryFiles[0]"></thumbnail>    
+				          </div>
+				        
+				          <div once-if="mediaGalleryFiles.length > 1" class="feedthumb_72 thumb-more-files">
+				            <div class="disp_table">
+				              <div class="tblc">
+				                <span>
+				                  {{mediaGalleryFiles.length}}
+				                </span>
+				              </div>
+				            </div>
+				          </div>
+				        </div>
+				
+				        <div class="right_part file_info">
+				          <div class="post-title">{{artTitle}}  </div>
+				          <div class="post-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+				        </div>
+				      </a>
+				    </div>
+				
+				  
+				  </div>
+				
+				</div>
+          
+          <!-- End feed content -->
+      </div>
+    </div>
+  </div>
+</div>

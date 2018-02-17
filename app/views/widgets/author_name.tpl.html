@@ -1,0 +1,75 @@
+<div ng-init="feed=$ctrl.feed;authorinfo=$ctrl.authorInfo;">
+<div class="panel panel-default widget widget-author marb20">
+  <div class="disp_table author_panel width100" ng-if="!feed.isOwner && feed.isTransferred"><!--widget-title-->
+    <div class="left_part">
+    
+        <div class="disp_table">
+          <div class="tblc circle-image">
+            <img onerror-src="images/no_image_user.png" ng-src="{{$root.getUserProfilePic(feed.wroteFor)}}" width="50px">
+            <img style="position: absolute;z-index: 1;left: 40px;top: -5px;width: 25px;height: 25px" ng-if="$root.isShowUserBadge && feed.wroteFor.badge" src="{{feed.wroteFor.badge.image.url}}">
+          </div>
+        </div>
+    </div>
+
+    <div class="right_part">
+      <div class="post-title">
+        <div class="author-name-container">
+          <p>{{ 'By' | translate }} <a ng-href="{{$root.generateLink('userProfilePage', feed.wroteFor)}}" class="unm">{{feed.wroteFor.firstName+" "+feed.wroteFor.lastName}}</a></p>
+          <p><span class="gray">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span></p>  
+          <p style="color: grey;" once-if="!feed.wroteFor.active" translate> Inactive User</p>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="disp_table author_panel width100" ng-if="feed.isOwner || (!feed.isOwner && !feed.isTransferred)"><!--widget-title-->
+    <div class="left_part">
+    
+        <div class="disp_table">
+          <div class="tblc circle-image">
+            <img onerror-src="images/no_image_user.png" ng-src="{{$root.getUserProfilePic(feed.author)}}" width="50px">
+            <img style="position: absolute;z-index: 1;left: 40px;top: -5px;width: 25px;height: 25px" ng-if="$root.isShowUserBadge && feed.author.badge" src="{{feed.author.badge.image.url}}">
+          </div>
+        </div>
+    </div>
+
+    <div class="right_part">
+      <div class="post-title">
+        <div class="author-name-container">
+          <p>{{ 'By' | translate }} <a ng-href="{{$root.generateLink('userProfilePage', authorinfo)}}" class="unm">{{authorinfo.firstName+" "+authorinfo.lastName}}</a></p>
+          <p><span class="gray">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span></p>  
+          <p style="color: grey;" once-if="!authorinfo.active" translate> Inactive User</p>
+        </div>
+      </div> 
+    </div>
+  </div>
+  <div class="disp_table author_panel width100" ng-show="feed.lastAction =='edit' || ((feed.lastAction == 'create' || feed.previousAction == 'create') && feed.isDraft && feed.editionStatus != 'Draft' )">
+
+  <p class="blue-sub-header">
+  	<span class="gray">
+		<span ng-if="feed.lastAction == 'edit'" translate>Last Modified</span>
+  		<span ng-if="feed.lastAction == 'create'" translate>Creation</span>				
+	</span>
+  </p>
+  <div class="pad10">    
+	<p class="m0"><span>{{ 'By' | translate }}</span> <a ui-sref="app.myprofile({uid: $ctrl.feed.lastActivityUser.uid, activetab: 'About'})" class="unm">{{$ctrl.feed.lastActivityUser.firstName+" "+$ctrl.feed.lastActivityUser.lastName}}</a></p>
+  	<p class="m0"><span class="gray">{{feed.lastUpdateDate | date: $root.fullDateFormat}}</span></p>
+  </div>
+
+  </div><!--authorPanel-->
+
+  <!--<div class="panel-body">
+    <ul class="widget_ul text-center">
+      <li class="widget_li">
+                <ng-include src="'../app/views/widgets/article_controls.tpl.html'"></ng-include>
+              </li>
+    </ul>
+  </div>-->
+</div>
+
+<!--<button class="btn btn-default marb10" ng-click="printArticle()"><i class="fa fa-print"></i> <span transalte>Print to pdf</span> </button>-->
+
+<div ng-if="feed.canEdit" class="bcti_btn secondory_btn  text-center marb20" ng-click="$root.editArticle(feed)">
+<span class="lnr lnr-pencil"></span>
+  <span translate>Edit</span>
+</div>
+</div>

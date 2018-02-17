@@ -1,0 +1,18 @@
+<div class="panel panel-default calendar widget">
+	<div class="widget-title">
+		
+		<div class="tblr">
+			<div class="tblc_m icn">
+            <div class="icon_widget icon_calendar">
+            	<div class="btn_icon"></div>
+            </div>
+         </div>
+			<div class="tblc_m title">
+				{{ 'Calendar' | translate }}
+			</div>
+		</div>
+	</div>
+	<div class="panel-body" style="padding: 0px 10px 10px 10px;" ng-controller="fullCalendarCtrl">   
+		<div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+	</div>
+</div><!--panel END-->

@@ -1,0 +1,426 @@
+<div ng-if="dontShowThis">
+    <div class="container no_padd_lr" style="margin-top: 40px;">
+        <div class="floatl">
+            <h3>{{ 'search' | translate }}</h3>
+        </div>
+        <div class="floatr">
+            <div class="list_icon active" id="feedListView" ng-click="toggleView('list')" ng-class="{active: activeView == 'list'}">
+                <i class="fa fa-bars"></i>
+            </div>
+            <div class="grid_icon" id="feedGridView" ng-click="toggleView('grid')" ng-class="{active: activeView == 'grid'}">
+                <i class="fa fa-th-large"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="container no_padd_lr" style="margin-top: 30px;">
+        <div class="input-group search_wrapper bordergray floatl" style="width: 60%;">
+            <input type="text" class="form-control" placeholder="{{'Search'| translate}}" ng-model="searchText" ng-keyup="searchNow($event)">
+            <span class="input-group-addon glyphicon glyphicon-search"></span>
+        </div>
+        <div ng-show="activeView == 'grid'" class="floatr" style="width: 30%;">
+            <ng-include ng-if="allFeedCount && searchFor == 'all'" ng-init="countData = allFeedCount;
+                            selectedBtn = selectedType;
+                            wdt_view = 1;" src="'../app/views/widgets/sr_content_filter.tpl.html'"></ng-include>
+        </div>
+    </div>
+
+    <div ng-show="activeView == 'list'" class="container list_view no_padd_lr">
+        <div class="row" ng-if="searchData">
+            <div class="col-lg-8">
+                <div ng-if="(selectedType == 'article' || selectedType == 'all') && (searchData.articles.length > 0)">
+                    <div class="lable_today">{{ 'Articles' | translate }}</div>
+                    <!-- load list template -->
+                    <div ng-repeat="feed in searchData.articles">
+                        <feed-list-view feed="feed" index="$index"></feed-list-view>
+                    </div>
+                    <!--<ng-include ng-repeat="feed in searchData.articles" src="'../app/views/containers/feed_lv.tpl.html'"></ng-include>-->
+                </div>
+
+                <div ng-if="(selectedType == 'quickpost' || selectedType == 'all') && (searchData.quickposts.length > 0)">
+                    <div class="lable_today">{{ 'Quickposts' | translate }}</div>
+                    <!-- load list template -->
+                    <div ng-repeat="feed in searchData.quickposts">
+                        <feed-list-view feed="feed" index="$index"></feed-list-view>
+                    </div>
+                    <!--<ng-include ng-repeat="feed in searchData.quickposts" src="'../app/views/containers/feed_lv.tpl.html'"></ng-include>-->
+                </div>
+
+                <div ng-if="(selectedType == 'event' || selectedType == 'all') && (searchData.events.length > 0)">
+                    <div class="lable_today">{{ 'events' | translate }}</div>
+                    <!-- load list template -->
+                    <div ng-repeat="feed in searchData.events">
+                        <feed-list-view feed="feed" index="$index"></feed-list-view>
+                    </div>
+                    <!--<ng-include ng-repeat="feed in searchData.events" src="'../app/views/containers/feed_lv.tpl.html'"></ng-include>-->
+                </div>
+
+                <div ng-if="(selectedType == 'community' || selectedType == 'all') && (searchData.communities.length > 0)">
+                    <div class="lable_today">{{ 'Communities' | translate }}</div>
+                    <div ng-repeat="comm in searchData.communities">
+                        <community-list-feed community="comm" ></community-list-feed>
+                    </div>
+                </div>
+
+                <div class="sres_wrap_lv" ng-if="(selectedType == 'people' || selectedType == 'all') && (searchData.members.length > 0)">
+                    <div class="lable_today">{{ 'People' | translate }}</div>
+                    <div class="sres_feed" ng-repeat="people in searchData.members">
+                        <ng-include src="'../app/views/blocks/member_feed.tpl.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <ng-include ng-if="allFeedCount && searchFor == 'all'" ng-init="countData = allFeedCount;
+                                selectedBtn = selectedType;
+                                wdt_view = 0;" src="'../app/views/widgets/sr_content_filter.tpl.html'"></ng-include>
+            </div>
+        </div><!-- /.row -->
+    </div>
+
+    <div ng-show="activeView == 'grid'" class="container grid_view">
+        <div ng-if="searchData">
+            <div ng-if="(selectedType == 'article' || selectedType == 'all') && (searchData.articles.length > 0)">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="lable_today">{{ 'Articles' | translate }}Articles</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-repeat="feed in searchData.articles">
+                        <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+                        <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="(selectedType == 'quickpost' || selectedType == 'all') && (searchData.quickposts.length > 0)">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="lable_today">{{ 'Quickposts' | translate }}</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-repeat="feed in searchData.quickposts">
+                        <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+                        <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="(selectedType == 'event' || selectedType == 'all') && (searchData.events.length > 0)">
+                <div class="col-lg-12">
+                    <div class="lable_today">{{ 'events' | translate }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-repeat="feed in searchData.events">
+                        <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+                        <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="(selectedType == 'community' || selectedType == 'all') && (searchData.communities.length > 0)">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="lable_today">{{ 'communities' | translate }}</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" ng-repeat="comm in searchData.communities">
+                        <community-grid-feed community="comm" ></community-grid-feed>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sres_wrap_gv" ng-if="(selectedType == 'people' || selectedType == 'all') && (searchData.members.length > 0)">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="lable_today">{{ 'People' | translate }}</div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 sres_feed" ng-repeat="people in searchData.members">
+                        <ng-include src="'../app/views/blocks/member_feed.tpl.html'"></ng-include>
+                    </div>
+                </div>
+            </div>
+        </div><!-- row -->
+    </div><!-- Grid_view -->
+
+    <div class="container" ng-if="showLoadMore" style="margin-bottom: 30px;">
+        <div class="row" ng-if="showLoadMore">
+            <div class="view_more_feed" ng-click="viewMoreFeed()">{{'View_More_Activities'| translate}}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- test search page -->
+
+<div class="search-background">
+
+
+    <div ng-show="modalData.type == 'general'" class="container">
+        <div class="col-lg-12 scat-wrapper">
+
+            <h5 class="search-p marb20"translate>Filter my search:</h5>
+
+            <!-- <div ng-repeat="scat in searchTypes" ng-switch="scat.type.toLowerCase()" class="round-icons clk" ng-init="title = scat.title" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover ng-click="setSearchType(scat)" ng-class="{'active': (scat.type == selectedType.type)}">
+                <div ng-switch-when="all">
+                  <i class="fa fa-newspaper-o"></i>
+                </div>
+                <div ng-switch-when="article">
+                  <i class="fa fa-list"></i>
+                </div>
+                <div ng-switch-when="quickpost">
+                  <i class="fa fa-bars"></i>
+                </div>
+                <div ng-switch-when="document">
+                  <i class="fa fa-file-text"></i>
+                </div>
+                <div ng-switch-when="event">
+                  <i class="fa fa-calendar"></i>
+                </div>
+                <div ng-switch-when="image">
+                  <i class="fa fa-picture-o"></i>
+                </div>
+                <div ng-switch-when="video">
+                  <i class="fa fa-video-camera"></i>
+                </div>
+                <div ng-switch-when="audio">
+                  <i class="fa fa-volume-up"></i>
+                </div>
+                <div ng-switch-when="community">
+                  <i class="fa fa-user"></i>
+                </div>
+                <div ng-switch-when="people">
+                  <i class="fa fa-users"></i>
+                </div>
+
+                <div ng-switch-when="direction">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="service">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="office">
+                  <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="department">
+                  <i class="fa fa-users"></i>
+                </div>
+            </div> -->
+
+
+
+            <div ng-repeat="scat in searchTypes" ng-switch="scat.type.toLowerCase()" class="general-search-div clk" ng-click="setSearchType(scat)" ng-class="{'active': (scat.type == selectedType.type)}"> <!-- ng-init="title = scat.title" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title}}" data-trigger="hover" data-auto-close="1" bs-popover  -->
+
+                <div ng-switch-when="all">
+                    <!--<i class="fa fa-newspaper-o"></i>-->
+                    <span class="fake-radio tous-radio" translate>
+                        Tous
+                    </span>
+                </div>
+                <div ng-switch-when="article">
+                    <!--<i class="fa fa-list"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/article.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-file-empty"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="quickpost">
+                    <!--<i class="fa fa-bars"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/quick.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-location"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="document">
+                    <!--<i class="fa fa-file-text"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/document.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-book"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="event">
+                    <!--<i class="fa fa-calendar"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/calendar.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-calendar-full"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="image">
+                    <!--<i class="fa fa-picture-o"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/image.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-picture"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="video">
+                    <!--<i class="fa fa-video-camera"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/video.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-camera-video"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="audio">
+                    <!--<i class="fa fa-volume-up"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/audio.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-bullhorn"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="community">
+                    <!--<i class="fa fa-user"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/community.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-users"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+                <div ng-switch-when="people">
+                    <!--<i class="fa fa-users"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/directory.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-sort-amount-asc"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+
+                <div ng-switch-when="file">
+                    <!--<i class="fa fa-users"></i>-->
+                    <span class="fake-radio">
+                        <!-- <img src="../images/canal/directory.svg" class="general-search-icon" height="32" /> -->
+                        <span class="lnr lnr-book"></span>
+                        <span translate class="label-text">{{scat.title}}</span>
+                    </span>
+                </div>
+
+                <div ng-switch-when="direction">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="service">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="office">
+                    <i class="fa fa-users"></i>
+                </div>
+                <div ng-switch-when="department">
+                    <i class="fa fa-users"></i>
+                </div>
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+    <div ng-show="modalData.type == 'general'" class="container general-search-wrap mart">
+        <div class="col-lg-12">
+            <div class="disp_table width100 marb10 martop10">
+                <div class="tblr">
+                    <div class="tblc width100">
+                        <div class="disp_table width100">
+                            <div class="tblr">
+                                <div class="tblc width100">
+                                    <input class="stxt-box" type="text" ng-model="searchText" data-animation="am-flip-x" bs-options="state for state in getKeywords($viewValue, 'global')" ng-mouseup="searchByKeyWord(searchText, 'global')" ng-mouseup="searchByKeyWord(searchText,'global')"placeholder="{{'Search'| translate}}" vp-detect-focus="searchFocus" ng-keyup="generalSearch($event, 'global')" xng-clearable data-limit="10" bs-typeahead/>
+                                </div>
+                                <div ng-if="hashTags" class="tblc" style="min-width: 150px;">
+                                    <input class="stxt-box"  type="text" ng-model="hashTags" placeholder="{{'Search'| translate}}" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tblc general-search-btn ins_checkbox" ng-if="enableExternalSearch">
+                        <input type="checkbox" name="searchInternal" id="searchInternal" class="css-checkbox" ng-model="searchInternal" checked="checked">
+                        <label for="searchInternal" class="css-label" translate>search internal</label>
+                    </div>
+                    <div class="tblc general-search-btn ins_checkbox search-external" ng-if="enableExternalSearch">
+                        <input type="checkbox" name="searchExternal" id="searchExternal" class="css-checkbox" ng-model="searchExternal" checked="checked" ng-click="showExternalSites($event)">
+                        <label for="searchExternal" class="css-label" translate>search external</label>
+                        <a  ng-if="searchExternal && externalSites.length > 0" class="dropdown-toggle extra-menu" data-toggle="dropdown">
+                            <i class="fa " ng-class="showIcon? 'fa-angle-up' : 'fa - angle - down'" style="font-size: 14px;padding-left: 2px;" ng-click="activeIcon(showIcon)"></i>
+                        </a>
+                        <ul ng-show="searchExternal && externalSites.length > 0" id="searchDropdown" class="dropdown-menu" role="menu" style="padding-top: 0px;top: inherit;left: inherit;z-index: 200;">
+                            <li class="ddli-lbl draf-dropdow" ng-repeat="site in externalSites" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                <hr  ng-class="$index == 0 ? 'first-custom-hr' : 'custom - hr'" />
+                                <div class="ins_checkbox">
+                                    <input ng-disabled="site != 'Google'" type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="externalType" ng-click="checkSites($event, site)"> <!--ng-checked="stab.selected" ng-click="checkFilters($event,stab)">  -->
+                                    <label for="cctbsel{{iIdx}}" class="css-label">{{site| translate}}</label>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="tblc general-search-btn">
+                        <!--<div class="sicon-box" ng-click="doSearch(searchText, 'global')">
+                          <i class="fa fa-search"></i>
+                        </div>-->
+                        <span class="glyphicon glyphicon-search search-box-icon clk" ng-click="doSearch(searchText, 'global')"></span>
+                        <!--<img src="../images/canal/recherche_active.svg" ng-click="doSearch(searchText, 'global')" />-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-show="modalData.type == 'directory'" class="container">
+        <div class="col-sm-12 mart10" ng-if="enableOrgChart">
+            <p><a ui-sref="app.organizational" class="pull-right btn btn-danger btn-danger-modified marb10"> {{ 'Organizational chart' | translate }}</a></p>
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="clearifix"></div>
+        <div class="clearfix marb20 martop10">
+            <div class="hide col-lg-6">
+                <div class="ins-search-control has-feedback">
+                    <input type="text" class="ins_input_tex" ng-model="firstName" placeholder="{{'Search by Lastname/Firstname'| translate}}" ng-keyup="generalSearch($event, 'name')"><!-- data-animation="am-flip-x" bs-options="state for state in getKeywords($viewValue, 'name')" data-limit="10" ng-disabled="disabledBox.firstName" bs-typeahead -->
+                    <!--<span class="glyphicon glyphicon-search clk" ng-click="doSearch(firstName, 'name')"></span>-->
+
+                    <!-- <img src="../images/canal/recherche_active.svg" ng-click="doSearch(firstName, 'name')" /> -->
+
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="ins-search-control has-feedback">
+
+                    <input type="text" class="ins_input_tex" ng-model="textSearch" placeholder="{{'Directory Search'| translate}}" ng-keyup="generalSearch($event, 'global')" ng-disabled="disabledBox.global">
+                    <a class="reset-filter" ng-show="resetFilter" ng-click="resetFilters()">X <span translate>Reset Filters</span></a><!-- style="position: absolute; cursor: pointer; display: block; top: 0px; right: 10%; line-height: 55px; text-align: center; font-size: 16px;"-->
+
+                    <span class="glyphicon glyphicon-search search-box-icon clk" ng-click="doSearch(textSearch, 'global')"></span>
+
+                </div>
+            </div>
+            <div class="col-lg-4 hide">
+                <div class="ins-search-control has-feedback">
+                    <input type="text" class="ins_input_tex" ng-model="competency" placeholder="{{'speciality'| translate}}" ng-keyup="generalSearch($event, 'competency')" ng-disabled="disabledBox.competency" data-animation="am-flip-x" bs-options="state for state in getKeywords($viewValue, 'competency')" data-limit="10" bs-typeahead>
+                    <span class="glyphicon glyphicon-search clk" ng-click="doSearch(competency, 'competency')"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-show="modalData.type == 'directory'" class="container">
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 marb10">
+            <div class="floatl" dropdown-select="sites" dropdown-model="selectedSite" dropdown-onchange="siteSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectSiteDisabled"></div>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb10">
+            <div class="floatl" dropdown-select="divisions" dropdown-model="selectedDivision" dropdown-onchange="divisionSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectDivisionDisabled"></div>
+
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb10">
+            <div class="floatl" dropdown-select="services" dropdown-model="selectedService" dropdown-onchange="serviceSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectServiceDisabled"></div>
+        </div>
+        <!--<div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+          <div class="floatl" dropdown-select="companies" dropdown-model="selectedCompany" dropdown-onchange="companySelected(selected)" dropdown-item-label="name" dropdown-disabled="selectCompanyDisabled"></div>
+        </div>-->
+    </div>
+    <div ng-if="selectedType.type == 'article'||selectedType.type == 'event'||selectedType.type == 'quickpost'" id="fileSection">
+        <div ng-include="'views/blocks/advance_filter_general_search.tpl.html'"></div>
+    </div>
+    <div ng-if="selectedType.type == 'file'" id="fileSection">
+        <file-search-box search-text="searchText" search-external="searchExternal" external-types="externalTypes"></file-search-box>
+    </div>
+</div><!--bg END-->
+
+<div class="printable-area" ui-view="result"></div>

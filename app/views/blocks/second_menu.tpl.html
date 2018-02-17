@@ -1,0 +1,87 @@
+<div class="row second_menu">
+    <div class="second-menu-div">
+        <div class="container">
+            <!--<div ng-if="comm.tabs">
+              <div responsive-menu feedthumb="0" showthumbcnt="0" tabs='comm.tabs'></div>
+            </div>-->
+            <nav class="navbar navbar-default menu_type3" role="navigation">
+                <div ng-if="menuTabs.length > 0" class="cover-menu-secondary sec-menu">
+                    <ul class="nav navbar-nav cust1m1 SMenu-width sec-menu-ul" >
+                         <!--uib-tooltip="{{tab.tabName | translate}}" tooltip-popup-close-delay='0000' tooltip-class="customClass" tooltip-placement="bottom"-->                                                                                                                              
+                        <li ng-repeat="tab in tabsFirstArray" ng-init="title = tab.tabName" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{tab.tabName | translate}}" data-trigger="hover" data-auto-close="1" bs-popover class="firstArrayWidth" ng-class="{'active': currentTab.uid == tab.uid, 'newWidth': menuTabs.length<6}" ng-click="selectedTabDraft($event, tab)"><!-- ng-click="setSelectedTab(tab)" -->
+                            <a ng-if="!tab.draftFilters && !tab.activityFilters" ng-href="{{tab.href}}">
+                                <div class="sm-li-lbl" ng-class="menuTabs.length<6 ? 'divWidth':''">
+                                    {{tab.tabName| translate}}
+                                </div>
+                            </a>
+
+                            <!-- draft filters -->
+                            <a  ng-if="tab.draftFilters" class="dropdown-toggle extra-menu" data-toggle="dropdown" ui-sref="app.myprofile({uid: tab.userUid, activetab: tab.tabType})">
+                                <span translate>{{tab.tabName}}</span><i class="fa " ng-class="showIcon? 'fa-angle-up' : 'fa-angle-down'" style="font-size: 14px;padding-left: 2px;"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" style="min-width: 250px; max-width: 25px;">
+                                <li class="ddli-lbl draf-dropdow pad5" ng-repeat="stab in tab.draftFilters" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                    <!-- <hr  ng-class="$index == 0 ? 'first-custom-hr' : 'custom-hr'" /> -->
+                                    <div class="ins_checkbox">
+                                        <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="stab.selected" ng-checked="stab.selected" ng-click="checkFilters($event, stab)">
+                                        <label for="cctbsel{{iIdx}}" class="css-label" style="white-space: initial;">{{stab.name| translate}}</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <!--  activities filters -->
+                            <a  ng-if="tab.activityFilters" class="dropdown-toggle extra-menu" data-toggle="dropdown" ui-sref="app.myprofile({uid: tab.userUid, activetab: tab.tabType})">
+                                <span translate>{{tab.tabName}}</span><i class="fa " ng-class="showActivitiyIcon ? 'fa-angle-up' : 'fa-angle-down'" style="font-size: 14px;padding-left: 2px;"></i>
+                            </a>
+                            <ul class="dropdown-menu" role="menu" style="min-width: 250px;">
+                                <li class="ddli-lbl draf-dropdow pad5" ng-repeat="stab in tab.activityFilters" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                    <!-- <hr  ng-class="$index == 0 ? 'first-custom-hr' : 'custom-hr'" /> -->
+                                    <div class="ins_checkbox">
+                                        <input type="checkbox" name="acctbsel{{iIdx}}" id="acctbsel{{iIdx}}" class="css-checkbox" ng-model="stab.selected" ng-checked="stab.selected" ng-click="checkFilters($event, stab)">
+                                        <label for="acctbsel{{iIdx}}" class="css-label">{{stab.name| translate}}</label>
+                                    </div>
+                                </li>
+                            </ul>
+
+                            <div class="cusborderbtm"></div>
+                        </li>
+                        <li ng-if="tabsSecondArray.length > 0" class="dropdown dropdownlinkk"  ng-class="{'active': $root.checkUidInArray(currentTab.uid, tabsSecondArray)}">
+                            <a class="dropdown-toggle new" data-toggle="dropdown">&bull;&bull;&bull;</a>
+                            <div class="cusborderbtm"></div>
+                            <ul class="dropdown-menu width" role="menu">
+
+                                <li ng-repeat="stab in tabsSecondArray" ng-class="currentTab.uid == stab.uid ? 'active':''"><!-- ng-click="setSelectedTab(stab)" -->
+                                    <a ng-href="{{stab.href}}">{{stab.tabName| translate}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="grid-list-li">
+                        <div class="align-nav-center" style="" ng-if="activeView && switchViewButton">
+                            <div class="filter-icon" ng-class="{active: activeViewFilter == 'filter'}" ng-click="showfilters('filter');">
+                                <i class="fa fa-filter" ></i>
+                            </div> 
+<!--                            <ul class="dropdown-menu filterbody" role="menu" >
+                                <li class="ddli-lbl draf-dropdow pad5"  ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                     <hr  ng-class="$index == 0 ? 'first-custom-hr' : 'custom-hr'" /> 
+                                    <div ng-include="'views/filter.tpl.html'"></div>
+                                </li>
+                                <div ng-include="'views/filter.tpl.html'" ng-click="stopPropagation($event)"></div>
+                            </ul>-->
+                                <div ng-if="activeView == 'grid'" ng-hide="(currentTab.tabType == 'gdrive' || currentTab.tabType == 'files' || currentTab.tabType == 'projectmanagement')" class="list_icon hidden-sm hidden-xs" id="feedListView" ng-click="toggleView('list')" ng-class="{active: activeView == 'list'}">
+                                    <i class="fa fa-bars"></i>
+                                </div>
+                                <div ng-if="activeView == 'list'" ng-hide="(currentTab.tabType == 'gdrive' || currentTab.tabType == 'files' || currentTab.tabType == 'projectmanagement')" class="grid_icon hidden-sm hidden-xs" id="feedGridView" ng-click="toggleView('grid')" ng-class="{active: activeView == 'grid'}">
+                                    <i class="fa fa-th-large"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!--hidden-sm hidden-xs-->
+
+                </div><!-- /.navbar-collapse -->
+            </nav>
+        </div>
+       
+    </div><!--second-menu-div end-->
+</div><!--second-menu END-->

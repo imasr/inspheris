@@ -1,0 +1,62 @@
+
+<div class="panel panel-default widget widget-html marb10 widget-note-services" style="padding: 0px">
+    <div class="not-sa" ng-class="userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'" >
+
+        <div class="tblr note-tblr">
+            <div class="tblc_m icn icon_notes">
+                <div class="btn_icon"></div>
+            </div>
+            <div class="tblc_m title">
+                <span translate>Mes notes de service</span>
+            </div>
+            <div class="tblc_m icn">
+                <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+                
+            </div>
+            <a class="up" ng-show="isWidgetOpen"><i class="fa fa-chevron-circle-up" aria-hidden="true" ng-mouseover="scrollUp()" ng-click="scrollUp()"></i></a>
+        </div>
+
+    </div>
+    <div class="panel-body note-panel" ng-show="isWidgetOpen" style="padding: 0px;padding-top: 0">
+        <div>
+            <div class="note-content">
+                <div style="visibility: visible" ng-if="singleDayNoteDatas.length > 0 || periodicNoteDatas.length > 0 || permanentNoteDatas.length > 0">
+                <!-- Single Day Notes -->
+                <!-- <div ng-if="singleDayNoteDatas.length > 0" class="widget-note-services-title" translate>Single Day Notes</div> -->
+                <div ng-if="singleDayNoteDatas.length > 0" ng-repeat="note in singleDayNoteDatas" class="pos-rel note-row">
+                	<note-info note="note" index="$index" is-single-day="true"></note-info>
+                </div>
+                
+                <!-- Periodic Notes  -->
+                <!-- <div ng-if="periodicNoteDatas.length > 0" class="widget-note-services-title" translate>Periodic Notes</div> -->
+                <div ng-if="periodicNoteDatas.length > 0" ng-repeat="note in periodicNoteDatas" class="pos-rel note-row">
+					<note-info note="note" index="$index" is-single-day="false"></note-info>
+                </div>
+                
+                <!-- Permanent Notes  -->
+                <!-- <div ng-if="permanentNoteDatas.length > 0" class="widget-note-services-title" translate>Permanent Notes</div> -->
+                <div ng-if="permanentNoteDatas.length > 0" ng-repeat="note in permanentNoteDatas" class="permanent-notes-div pos-rel note-row">
+					<note-info note="note" index="$index" is-single-day="false"></note-info>
+                </div>
+                
+            	</div>
+	            <div ng-if="singleDayNoteDatas.length <= 0 && periodicNoteDatas.length <= 0 && permanentNoteDatas.length <= 0">
+		            <div class="disp_table width100">
+		                <div class="tblr">
+		                    <div class="tblc_m tac pad10">
+		                        <div class='title'>
+		                            {{'No Note'| translate}}
+		                        </div>
+		                    </div>
+		                </div>
+		            </div>
+	        	</div>	
+            </div>
+            <div class="col-md-12 text-center note-widget-foot" >
+                <a style="margin-bottom:0px;color:#059bcd;" ng-click="openShowAllNotesPopup()">{{'View all notes' | translate}}</a>
+                <!-- <a ui-sref="app.widgetNoteDeServices" href="#/allNoteDeServices/" transtale style="margin-bottom:0px;color:#059bcd;" ng-click="showAll()">Voir tout le planning</a>-->
+                <a class="dwn" ng-if="singleDayNoteDatas.length || periodicNoteDatas.length || permanentNoteDatas.length"><i class="fa fa-chevron-circle-down" aria-hidden="true" ng-mouseover="scrollDown()" ng-click="scrollDown()"></i></a>
+            </div>
+        </div>
+    </div>
+</div>

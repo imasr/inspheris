@@ -1,0 +1,95 @@
+<div class="ins_popup medium_popup" ng-controller="SelectHeaderImgCtrl">
+  
+<div class="popup_header floatl">
+    <div class="popup_title">{{ 'Options' | translate }}</div>
+    <div class="close_btn" ng-click="coloseHeaderImage()"> X </div>  
+</div>
+
+<div class="popup_wrapper floatl">
+	<div class="headerimg_li">
+		<div class="left_part">
+		     <div class="res-rectangle" ng-style="{'padding-top' : getHeaderImgHeight()}">
+	          <div class="rect-content">
+	            <img id="capreview_img" ng-if="remoteImg.url != ''" src="{{remoteImg.url | safeurl}}">
+	            <div ng-if="remoteImg.url == ''" class="disp_table">
+	              <div class="tblc">
+	                <div class="no-img-thumb"></div>
+	                <span class="lbl" >{{ 'Header_Image' | translate }}</span>
+	              </div>
+	            </div>
+	          </div>
+	        </div>	
+		</div>
+		<div class="right_part">
+			<!-- 
+			<div class="rb_ct_db">
+				Use the first picture
+			</div> 
+			-->
+				
+			<div type="file" class="rb_ct_db" ng-file-select ng-file-change="onHeaderImgSelect($files, $event)" data-multiple="true" accept="image/*">
+            	Browse
+            </div>
+            <div class="ins_checkbox">
+		        <input type="checkbox" name="checkbox2" id="checkbox2" class="css-checkbox" checked="checked">
+		        <label for="checkbox2" class="css-label">{{ 'Do_not_use_thumbnail' | translate }}</label>
+        	</div>
+            <!--
+			<div class="rb_ct_db">
+				Download a picture
+			</div>
+			<div class="rb_ct_db">
+				Do not use thumbnail
+			</div> -->
+		</div>
+		
+	</div>
+	<!--
+	<div class="headering_li">
+		<div ng-show="cropped"  id="cropped-image">
+			<img id="capreview_img" src='{{$root.siteUrl+remoteImg.url | safeurl}}'>
+		</div>
+	</div>
+	-->
+	
+	<div class="headerimg_li" ng-class="imageLoader == true ? 'show' : 'hide'">
+		<div class="loader">Loading...</div>	
+	</div>
+	<div ng-class="remoteImg.isReady == true ? 'show' : 'hide'">
+		<div class="headerimg_li">
+			<p><b>Articel Header Image</b></p>
+			<div class="img_canvas">
+			<img-cropped src='{{$root.siteUrl+remoteImg.url | safeurl}}' selected='cropArticleHeader(cords)' aspectratio="1.78" minwidth="500" minheight="280" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+			</div>
+		</div>
+		<div class="headerimg_li">
+			<p><b>Grid view thumbnail</b></p>
+			<div class="img_canvas">
+			<img-cropped src='{{$root.siteUrl+remoteImg.url | safeurl}}' selected='cropGridThumb(cords)' aspectratio="1" minwidth="280" minheight="280" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+			</div>
+		</div>
+		<div class="headerimg_li">
+			<p><b>Grid view thumbnail(small newsfeed)</b></p>
+			<div class="img_canvas">
+			<img-cropped src='{{$root.siteUrl+remoteImg.url | safeurl}}' selected='cropGridThumbSmall(cords)' aspectratio="1" minwidth="140" minheight="140" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+			</div>
+		</div>
+	</div>
+
+	<!--
+	<div class="headerimg_li">
+		<div class="ins_checkbox">
+            <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+            <label for="checkbox1" class="css-label">Show in newsfeed</label>
+        </div>
+	</div>
+	-->
+
+	<div class="headerimg_li">
+		<div class="ins_btn_ctext" ng-click="cropImages()">
+			<span>OK</span>
+		</div>
+	</div>
+</div>
+
+</div>

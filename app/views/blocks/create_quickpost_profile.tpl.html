@@ -1,0 +1,122 @@
+<div class="feed_content_wrapper qpst-wrapper wall-quickpost-wrapper mart20" style="background-color: #fff; padding: 10px;" ng-controller="CreateQuickpostProfileCtrl">
+  <div class="disp_table width100 tbaleNEw">
+    <div class="tblr width100 tbaleNEw">
+      <!-- <div class="tblc square_uimg">
+        
+        <img onerror-src="images/no_image_user.png" class="width100 height100 img-circle" ng-src="{{$root.getUserProfilePic($root.userData)}}">
+        
+        <div class="" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName}"></div>
+      </div> -->
+
+      <div class="tblc com_icon_outer">
+        <div class="com_icon circle-image" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName}"></div>
+          
+      </div>
+
+
+      <div class="tblc feed_line_outer hidden-sm hidden-xs">
+      <div>
+        <div class="feed_status">
+              
+        </div>
+      </div>
+    </div>
+
+
+      <div class="tblc padl10">
+        <textarea msd-elastic mentio
+        
+            mentio-macros="macros"
+            mentio-trigger-char="'@'"
+            mentio-items="members"
+            
+            mentio-search="getKeywords(term)"
+            mentio-select="keyWordSelected(item)"
+            mentio-typed-term="typedTerm"
+            mentio-require-leading-space="true"
+        	expandable-textarea ng-focus="init('privateTitle')" id="privateTitle"
+        	class="quickpost-input floatl width100"
+        	placeholder="{{'Write on wall' | translate}} {{userData.firstName}} {{userData.lastName}}" ng-model="quickpostData.quickpostDesc"
+            ng-trim="false" maxlength="500" ng-focus="showPublishOptions()"
+            ng-if="enableMetions" style="max-width: 100%; overflow: hidden;min-height: 80px;">
+        </textarea>
+<!--        <textarea 
+        	class="quickpost-input floatl width100"
+        	placeholder="{{'Write on wall' | translate}} {{userData.firstName}} {{userData.lastName}}" ng-model="quickpostData.quickpostDesc"
+            ng-trim="false" maxlength="500" ng-focus="showPublishOptions()"
+            ng-if="!enableMetions" style="max-width: 100%;">
+        </textarea>-->
+          
+          <div class="clr-bth"></div>
+                <textarea rows="1" style="overflow: hidden" expandable-textarea ng-focus="init('privateTitle')" id="privateTitle" class="quickpost-input floatl width100"
+                          placeholder="{{'Write on wall'| translate}} {{userData.firstName}} {{userData.lastName}}" ng-model="quickpostData.quickpostDesc"
+                          ng-trim="false"ng-focus="showPublishOptions()"
+                          ng-if="!enableMetions" style="max-width: 100%;">
+
+                </textarea>
+        <div class="qpst-controlls floatl width100 mart10" >
+        	<div>
+			  <div class="fl_attach_wrapper widthPrMsg">
+	              <div ng-class="blockActive=='videoGallery' ? 'qp-active' : '' " class="fl_attach vdo" ng-click="addVideoGallery()"></div>
+	              <div ng-class="blockActive=='documentGallery' ? 'qp-active' : '' " class="fl_attach doc" ng-click="addDocGallery()"></div>
+	              <div ng-class="blockActive=='imageGallery' ? 'qp-active' : '' " class="fl_attach img" ng-click="addImageGallery()"></div>
+	              <div ng-class="blockActive=='linkEmbed' ? 'qp-active' : '' " class="fl_attach link" ng-click="addLinkEmbed()"></div>
+          </div>
+
+          <div class="floatr" style="float:right;">
+            <span class="letter_cnt widthltrCont"> {{500 - quickpostData.quickpostDesc.length}}&nbsp;{{'characters_left' | translate}}</span>
+          </div>
+
+          <div class="clearfix"></div>
+
+     		</div>
+     </div>     
+          <div class="clearfix">
+                
+          
+          <div class="floatl width100" ng-if="attachedFiles.length > 0">
+            <!-- for file uploads -->
+            <div class="fc1 fs1 marb10 mart10 tal" ng-repeat="file in attachedFiles">
+                <strong ng-if="file.type=='videoGallery'"> <span>{{'Add Video' | translate}}</span></strong>
+                <strong ng-if="file.type=='documentGallery'"> <span>{{'Add Documents' | translate}}</span></strong>
+                <strong ng-if="file.type=='imageGallery'"> <span>{{'Add Images' | translate}}</span></strong>
+                <strong ng-if="file.type=='linkEmbed'"> <span>{{'Add Link' | translate}}</span></strong>
+                <strong ng-if="file.type=='yammerEmbed'"> <span>{{'Add Yammer' | translate}}</span></strong>
+            </div>
+
+            <div class="required_field" ng-switch="attachedFiles[0].type" >
+               <div ng-switch-when="videoGallery">
+                   <media-gallery-upload-panel only-remote-files="true" attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+              </div>
+              <div ng-switch-when="documentGallery">
+                   <media-gallery-upload-panel only-remote-files="true" attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+              </div>
+              <div ng-switch-when="imageGallery">
+                   <media-gallery-upload-panel only-remote-files="true" attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+              </div>
+              <div ng-switch-when="linkEmbed">
+                   <media-gallery-upload-panel only-remote-files="true" attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+              </div>              
+            </div>
+          </div>
+          <div style="clear:both;"></div>
+          <div class="floatl width100" style="text-align: initial;">
+            <div class="hashtag_wraper">
+              <tags-input ng-model="caHashTag" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}} #hashtag1 #hashtag2 #hashtag3" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)' style="max-width: 499px;">
+                <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete>
+              </tags-input>
+
+            </div>
+            </div>
+ 
+          
+		  <div style="clear:both;"></div>
+          <div class="floatr">
+              <div class="ins_btn_ctext ins_btn_liconbor floatl" ng-click="publishShortArt()"> {{'Publish' | translate}} </div>
+          </div>
+        </div> 
+      </div>
+    </div>
+  </div><!-- disp-table -->
+</div>
+<div class="clearfix"></div>

@@ -1,0 +1,56 @@
+<div class="panel panel-default widget widget-html widget-note-services" style="padding: 50px 80px;">
+	<div ng-repeat="note in noteDatas">
+			<div class="row row-eq-height" style="margin:0;">
+				<div class="col-md-2 left-border" ng-class="{'last-boder': $last }">
+					    	<div class="icn" style="padding-top:10px;text-align:center;">
+								<span style="font-size: 18px;" class="lnr lnr-bookmark" ng-class="{'red-flag': note.priority == 'High', 'green-flag': note.priority == 'Normal' }"></span>
+							</div>
+				</div>
+				<div class="col-md-10 right-border" ng-class="{'last-boder': $last }" >
+					<span style="font-weight: bold;">{{note.dateFrom | date: "MMM dd"}} - {{note.dateTo | date: "MMM dd"}}</span>
+					 | <span>{{note.content}}</span>
+					 
+					 <div ng-repeat="block in note.blocks">
+					 	<div ng-if="block.type == 'linkEmbed'">
+					 		 <!--For quickpost with Embed Link  -->
+					           <div  ng-if="block.links.length == 1" class="left_part marbot"  style="text-align:center;">
+					           		<div ng-if="block.links[0].thumbnail_url" afkl-lazy-image="{{block.links[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_72 tblc_m" ></div>
+					           		<div ng-if="!block.links[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_72 tblc_m" >{{block.links[0].subTitle}}</div>
+					           </div>
+					           <div class="right_part marbot">
+					           		<div ng-if="block.links.length == 1" style="margin-bottom: 5px;">
+						              	<a href="{{block.links[0].path}}"  target="_blank">
+							           		<div class="post-title" style="color:#1b1b1b">{{block.links[0].title}}</div>
+							          		<div style=" max-height: 35px;" data-ng-bind="block.links[0].description" once-if="block.links[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+							          		<img ng-if="block.links[0].favicon!=''" ng-src="{{block.links[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{block.links[0].location}}" target="_blank">{{block.links[0].location}}</a>
+						          		</a>
+						            </div> 
+					           </div>
+					           <div class="fl_gallery_container" ng-if="block.links.length > 1">
+						            	 <div class="list_img_gallery">
+							                   <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.links" gallerytype="linkEmbed"></div>
+						            	 </div>
+						        </div>
+					 	</div>
+					 	<div ng-if="block.type == 'documentGallery'" class="block_group documentgallery marbot">
+					 			<div class="list_img_gallery">
+									<div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.documents" gallerytype="documents" other="{feed: feed}"></div>
+							    </div>
+					 	</div>
+					 	<div ng-if="block.type == 'ImageGallery'" class="fl_gallery_container marbot">
+					 		  <div class="list_img_gallery">
+					 		  	<div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.images" gallerytype="images"></div>
+					 		  </div>
+					 	</div>
+					 	<div ng-if="block.type == 'videoGallery'" class="fl_gallery_container marbot">
+					 		  <div class="list_img_gallery">
+					 		  	<div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.videos" gallerytype="videos"></div>
+					 		  </div>
+					 	</div>
+					 </div>
+					 
+				</div>
+			</div>
+		</div>
+</div>
+

@@ -1,0 +1,34 @@
+<div class="ins_popup medium_popup crop_image_popup" ng-controller="ImagesCropCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title">{{'Crop_Image' | translate}}</div>
+	    <div class="close_btn" ng-click="closeCropImagePopup()"> X </div>  
+	</div>
+ 
+	<div class="popup_wrapper">
+		<ul class="crimg_list">
+			<li ng-if="imageLoader">
+				<div class="loader">{{'Loading' | translate}}...</div>
+			</li>
+
+			<li ng-if="remoteImg.isReady" ng-repeat="cdm in cropDimentions">
+				<p ng-if="cdm.title">{{cdm.title |translate}}</p>
+				<div class="img_canvas hori_center">
+					<!--
+					<img-cropped src='{{remoteImg.url | safeurl}}' selected='cropSelection(cords)' aspectratio="{{cdm.w/cdm.h}}" minwidth="{{cdm.w}}" minheight="{{cdm.h}}" truewidth="{{truewidth}}" trueheight="{{trueheight}}"></img-cropped>
+					-->
+					
+					<multiimg-cropped src='{{remoteImg.url | safeurl}}' selected='cropSelection(cords, moreoption)' aspectratio="{{cdm.w/cdm.h}}" minwidth="{{cdm.w}}" minheight="{{cdm.h}}" truewidth="{{truewidth}}" trueheight="{{trueheight}}" moreoption="{{$index}}"></multiimg-cropped>
+					
+				</div>
+			</li>
+
+			<li ng-show="remoteImg.isReady">
+				<div class="ins_btn_ctext" ng-click="cropImages()">
+					<span>OK</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+</div>

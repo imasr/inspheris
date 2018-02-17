@@ -1,0 +1,103 @@
+    <div class="col-sm-offset-1 col-sm-10 search-box filesearchbox filterProfile">
+
+            <div ng-if="!Communitypages" class="col-sm-3 form-group widthfile">
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default"  data-toggle="dropdown" translate>Select status</button>
+                        <img class="left-icon" src="../images/icons/book.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu" ng-click="stopPropagation($event)">
+
+<!--                          <ul class="ng-scope" ng-click="stopPropagation($event)">
+                            <input type="button" class="btn btnfileType" style="padding-left: 15px;height: inherit;" ng-click="selectAll($event)"
+                            ng-class="{'grey': select, 'red': !select}" value="{{'All Types' | translate}}"/>
+                          </ul>-->
+                          <div class="scrolldiv"  ng-click="stopPropagation($event)" >
+                            <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="type in feedStatusSelection" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                <div class="ins_checkbox">
+                                    <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="type.selected" ng-checked="type.selected" ng-click="filterStatus();">
+                                    <label for="cctbsel{{iIdx}}" class="css-label" ng-class="{'redbg': type.selected, 'greenbg': !type.selected}" >
+                                      {{type.text | translate}} </label>
+                               </div>       
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!--community-->
+            <div ng-if="!Communitypages" class="col-sm-3 form-group">
+            <div class="ins_dropdown open">
+                <div class="ins_dropdown singlebar width100">
+                    <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select community</button>
+                    <img class="left-icon" style="top:13px;" src="../images/icons/community_icon.png" data-toggle="dropdown" alt=""/>
+                    <ul class="dropdown-menu menudrop" role="menu">
+                      <ul class="ng-scope" ng-click="stopPropagation($event)" >
+                        <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 24px;"/>
+                        <input type="text" placeholder="{{'Search community' | translate}}" ng-model="c" class="form-control" style="padding-left:10px;padding-right:40px;height:inherit;background-color: #F5F5F5;">
+                      </ul>
+                      <div class="scrolldiv">
+                        <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="community in communities| filter:c" ng-click="stopPropagation($event)" ng-init="comIdx = $index">
+                          <div class="ins_checkbox" ng-class="{'redbg': community.selected, 'greenbg': !community.selected}">
+
+                                <input type="checkbox" name="comm{{comIdx}}" id="comm{{comIdx}}" class="css-checkbox" ng-model="community.selected"
+                                 ng-checked="community.selected"    ng-click="filterCommunities($event, community.uid)">
+                                <label for="comm{{comIdx}}"
+                                ng-class="{'redbg': community.selected, 'greenbg': !community.selected}" class="css-label">{{community.label}}</label>
+                            </div>
+
+                        </li>
+                      </div>
+                    </ul>
+                </div>
+            </div>
+        </div>
+            <!--date-->
+            <div class="col-sm-3 paddingDate">
+                <div class="col-sm-6 form-group left leftdate" >
+                    <input type="text" placeholder="{{'from' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px" class="form-control" ng-model="dateFrom" data-max-date="" data-date-format="mediumDate" data-date-format="yyyy-MM-dd" data-autoclose="1" bs-datepicker ng-change="filterDateFrom(dateFrom)">
+                </div>
+                <div class="col-sm-6 form-group left leftdate">
+                    <input type="text" placeholder="{{'to' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px" class="form-control" ng-model="dateTo" data-max-date="" data-date-format="mediumDate" data-date-format="yyyy-MM-dd" data-autoclose="1" bs-datepicker ng-change="filterDateTo(dateTo)">
+                </div>
+            </div>
+            
+            <!--author-->
+            <div class="col-sm-3 form-group widthfile">
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select Author</button>
+                        <img class="left-icon" style="top:13px;" src="../images/icons/author_icon.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu">
+                          <ul class="ng-scope" ng-click="stopPropagation($event)" >
+                            <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 15px;"/>
+                            <input type="text" placeholder="{{'search uploaded by' | translate}}" ng-model="p" class="form-control" style="padding-left:10px;height:inherit;background-color: #F5F5F5;">
+                          </ul>
+                          <div class="scrolldiv">
+                            <li ng-if="author.firstName" class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="author in authors| filter:p" ng-click="stopPropagation($event)" ng-init="authIdx = $index">
+                              <div class="ins_checkbox" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}">
+
+
+                                       <!-- <label class="control control--checkbox">
+                                         <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                                         <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                                       {{author.firstName}} {{author.lastName}}
+                                         <input type="checkbox" ng-model="author.selected" ng-checked="author.selected"
+                                              ng-click="filterAuthors($event, author)"/>
+                                         <div class="control__indicator control__indic"></div>
+                                       </label> -->
+                                    <input type="checkbox" name="author{{authIdx}}" id="author{{authIdx}}" class="css-checkbox" ng-model="author.selected" ng-checked="author.selected"
+                                           ng-click="filterAuthors($event, author.uid)">
+                                    <label for="author{{authIdx}}" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}" class="css-label">
+                                    <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                                    <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                                      {{author.firstName}} {{author.lastName}}</label>
+                                </div>
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="closeFilter" ng-click="showfilters()"><i class="fa fa-times" aria-hidden="true"></i></div>

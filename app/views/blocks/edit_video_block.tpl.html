@@ -1,0 +1,69 @@
+<!-- videoobj {type: 'video', embedVideoTitle: '', embedVideo: ''} -->
+<div class="editblock_wrap">
+	<div class="conrol_wrapper floatl"> 
+        <div class="inner_wrap floatr">
+          <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addVdoBlock()"></div>
+          <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+          <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+        </div>
+  </div>
+
+    <div class="ca_browse_block floatl fixed">
+        <div class="btn_wrapper floatl">
+          <div class="cad_btn floatl width50" ng-click="showPopupVideoUrl($index)">
+            {{'Video_URL' | translate}}
+          </div>
+          <div class="cad_btn floatl width50">
+            {{'Browse_Video' | translate}}
+          </div>
+        </div>
+    </div>
+
+    <div class="files_wrapper width100 floatl">
+      <ul class="eavdo_list">
+        <li class="eavdo">
+          <div class="vdo_opn width100 floatl margn_bottom" ng-if="videoobj.embedVideo != ''">
+            <div class="itw_ctrl">
+              <div class="btn_delete floatl" ng-click="imgBlockRemoveImgs($parent.$index, $index)">
+                  <div class="btn_icon">
+                    <i class="fa fa-trash-o"></i>
+                  </div>
+              </div>
+              <span class="btn_seprator floatl"> • </span>
+              <div class="btn_move floatl ng-click-active">
+                  <div class="btn_icon">
+                      <i class="fa fa-arrows"></i>
+                   </div>
+              </div>
+            </div>
+            <div ng-bind-html="videoobj.embedVideo | unsafehtml"></div>
+          </div>  
+        </li>
+        <li class="eavdo">
+          <div class="vdo_opn width100 floatl margn_bottom" ng-if="videoobj.embedVideo != ''">
+            <div class="itw_ctrl">
+              <div class="btn_delete floatl" ng-click="imgBlockRemoveImgs($parent.$index, $index)">
+                  <div class="btn_icon">
+                    <i class="fa fa-trash-o"></i>
+                  </div>
+              </div>
+              <span class="btn_seprator floatl"> • </span>
+              <div class="btn_move floatl ng-click-active">
+                  <div class="btn_icon">
+                      <i class="fa fa-arrows"></i>
+                   </div>
+              </div>
+            </div>
+            <div ng-bind-html="videoobj.embedVideo | unsafehtml"></div>
+          </div>  
+        </li>
+      </ul>
+        
+    </div>
+
+    <div class="vdo_opn upload_more floatl width100">
+        <p>{{'Upload_Video' | translate}}</p>
+    </div>
+    
+    <input class="ins_input_tex fixed" type="text" ng-model="videoobj.embedVideoTitle" placeholder="{{'Title' | translate}}">
+</div>

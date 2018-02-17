@@ -1,0 +1,8 @@
+<div class="custom-color-picker">
+	<!--<p ng-bind="genereatedColor"></p>-->
+	<input ng-model="rgb" type="range" min="0" max="255" step="1" ng-change="colorChange()" title="{{'Color' | translate}}"/>
+	<input ng-model="alpha" type="range" min="0" max="1" step="0.1" ng-change="alphaChange()" title="{{'Opacity' | translate}}"/>
+	<div style="width: 100%; height: 20px" class="colorpicker-color absinr">
+		<div style="height: 20px" class="abswrap height100" ng-style="{'background-color' : genereatedColor}"> </div>
+	</div>
+</div>

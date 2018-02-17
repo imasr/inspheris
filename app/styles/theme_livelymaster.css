@@ -1,0 +1,511 @@
+/***
+Theme: livelymaster
+Creation Date: 20 Feb
+****/
+/* Font-Face */
+
+@font-face {
+    font-family: 'Proxima';
+    src: url(/custom_font/proximanova-regular-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-regular-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-regular-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-regular-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-regular-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-style: italic;
+    src: url(/custom_font/proximanova-regitalic-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-regitalic-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-regitalic-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-regitalic-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-regitalic-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima-light';
+    font-weight: 300;
+    src: url(/custom_font/proximanova-light-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-light-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-light-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-light-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-light-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima-semibold';
+    font-weight: 600;
+    src: url(/custom_font/proximanova-semibold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-semibold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-semibold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-semibold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-semibold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 600;
+    font-style: italic;
+    src: url(/custom_font/proximanova-semibolditalic-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-semibolditalic-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-semibolditalic-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-semibolditalic-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-semibolditalic-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: bold;
+    src: url(/custom_font/proximanova-bold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-bold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-bold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-bold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-bold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: bold;
+    font-style: italic;
+    src: url(/custom_font/proximanova-boldit-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-boldit-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-boldit-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-boldit-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-boldit-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 900;
+    src: url(/custom_font/proximanova-extrabold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-extrabold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-extrabold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-extrabold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-extrabold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+body {
+    font-family: 'Proxima';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/******** Note the service ***********/
+.disable-group{
+	position: relative;
+  	pointer-events: none;
+  	display: inline-block;
+}
+
+.widget.widget-note-services
+{
+    box-shadow: none;
+    border-radius: 6px;
+    background: #fff;
+    /*background: transparent;*/
+    border: 2px solid #f3f3f3;
+    padding: 6px;
+}
+
+.permanent-notes-div.pos-rel .note-left .left-date .note-from .note-left-month:before {
+    content: '';
+    content: "\f02e";
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+/******** END Note the service ***********/
+
+/***Pin Article**/
+
+.pin-article
+{
+
+  background: #f3f3f3;
+  /*border:1px solid #f0f2f2;*/
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.pin-article .pin-header
+{
+    position: relative;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 240px;
+    border-radius: 6px 6px 0 0;
+}
+
+.pin-article .pin-header .pin-date
+{
+    position: absolute;
+    right: 0px;
+    top: 30px;
+    background: rgba(243, 243, 243, 0.85);
+    padding: 3px 8px 3px 30px;
+    font-size: 14px;
+    border-radius: 4px 0 0 4px;
+}
+
+.pin-article .pin-header .pin-date .pdate
+{
+  font-size: 12px;
+}
+
+.pin-article .icon.icon-pin
+{
+    width: 25px;
+    height: 25px;
+/*    background: url(../images/cts/bookmark.png) no-repeat left;*/
+    position: absolute;
+    top: -4px;
+    left: 5px;
+}
+
+.pin-article .pin_article_header
+{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #f3f3f3;
+    margin: 0px 30px;
+    padding: 0px 15px;
+    border-top: 3px solid #b5b5b5;
+    border-radius: 6px 6px 0 0;
+}
+
+
+.pin-article .pin_article_header h5 a
+{
+    font-size: 20px;
+}
+
+.pin-article .pin-body
+{
+    margin: 0 30px;
+    padding: 0 15px 20px;
+    background: #f3f3f3;
+    line-height: 1.6em;
+    font-size: 13px;
+}
+
+
+.pin-article .pin_footer
+{
+  /*position: relative;*/
+  /*top: 60px;*/
+}
+
+.pin-article .pin_footer .pin_comm {
+    float: left;
+    width: 50px;
+}
+
+.pin-article .pin_footer .pin_comm .com_icon
+{
+  width: 41px;
+  height: 41px;
+}
+
+.pin-article .pin_footer .pin_social {
+    margin-left: 50px;
+    position: relative;
+}
+
+.pin-article .pin_footer .pin_act
+{
+    margin-bottom: 5px;
+}
+
+.pin-article .pin_footer .pin_action
+{
+  border-top: 1px solid #e3e3e3;
+  position: absolute;
+  width: 100%;
+}
+
+.pin-article .pin_footer .btn_icon,
+.pin-article .pin_footer .art_btn .lbl
+{
+    height: 30px;
+    line-height: 28px;
+}
+
+.btn_seprator
+{
+    line-height: 28px;
+}
+
+/*.pin-article .pin_footer .pin_action .art_btn .lbl
+{
+  display: none;
+}*/
+
+.art_btn .lbl
+{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.pin-article .comment_wrapper
+{
+  border: 1px solid #d0d5d7;
+}
+/***END Pin Article**/
+
+/**Pin community**/
+
+.home_widget
+{
+    border: 2px solid #f3f3f3;
+    padding: 10px;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-bottom: 20px;
+}
+
+.pin-comm
+{
+    display: block;
+    clear: both;
+}
+
+.pin-comm .pin-comm-ico
+{
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    text-align: center;
+    background: #f0f4f5;
+    border-radius: 6px;
+    padding: 8px;
+    float: left;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.pin-comm .pin-comm-desc {
+    margin-left: 50px;
+    display: block;
+    float: none;
+    min-height: 40px;
+    overflow: hidden;
+}
+
+.pin-comm .pin-comm-desc .pincom-date
+{
+    color: #595964;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.pin-comm .pin-comm-desc .pincom-title
+{
+    color: #333;
+    font-size: 13px;
+    line-height: 1.6em;
+}
+/**END Pin community**/
+
+/** Profile Pin Post**/
+.profile-pinned-post-control {
+    cursor: pointer;
+    position: absolute;
+	top: inherit;
+	bottom: 50%;
+        z-index: 1;
+}
+.profile-pinned-post-control.left {
+	left: -25px;
+	right: inherit;
+}
+.profile-pinned-post-control.right {
+	right: -25px;
+	left: inherit;
+}
+.profile-pinned-post-control span {
+    height: 35px;
+    width: 35px;
+    margin: 0;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+.profile-pinned-post-control .slide-left {
+    display: inline-block;
+    background: url(/images/icons/pre_nav.png) no-repeat;
+    background-position: 40% 50%;
+}
+.profile-pinned-post-control .slide-right {
+    display: inline-block;
+    background: url(/images/icons/next_nav.png) no-repeat;
+    background-position: 40% 50%;
+}
+
+.profile-pinned-post-img {
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+	width: 100%;
+	height:100%;
+        border-radius: 6px 6px 0px 0px;
+}
+/**END Profile Pin Post**/
+
+/******responsive******/
+/****navbar Breakpoint**/
+
+@media (max-width: 1000px) {}
+/* Large desktops and laptops */
+
+@media (min-width: 1200px) {}
+/* Portrait tablets and medium desktops */
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+/* Portrait tablets and small desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {}
+/* Landscape phones and portrait tablets */
+
+@media (max-width: 767px) {}
+/* Landscape phones and smaller */
+
+@media (max-width: 480px) {}
+
+@media (max-width:680px) {
+  .container-drag{
+    width: auto !important;
+  }
+}
+@media (min-width:620px) {
+  .crop_image_popup{
+    min-width: 620px;
+  }
+}
+.slider-wrapper .margintop{
+  margin-top: 10px;
+}
+.font20{
+    font-size: 20px;
+}
+/*.posAbs{
+    position: absolute;
+    left: 43%;
+    top: 34%;
+}*/
+@media(min-width:476px){
+    .posAbs{
+        position: relative;
+        left: 0%;
+        top: 45%;
+    }
+}
+@media(max-width:475px){
+    .lnr-plus-circle.posAbs{
+         position: relative !important;
+         margin-top:15px;
+         margin-bottom:0px;
+    }
+    .addnewpinP{
+        margin: 0px !important;
+        line-height: 22px !important;
+    }
+}
+.pinnedImage{
+    height:250px;
+    border:1px dotted #efefef;
+    padding:0px;
+    border-radius: 6px;
+}
+.pinFoot > div {
+    padding-top: 5px;
+}
+.pinFoot{
+    background: white;
+    height: 39px;
+    border-radius: 0px 0px 6px 6px;
+}
+.title-content {
+    background: white;
+    border-bottom: 1px solid #efefef;
+    border-top: 1px solid #efefef;
+    padding: 5px;
+    height: 60px;
+    overflow: hidden;
+}
+.pinnedPtag{
+    margin: 0px;
+    font-size: 14px;
+    line-height: 18px;
+    /*white-space: nowrap;*/
+}
+@media(min-width:768px){
+    .widthauto{
+        width: auto !important;
+        padding: 0px;
+    }
+    .paddBtm20{
+        padding-bottom: 15px;
+    }
+}
+
+@media(max-width:900px){
+    .widthauto{
+        width: auto !important;
+    }
+/*    .profile-pinned-post-control.right{
+        right: 0px;
+        position: absolute;
+        z-index: 1;
+    }
+    .profile-pinned-post-control.left{
+        left: 0px;
+        position: absolute;  
+        z-index: 1;
+    }*/
+}
+@media(max-width:767px){
+    .paddBtm20{
+        padding: 0px 0px 15px 0px;
+    }
+    .profile-pinned-post-control{
+        bottom: 50%;
+    }
+    .row.row-centered{
+        padding-bottom: 30px !important;
+    }
+    .profile-pinned-post-control.right{
+        right: 20px;
+    }
+    .profile-pinned-post-control.left{
+        left: 20px;
+    }
+    .profile-pinned-post-control span {
+        height: 25px !important;
+        width: 25px !important;
+    }
+}
+@media(min-width:476px) and (max-width:767px){
+    .padblw767{
+        padding-left: 10px !important;
+    }
+    .padblw767add{
+        padding-right: 10px !important;
+    }
+}
+@media(max-width:475px){
+    .paddBtm20{
+        width: 100%;
+    }
+    .row-centered .addnewpin{
+        height:75px !important; 
+        line-height: 70px !important;
+    }
+}
+.row-centered .addnewpin{
+    height:300px; 
+    border:1px dotted #ccc;
+    text-align: center;
+    line-height: 275px;
+    cursor: pointer;
+}
+.border-top0{
+    border-top: 0px !important;
+}
+.border-top0 .img-part img{
+    max-width: 100px;
+}
+.border-top0 .text-part p{
+    margin-bottom: 0px;
+}
+.border-top0 .text-part h4{
+    margin: 0px;
+}
+.viewall{
+    background: #eaeaea;
+    text-align: right;
+    border-radius: 6px;
+    padding-right: 20px;
+}
+.protab > li.active > a,
+.protab > li.active > a:hover,
+.protab > li.active > a:focus{
+    color: #000;
+    background-color: transparent;
+    border: 0px;;
+}
+.protab > li > a,
+.protab > li > a:hover{
+    border: 0px;
+    padding: 10px 10px;
+}

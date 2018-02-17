@@ -1,0 +1,90 @@
+<div class="row article_detail_wrapper" ng-class="templateClass">
+	<!-- template class can be: atStandard, zenMode -->
+	<div class="article_top_image" ng-if="templateClass == 'zenMode'">
+		<div class="wrapper">
+			<div class="white_overlay"></div>
+			<img class="header_img" src="{{feed.content.topImage.path}}">
+		</div>
+	</div>
+
+	<div ng-if="!feed" style="padding: 20px 20px 20px 20px">
+		{{'Loading' | translate}}...
+	</div>
+
+	<div ng-if="feed" style="padding: 0px 20px 0px 20px">
+	  <div class="row">
+	  	<div class="container_artdetail">
+	  		<div class="col-lg-12">
+				<div class="popup_nav block_group">
+			 		<div ng-if="currentArtIndex != 0" class="nav_btn floatl" ng-click="peviousArticle()">&larr; {{'Previous' | translate}} </div>
+
+			 		<div ng-if="currentArtIndex != (feeds.length-1)" class="nav_btn floatr" ng-click="nextArticle()">{{'Next' | translate}} &rarr;</div>
+			 	</div>
+
+			 	<div class="block_group">
+					<!-- article header with image -->
+					<ng-include ng-if="headerImageFlag" ng-init="img_path = feed.content.heading.imageHeader; atitle = title; asubtitle = subTitle;" src="'../app/views/article_blocks/headerimg_with_title_subtitle.tpl.html'"></ng-include>
+					<!-- article header without image -->
+					<ng-include ng-if="!headerImageFlag && title" ng-init="atitle = title; asubtitle = subTitle;" src="'../app/views/article_blocks/heading_with_title_subtitle.tpl.html'"></ng-include>
+				</div>
+		 	</div>
+
+		 	<div class="col-lg-8">
+			 	<!-- load all blocks -->
+		 		<ng-include ng-init="imgGalleryTpl = 'tpl2'" src="'../app/views/blocks/article_detail_blocks.tpl.html'"></ng-include>
+
+		 		<div class="block_group" ng-if="feed.uid">
+		 			<!-- comment section -->
+					<feed-controls
+								feed-index = "$index"
+								show-comment-label = "true"
+								keep-open = "true"
+								referer-community = "'detailPage'"
+								feed ="feed"
+								on-click-delete-feed="deleteFeed(feed.uid)"
+    			></feed-controls>
+			 		<!--<ng-include ng-init="keepopen = true; tpl_cmntboxid = feed.uid; feedindex = $index; tpl_feedid= feed.uid; tpl_showtext=true; allowComment = feed.allowComment;referer = 'detailPage';allowShare=feed.allowShare;" src="'../app/views/blocks/feed_controls.tpl.html'">
+        			</ng-include> -->
+		 		</div>
+		 	</div>
+		 	
+		 	<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+		        <div ng-if="feed.author">
+		          <!--<div ng-init="authorinfo = feed.author;" ng-include="'../app/views/widgets/author_name.tpl.html'"></div> -->
+							<author-name-widget author-info="feed.author" feed="feed"></author-name-widget>
+		        </div>        
+		          
+		        <div class="widget_group" ng-if="feed.uid">
+		          <ul class="widget_ul">
+		            <li class="widget_li" ng-if="showFeedEditButton">
+		              <div class="bcti_btn floatl" ng-click="$root.editArticle(feed)">
+		                <div class="hori_center">
+		                  <div class="icn feather"></div>
+		                  <span>{{'Edit' | translate}}</span>
+		                </div>
+		              </div>
+		            </li>
+		            <li class="widget_li">
+		              <ng-include src="'../app/views/widgets/article_controls.tpl.html'"></ng-include>
+		            </li>
+		            <li ng-if="documentArray.length > 0" class="widget_li">
+		              <ng-include ng-init="attachedDocs = documentArray" src="'../app/views/widgets/attachment_filesview.tpl.html'"></ng-include>
+		            </li>
+		            <li class="widget_li" ng-if="hashtags.length > 0">
+		              <ng-include src="'../app/views/widgets/hashtags_list.tpl.html'"></ng-include>
+		            </li>
+		          </ul>
+		        </div>
+		    </div>
+			 	
+		</div>
+	  </div><!-- /.row -->
+	</div>
+
+	<div class="article_bottom_image" ng-if="templateClass == 'zenMode'">
+		<div class="wrapper">
+			<div class="white_overlay"></div>
+			<img class="header_img" src="{{feed.content.bottomImage.path}}">
+		</div>
+	</div>
+</div>

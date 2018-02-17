@@ -1,0 +1,50 @@
+<div class="ins_popup select_people_popup" ng-controller="SelectPeopleCtrl">
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Invite_People' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper">
+		<input type="text" class="search_noicon floatl" ng-model="searchText" placeholder="{{'Search_People' | translate}}" ng-keyup="searchPeople($event, this)"/>
+		<div id="pplScroll" class="ppllist_container mart10 floatl">
+			<ul class="ppl_checklist floatl" infinite-scroll="showMore()" infinite-scroll-container='"#pplScroll"'>
+				<li ng-if="modalStatus.isReady == 0">
+					<div ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+				</li>
+
+				<li ng-if="modalStatus.isReady == 1" ng-repeat="people in visiblePeople">
+					<div class="ins_checkbox">
+			            <input type="checkbox" name="pplcheckbox{{$index}}" id="pplcheckbox{{$index}}" class="css-checkbox" ng-click="pepleToggle(people)" ng-checked="selectedPeoples.indexOf(people) > -1">
+			            <label for="pplcheckbox{{$index}}" class="css-label"></label>
+			        </div>
+					<div class="people_wrap clk" ng-click="pepleToggle(people)">
+						<!--
+						<img ng-if="people.thumbLogoUrl" class="profile_pic feedthumb_100" src="{{people.thumbLogoUrl}}">
+						<div class="ppl_info">
+							<p class="ppl_title">{{people.displayName}}<p>
+							<p ng-if="people.email">{{people.email}}</p>
+						</div>
+						-->
+						<ng-include src="'../app/views/blocks/member_feed.tpl.html'"></ng-include>
+					</div>
+				</li>
+
+				<li ng-if="modalStatus.isReady == 1 && visiblePeople.length <= 0">
+					<div class="hori_center">
+						<span translate>No_Results_found</span>
+					</div>
+				</li>
+				<li ng-if="modalStatus == 2">
+					<div class="hori_center">
+						<span translate>something_went_wrong</span>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="floatl width100" ng-if="visiblePeople.length > 0">
+			<div class="ins_btn_ctext" ng-click="closeThisDialog({flag: 'ok', data: selectedPeoples})">
+				<span>OK</span>
+			</div>
+		</div>
+	</div>
+</div>

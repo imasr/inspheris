@@ -1,0 +1,23 @@
+<div class="ins_popup medium_popup comment_edit_popup">
+  
+<div class="popup_header floatl">
+    <!--
+    <div class="user_image floatl">
+      <img src="images/media/user.png">
+    </div>
+    -->
+    <div class="popup_title">{{ "Edit_Comment" | translate }}</div>
+    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+</div>
+<feed-controls
+      feed-index = "$index"
+      show-comment-label = "true"
+      feed ="feed"
+      on-click-delete-feed="deleteFeed(feed.uid)"
+      view-in-file="false"
+      show-full-comments = "true" 
+></feed-controls>
+<!--<ng-include ng-init="feedindex = $index; tpl_feedid= feed.uid; tpl_showtext=true; allowComment = feed.allowComment;" src="'../app/views/blocks/feed_controls.tpl.html'">
+</ng-include>-->
+
+</div>

@@ -1,0 +1,48 @@
+<!-- to show the HTML widget created using CKEditor -->
+<div class="panel panel-default widget widget-html">
+    <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+      <div class="tblr">
+        <div class="tblc_m icn">
+            <div class="icon_widget icon_html">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+        <div class="tblc_m title" once-text="widget.title"></div>
+        <div class="tblc_m icn">
+			<span ng-if="$ctrl.userCanEditWidget">
+		    	<i ng-click="editWidget(widget)" class="lnr lnr-pencil clk"></i>
+		    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    	</span>
+	    	<span ng-if="!$ctrl.userCanEditWidget">
+	    		<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    	</span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" ng-show="isWidgetOpen" style="padding:10px 10px 20px 10px;">
+    	<div ng-show="!endCountdown">
+			<h5 class="text-center">{{widget.countdownClockData.startMessage}}</h5>
+			<div id="clockdiv">
+		  		<div>
+		    		<span class="days"></span>
+		    			<div class="smalltext" translate>Days</div>
+		  		</div>
+		  		<div>
+		    		<span class="hours"></span>
+		    		<div class="smalltext" translate>Hours</div>
+		  		</div>
+				<div>
+				    <span class="minutes"></span>
+				    <div class="smalltext" translate>Minutes</div>
+				</div>
+		  		<div>
+		    		<span class="seconds"></span>
+		    		<div class="smalltext" translate>Seconds</div>
+		  		</div>
+			</div>
+		</div>
+		<div ng-show="endCountdown">
+			<h5 class="text-center">{{widget.countdownClockData.endMessage}}</h5>
+		</div>
+    </div>
+</div>

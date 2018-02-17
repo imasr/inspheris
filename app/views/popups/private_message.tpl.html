@@ -1,0 +1,103 @@
+<div class="ins_popup wide_popup tour-operator share_feed_popup" ng-controller="PrivateMessageCtrl">
+  <div class="popup_header floatl">
+      <p class="popup_title" translate>Send a private message</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+  
+   <div class="popup_wrapper floatl width100" style="padding: 10px;">
+   
+   		<div class="feed_content_wrapper qpst-wrapper wall-quickpost-wrapper mart20">
+		  <div class="disp_table width100">
+		    <div class="tblr width100">
+
+		      <div class="tblc com_icon_outer">
+		        <div class="com_icon circle-image" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName}"></div>
+		          
+		      </div>
+		
+		
+		      <div class="tblc feed_line_outer hidden-sm hidden-xs">
+		      <div>
+		        <div class="feed_status">
+		              
+		        </div>
+		      </div>
+		    </div>
+		
+		
+		      <div class="tblc padl10">
+		        <textarea 
+		        	id="main-message"
+		        	class="quickpost-input floatl width100"
+		        	placeholder="{{'enter message' | translate}}" ng-model="quickpostData.quickpostDesc"
+		            ng-trim="false" maxlength="500" ng-focus="showPublishOptions()"
+		            ng-if="!enableMetions" style="max-width: 100%;">
+		        </textarea>    
+		         <div class="clearfix">
+		         
+		         
+		                
+		          
+		          <div class="floatl width100" ng-if="attachedFiles.length > 0">
+		          </div>
+		          <div style="clear:both;"></div>
+		          <!--  <div class="floatl width100" style="text-align: initial;">
+		            <div class="hashtag_wraper">
+		              <tags-input ng-model="caHashTag" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}} #hashtag1 #hashtag2 #hashtag3" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'>
+		                <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete>
+		              </tags-input>
+		
+		            </div>
+		            </div>-->
+		 
+		        </div> 
+		      </div>
+		    </div>
+		  </div><!-- disp-table -->
+		</div>
+		<div class="clearfix"></div>
+   		<div class="title floatl" style="margin: 10px 0;"><strong translate>To_Whom?</strong></div>
+   		 <div class="tblc padl10" style="display: inherit;">
+	   		  <textarea style="width:100%; height: 25px;min-height: 25px;" id="searchPeople" msd-elastic mentio
+			        
+			            mentio-macros="macros"
+			            mentio-trigger-char="'@'"
+			            mentio-items="users"
+			            
+			            mentio-search="getKeywords(term)"
+			            mentio-select="keyWordSelected(item)"
+			            mentio-typed-term="typedTerm"
+			            mentio-require-leading-space="true"
+			        	ng-model="userSelected.uids"
+			        	class="quickpost-input floatl width100"
+			        	placeholder="{{'enter name user' | translate}}"
+			            ng-trim="false" maxlength="500"
+			            rows="6"
+			            >
+			</textarea>
+			
+			<!--  <textarea style="max-width: 100%;height: 30px;" class="quickpost-input floatl width100"  placeholder="{{'enter name user' | translate}}" disabled="disabled"></textarea>-->
+   		 </div>
+   		
+   
+		<hr />
+		<div class="title floatl" style="margin-bottom:10px;"><strong translate>Content</strong></div>
+				<div ng-if="feed">
+						<feed-content-list-view feed ="feed" show-controls="false" show-article-info-bar="true"></feed-content-list-view>
+				</div>
+        <!--<div ng-if="feed" ng-init="feed = feed; showControls = false; showArtInfoBar = true;" ng-controller="FeedCtrl" ng-include="'../app/views/blocks/lv_feed_content.tpl.html'"></div>-->
+        
+         
+         
+         <!-- <div class="comm_wrapper">
+            <div class="comm_list floatl width100 pad10 bordergray">
+                <div class="ins_checkbox" ng-repeat="user in users">
+                    <input type="checkbox" name="checkbox{{$index}}" id="checkbox{{$index}}" class="css-checkbox" ng-click="userSelected(user)"/>
+                    <label for="checkbox{{$index}}" class="css-label">{{user.firstName}} {{user.lastName}}
+                    </label>
+                </div>
+            </div>
+        </div>-->
+         <div style="background-color: #e5e5e5;border-color:#e5e5e5;color:black; " class="ins_btn_ctext floatr" ng-click="shareDone()" translate analytics-on="click" analytics-event="Send" analytics-category="Send">Send private message</div>
+  </div>
+</div>

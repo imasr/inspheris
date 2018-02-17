@@ -1,0 +1,177 @@
+/***
+Theme: livelymaster
+Creation Date: 20 Feb
+****/
+/* Font-Face */
+
+@font-face {
+    font-family: 'Proxima';
+    src: url(/custom_font/proximanova-regular-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-regular-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-regular-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-regular-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-regular-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-style: italic;
+    src: url(/custom_font/proximanova-regitalic-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-regitalic-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-regitalic-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-regitalic-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-regitalic-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima-light';
+    font-weight: 300;
+    src: url(/custom_font/proximanova-light-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-light-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-light-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-light-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-light-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima-semibold';
+    font-weight: 600;
+    src: url(/custom_font/proximanova-semibold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-semibold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-semibold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-semibold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-semibold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 600;
+    font-style: italic;
+    src: url(/custom_font/proximanova-semibolditalic-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-semibolditalic-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-semibolditalic-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-semibolditalic-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-semibolditalic-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: bold;
+    src: url(/custom_font/proximanova-bold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-bold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-bold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-bold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-bold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: bold;
+    font-style: italic;
+    src: url(/custom_font/proximanova-boldit-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-boldit-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-boldit-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-boldit-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-boldit-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+@font-face {
+    font-family: 'Proxima';
+    font-weight: 900;
+    src: url(/custom_font/proximanova-extrabold-webfont.eot?1307578394);
+    src: url('/custom_font/proximanova-extrabold-webfont.eot?iefix') format('eot'), url(/custom_font/proximanova-extrabold-webfont.woff?1307578394) format('woff'), url(/custom_font/proximanova-extrabold-webfont.ttf?1307578394) format('truetype'), url('/custom_font/proximanova-extrabold-webfont.svg#webfont2rpW2ohz') format('svg')
+}
+body {
+    font-family: 'Proxima';
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.navbar-brand {
+    padding: 5px 15px;
+    height: 58px;
+}
+
+.carousel-indicators .active {
+    background: #f1a25e;
+}
+
+.list_gallery_more
+{
+    background-color: rgba(1, 85, 122, 0.8); 
+}
+
+.view_more_feed
+{
+    border: 1px solid #f1a25e;
+    color: #f1a25e;
+}
+
+.req_comm_btn {
+    padding: 5px 15px;
+    border: 1px solid #01557a;
+    color: #01557a;
+}
+
+.cty-name-active li.active span,
+.req_comm_btn a,
+.org-result-profile-pic .username-initials,
+.ins-subdropdown-menu .row.main-row .menu-section-title,
+.ins_btn_licon p,
+.ins_btn_licon .icon,
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus
+{
+    color: #01557a;
+}
+
+.ins-search-control .glyphicon-search,
+.general-search-btn .search-box-icon
+{
+        background: linear-gradient(to bottom, #f27f01, #E91E63 100%);
+}
+
+.ins_btn_ctext
+{
+    border: 1px solid #01557a;
+    color: #01557a; 
+}
+
+.cust1m1 > li.active .cusborderbtm
+{
+        background-color: #01557a;
+}
+
+/**useful icons - mes application for genfit**/
+
+
+.ins-subdropdown-menu .row.main-row ul.usefullink-sections.list-inline.mes-applications li
+{
+    /*width: 24%;*/
+    text-align: center;
+}
+
+.ins-subdropdown-menu .row.main-row ul.usefullink-sections.list-inline.mes-applications li a
+{
+    display: block;
+    background: #f1f1f1;
+    border-radius: 5px;
+    width: 55px;
+    height: 55px;
+    margin-bottom: 5px;
+    padding: 12px;
+}
+
+.ins-subdropdown-menu .row.main-row ul.usefullink-sections.list-inline.mes-applications li a:hover
+{
+
+    background: rgba(1, 85, 122, 0.15);
+}
+
+.ins-subdropdown-menu .row.main-row ul.usefullink-sections.list-inline.mes-applications li a img
+{
+
+}
+
+.profile-desc .nav-tabs > li > a
+{
+    border-radius: 4px;
+    border: 1px solid #ddd !important;
+}
+
+.profile-desc .table > tbody > tr > td
+{
+    vertical-align: middle !important;
+}
+
+
+/******responsive******/
+/****navbar Breakpoint**/
+
+@media (max-width: 1000px) {}
+/* Large desktops and laptops */
+
+@media (min-width: 1200px) {}
+/* Portrait tablets and medium desktops */
+
+@media (min-width: 992px) and (max-width: 1199px) {}
+/* Portrait tablets and small desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {}
+/* Landscape phones and portrait tablets */
+
+@media (max-width: 767px) {}
+/* Landscape phones and smaller */
+
+@media (max-width: 480px) {}

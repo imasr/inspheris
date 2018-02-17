@@ -1,0 +1,31 @@
+<div class="ins_popup small_popup select-files-popup" ng-controller="SelectCommPopupCtrl">
+	<div class="popup_header floatl">
+	    <div class="popup_title" once-text="'Select_Community' | translate"></div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper">
+		<!--
+		<div class="ins_header floatl">
+			{{'My_Communities' | translate}}
+		</div>
+		-->
+		<div class="commlist_container floatl mart10">
+			<input type="text" class="search_noicon floatl width100" placeholder="{{'Search_Community' | translate}}" ng-model="searchText" ng-change="searchCommunity()"/>
+			<ul class="comm_checklist floatl" afkl-image-container>
+				<li ng-repeat="community in selCommList">
+					<div class="ins_checkbox floatl">
+			            <input type="checkbox" value="{{community.uid}}" name="community.uid" id="commcheckbox{{$index}}" class="css-checkbox" ng-click="toggleCommSelection(community)" ng-checked="getCheckedStatus(community)">
+			            <label for="commcheckbox{{$index}}" class="css-label"></label>
+			        </div>
+					<div class="comm_wrap">
+			            <div class="clk" ng-click="toggleCommSelection(community)" class="ctitle mxln2" ng-bind-html="community.label"> </div>
+					</div>
+				</li>
+			</ul>
+			<div class="ins_btn_ctext marb10" ng-click="closeThisDialog({flag: 'ok', data: commSelection})">
+				<span>OK</span>
+			</div>
+		</div>	
+	</div>
+</div>

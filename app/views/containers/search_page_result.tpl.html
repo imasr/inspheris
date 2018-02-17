@@ -1,0 +1,210 @@
+  <!--<pre>{{searchStatus}}</pre>-->
+  <!--
+  <div ng-if="searchStatus != 0 && visibleData.length <= 0" class="disp_table width100 min-content-ht">
+    <div class="tblc_m">
+      <div class="hori_center" ng-if="searchStatus == 2 && visibleData.length <= 0">
+        <span>{{'No_Results_found' | translate}}</span>
+      </div>
+      <div class="hori_center fa-loader" ng-if="searchStatus == 1">
+        <i class="fa fa-spinner fa-pulse"></i>
+      </div>
+    </div>
+  </div>
+  -->
+
+  <div class="container clearfix org-search-res-container" infinite-scroll="showMoreResults()"><!-- infinite-scroll-distance='0' -->
+
+    <div class="row" id="search-result">
+
+    <div ng-if="searchStatus == 2 && showResTtl.flag && selectedType.type != 'file'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+
+      <h4 class="marb10 mart20">
+      	<span ng-if="!modalData.isRandom && ((modalData.type == 'general' && filteredResult && filteredResult.total == 0) || (modalData.type == 'directory' && visibleData && visibleData.length == 0))" translate>No_Results_found</span>
+      	<span ng-if="modalData.isRandom || ((modalData.type == 'general' && filteredResult && filteredResult.total > 0) || (modalData.type == 'directory' && visibleData && visibleData.length > 0))">{{showResTtl.title | translate}}</span>
+      </h4>
+    </div>
+      <!-- Search Results From  -->
+	<div ng-if="filteredResult.externalResult && filteredResult.externalResult.googleResults.length > 0 && selectedType.type != 'file'" class="clearfix">
+		<div class="col-sm-12">
+			<div class="external-search">
+				<div ng-if="showGoogleResultFrame">
+            <p><span translate>Result_from_google</span>
+                <span class="pull-right">
+                  <span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="closeGoogleResult()"></span>
+                </span>
+            </p>
+            <hr/>
+            <ul class="list-unstyled">
+              <li ng-repeat="googleResult in filteredResult.externalResult.googleResults">
+                <p>
+                  <span class="fs2">
+                    <a href="{{googleResult.url}}" target-blank="true"><span once-html="googleResult.title | highlight:$root.highlightText"></span></a><span ng-if="$root.isQuicpostBlockEnabled" ng-click="extractToQuickPost(googleResult.url)" style="margin-left:5px;" class="lnr lnr-location"></span>
+                  </span>
+
+                  <br/>
+
+                  <span class="fs3 fc2" once-html="googleResult.url | highlight:$root.highlightText"></span>
+
+                  <br/>
+
+                  <span class="fs3" once-html="googleResult.content | highlight:$root.highlightText"></span>
+                </p>
+              </li>
+            </ul>
+
+
+	   			 <table class="table borderless hide" ng-repeat="googleResult in filteredResult.externalResult.googleResults">
+					<tr>
+						<td style="font-size: 16px;"><a href="{{googleResult.url}}" target-blank="true"><span once-html="googleResult.title | highlight:$root.highlightText"></span></a></td>
+						<td ng-if="$index == 0" style="text-align: right;width: 34%;" translate>Result_from_google</td>
+						<td ng-if="$index == 0" style="text-align: right;"><span class="glyphicon glyphicon-remove" style="cursor: pointer;" ng-click="closeGoogleResult()"></span></td>
+					</tr>
+					<tr>
+						<td style="color: #006621;width: 65%;"><span once-html="googleResult.url | highlight:$root.highlightText"></span></td>
+						<td ng-if="$index == 0" style="text-align: right;"><img src="/images/lively/google.jpg" width="70px"></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td><span once-html="googleResult.content | highlight:$root.highlightText"></span></td>
+						<td></td>
+						<td></td>
+					</tr>
+	        	</table>
+
+
+	        	<div><a href="http://www.google.com/search?q={{searchText}}" ng-click="closeGoogleResult()" target-blank="true"><i class="fa fa-plus-square" aria-hidden="true"></i> <span translate>View_more_results</span></a></div>
+	        	</div>
+	        	<div ng-if="!showGoogleResultFrame">
+	        		<a ng-click="showGoogleResult()" translate>see_result_from_google</a>
+	        	</div>
+	      	</div>
+      	</div>
+    </div>
+
+    <div ng-if="searchStatus == 2 && selectedType.type != 'file'" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+      <p class="marb10 mart20" ng-if="showResTtl.flag && !modalData.isRandom">{{resultLength}} <span translate>result(s)</span></p>
+       <p class="marb10 mart20" ng-if="modalData.type == 'general' && selectedType.type == 'all'">
+    		<span ng-if="filteredResult.totalMembers > 0"> <a ng-click="goToSection('directory')">{{filteredResult.totalMembers}} {{'Directory' | translate}}</a> | </span>
+    		<span ng-if="filteredResult.totalCommunities > 0"> <a ng-click="goToSection('community')">{{filteredResult.totalCommunities}} {{'Community' |  translate}}</a> | </span>
+    		<span ng-if="filteredResult.totalContents > 0"> <a ng-click="goToSection('content')">{{filteredResult.totalContents}} {{'articles' | translate}}</a> | </span>
+    		<span ng-if="filteredResult.totalCommunityFiles > 0"> <a ng-click="goToSection('file')">{{filteredResult.totalGdriveFiles + filteredResult.totalCommunityFiles}} {{'Document and Media' |  translate}}</a> | </span>
+       </p>
+      <!-- <p class="marb20 mart10"><a href="javascript: void(0)" ng-click="printPage()" translate>Print</a></p> -->
+      <div class="clearifix"></div>
+    </div>
+
+
+
+    <div ng-if="modalData.type == 'directory'" class="clearfix">
+      <!-- grouping is done by angular-filter plugin -->
+      <div ng-repeat="ppl in visibleData"> <!--  | groupBy: 'division' -->
+        <!--
+        <div bo-if="modalData.showGrouping" class="col-xs-12">
+          <h3 ng-bind="key"></h3>
+        </div>
+        -->
+
+        <!-- <div bindonce ng-animate="'animate'" ng-repeat="ppl in value track by ppl.uid"> -->
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb30" >
+            <div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/orgchart_search_result.tpl.html'"></div>
+          </div>
+        <!--</div>-->
+      </div>
+    </div>
+
+    <div ng-if="modalData.type == 'general_old'" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" ng-repeat="feed in visibleData">
+      <div ng-if="feed.type != 'community' && feed.type != 'member'">
+        <feed-grid-view open-in-new-tab="false" feed="feed" index="$index" is-pinned-tab="false"></feed-grid-view>
+        <!--<div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/feed_gv.tpl.html'"></div>-->
+      </div>
+
+      <div ng-if="feed.type == 'community'" >
+          <community-grid-feed community="feed" ></community-grid-feed>
+      </div>
+
+      <div ng-if="feed.type == 'member'" class="width100" >
+        <div ng-init="openInNewTab = false; ppl = feed;" ng-include="'../app/views/containers/orgchart_search_result.tpl.html'"></div>
+      </div>
+
+    </div>
+
+    <div ng-if="modalData.type == 'general' && selectedType.type != 'file'" class="clearfix">
+      <div id="directory" ng-if="filteredResult.totalMembers > 0" class="clearfix">
+        <div class="clearfix">
+        <div class="col-sm-12">
+          <h5>{{'Results from Directory' | translate}} ({{filteredResult.totalMembers}})</h5>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" bindonce ng-repeat="ppl in filteredResult.members">
+            <div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/orgchart_search_result.tpl.html'"></div>
+          </div>
+        </div>
+
+         <div class="col-lg-12 col-xs-12">
+        <div ng-if="filteredResult.totalMembers > filteredResult.members.length" class="view_more_feed marbottom40 mart10" ng-click="viewMore('profile')" translate>View_more_results</div>
+        </div>
+      </div>
+
+      <div id="community" ng-if="filteredResult.totalCommunities > 0" class="clearfix">
+        <div class="clearfix">
+
+        <div class="col-sm-12">
+        <h5>{{'Results from Communities' |  translate}} ({{filteredResult.totalCommunities}})</h5>
+        </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" bindonce ng-repeat="community in filteredResult.communities">
+            <community-grid-feed community="community" ></community-grid-feed>
+          </div>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+        <div ng-if="filteredResult.totalCommunities > filteredResult.communities.length" ng-click="viewMore('community')" class="view_more_feed marbottom40 mart10" translate>View_more_results</div>
+        </div>
+      </div>
+
+      <div id="content" ng-if="filteredResult.totalContents > 0" class="clearfix">
+        <div class="clearfix">
+
+        <div class="col-sm-12">
+          <h5 once-if="selectedType.type == 'article' || selectedType.type == 'all'">{{'Results from Articles' | translate}} ({{filteredResult.totalContents}})</h5>
+          <h5 once-if="selectedType.type == 'document'" translate>Results from Documents</h5>
+          <h5 once-if="selectedType.type == 'quickpost'" translate>Results from Quickposts</h5>
+          <h5 once-if="selectedType.type == 'event'" translate>Results from Events</h5>
+        </div>
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" bindonce ng-repeat="feed in filteredResult.contents">
+            <!--<div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/feed_gv.tpl.html'"></div>-->
+            <feed-grid-view open-in-new-tab="false" feed="feed" index="$index" is-pinned-tab="false"></feed-grid-view>
+          </div>
+        </div>
+        <div class="col-lg-12 col-xs-12">
+        <div ng-if="filteredResult.totalContents > filteredResult.contents.length" ng-click="viewMore('content')" class="view_more_feed marbottom40 mart10" translate>View_more_results</div>
+        </div>
+      </div>
+
+  	 	<!-- Google Drive Files on community tab + Community's files -->
+		<div id="file" ng-if="filteredResult.totalGdriveFiles > 0 || (selectedType.type == 'all' && filteredResult.totalCommunityFiles > 0)" class="clearfix">
+			<div class="clearfix">
+	       		<div class="col-sm-12">
+		     		<h5>{{'Document and Media' |  translate}} ({{filteredResult.totalGdriveFiles + filteredResult.totalCommunityFiles}})</h5>
+		     	</div>
+
+		  		<div ng-if="filteredResult.totalGdriveFiles > 0" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" bindonce ng-repeat="file in filteredResult.gDriveFiles">
+	            	<div ng-init="openInNewTab = true;" ng-include="'../app/views/containers/feed_gv_gdrive.tpl.html'"></div>
+	          	</div>
+	        <div ng-if="filteredResult.totalCommunityFiles > 0" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" bindonce ng-repeat="file in filteredResult.communityFiles">
+		   		<community-file file="file" open-in-new-tab="false"></community-file>
+		   	</div>
+		  	<div ng-if="filteredResult.totalCommunityFiles >  10" class="view_more_feed marbottom40 mart10" style="padding: 15px 30px 15px 30px;margin-right:15px;" translate>
+                            View More
+			</div>
+    </div>
+
+		</div>
+
+    </div>
+
+    <p ng-if="searchStatus == 1" class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 marb30"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></p>
+    <p ng-if="searchStatus == 3" class="clearfix col-lg-12 col-md-12 col-sm-12 col-xs-12 marb30" translate>something_went_wrong</p>
+
+  </div><!--row END-->
+  </div>

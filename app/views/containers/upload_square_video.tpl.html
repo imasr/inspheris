@@ -1,0 +1,31 @@
+<div class="upload_more upload_square">
+    <div class="abswrap">
+        <div class="absinr">
+            <div class="tp_btn clk" ng-style="{'height': '100 % '}" ng-click="$ctrl.onClick($index)">
+                <div class="disp_table width100 ht100 clk">
+                    <div ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="$ctrl.onUpload($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box hide" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'video/*;capture=camcorder'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;"></div>
+                    <div class="tblc_m width100 ht100">
+                        <span class="floatl width100 plus_icon"><!-- + --><span class="lnr lnr-plus-circle"></span></span>
+                        <span class="floatl width100" once-text="'URL' | translate"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="btm_btn disp_table" once-if="showBrowseRemoteFiles" ng-click="showBrowseVideoPopup($index)">
+                <div class="tblc_m">
+                    <div class="dropdown ins-ddbtn">
+                        <span class="dropdown-toggle" data-toggle="dropdown" once-text="'Browse' | translate" >
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="btm_btn disp_table hide">
+                <div class="tblc_m">
+                    <div class="">
+                        <span ng-click="showCanalVideoUrl($index)" class="clk" once-text="'Canal Video' | translate">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

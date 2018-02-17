@@ -1,0 +1,91 @@
+
+    <div class="all-controls" style="padding:5px; height:45px!important;">
+      <div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed,showFullComments)">
+        <div class="btn_icon">
+          <!-- <span class="lnr lnr-bubble"></span> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <!-- <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Comment</span>  -->
+          <span class="lbl cnt-txt" ng-if="feed.commentCount > 0">({{feed.commentCount}})</span>
+        </div>
+      </div>
+
+      <span class="btn_seprator floatl">&bull;</span>
+
+      <div class="art_btn btn_like floatl" >
+        <div class="btn_icon" ng-click="addLike(tpl_feedid);" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'">
+          <!-- <span class="lnr lnr-thumbs-up"></span> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <span ng-if= "feed.userLiked == false"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="Like" analytics-category="Like"></span><!--Like--></span>
+		  <span ng-if= "feed.userLiked == true"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="UnLike" analytics-category="Like"></span><!--UnLike--></span>
+          <span class="lbl cnt-txt" ng-if="feed.likeCount > 0" ng-click="showMemberViewer()">&nbsp;({{feed.likeCount}})</span><!-- ng-init="userlistData = {type: 'feedLikes'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" ng-attr-data-trigger="{{(feed.likeCount > 0)?'click':''}}" data-auto-close="1" bs-popover -->
+        </div>
+      </div>
+
+      <!--sharing option hidden-->
+      <span class="btn_seprator floatl"> &bull; </span>
+      <div class="art_btn btn_share floatl" ng-click="showSharePopup(feed);">
+        <div class="btn_icon">
+          <!-- <i class="fa fa-share-alt"></i> -->
+        </div>
+        <div class="btn-lbl-wrap hide">
+          <!-- <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Share</span> -->
+          <span class="lbl cnt-txt">({{feed.shareCount}})</span>
+        </div>
+      </div>
+      <!--
+      <span class="btn_seprator floatl"> </span>
+      <div class="art_btn btn_hide floatl">
+        <div class="btn_icon"> </div>
+        <span>Hide</span>
+      </div>
+      -->
+
+	  <!-- Private message button -->
+	  <span class="btn_seprator floatl"> &bull; </span>
+	  <div class="art_btn btn_privatemsg floatl" ng-click="showPrivateMessagePopup(feed);">
+        <div class="btn_icon">
+          <!-- <i class="fa fa-envelope-o"></i> -->
+        </div>
+      </div>
+
+      <span class="btn_seprator floatl" > &bull; </span>
+
+      <div class="art_btn btn_hashtag floatl" ng-init="userlistData = {type: 'feedHashtags'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" data-trigger="click" data-auto-close="1" data-delay="100,500" data-container=".btn_hashtag" bs-popover><!--data-delay="<show>,<hide>" -->
+        <div class="btn_icon">
+          <!-- <img src="../images/canal/hashtag_active.svg" class="feed-icon icon-hashtag" /> -->
+          <i class="fa fa-hash">#</i>
+        </div>
+        <!-- <div class="btn-lbl-wrap">
+          <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Hashtag</span>
+        </div> -->
+      </div>
+
+      <div class="art_btn btn_lang floatl hide" data-placement="bottom" data-template-url="../app/views/blocks/feed_translate.tpl.html" data-content="{{ {uid: feed.uid, language: feed.language, sourceId: feed.sourceId} }}" data-trigger="click" data-auto-close="1" bs-popover>
+          <div class="btn_icon">
+            <!-- <i class="fa fa-globe"></i> -->
+          </div>
+          <!-- <div class="btn-lbl-wrap">
+            <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+          </div> -->
+      </div>
+      <span class="btn_seprator floatl"> &bull; </span>
+      <div class="btn-group drop-down3">
+          <div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" ng-click="showLanguageDropdown()">
+            <div class="btn_icon">
+              <span class="btn_icon">
+              <!-- <span class="lnr lnr-spell-check"></span> -->
+            </span>
+            </div>
+
+          </div>
+          <ul class="dropdown-menu pad5" role="menu">
+            <li ng-repeat="lang in languageOptions">
+              <div class="clk" ng-click="feedLanguageChanged(lang,translate)">
+                <a href="javascript:void(0)" translate><span once-text="lang.name"></span></a>
+              </div>
+            </li>
+          </ul>
+      </div>
+    </div>

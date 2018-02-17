@@ -1,0 +1,89 @@
+<div class="container no_padd_lr">
+    <nav class="navbar navbar-default comm_pgopt" role="navigation">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse">
+          
+         
+          <div class="navbar-left">
+            <h2 class="comm_lable">{{ 'Directory' | translate }}</h2>
+          </div>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</div>
+
+<div class="container list_view" ng-show="activeView == 'list'">
+	<div style="overflow-x: auto; width: 100%">
+		<div ng-repeat="organization in organizations | orderBy:['level','name']" style="clear: both; width: 2000px;">
+			<div style="font-weight: bold;">{{organization.name}}</div>
+
+			<div ng-repeat="position in organization.positions | orderBy:['level','name']">
+				<div ng-if="$index==0">
+					<div ng-repeat="person in position.people"
+						style="padding-bottom: 20px; width: 210px;">
+						<div ng-if="$index==0">
+							<div>
+								<img src="{{person.thumbLogoUrl}}" width="100px" />
+							</div>
+							<div>{{ 'User' | translate }}: {{person.firstName}} {{person.lastName}}</div>
+							<div>{{ 'Position' | translate }}: {{position.name}}</div>
+							<div>
+								{{ 'Competencies' | translate }}: <span
+									ng-repeat="competency in person.competencies">{{competency.acronym}},
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="$index==0">
+					<div ng-repeat="person in position.people"
+						style="float: left;">
+						<div ng-if="$index>=0" style="display: inline; padding-bottom: 20px; width: 210px;">
+							<div>
+								<img src="{{person.thumbLogoUrl}}" width="100px" />
+							</div>
+							<div>{{ 'User' | translate }}: {{person.firstName}} {{person.lastName}}</div>
+							<div>{{ 'Position' | translate }}: {{position.name}}</div>
+							<div>
+								{{ 'Competencies' | translate }}: <span
+									ng-repeat="competency in person.competencies">{{competency.acronym}},
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="$index-1>=0 && position.level-organization.positions[$index-1].level==0">
+					<div ng-repeat="person in position.people"
+						style="float: left; padding-bottom: 20px; width: 210px;">
+						<div style="display: inline;">
+							<div>
+								<img src="{{person.thumbLogoUrl}}" width="100px" />
+							</div>
+							<div>{{ 'User' | translate }}: {{person.firstName}} {{person.lastName}}</div>
+							<div>{{ 'Position' | translate }}: {{position.name}}</div>
+							<div>
+								{{ 'Competenciesyesterday' | translate }}: <span
+									ng-repeat="competency in person.competencies">{{competency.acronym}},
+								</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-if="$index-1>=0 && position.level-organization.positions[$index-1].level<0">
+					<div ng-repeat="person in position.people"
+						style="padding-bottom: 20px; width: 210px;">
+						<div>
+							<img src="{{person.thumbLogoUrl}}" width="100px" />
+						</div>
+						<div>{{ 'User' | translate }}: {{person.firstName}} {{person.lastName}}</div>
+						<div>{{ 'Position' | translate }}: {{position.name}}</div>
+						<div>
+							{{ 'Competencies' | translate }}: <span ng-repeat="competency in person.competencies">{{competency.acronym}},
+							</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+

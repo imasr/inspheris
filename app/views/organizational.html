@@ -1,0 +1,152 @@
+<div class="container no_padd_lr">
+  <div class="col-sm-12">
+   <h2 class="comm_lable ng-binding" translate>Organizational chart <!-- <span class="pull-right"><p><a href="javascript:window.print()" translate>Print</a></p></span> --></h2><!--<p><a href="javascript:window.print()" translate>Print</a></p>-->
+   <hr/>
+   <h5 ng-if="!enableOrgChartConfig">{{"This feature is off from config by admin" | translate}}</h5>
+ </div>
+
+ <!-- <li class="collapsed"> --> <!--note for collapsed div at the beginning-->
+
+
+ <div class="col-sm-12" ng-if="enableOrgChartConfig">
+
+  <div class="marb20 real-hir" ng-controller="organizationCtrl">
+
+
+  <div class="orglist">
+  <ul class="list-inline text-center" ng-repeat="org in organizations">
+    <li translate>Services</li>
+    <li ng-repeat="child in org.children">
+          <a href="/#/organizational#{{child.name}}" id="menu-{{child.name}}">{{child.name}}</a>
+    </li>
+  </ul><!--list-inline END-->
+  <hr/>
+  </div><!--orglist END-->
+
+    <div class="clearifix"></div>
+
+    <div class="tree">
+      <ul class="org-chart" ng-repeat="org in organizations">
+        <li><!--first-->
+          <p class="hir-title">{{org.name}}</p>
+
+          <ul><!--fulopen-->
+            <li><!--ulopen li-->
+
+              <div class="hir hir-main">
+
+                   <!-- <div class="hir-img">
+                  <img src="http://placehold.it/35x35">
+                </div> -->
+                <div ng-repeat="position in org.positions" class="div-position">
+                  <div ng-repeat="p in position.people" ng-if="position.level != 100 && position.level != 9 && position.level != 10 && position.level != 11 && position.level != 6">
+
+                  <div class="{{position.name}}" class="post">
+                   <div class="hir-img">
+
+                    <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', p)" class="text-center">
+
+                      <div ng-if="p.thumbLogoUrl" class="orgchart-photo" profile-photo="{url: p.thumbLogoUrl, firstName: p.firstName, lastName: p.lastName}"></div>
+                      <div ng-if="!p.thumbLogoUrl" class="orgchart-photo orgchart-nameinitial" profile-photo="{url: p.logoUrl, firstName: p.firstName, lastName: p.lastName}"></div>  
+
+                    </a>
+                  </div><!--hir-img END-->
+
+
+
+                  <div class="hir-des" >
+                    <p class="name"><a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', p)">{{p.firstName}} {{p.lastName}}</a></p>
+                    <p class="position uilink grey-text">{{position.name}}</p>
+                    <!-- <span class="position uilink grey-text">position-level {{position.level}}</span> -->
+                    <!--for test-->
+                  </div>
+                  </div><!--position END-->
+                </div>
+              </div>
+
+            </div>
+
+
+            <ul>
+              <li ng-repeat="child in org.children">
+              <p class="hir-title" id="{{child.name}}">{{child.name}}</p>
+                <ul>
+                  <li ng-repeat="cp in child.positions" class="level-{{cp.level}}">
+                    <div class="child-repeat" ng-repeat="cpp in cp.people" ng-if="cp.level != 100 && cp.level != 9 && cp.level != 10 && cp.level != 11 && position.level != 6">
+                   <div class="hir">
+                    <div class="hir-img">
+
+                      <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', cpp)" class="text-center">
+
+                        <div ng-if="cpp.thumbLogoUrl" class="orgchart-photo" profile-photo="{url: cpp.thumbLogoUrl, firstName: cpp.firstName, lastName: cpp.lastName}"></div>
+                        <div ng-if="!cpp.thumbLogoUrl" class="orgchart-photo orgchart-nameinitial" profile-photo="{url: cpp.thumbLogoUrl, firstName: cpp.firstName, lastName: cpp.lastName}"></div>  
+
+                      </a>
+                    </div><!--hir-img END-->
+
+                    <div class="hir-des">
+                      <p class="name"><a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', cpp)">{{cpp.firstName}} {{cpp.lastName}}</a></p>
+                      <p class="position uilink grey-text">{{cp.name}}</p>
+                      <!-- <span class="name"><a href="/">cp-level {{cp.level}}</a></span> -->
+                      <!--for test-->
+                    </div>
+                  </div>
+
+                  <ul>
+                    <li ng-repeat="cc in child.children | orderBy:'name'" ng-if="ccp.level != 100  && position.level != 6">
+                      <p class="hir-title" id="{{cc.name}}">{{cc.name}}</p>
+                      <ul>
+                        <li ng-repeat="ccp in cc.positions" class="level-{{ccp.level}}">
+                          <div class="second-child" ng-repeat="ccpp in ccp.people" ng-if="ccp.level != 100 && ccp.level != 9 && ccp.level != 10 && ccp.level != 11 && position.level != 6">
+                         <div class="hir">
+                          <div class="hir-img">
+
+                            <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ccpp)" class="text-center">
+
+                              <div ng-if="ccpp.thumbLogoUrl" class="orgchart-photo" profile-photo="{url: people.thumbLogoUrl, firstName: ccpp.firstName, lastName: ccpp.lastName}"></div>
+                              <div ng-if="!ccpp.thumbLogoUrl" class="orgchart-photo orgchart-nameinitial" profile-photo="{url: ccpp.thumbLogoUrl, firstName: ccpp.firstName, lastName: ccpp.lastName}"></div>  
+
+                            </a>
+                          </div><!--hir-img END-->
+
+                          <div class="hir-des">
+                            <p class="name"><a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ccpp)">{{ccpp.firstName}} {{ccpp.lastName}}</a></p>
+                            <p class="position uilink grey-text">{{ccp.name}}</p>
+                            <!-- <span class="position uilink grey-text">ccp-level {{ccp.level}}</span> -->
+                            <!--for test-->
+                          </div>
+                        </div>
+
+                        </div><!--second-child-->
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                </div><!--child-repeat END-->
+              </li><!--child-position-li>
+            </ul><!-child-positions end-->
+
+          </li>
+        </ul><!--child END-->
+
+      </li><!--ulopen li-->
+    </ul><!--ul-close-->
+
+  </li><!--first li-->
+</ul>
+</div>
+
+
+</div>
+
+
+<div class="goToTop" style="display:none;">
+  <i class="fa fa-chevron-circle-up"></i>
+</div>
+
+
+</div><!--col-sm-12 END-->
+
+
+
+</div><!--container END-->

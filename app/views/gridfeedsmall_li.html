@@ -1,0 +1,241 @@
+<div ng-class="$index == 0 ? 'col-lg-12':'col-lg-6'"  ng-show="gridFeed2.uid" ng-repeat="feed in feeds" id="{{feed.uid}}">
+
+<div ng-class="$index == 0 ? 'grid_wide_li':'grid_small_li'" class="comment_box_hide grid_li" id="grildliitem{{$index}}" ng-switch="feed.type">
+
+      <div ng-click="showArtPopup($index);">
+
+        <div ng-switch-when="article" ng-class="feed.content.image.path ? 'grid_feed_art':'grid_feed_nothumb'">
+          
+          <img ng-show="feed.content.image.path" class="grid_bkg_img" src="{{$root.siteUrl+feed.content.image.path}}"/>
+          
+          <div class="grid_li_title">
+                <div class="user_image floatl"> <img src="{{$root.siteUrl+feed.author.thumbLogoUrl}}"> </div>
+
+                <div class="grid_user_action floatl">
+                      <span class="grid_action_unm">{{feed.author.displayName}}</span> <span class="grid_action_time"> {{feed.creationDate|timeago}}</span> <br>published an article in <span class="grid_action_comm"><a href="#">{{feed.community.label}}</a> </span>
+                </div>
+
+                <div class="user_action_btns floatr">
+                          <div class="btn_delete floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-trash-o"></i> -->
+                             </div>
+                          </div>
+                          <span class="btn_seprator floatr"> &bull; </span>
+                          <div class="btn_edit floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-pencil-square-o"></i> -->
+                             </div>
+                          </div>
+                </div>
+          </div>
+
+          <div ng-class="feed.content.image.path ? 'grid_art_text':'grid_nothumb_art'">
+                  <h3 class="grid_art_title"> {{feed.content.heading.title}} </h3>
+                  <h4 class="grid_art_subtitle" ng-bind-html="feed.content.heading.subtitle">  </h4>
+                  <div class="list_ritch_text ng-scope ng-binding" ng-if="feed.content.richtext.data" ng-bind-html="feed.content.richtext.data">Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+<strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et</div>
+          </div>
+        </div>
+
+        <div ng-switch-when="wiki" class="grid_feed_art" ng-class="feed.content.image.path ? 'grid_feed_art':'grid_feed_nothumb'">
+          
+          <img class="grid_bkg_img" src="{{$root.siteUrl+feed.content.image.path}}"/>
+          
+          <div class="grid_li_title">
+                <div class="user_image floatl"> <img src="{{$root.siteUrl+feed.author.thumbLogoUrl}}"> </div>
+
+                <div class="grid_user_action floatl">
+                      <span class="grid_action_unm">{{feed.author.displayName}}</span> <span class="grid_action_time"> {{feed.creationDate|timeago}}</span> <br>published a {{feed.type}} in <span class="grid_action_comm"><a href="#">{{feed.community.label}}</a> </span>
+                </div>
+
+                <div class="user_action_btns floatr">
+                          <div class="btn_delete floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-trash-o"></i> -->
+                             </div>
+                          </div>
+                          <span class="btn_seprator floatr"> &bull; </span>
+                          <div class="btn_edit floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-pencil-square-o"></i> -->
+                             </div>
+                          </div>
+                </div>
+          </div>
+
+          <div class="grid_art_text">
+                  <h3 class="grid_art_title"> {{feed.content.heading.title}} </h3>
+                  <h4 class="grid_art_subtitle" ng-bind-html="feed.content.heading.subtitle">  </h4>
+          </div>
+        </div>
+
+        <div class="grid_feed_note" ng-switch-when="document">
+            <div class="grid_li_title">
+                <div class="user_image floatl"> <img src="{{$root.siteUrl+feed.author.thumbLogoUrl}}"> </div>
+
+                <div class="grid_user_action floatl">
+                      <span class="grid_action_unm">{{feed.author.displayName}}</span> <span class="grid_action_time"> {{feed.creationDate|timeago}}</span> <br>published an article in <span class="grid_action_comm"><a href="#">{{feed.community.label}}</a> </span>
+                </div>
+
+                <div class="user_action_btns floatr">
+                          <div class="btn_delete floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-trash-o"></i> -->
+                             </div>
+                          </div>
+                          <span class="btn_seprator floatr"> &bull; </span>
+                          <div class="btn_edit floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-pencil-square-o"></i> -->
+                             </div>
+                          </div>
+                </div>
+            </div>
+
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+
+                <div class="left_part" ng-if="feed.content.document">
+                  <img class="feedthumb_72" set-icon-src="{type: feed.content.document.fileType, url: feed.content.document.thumbGalleryUrl}">
+                </div>
+                <div class="left_part" ng-if="feed.content.image">
+                  <img class="feedthumb_72" set-icon-src="{type: feed.content.image.fileType, url: feed.content.image.thumbGalleryUrl}">
+                </div>
+                <div class="right_part file_info">
+                  <div ng-if="feed.content.document" class="art_title"> {{feed.content.document.caption}} </div>
+                  <div ng-if="feed.content.image" class="art_title"> {{feed.content.image.caption}} </div>
+                  <div class="list_ritch_text"> <span class="gray_font">Uploaded {{feed.creationDate|timeago}}</span> </div> 
+                </div>
+                                   
+              </div>
+            </div>
+        </div>
+
+        <div class="grid_feed_note" ng-switch-when="event">
+            <div class="grid_li_title">
+                <div class="user_image floatl"> <img src="{{$root.siteUrl+feed.author.thumbLogoUrl}}"> </div>
+
+                <div class="grid_user_action floatl">
+                      <span class="grid_action_unm">{{feed.author.displayName}}</span> <span class="grid_action_time"> {{feed.creationDate|timeago}}</span> <br>published an article in <span class="grid_action_comm"><a href="#">{{feed.community.label}}</a> </span>
+                </div>
+
+                <div class="user_action_btns floatr">
+                          <div class="btn_delete floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-trash-o"></i> -->
+                             </div>
+                          </div>
+                          <span class="btn_seprator floatr"> &bull; </span>
+                          <div class="btn_edit floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-pencil-square-o"></i> -->
+                             </div>
+                          </div>
+                </div>
+            </div>
+
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+                <div class="left_part">
+                    <div class="feedthumb_72 event_thumb"> <p class="event_thumb_day">{{feed.content.event.dateFrom|getDate}}<br></p> <p class="event_thumb_month">{{feed.content.event.dateFrom|getMonthName}}</p></div>
+                </div>
+                <div class="right_part">
+                    <div class="art_title"> {{feed.content.event.title}} </div>
+                    <p class="list_ritch_text"> <span class="gray_font">{{feed.content.event.location}}</span> </p>
+                </div>                  
+              </div>
+            </div>
+        </div>
+
+        <div class="grid_feed_gallery" ng-switch-when="ImageGallery">
+            <div class="grid_li_title">
+                <div class="user_image floatl"> <img src="{{$root.siteUrl+feed.author.thumbLogoUrl}}"> </div>
+
+                <div class="grid_user_action floatl">
+                      <span class="grid_action_unm">User's name</span> <span class="grid_action_time"> 12:35</span> <br>published an article in <span class="grid_action_comm"><a href="#"> Community group</a> </span>
+                </div>
+
+                <div class="user_action_btns floatr">
+                          <div class="btn_delete floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-trash-o"></i> -->
+                             </div>
+                          </div>
+                          <span class="btn_seprator floatr"> &bull; </span>
+                          <div class="btn_edit floatr">
+                             <div class="btn_icon">
+                              <!-- <i class="fa fa-pencil-square-o"></i> -->
+                             </div>
+                          </div>
+                </div>
+            </div>
+
+            <div class="grid_gallery_wrapper">
+            <h3 class="grid_art_title"> {{feed.content.imageGallery.name}} </h3>
+              <div class="grid_img_gallery">
+                    
+                    <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" images='feed.content.imageGallery.images'></div>
+                 
+              </div>
+            </div>
+        </div>
+
+      </div>
+
+      <div class="grid_toolbar_outer">
+          <div class="grid_toolbar">
+            
+            <div class="art_btn btn_comment floatl" ng-click="showCommentBox('grildliitem{{$index}}')">
+              <div class="btn_icon">
+                <!-- <i class="fa fa-comment"></i> -->
+              </div>
+              <p><span ng-if="feed.commentCount > 0" class="gray_font">({{feed.commentCount}})</span> </p>
+            </div>
+
+            <span class="btn_seprator floatl">&bull;</span>
+            <div class="art_btn btn_like floatl" data-placement="top" data-template-url="views/popup_userslist.html" data-trigger="hover" ng-attr-data-trigger="{{(feed.likeCount > 0)?'hover':''}}" bs-popover>
+              <div class="btn_icon">
+                <!-- <i class="fa fa-heart"></i> -->
+              </div>
+              <p><span ng-if="feed.likeCount > 0" class="gray_font">({{feed.likeCount}})</span> </p>
+            </div>
+
+            <span class="btn_seprator floatl"> &bull; </span>
+            <div class="art_btn btn_share floatl">
+                <div class="btn_icon">
+                  <!-- <i class="fa fa-share-alt"></i> -->
+                </div>
+                <p><span class="gray_font">(1)</span> </p>
+            </div>
+            <!--
+            <span class="btn_seprator floatl"> &bull; </span>
+            <div class="art_btn btn_hide floatl">
+              <div class="btn_icon"> </div>
+            </div>
+            -->
+            <span class="btn_seprator floatl" ng-if="feed.hashtags.length > 0"> &bull; </span>
+            <div class="art_btn btn_hashtag floatl" ng-if="feed.hashtags.length > 0" data-placement="top" data-template-url="views/popup_hashtags.html" data-trigger="hover" trigger="hover" bs-popover>
+                <div class="btn_icon">#</div>
+            </div>
+
+            <span class="btn_seprator floatl" ng-show="feed.language != 'ENG'"> &bull; </span>
+            <div class="art_btn btn_lang floatl" ng-show="feed.language != 'ENG'">
+              <div class="btn_icon">
+                <!-- <i class="fa fa-globe"></i> -->
+              </div>
+            </div>
+
+            <span class="btn_seprator floatl" ng-show="feed.type == 'document'"> &bull; </span>
+            <div class="art_btn btn_download floatl" ng-show="feed.type == 'document'">
+                <a href="{{$root.siteUrl+feed.blocks[0].document.path}}">
+                    <div class="btn_icon"> </div>
+                </a>
+            </div>
+          </div>
+      </div><!-- grid_toolbar_outer -->
+      
+      <ng-include src="'../app/views/comment_wrapper.html'" ng-controller="CommentWrapperCtrl"></ng-include>
+        
+</div><!-- grid small li -->
+</div>

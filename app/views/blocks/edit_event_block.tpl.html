@@ -1,0 +1,105 @@
+<!-- eventobj {type: 'event'} -->
+<div class="editblock_wrap" ng-controller="CreateEventCtrl">
+
+    <div class="conrol_wrapper floatl"> 
+          <div class="inner_wrap floatr">
+            <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addContentBlock('event')"></div>
+            <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+                        <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeEventBlock(eventobj.uid,$index)"></div>
+          </div>
+    </div>
+
+    <input class="ins_input_tex fixed floatl width100 marb10" ng-model="eventobj.title" type="text" placeholder="{{'Title' | translate}}">
+
+    <div class="ca_browse_block floatl fixed hide">
+        <div class="btn_wrapper floatl">
+          <div class="cad_btn floatl width100" ng-click="showSelectPeoplePopup($index)">
+            {{'Invite_People' | translate}}
+          </div>
+        </div>
+    </div>
+
+    <div class="inv_peoples_wrap floatl fixed" ng-if="eventobj.invitedPeoples.length > 0" ng-init="feedindex = $index">
+        <div class="people_in" ng-repeat="people in eventobj.invitedPeoples">
+          <div class="fa_close" ng-click="removePeople($index)">
+            <i class="fa fa-times"></i>
+          </div>
+          <div class="people_inls" ng-if="people.thumbLogoUrl">
+            <img class="uimg" src="{{people.thumbLogoUrl}}">
+          </div>
+          <div class="people_inrs">
+            <p>{{people.firstName}}</p>
+            <p>{{people.lastName}}</p>
+          </div>
+        </div>
+    </div>
+
+    <div class="ca_frm_event width100 floatl fixed">
+        
+        <div class="ins_btn_liconbor marb10">
+          <div class="icn">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <input class="lpinput" type="text" ng-model="eventobj.location" placeholder="{{'Where' | translate}}"><!-- ng-click="showLocationPopop()" readonly -->
+        </div>
+        
+        <div class="floatl width100 marb10">
+          <div class="ins_btn_liconbor floatl">
+            <div class="icn clk">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <div class="form-group right">
+            <input type="text" class="form-control lpinput" placeholder="{{'Start_Date' | translate}}" ng-model="eventobj.dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="true" data-trigger="manual" data-start-week="{{$root.dateTimeConfig.startWeek}}" data-bs-show="eventobj.dateFromShow" bs-datepicker ng-click="eventobj.dateFromShow = ! eventobj.dateFromShow">
+            </div>
+          </div>
+
+          <div class="ins_btn_liconbor floatl marl10">
+            <div class="icn">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <div class="form-group">
+            <input type="text" class="form-control lpinput" placeholder="{{'Start_Time' | translate}}" size="8" ng-model="eventobj.timeFrom" data-minute-step="1" data-date-type="number" bs-timepicker>
+            </div>
+          </div>
+        </div>
+
+        <div class="floatl width100 marb10">
+          <div class="ins_btn_liconbor floatl">
+            <div class="icn clk">
+              <i class="fa fa-calendar"></i>
+            </div>
+            <div class="form-group right">
+             <input type="text" class="form-control lpinput" placeholder="{{'End_Date' | translate}}" ng-model="eventobj.dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="true" data-trigger="manual" data-start-week="{{$root.dateTimeConfig.startWeek}}" data-bs-show="eventobj.dateToShow" bs-datepicker ng-click="eventobj.dateToShow = ! eventobj.dateToShow">
+            </div>
+          </div>
+          <div class="ins_btn_liconbor floatl marl10">
+            <div class="icn">
+              <i class="fa fa-clock-o"></i>
+            </div>
+            <div class="form-group">
+            <input type="text" class="form-control lpinput" placeholder="{{'End_Time' | translate}}" size="8" ng-model="eventobj.timeTo" data-minute-step="1" data-date-type="number" bs-timepicker>
+            </div>
+          </div>
+        </div>    
+
+        <div class="floatl width100">
+          <div class="ins_checkbox">
+                  <input type="checkbox" ng-model="eventobj.participateEventExtension" id="participateEventExtension" name="participateEventExtension" class="css-checkbox">
+                  <label for="participateEventExtension" class="css-label">{{ 'Active the possibility participate for event' | translate }}</label>
+          </div>
+        </div>
+        <div class="floatl width100">
+          <div class="ins_checkbox">
+                  <input type="checkbox" ng-model="eventobj.limitSeatOfEvent" id="limitSeatOfEvent{{$index}}" name="limitSeatOfEvent{{$index}}" class="css-checkbox">
+                  <label for="limitSeatOfEvent{{$index}}" class="css-label">{{ 'Limit Seat' | translate }}</label>
+          </div>
+        </div>
+        <div class="floatl width100" ng-if="eventobj.limitSeatOfEvent">
+          <div class="ins_checkbox">
+          		<input class="lpinput" type="number" ng-model="eventobj.totalNumberOfSeat" placeholder="{{'Total number of seats' | translate}}">
+          </div>
+        </div>   
+
+    </div>
+
+</div>

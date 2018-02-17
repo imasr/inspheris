@@ -1,0 +1,84 @@
+<div class="ins_popup medium_popup" ng-controller="CreateUserPinnedPostCtrl">
+  
+  <div class="popup_header floatl">
+      <p class="popup_title" ng-if="modalData.action == 'create'" translate>Create a pin</p>
+      <p class="popup_title" ng-if="modalData.action == 'edit'" translate>Edit a pin</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+
+  <div class="video_url_container floatl width100">
+	<div class="floatl width100 margin_bottom" dropdown-select="pinTypes" dropdown-model="pinTypeSelected" dropdown-onchange="selectPinType(selected)" dropdown-item-label="value"></div>
+	
+	<div ng-show="pinTypeSelected.value == 'Link'" >
+	    <input class="ins_input_tex floatl width100 margin_bottom" ng-model="linkEmbed" type="Link Embded" placeholder="URL" ng-change="updateLink();">
+	    <div class="floatl marb10" ng-class="linkData.type == 'link' ? 'link_preview_box ':''" style="background-color:none;height: 150px; width: 595px;">
+	          <div ng-if="linkPreview != 'invalid'">
+	          	<div>
+	            <div class="" style="float:left;">
+		       		<div class="feedthumb_125x93 tblc_m">
+		       			<img ng-if="!pinImg" no-cache-src="{{linkData.thumbnail_url}}"/>
+		       			<img ng-if="pinImg" no-cache-src="{{pinImg.urls[1]}}"/>
+		       			<input type ="button" style="left: 30px;bottom: 80px;margin-top: 10px;" class="btn btn-default" id="next_button" value="Update image" ng-click="updateImage()"/>
+		       			<p style="text-align:center;" ng-if="!linkData.thumbnail_url">{{linkData.subTitle}}</p>
+		       		</div>
+		       		</div>
+	
+		       		<div class="right_part" style="padding-left:20px;">
+		        		<p class="post-title" >{{linkData.title}}</p>
+		        		<div style="max-height:35px;" data-ng-bind="linkData.description" once-if="linkData.description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+		        		<a href="{{linkData.location}}" target="_blank" class="fs3"><img ng-if="linkData.favicon!=''" ng-src="{{linkData.favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><p style="display: inline;">{{linkData.location}}</p></a>
+		       		</div>
+	          	</div>
+	            
+	          </div>
+	    </div>
+    </div>
+    
+    <div ng-show="pinTypeSelected.value == 'Text'" >
+    	<div class="required_field">        
+       		<input class="ins_input_tex" ng-model="title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+     	</div>
+		<div class="editblock_wrap">
+	    	<div class="floatl wysiwyg_wrapper fixed">  
+	      		<textarea class="ins_input_tex widthDesc" rows="15" ng-model="description" placeholder="{{'Description'| translate}}" style="min-height: 200px;min-width: 500px;"></textarea>
+	    	</div>
+		</div>
+		
+		<div class="floatl marb10" ng-style="{'width': '130px'}">
+        	<div class="res-rectangle" ng-style="{'padding-top' : getPinImgHeight()}">
+          		<div class="rect-content" ngf-drop ngf-select ng-model="pinImgFiles" ng-model-rejected="rejPinImgFiles" ngf-change="pinImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+            		<img ng-if="pinImg.uid" no-cache-src="{{pinImg.urls[1]}}">
+            		<div ng-show="!pinImg || !pinImg.uid" class="disp_table">
+	              		<div class="tblc">      
+	                		<span class="lbl" >{{'Upload Pin Image' | translate}}</span>
+	              		</div>
+            		</div>
+          		</div>
+        	</div>
+      	</div>
+		<div class="floatl width100 marb10 mart10" ng-show="pinImg">
+			<ul class="list-inline">
+				<li><a href="javascript: void(0)" ng-click="recropPinImage()"><span translate>Recrop image</span></a></li>
+				<li><a href="javascript: void(0)" ngf-select ng-model="pinImgFiles" ngf-change="pinImageSelect($files, $event)"> <span translate>Update</span> </a></li>
+			</ul>			
+		</div>
+	</div>
+	
+	<div ng-show="pinTypeSelected.value == 'Video'" >
+    	<div class="video_url_container floatl width100">
+    		<input class="ins_input_tex floatl width100 margin_bottom" ng-model="linkEmbed" type="Video Url" placeholder="URL" ng-change="updateLink();">
+    		<div class="vdo_preview_box floatl marb10" style="width: 550px;">
+          		<p ng-if="videoPreview == 'invalid'">{{'Video_Preview' | translate}}</p>
+         	 	<div ng-if="videoPreview != 'invalid'" ng-bind-html="videoPreview | unsafehtml"></div>
+    		</div>
+  		</div>
+	</div>
+	
+    <div class="floatl width100">
+      <div class="ins_btn_ctext" ng-click="savePin()">
+        <span>OK</span>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,388 @@
+<!doctype html>
+<html class="no-js" ng-controller="GlobalCtrl as gblCtrl">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=10,11,edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <meta http-equiv="Cache-control" content="private, no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0">
+        <meta http-equiv="Pragma" content="no-cache">
+
+
+
+        <script type="text/javascript">
+            FileAPI = {
+            debug: true,
+                    //forceLoad: true, html5: false //to debug flash in HTML5 browsers
+                    //wrapInsideDiv: true, //experimental for fixing css issues
+                    //only one of jsPath or jsUrl.
+                    //jsPath: '/js/FileAPI.min.js/folder/',
+                    //jsUrl: 'yourcdn.com/js/FileAPI.min.js',
+
+                    //only one of staticPath or flashUrl.
+                    //staticPath: '/flash/FileAPI.flash.swf/folder/'
+                    //flashUrl: 'yourcdn.com/js/FileAPI.flash.swf'
+            };        </script>
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <!-- build:css(.) styles/vendor.css -->
+        <!-- bower:css -->
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
+        <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
+        <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+        <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
+        <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
+        <link rel="stylesheet" href="bower_components/fullcalendar/dist/fullcalendar.css" />
+        <link rel="stylesheet" href="bower_components/angular-ui-grid/ui-grid.css" />
+        <link rel="stylesheet" href="bower_components/angular-bootstrap-toggle-switch/style/bootstrap3/angular-toggle-switch-bootstrap-3.css" />
+        <link rel="stylesheet" href="bower_components/videogular-themes-default/videogular.css" />
+        <!-- endbower -->
+
+        <!-- endbuild -->
+        <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="styles/angular-dropdowns.css" />
+        <link rel="stylesheet" href="styles/colorpicker.css">
+        <link rel="stylesheet" href="styles/jquery.bxslider.css">
+        <link rel="stylesheet" href="styles/global.css">
+        <link rel="stylesheet" href="styles/buttons.css">
+        <link rel="stylesheet" href="styles/widgets.css">
+        <link rel="stylesheet" href="styles/default_theme.css">
+        <link rel="stylesheet" href="styles/grid_view.css">
+        <link rel="stylesheet" href="styles/communities.css">
+        <link rel="stylesheet" href="styles/myprofile.css">
+        <link rel="stylesheet" href="styles/community_home.css">
+        <link rel="stylesheet" href="styles/collection.css">
+        <link rel="stylesheet" href="styles/popup.css">
+        <link rel="stylesheet" href="styles/article_detail.css">
+        <link rel="stylesheet" href="styles/jquery-ui.css">
+        <link rel="stylesheet" href="styles/linearicons.css">
+        <link href="styles/article_new.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="styles/videogular.css">
+        <link href="styles/search.css" rel="stylesheet"/>
+        <!-- endbuild -->
+
+         <!-- <link rel="stylesheet" href="styles/theme_genfit.css"> -->
+         <!-- <link rel="stylesheet" href="styles/theme_livelymaster.css"> -->
+
+        <!-- add the reference of theme css here and rebuild the app -->
+        <!-- build:css(.tmp) styles/theme.css -->
+        <link rel="stylesheet" href="styles/theme_livelymaster.css">
+        <!-- endbuild -->
+
+        <!-- Add unused themes reference here in comment -->
+        <!--
+
+        -->
+
+        <!-- <link rel="stylesheet" ng-href="styles/{{themeSelector}}.css"> -->
+
+        <!--[if lt IE 9]>
+            <script src="bower_components/html5shiv/dist/html5shiv.js"></script>
+        <![endif]-->
+        <!--[if lte IE 8]>
+            <script>
+              document.createElement('ng-include');
+              document.createElement('ng-pluralize');
+              document.createElement('ng-view');
+
+              // Optionally these for CSS
+              document.createElement('ng:include');
+              document.createElement('ng:pluralize');
+              document.createElement('ng:view');
+            </script>
+        <![endif]-->
+
+        <!--[if lte IE 9]>
+            <script src="masonry.pkgd.min.js"></script>
+        <![endif]-->
+
+
+        <link rel="icon" href="images/lively/favicon.ico" type="image/x-icon">
+        <link rel="shortcut icon" type="image/x-icon" href="images/lively/favicon.ico" />
+        <link type="image/x-icon" href="images/lively/favicon.ico" />
+
+        <link rel="apple-touch-icon" sizes="57x57" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="72x72" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="114x114" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="144x144" href="images/lively/favicon.ico" />
+
+
+    </head>
+    <body ng-style="{'background-color': background.properties[0].backgroundColor,'background-image': 'url(' + background.properties[0].backgroundImage +')',
+    'background-position' : background.properties[0].backgroundPosition, 'background-repeat': background.properties[0].backgroundRepeat, 'background-attachment' : background.properties[0].backgroundAttachment,
+    'background-size' : background.properties[0].backgroundSize,  'background-origin' : background.properties[0].backgroundOrigin, 'background-clip' : background.properties[0].backgroundClip }">
+        <div class="whole-container">
+
+            <div class="appbody">
+
+                <div class="not-printable" ui-view="menu">
+
+                </div>
+                <div class="webcontent-view" ui-view="content">
+
+                </div>
+
+            </div> <!-- appbody for click listener -->
+                <div class="not-printable" ui-view="footer">
+
+                </div>
+        </div>
+
+
+
+
+        <!-- build:js(.) scripts/oldieshim.js -->
+        <!--[if lt IE 9]>
+        <script src="bower_components/es5-shim/es5-shim.js"></script>
+        <script src="bower_components/json3/lib/json3.min.js"></script>
+        <![endif]-->
+        <!-- endbuild -->
+
+        <script src="scripts/ckeditor/ckeditor.js"></script>
+
+        <!-- Script for PDf.js -->
+        <script src="scripts/pdfjs/js/l10n.js"></script>
+        <script src="scripts/pdfjs/js/pdf.js"></script>
+        <script src="scripts/pdfjs/js/compatibility.js"></script>
+        <script src="scripts/pdfjs/js/viewer.js"></script>
+        <link rel="stylesheet" href="scripts/pdfjs/viewer.css">
+
+
+        <!-- build:js(.) scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <!--<script src="bower_components/angular/angular.js"></script>-->
+
+        <script src="bower_components/angular/angular.min.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.min.js"></script>
+        <script src="bower_components/videogular/videogular.min.js"></script>
+        <script src="bower_components/videogular-controls/vg-controls.min.js"></script>
+        <script src="bower_components/videogular-overlay-play/vg-overlay-play.min.js"></script>
+        <script src="bower_components/videogular-poster/vg-poster.min.js"></script>
+        <script src="bower_components/videogular-buffering/vg-buffering.min.js"></script>
+
+        <script src="bower_components/json3/lib/json3.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <!--<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>-->
+        <script src="bower_components/angular-animate/angular-animate.js"></script>
+        <script src="bower_components/angular-touch/angular-touch.js"></script>
+        <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+        <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+        <script src="bower_components/moment/moment.js"></script>
+        <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+        <script src="bower_components/ngDialog/js/ngDialog.js"></script>
+        <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+        <script src="bower_components/angular-notify/dist/angular-notify.js"></script>
+        <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+        <script src="bower_components/fullcalendar/dist/fullcalendar.js"></script>
+        <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script src="bower_components/angular-elastic/elastic.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="bower_components/angular-off-canvas/off-canvas.js"></script>
+        <script src="bower_components/angular-off-click/offClick.js"></script>
+        <script src="bower_components/angular-bindonce/bindonce.js"></script>
+        <script src="bower_components/ng-file-upload/ng-file-upload-shim.js"></script>
+        <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+        <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+        <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
+        <script src="bower_components/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
+        <script src="bower_components/afkl-lazy-image/release/lazy-image.js"></script>
+        <script src="bower_components/ment.io/dist/mentio.js"></script>
+        <script  src="bower_components/moment/min/moment.min.js"></script>
+        <script  src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+        <script  src="bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+        <script src='bower_components/fullcalendar/dist/lang-all.js'></script>
+        <script  src="bower_components/fullcalendar/dist/gcal.js"></script>
+        <script src="bower_components/highcharts/highcharts.js"></script>
+        <script src="bower_components/highcharts/modules/exporting.js"></script>
+        <script src="bower_components/angular-ui-grid/ui-grid.js"></script>
+        <script src="bower_components/angular-bootstrap-toggle-switch/angular-toggle-switch.min.js"></script>
+        <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/once.js"></script>
+        <script src="scripts/angular-dropdowns.js"></script>
+        <script src="scripts/angular-modal-service.js"></script>
+        <script src="scripts/bootstrap-colorpicker.js"></script>
+        <script src="scripts/bootstrap-colorpicker-module.js"></script>
+        <script src="scripts/jquery.dotdotdot.js"></script>
+        <script src="scripts/template.js"></script>
+        <script src="scripts/sortable.js"></script>
+        <script src="scripts/jquery-ui.min.js"></script>
+        <script src="scripts/jquery.Jcrop.js"></script>
+        <script src="scripts/jquery.fitvids.js"></script>
+        <script src="scripts/jquery.bxslider.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/translation-table.js"></script>
+        <script src="scripts/angular-base64.js"></script>
+        <script src="scripts/services/config.js"></script>
+        <script src="scripts/services/modal_services.js"></script>
+        <script src="scripts/directives/ng-ckeditor.js"></script>
+        <script src="scripts/directives/custom_directive.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/main_menu.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/communities.js"></script>
+        <script src="scripts/controllers/search_result.js"></script>
+        <script src="scripts/controllers/myprofile.js"></script>
+        <script src="scripts/filters/filters.js"></script>
+        <script src="scripts/controllers/blocks_controllers.js"></script>
+        <script src="scripts/controllers/community_home.js"></script>
+        <script src="scripts/controllers/collection.js"></script>
+        <script src="scripts/controllers/CreateQuickpostCtrl.js"></script>
+        <script src="scripts/controllers/comment_wrapper.js"></script>
+        <script src="scripts/controllers/widget_translate_on_demand.js"></script>
+        <script src="scripts/controllers/widgets/widgets.js"></script>
+        <script src="scripts/controllers/popup/CreateQuickpostPopupCtrl.js"></script>
+        <script src="scripts/controllers/popup/CommentEditCtrl.js"></script>
+        <script src="scripts/controllers/popup/ShareArtPopupCtrl.js"></script>
+        <script src="scripts/controllers/popup/CreateArticleCtrl.js"></script>
+        <script src="scripts/controllers/popup/CreateCarouselCtrl.js"></script>
+        <script src="scripts/controllers/popup/SelectCommPopupCtrl.js"></script>
+        <script src="scripts/controllers/popup/SelectHeaderImgCtrl.js"></script>
+        <script src="scripts/controllers/popup/CustomActionsCtrl.js"></script>
+        <script src="scripts/controllers/popup/CommunityMemberManagerCtrl.js"></script>
+        <script src="scripts/controllers/article_detail.js"></script>
+        <script src="scripts/controllers/preview_article.js"></script>
+        <script src="scripts/controllers/popup/VideoUrlCtrl.js"></script>
+        <script src="scripts/controllers/popup/BrowseImageCtrl.js"></script>
+        <script src="scripts/controllers/popup/BrowseVideoCtrl.js"></script>
+        <script src="scripts/controllers/popup/BrowseDocumentCtrl.js"></script>
+        <script src="scripts/controllers/popup/SelectPeopleCtrl.js"></script>
+        <script src="scripts/controllers/popup/ChooseLocationCtrl.js"></script>
+        <script src="scripts/controllers/popup/ImagesCropCtrl.js"></script>
+        <script src="scripts/controllers/popup/imageVideoGalleryCtrl.js"></script>
+        <script src="scripts/controllers/popup/DocumentViewerCtrl.js"></script>
+        <script src="scripts/controllers/popup/FileDetailEditorCtrl.js"></script>
+        <script src="scripts/controllers/popup/RequestCommunityCtrl.js"></script>
+        <script src="scripts/controllers/popup/CreateCommunityCtrl.js"></script>
+        <script src="scripts/controllers/popup/MemberViewerCtrl.js"></script>
+        <script src="scripts/controllers/popup/UsefulLinkManagerCtrl.js"></script>
+        <script src="scripts/controllers/generic_add_media_gallery.js"></script>
+        <script src="scripts/controllers/feeds.js"></script>
+        <script src="scripts/controllers/feed_translate.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/controllers/directory.js"></script>
+        <script src="scripts/controllers/AllNofificationsCtrl.js"></script>
+        <script src="scripts/controllers/comment_translate.js"></script>
+        <script src="scripts/controllers/popup/StaticticReportCtrl.js"></script>
+        <script src="scripts/controllers/popup/DigestCtrl.js"></script>
+        <script src="scripts/controllers/popup/MiniProfileCtrl.js"></script>
+        <script src="scripts/controllers/popup/VisitorCtrl.js"></script>
+        <script src="scripts/controllers/popup/FollowerCtrl.js"></script>
+        <script src="scripts/controllers/popup/PrivateMessageCtrl.js"></script>
+        <script src="scripts/jquery.bcSwipe.js"></script>
+        <script src="scripts/controllers/popup/ImagesManagerCtrl.js"></script>
+        <script src="scripts/controllers/popup/LinkEmbedCtrl.js"></script>
+        <script src="scripts/controllers/PDFViewCtrl.js"></script>
+        <script src="scripts/controllers/popup/ConfigureNotificaionCtrl.js"></script>
+        <script src="scripts/controllers/popup/CreateQuickpostProfileCtrl.js"></script>
+        <script src="scripts/jquery.adaptive-backgrounds.js"></script>
+        <script src="scripts/jquery.jOrgChart.js"></script>
+        <script src="scripts/controllers/popup/ProfileCustomFieldCtrl.js"></script>
+        <script src="scripts/controllers/AllNotDeServivesCtrl.js"></script>
+        <script src="scripts/controllers/popup/BirthdayCtrl.js"></script>
+        <script src="scripts/controllers/popup/ParticipantCtrl.js"></script>
+        <script src="scripts/controllers/popup/NotificationParticipantCtrl.js"></script>
+        <script src="scripts/components/community.js"></script>
+        <script src="scripts/components/feed.js"></script>
+        <script src="scripts/components/comment.js"></script>
+        <script src="scripts/components/thumbnail.js"></script>
+        <script src="scripts/components/widget.js"></script>
+        <script src="scripts/controllers/widgets/videogular.controller.js" type="text/javascript"></script>
+        <script src="scripts/jquery.easing.js"></script>
+		<script src="scripts/controllers/sidebar_menu.js"></script>
+		<script src="scripts/controllers/popup/AlertCtrl.js"></script>
+		<script src="scripts/controllers/popup/PinCommunityCtrl.js"></script>
+		<script src="scripts/controllers/popup/NoteCtrl.js"></script>
+		<script src="scripts/components/note.js"></script>
+		<script src="scripts/controllers/popup/TermsOfUseCtrl.js"></script>
+        <script src="scripts/controllers/fileSearch.js"></script>
+        <script src="scripts/controllers/popup/fileBrowsePopup.ctrl.js"></script>
+        <script src="scripts/controllers/popup/CreateGrandArticlePageCtrl.js"></script>
+        <script src="scripts/controllers/GrandArticleTemplateCtrl.js"></script>
+		
+		<script src="scripts/controllers/popup/YammerEmbedCtrl.js"></script>
+		<script src="scripts/controllers/UserPinnedPostCtrl.js"></script>
+				<script src="scripts/controllers/popup/UserSpecialityCtrl.js"></script>
+        <!-- endbuild -->
+
+		
+		<!-- Google api Call -->
+		
+		 <script type="text/javascript" src="https://apis.google.com/js/api.js"></script>
+		 <!-- Yammer api Call -->
+		 <script type="text/javascript" data-app-id="pVg4RKtLCMhzDjoMmnYAg" 
+		 src="https://assets.yammer.com/assets/platform_js_sdk.js"></script> 
+		 <script type="text/javascript" src="https://c64.assets-yammer.com/assets/platform_embed.js"></script>
+		  
+		 
+
+
+        <script type="text/javascript">
+                // The Browser API key obtained from the Google Developers Console.
+                        function handleClientLoad() {
+                        }
+
+                $(document).ready(function() {
+                $(document).on({
+                //to handle the nested bootstrap modals properly
+                'show.bs.modal': function () {
+                        var zIndex = 1040 + (10 * $('.modal:visible').length);
+                        $(this).css('z-index', zIndex);
+                        setTimeout(function() {
+                        $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+                        }, 0);
+                },
+                        'hidden.bs.modal': function() {
+                                if ($('.modal:visible').length > 0) {
+                        // restore the modal-open class to the body element, so that scrolling works
+                        // properly after de-stacking a modal.
+                        setTimeout(function() {
+                        $(document.body).addClass('modal-open');
+                        }, 0);
+                        }
+                        }
+                }, '.modal');
+                });        </script>
+
+
+        <script language="JavaScript" type="text/javascript"><!--
+                if (navigator.appVersion.indexOf('MSIE') >= 0)document.write(unescape('%3C') + '\!-' + '-')
+                            //-->
+        </script>
+
+        <!--for navbar collapse-->
+        <script type="text/javascript">
+                            $(document).click(function (event) {
+                    var clickover = $(event.target);
+                            var $navbar = $(".headermenu-collapse");
+                            var _opened = $navbar.hasClass("in");
+                            if (_opened === true && !clickover.hasClass("navbar-toggle")) {
+                    $navbar.collapse('hide');
+                    }
+                    });        </script>
+
+
+        <script language="JavaScript" type="text/javascript">
+                            function showTooltip(dom, event) {
+                            var element = $(dom);
+                                    var index = element.parent().data('index');
+                                    $('#tootip-' + index).click();
+                            }
+        </script>
+		
+		
+		
+
+    </body>
+</html>

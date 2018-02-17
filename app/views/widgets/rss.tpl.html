@@ -1,0 +1,30 @@
+<div class="panel panel-default widget widget-html">
+  <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    <div class="tblr">
+    	<div class="tblc_m icn">
+            <div class="icon_widget icon_rss">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+		<div class="tblc_m title" translate>
+        	RSS 
+      	</div>
+      	<div class="tblc_m icn">
+          <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+      	</div>
+      
+    </div>
+  </div>
+  <div class="panel-body" ng-show="isWidgetOpen" style="padding:10px;">
+    <h5>{{$ctrl.widget.title}} :</h5>
+  	<div id="rssFeed" content="{{$ctrl.widget.content}}" title="{{$ctrl.widget.title}}" rss >
+  		<ul id="loadFeed" style="max-height:350px; overflow-y: scroll;padding-left: 15px;">
+  		</ul>
+  		<div>
+  			<div id="loadMore" style="float:left;"></div>
+  			<div id="misnus" style="float:right;"></div>
+  		</div>
+  		
+  	</div>
+  </div>
+</div>

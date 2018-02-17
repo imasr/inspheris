@@ -1,0 +1,63 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CommunityMemberManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title" once-text="'User_Manager' | translate"></p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<div class="col-lg-12 marb10">
+	      <div class="ins-search-control has-feedback">
+	        <input type="text" class="ins_input_tex" ng-model="searchText" placeholder="{{'Search' | translate}}" ng-keyup="generalSearch($event)">
+	        <span class="glyphicon glyphicon-search clk" ng-click="doSearch()"></span>
+	      </div>
+	    </div>
+	    <div class="col-lg-12 marb10">
+	    	<div class="ins_checkbox width100" ng-repeat="status in membersStatus" ng-hide="(status.label == 'NotFollower') || (status.label == 'Follower')"><!-- specific for canal -->
+	            <input type="checkbox" value="{{status.label}}" ng-model="status.selected" name="status.label" id="11A68{{$index}}" class="css-checkbox" ng-checked="status.selected">
+	            <label for="11A68{{$index}}" class="css-label" once-text="status.label | translate"></label>
+	        </div>
+	    </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marb10">
+		    <div class="width100" dropdown-select="departments" dropdown-model="selectedDepartment" dropdown-onchange="departmentSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectDepartmentDisabled"></div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marb10">
+			<div class="width100" dropdown-select="divisions" dropdown-model="selectedDivision" dropdown-onchange="divisionSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectDivisionDisabled"></div>
+		    
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marb10">
+		    <div class="width100" dropdown-select="services" dropdown-model="selectedService" dropdown-onchange="serviceSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectServiceDisabled"></div>
+		</div>
+		<div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 marb10">
+		    <div class="width100" dropdown-select="sites" dropdown-model="selectedSite" dropdown-onchange="siteSelected(selected)" dropdown-item-label="name" dropdown-disabled="selectSiteDisabled"></div>
+		</div>
+
+        <div ng-if="md.isSearching = 2" class="clearfix">
+        	<div class="ins_checkbox width100">
+	            <input type="checkbox" ng-model="selectAll.val" id="11A71" class="css-checkbox" ng-change="selectAllMemb()">
+	            <label for="11A71" class="css-label" translate>Select All</label>
+		    </div>
+	        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" ng-repeat="ppl in searchRes.members">
+	        	<div class="ins_checkbox width100">
+		            <input type="checkbox" value="{{status.label}}" ng-model="ppl.statusSelection.selected" name="ppl.statusSelection.selected" id="11A70{{$index}}" class="css-checkbox" ng-checked="status.selected">
+		            <label for="11A70{{$index}}" class="css-label"></label>
+		        </div>
+				<div ng-init="people = ppl.member" ng-include="'../app/views/blocks/member_feed.tpl.html'"></div>
+				<!--<div class="clearfix width100">
+		          <div class="floatl" dropdown-select="membersStatus" dropdown-model="ppl.statusSelection" dropdown-onchange="changeMemberStatus(selected, ppl.member)" dropdown-item-label="label"></div>
+		        </div>-->
+			</div>
+		</div>
+
+		<div class="clearfix widht100">
+	        <div class="floatl" dropdown-select="membersStatus" dropdown-model="selectedStatusOfAllMem" dropdown-onchange="changeAllMemberStatus(selected)" dropdown-item-label="label"></div>
+		</div>
+
+		<div class="clearfix width100">
+	        <div style="width: 150px;" class="hori_center">
+	          <div class="ins_btn_ctext" ng-click="save()" ng-class="{'disabled': isPublishing}" once-text="'Publish' | translate"></div>
+	        </div>
+	    </div>
+	</div>
+</div>

@@ -1,0 +1,101 @@
+<div class="feed_grid" id="grildliitem{{$index}}" ng-controller="FeedCtrl"><!--class: comment_box_hide -->
+    <ng-include ng-init="tpl_uinfo = feed; feeduid = feed.uid;" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+    <div class="content" ng-switch="feed.type">
+        <div ng-switch-when="article" ng-class="feed.content.heading.imageGridviewThumb ? 'grid_feed_art':'grid_feed_nothumb'">
+          
+            <img ng-if="$index == 0" ng-show="feed.content.heading.imageHeader" class="grid_bkg_img" src="{{feed.content.heading.imageHeader}}"/>
+
+            <img ng-if="$index > 0" ng-show="feed.content.heading.imageGridviewThumb" class="grid_bkg_img" src="{{feed.content.heading.imageGridviewThumb}}"/>
+
+            <div ng-class="feed.content.heading.imageGridviewThumb ? 'grid_art_text':'grid_nothumb_art'">
+                    <ng-include ng-if="feed.content.heading.title" ng-init="titleblock = feed.content.heading.title" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                    <ng-include ng-if="feed.content.heading.subtitle" ng-init="subtitleblock = feed.content.heading.subtitle" src="'../app/views/blocks/feed_subtitle.tpl.html'"></ng-include>
+                          
+                    <ng-include ng-if="feed.content.richtext.data" ng-init="ritchtextblock = feed.content.richtext.data" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+            </div>
+        </div>
+
+        <div ng-switch-when="quickpost" class="grid_feed_nothumb">
+          <div class="grid_quickpost_desc">
+                  <ng-include ng-if="feed.content.text.text" ng-init="ritchtextblock = feed.content.text.text" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+          </div>
+        </div>
+
+        <div ng-switch-when="wiki" class="grid_feed_art" ng-class="feed.content.image.path ? 'grid_feed_art':'grid_feed_nothumb'">
+          <img class="grid_bkg_img" src="{{$root.siteUrl+feed.content.image.path}}"/>
+          <div class="grid_art_text">
+            <ng-include ng-if="feed.content.heading.subtitle" ng-init="subtitleblock = feed.content.heading.subtitle" src="'../app/views/blocks/feed_subtitle.tpl.html'"></ng-include>
+          </div>
+        </div>
+
+        <div ng-switch-when="document" class="grid_feed_note">
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+                <div class="left_part" ng-if="feed.content.document">
+                  <div class="feedthumb_72">
+                    <thumbnail file="feed.content.document"></thumbnail>
+                  </div>
+                </div>
+                      
+                <div class="left_part" ng-if="feed.content.image">
+                  <div class="feedthumb_72">
+                    <thumbnail file="feed.content.image"></thumbnail>
+                  </div>
+                </div>
+
+                <div class="right_part file_info">
+                  <ng-include ng-if="feed.content.document.caption" ng-init="titleblock = feed.content.document.caption" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                  <ng-include ng-if="feed.content.image.caption" ng-init="titleblock = feed.content.image.caption" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+                        
+                  <ng-include ng-if="feed.creationDate" ng-init="ritchtextblock = 'Uploaded'+ feed.creationDate|timeago" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+                </div>
+                                          
+              </div>
+            </div>
+        </div>
+
+        <div ng-switch-when="event" class="grid_feed_note">
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+                <div class="left_part">
+                  <feed-event-thumb event="feed.content.event"></feed-event-thumb>
+                </div>
+                <div class="right_part">
+                  <ng-include ng-if="feed.content.event.title" ng-init="titleblock = feed.content.event.title" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                  <ng-include ng-if="feed.content.event.location" ng-init="ritchtextblock = feed.content.event.location" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+                  <!--<p class="list_ritch_text"> <span class="gray_font">{{feed.content.event.location}}</span> </p>-->
+                </div>                 
+              </div>
+            </div>
+        </div>
+
+        <div ng-switch-when="ImageGallery" class="grid_feed_gallery">
+            <div class="grid_gallery_wrapper">
+              <!--<h3 class="grid_art_title"> {{feed.content.imageGallery.name}} </h3>-->
+              <ng-include ng-if="feed.content.imageGallery.name" ng-init="titleblock = feed.content.imageGallery.name" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+              <div class="grid_img_gallery">
+                <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="feed.content.imageGallery.images" gallerytype="images" other="{feed: feed}"></div>             
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid_toolbar_outer">
+      <feed-controls
+            show-comment-label = "false"
+            referer-community = "referer"
+            feed ="feed"
+            on-click-delete-feed="deleteFeed(feed.uid)"
+      ></feed-controls>
+      <!--<ng-include ng-init="tpl_cmntboxid = 'grildliitem'+$index; tpl_feedid= feed.uid; tpl_showtext=false; allowComment = feed.allowComment;referer = referer;allowShare=feed.allowShare" src="'../app/views/blocks/feed_controls.tpl.html'"></ng-include>-->
+    </div><!-- grid_toolbar_outer -->
+    <!--
+    <ng-include ng-init="feedindex = $index" src="'../app/views/comment_wrapper.html'"></ng-include>
+    -->
+
+</div>

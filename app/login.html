@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Login</title>
+    <link href="styles/theme.css" rel="stylesheet">
+    <link href="styles/vendor.css" rel="stylesheet">
+    <script src="scripts/scripts.js"></script>
+	<!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+-->    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />  
+    
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link type="image/x-icon" href="favicon.ico" />
+
+    
+        <link rel="apple-touch-icon" sizes="57x57" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="72x72" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="114x114" href="images/lively/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="144x144" href="images/lively/favicon.ico" />
+
+    <style type="text/css">
+
+    html { 
+    }
+
+    body { 
+      background: url(../images/lively/bg.jpg) no-repeat center center fixed;  
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;
+      min-height:100%;
+    }
+
+    p
+    {
+        margin:10px 0;
+    }
+
+    html, body, .container-table {
+    height: 100%;
+    min-height:100%;
+    }
+    .container-table {
+        display: table;
+    }
+    .vertical-center-row {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    /*****loginPAGE****/
+
+.login-container.login {
+    padding: 40px 30px;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.login-container.login .btn {
+    font-weight: 700;
+    height: 44px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.login {
+    /*background: rgba(255,255,255,0.85);*/
+    background: rgba(255,255,255,1);
+    padding: 20px 25px 30px;
+    padding: 20px 25px 30px;
+    margin: 20px auto;
+    border-radius: 2px;
+    box-shadow: 5px 0 24px rgba(86,140,163,.15);
+    -webkit-box-shadow: 5px 0 24px rgba(86,140,163,.15);
+}
+
+
+.form-signin #inputEmail,
+.form-signin #inputPassword {
+    direction: ltr;
+    height: 40px;
+}
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    box-sizing: border-box;
+    height: 44px;
+    border: 1px solid #ddd;
+    box-shadow: 5px 0 24px rgba(86,140,163,.15);
+    -webkit-box-shadow: 5px 0 24px rgba(86,140,163,.15);
+}
+
+.form-signin .form-control:focus {
+    border-color: rgb(125, 31, 91);
+    outline: 0;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+    /*background-color: rgb(125, 31, 91);*/
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    border-radius: 3px;
+    border: none;
+    transition: all 0.218s;
+}
+
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
+    background-color: rgb(125, 175, 92);
+}
+
+.text-center .gogglelog{
+    background: #DD4B39;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 5px 10px 5px;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+
+.text-center .azure{
+    background: #62c9ef;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    padding: 10px 5px 10px 5px;
+    font-size: 13px;
+    font-family: sans-serif;
+}
+.text-center .azure .azure_icon img{
+    width: 18px;
+    position: absolute;
+    margin-left: 0px;
+    height: 22px;
+}
+.fa-google-plus{
+        font-size: 22px;
+    vertical-align: middle;
+}
+.loginAlt{
+    margin-top: 15px;
+}
+    </style>
+
+</head>
+<body>
+
+
+ <div ng-app="" class="container container-table" ng-controller="">
+
+
+        <div class="row vertical-center-row">
+            <div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12">
+                <div class="login login-container">
+		            <div class="text-center"> <img src="images/lively/logo.png">
+		                 <p style="color:black;">Connexion avec identifiant et mot de passe</p> 
+		            </div> 
+		            <form class="form-signin" name="f" action="/login" method="post" role="form">
+		                <span id="reauth-email" class="reauth-email"></span>
+		                <input type="text" class="form-control" name="username" id="username" ng-model="user.username">
+		                <input type="password" class="form-control" name="password" id="password" ng-model="user.password">
+		                <button class="btn btn-lg btn-danger btn-block btn-signin" type="submit" value="Se connecter">Se connecter
+		                	<!--<span ng-if="loadingStart"><i class="fa fa-spin fa-spinner"></i></span>-->
+		                </button>
+		            </form>
+			
+		            <div class="text-center" style="text-align: center;">
+		            	<a style="color:#2C93E4;" href="/forgot_password.html"> Mot de passe oublié? </a>
+		                <p style="color:red;display:none;" id="note">Votre tentative de connexion <strong>a échoué</strong>, veuillez <strong>réessayer</strong>.</p>
+		            </div>
+					<div class="text-center loginAlt">
+                                            <a href="/login/google" class="gogglelog btn-block">
+                                                <span>
+                                                    <i class="fa fa-google-plus"></i>
+                                                </span>Se connecter avec Google
+                                            </a>
+                                            <span style="color:black;margin-left: 3px;"> ou </span>
+                                            <a href="/login/azure" class="azure btn-block">
+                                                <span class="azure_icon">
+                                                     <img src="images/lively/azure.png"/>
+                                                </span>
+                                                <span style="padding-left: 25px;">Se connecter avec Azure AD
+                                                </span></a>
+	         
+		    	</div>
+        		</div>
+ 			</div>
+        </div>
+ </div> 
+
+    <script>
+        var query = location.search;
+        if (location.search.match("error")) {
+            document.getElementById('note').style.display = 'block';
+        }
+    </script>
+</body>
+</html>

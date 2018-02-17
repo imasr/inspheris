@@ -1,0 +1,386 @@
+<div ng-init="tpl_list =($ctrl.listView === 'true' ? true: false); showCommentSection = $ctrl.showFullComments;feedindex = $ctrl.feedIndex; tpl_feedid= $ctrl.feed.uid; tpl_showtext =($ctrl.showCommentLabel ==='true' ? true: false); 
+allowComment = $ctrl.feed.allowComment;allowShare=$ctrl.feed.allowShare;showFullComments=$ctrl.showFullComments;
+showViewInModal = $ctrl.showViewLabel;
+viewInFile=($ctrl.viewInFile === 'true' ? true :false);">
+<div ng-if="!viewInFile">
+  <div ng-if="!isEditingMode" class="art_control_wraper">
+    <div class="all-controls">
+      <div ng-if="$root.userData.canComment && (allowComment || feed.commentCount > 0)" class="art_btn btn_comment floatl" ng-click="showCommentBox(feed,showFullComments)">
+        <div class="btn_icon">
+          <!-- <span class="lnr lnr-bubble"></span> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <!-- <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Comment</span>  -->
+          <span class="lbl cnt-txt" ng-if="feed.commentCount > 0">({{feed.commentCount}})</span>
+        </div>
+      </div>
+
+      <span ng-if="$root.userData.canComment && (allowComment || feed.commentCount > 0)" class="btn_seprator floatl">&bull;</span>
+      
+      <div class="art_btn btn_like floatl" ng-if="$root.userData.canLike">
+        <div class="btn_icon" ng-click="addLike(tpl_feedid);" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'">
+          <!-- <span class="lnr lnr-thumbs-up"></span> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <span ng-if= "feed.userLiked == false"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="Like" analytics-category="Like"></span><!--Like--></span>
+		  <span ng-if= "feed.userLiked == true"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="UnLike" analytics-category="Like"></span><!--UnLike--></span>
+          <span class="lbl cnt-txt" ng-if="feed.likeCount > 0" ng-click="showMemberViewer()">&nbsp;({{feed.likeCount}})</span><!-- ng-init="userlistData = {type: 'feedLikes'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" ng-attr-data-trigger="{{(feed.likeCount > 0)?'click':''}}" data-auto-close="1" bs-popover -->
+        </div>
+      </div>
+
+      <!--sharing option hidden-->
+      <span once-if="$root.userData.canShare && fo.share && allowShare && feed.type != 'follower quickpost'" class="btn_seprator floatl"> &bull; </span>
+      <div once-if="$root.userData.canShare && fo.share && allowShare && feed.type != 'follower quickpost'" class="art_btn btn_share floatl" ng-click="showSharePopup(feed);">
+        <div class="btn_icon">
+          <!-- <i class="fa fa-share-alt"></i> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <!-- <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Share</span> -->
+          <span class="lbl cnt-txt" ng-if="feed.shareCount > 0">({{feed.shareCount}})</span>
+        </div>
+      </div>
+      <!--
+      <span class="btn_seprator floatl"> </span>
+      <div class="art_btn btn_hide floatl">
+        <div class="btn_icon"> </div>
+        <span>Hide</span>
+      </div>
+      -->
+            <span class="btn_seprator floatl" ng-show="feed.type == 'document'"> &bull; </span>
+
+      <div class="art_btn btn_download floatl" ng-show="feed.type == 'document'">
+        <div class="btn_icon" ng-click="downloadAll()">
+        <a href="" >
+          <!-- <span class="lnr lnr-download"></span> -->
+        </a>
+      </div>
+      </div>
+	  <!-- Private message button -->
+	  <span once-if="$root.writePrivateMessageFeature && allowShare && feed.type != 'follower quickpost'" class="btn_seprator floatl"> &bull; </span>
+          
+          <div ng-if="!tpl_list" class="art_btn floatl feedDot dropdown-toggle" data-toggle="dropdown" ng-class="{'blackDot':black}" ng-click="black=!black">
+                <span class="floatl"> &nbsp;</span>
+                <span class="floatl"> &nbsp;</span>
+                <span class="floatl"> &nbsp;</span>
+          </div> 
+              <ul ng-if="!tpl_list" class="dotMenufeed dropdown-menu"  ng-click="$event.stopPropagation()">
+                  <li>
+	  <div once-if="$root.writePrivateMessageFeature && allowShare && feed.type != 'follower quickpost'" class="art_btn btn_privatemsg floatl fontFeedWrap" ng-click="showPrivateMessagePopup(feed);">
+        Message
+<!--              <div class="btn_icon">
+        </div>-->
+      </div>
+                  </li>
+      <!--<span class="btn_seprator floatl" ng-if="($root.userData.canComment || $root.userData.canLike || $root.userData.canShare) && feed.hashtags.length > 0"> &bull; </span>-->
+<li style="display: none;">
+      <div class="art_btn btn_hashtag floatl" ng-if="feed.hashtags.length > 0" ng-init="userlistData = {type: 'feedHashtags'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" data-trigger="click" data-auto-close="1" data-delay="100,500" data-container=".btn_hashtag" bs-popover><!--data-delay="<show>,<hide>" -->
+        <div class="btn_icon">
+          <!-- <img src="../images/canal/hashtag_active.svg" class="feed-icon icon-hashtag" /> -->
+          <i class="fa fa-hash">#</i>
+        </div>
+        <!-- <div class="btn-lbl-wrap">
+          <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Hashtag</span>
+        </div> -->
+      </div> 
+</li>
+<li>
+      <!--<span class="btn_seprator floatl hide" ng-if="feed.translationStatus && feedTranslateOptn"> &bull; </span>-->
+      <div class="art_btn btn_lang floatl hide" ng-if="feed.translationStatus && feedTranslateOptn" data-placement="bottom" data-template-url="../app/views/blocks/feed_translate.tpl.html" data-content="{{ {uid: feed.uid, language: feed.language, sourceId: feed.sourceId} }}" data-trigger="click" data-auto-close="1" bs-popover>
+          <div class="btn_icon">
+            <!-- <i class="fa fa-globe"></i> -->
+          </div>
+          <!-- <div class="btn-lbl-wrap">
+            <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+          </div> -->
+      </div>
+</li>
+<li class ="dropdown-submenu">
+
+      <!--<span ng-if="($root.userData.canComment || $root.userData.canLike || $root.userData.canShare) && feed.translationStatus && feedTranslateOptn && feed.type != 'follower quickpost'" class="btn_seprator floatl"> &bull; </span>-->
+      <div ng-if="feed.translationStatus && feedTranslateOptn && feed.type != 'follower quickpost'" class="art_btn btn_translate_flag floatl">
+        <!--
+        <div class="btn_icon">
+          <i class="fa fa-flag"></i>
+        </div>
+        -->
+        <!--
+        <div class="btn-lbl-wrap" style="padding: 5px 0px;">
+          <div class="select-dd-3" dropdown-select="languageOptions" dropdown-model="selectedLanguage" dropdown-onchange="feedLanguageChanged(selected)" dropdown-item-label="name"></div>
+        </div>
+        -->
+        <div class="btn-group drop-down3" style="width: 100%;">
+            <div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" ng-click="showLanguageDropdown()">
+                <div class="fontFeedWrap" ng-class="{'bgTranslate':compileLangMenu}">
+                    Translate<i class="fa fa-angle-right"></i>
+                </div>
+<!--                <div class="btn_icon">
+                <span class="btn_icon"> 
+                 <span class="lnr lnr-spell-check"></span> 
+              </span>
+              </div>-->
+              <!-- <div class="btn-lbl-wrap">
+                <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+              </div> -->
+              <!--
+              <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Display in</span>
+              -->
+            </div>
+            <ul ng-if="compileLangMenu" class="dropdown-menu pad5" role="menu" ng-class="{'displayMenu':compileLangMenu}">
+              <li ng-repeat="lang in languageOptions">
+                <div class="clk" ng-click="feedLanguageChanged(lang,translate)">
+                  <a href="javascript:void(0)" translate><span once-text="lang.name"></span></a>
+                </div>
+              </li>
+            </ul>
+        </div>
+      </div>
+</li></ul>
+      <!--</div>-->
+<!--for list view comment wrapper START-->
+    <!--<span ng-if="tpl_list" once-if="$root.writePrivateMessageFeature && allowShare && feed.type != 'follower quickpost'" class="btn_seprator floatl"> &bull; </span>-->
+	  <div  ng-if="tpl_list" once-if="$root.writePrivateMessageFeature && allowShare && feed.type != 'follower quickpost'" class="art_btn btn_privatemsg floatl" ng-click="showPrivateMessagePopup(feed);">
+              <div class="btn_icon">
+        </div>
+      </div>
+      <span class="btn_seprator floatl" ng-if="tpl_list && ($root.userData.canComment || $root.userData.canLike || $root.userData.canShare) && feed.hashtags.length > 0"> &bull; </span>
+      <div  class="art_btn btn_hashtag floatl" ng-if="tpl_list && feed.hashtags.length > 0" ng-init="userlistData = {type: 'feedHashtags'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" data-trigger="click" data-auto-close="1" data-delay="100,500" data-container=".btn_hashtag" bs-popover><!--data-delay="<show>,<hide>" -->
+        <div class="btn_icon">
+          <!-- <img src="../images/canal/hashtag_active.svg" class="feed-icon icon-hashtag" /> -->
+          <i class="fa fa-hash">#</i>
+        </div>
+        <!-- <div class="btn-lbl-wrap">
+          <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Hashtag</span>
+        </div> -->
+      </div> 
+      <!--<span class="btn_seprator floatl hide" ng-if="feed.translationStatus && feedTranslateOptn"> &bull; </span>-->
+      <div class="art_btn btn_lang floatl hide" ng-if="feed.translationStatus && feedTranslateOptn" data-placement="bottom" data-template-url="../app/views/blocks/feed_translate.tpl.html" data-content="{{ {uid: feed.uid, language: feed.language, sourceId: feed.sourceId} }}" data-trigger="click" data-auto-close="1" bs-popover>
+          <div class="btn_icon">
+            <!-- <i class="fa fa-globe"></i> -->
+          </div>
+          <!-- <div class="btn-lbl-wrap">
+            <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+          </div> -->
+      </div>
+
+      <span ng-if="tpl_list && ($root.userData.canComment || $root.userData.canLike || $root.userData.canShare) && feed.translationStatus && feedTranslateOptn && feed.type != 'follower quickpost'" class="btn_seprator floatl"> &bull; </span>
+      <div ng-if="tpl_list && feed.translationStatus && feedTranslateOptn && feed.type != 'follower quickpost'" class="art_btn btn_translate_flag floatl">
+        <!--
+        <div class="btn_icon">
+          <i class="fa fa-flag"></i>
+        </div>
+        -->
+        <!--
+        <div class="btn-lbl-wrap" style="padding: 5px 0px;">
+          <div class="select-dd-3" dropdown-select="languageOptions" dropdown-model="selectedLanguage" dropdown-onchange="feedLanguageChanged(selected)" dropdown-item-label="name"></div>
+        </div>
+        -->
+        <div class="btn-group drop-down3" style="width: 100%;">
+            <div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" ng-click="showLanguageDropdown()">
+
+                <div class="btn_icon">
+<!--                <span class="btn_icon"> 
+                 <span class="lnr lnr-spell-check"></span> 
+              </span>-->
+              </div>
+              <!-- <div class="btn-lbl-wrap">
+                <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Translate</span>
+              </div> -->
+              <!--
+              <span class="lbl btn-lbl-txt" ng-if="tpl_showtext" translate>Display in</span>
+              -->
+            </div>
+            <ul ng-if="compileLangMenu" class="dropdown-menu pad5" role="menu" style="position: absolute;">
+              <li ng-repeat="lang in languageOptions">
+                <div class="clk" ng-click="feedLanguageChanged(lang,translate)">
+                  <a href="javascript:void(0)" translate><span once-text="lang.name"></span></a>
+                </div>
+              </li>
+            </ul>
+        </div>
+      </div>
+<!--for list view comment wrapper END-->
+      <div class="floatr" ng-if="feed.canEdit">
+        <div class="btn_delete floatr" ng-click="$ctrl.onClickDeleteFeed({uid :feed.uid});">
+           <div class="btn_icon">
+            <!-- <span class="lnr lnr-trash"></span> -->
+           </div>
+        </div>
+        <span ng-hide="feed.type=='share' || feed.type == 'follower quickpost'" class="btn_seprator floatr"> • </span>
+        <div  ng-hide="feed.type=='share' || feed.type == 'follower quickpost'" class="btn_edit floatr" ng-click="$root.editArticle(feed)">
+          <div class="btn_icon">
+            <!-- <span class="lnr lnr-pencil"></span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div>
+    <!--
+    <div ng-if="showControls" class="comment_container">
+      <div ng-include="'../app/views/comment_wrapper.html'" ng-init="feedindex = $parent.$index"></div>
+    </div>
+    -->
+    <div ng-if="showCommentSection && (allowComment || feed.commentCount > 0) " class="comment_wrapper hide_all_cmnt" ng-init="uniqueid = getComputedId();" id="{{uniqueid}}">
+    <!--
+    ng-init="uniqueid = getComputedId();" id="{{uniqueid}}" 
+    {{uniqueid}}
+    -->
+      <div ng-if="allowComment || feed.commentCount > 0" class="comment_pointer"> </div>
+
+      <div ng-if="feed.commentCount > 0 && !isEditingMode && !showViewInModal" class="comment_li vall_cmnt">
+          <span class="floatl clk fc1 fs2" ng-click="viewAllComments('{{uniqueid}}')" translate>View_all_comments</span>
+          <div class="floatr clk fc1 fs2" ng-click="closeAllComments()">
+            <span translate>Close</span>
+            <i class="fa fa-times"></i>
+          </div>
+      </div>
+
+      <div ng-if="feed.commentCount > 0 && !isEditingMode" ng-repeat="cmnt in feed.comments" ng-class-odd="'odd'" ng-class-even="'even'">
+          <comment ng-if="$index < showLimit" comment="cmnt" allow-comment="allowComment" feed="feed" feed-translate-optn="feedTranslateOptn"></comment>
+      </div>
+
+      <p ng-if="fo.commentStatus == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></p>
+      <p ng-if="fo.commentStatus == 3" class="rclor" translate>something_went_wrong</p>
+
+      <div ng-if="!isEditingMode && showAllComments && fo.commentStatus != 1" class="floatl width100 pad10 clk" ng-click="loadMoreComments()">
+        <span translate>Load more comments</span>
+      </div>
+       <!--
+      ng-if="(feed.comments.length > 1) && (showLimit < feed.comments.length) && !isEditingMode && showAllComments"
+      -->
+      
+      <div ng-if="allowComment" class="comment_li comment-box disp_table">
+        <div class="tblr">
+          <div class="tblc comment_li_lhs">
+            <div class="com_icon_outer">
+              <!--<img class="com_icon" src="images/feed/community_icon.png">-->
+              <!--<div block-right-click class="afkl-lazy-wrapper" afkl-lazy-image="{{$root.userData.headerLogoUrl}}"></div>-->
+              <a ui-sref="app.myprofile({uid: $root.userData.uid, activetab: 'About'})">
+                <div class="com_icon" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName}"> </div>
+              	<img style="position: absolute;z-index: 1;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && $root.userData.badge" ng-src="{{$root.userData.badge.image.url}}">
+              </a>
+            </div>
+          </div>
+          <div class="tblc">
+            <div class="comment_zone">
+              <form enctype="multipart/form-data" id="cmntfrm_{{$index}}">
+              <!-- <textarea msd-elastic ng-model="commentData.text" class="comment_box" name="text" placeholder="{{'Write_a_comment' | translate}}" ng-focus="showCommentOptions(uniqueid)"></textarea> -->
+
+              <textarea msd-elastic mentio
+                  mentio-macros="macros"
+                    mentio-trigger-char="'@'"
+                    mentio-items="members"
+      
+                    mentio-search="getKeywords(term)"
+                    mentio-select="keyWordSelected(item)"
+                    mentio-typed-term="typedTerm"
+                    mentio-require-leading-space="true"
+
+                    class="comment_box"
+                    mentio-id="'theTextArea'"
+                    ng-model="commentData.text"
+                    ng-trim="false"
+                    rows="6" ng-focus="showCommentOptions(uniqueid)">
+              </textarea><!-- mentio-template-url="/people-mentions.tpl" -->
+
+              <div class="comment_options" ng-class="{hide: !isEditingMode}">
+                <div class="comment_action"> 
+                  <!--
+                  <div class="attach_file" type="file" ng-file-select="onCmntFileSelect($files, $feedindex)" data-multiple="true" multiple accept="image/*, .doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf">
+                  </div>
+                  -->
+                  
+                  <!-- <input class="ins_file_input" type="file" ng-file-select="onCmntFileSelect($files, 'lvcmntfiles_'+$index)" data-multiple="true" multiple> -->
+                  <div class="attachfileComment imgblk" ng-click="addImageGallery()">
+                  </div>
+                  <div class="attachfileComment docblk" ng-click="addDocGallery()">
+                  </div>
+                  <div class="attachfileComment vdoblk" ng-click="addVideoGallery()">
+                  </div>
+                  <div class="attachfileComment link" ng-click="addLinkEmbed()">
+                  </div>
+                  <div class="ins_btn_ctext cmnt-done floatr" ng-class="{'disabled': isPublishing}" ng-click="addComment(feedindex, feed.uid);" analytics-on="click" analytics-event="Comment" analytics-category="Comment"> <span translate>Publish</span> </div>
+                </div>
+                <div class="flcmnt_files" ng-if="attachedFiles.length > 0">
+                <!-- ng-if="(commentData.attachment[$feedindex].images.length > 0) || (commentData.attachment[$feedindex].document.length > 0)" -->
+                  <div class="flcmnt_file_title floatl">
+                    <label class="floatl hide" translate>Files</label>
+                    <!--
+                    <span class="glyphicon glyphicon glyphicon-plus floatr rotate45deg"></span> -->
+                    <div class="close14x14 floatr" ng-click="removeAllAttachment($event)"></div>
+                  </div>
+
+                  <div class="ufiles_area floatl">
+                    <!--
+                    <div class="ufile_outer floatl">
+                      <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                      <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                    </div>
+                    <div class="ufile_outer floatl">
+                      <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                      <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                    </div>
+                    <div class="ufile_outer floatl">
+                      <div class="ufile_name"><div class="delete_btn floatl"></div>Night Paris.jpg</div>
+                      <img class="feedthumb_140" src="/images/media/art_img_140x140.png"/>
+                    </div>
+                    -->
+                    <!-- for image files -->
+                    <ul class="cmnt_imgattach" ng-if="commentData.attachment[$feedindex].images.length > 0">
+                      <li class="afile" ng-repeat="filedata in commentData.attachment[$feedindex].images">
+                        <div class="delete_btn" ng-click="deleteImgAttachFile($feedindex, $index, $event)"></div>
+                        <img ng-src="{{filedata.thumbUrl}}"/>
+                      </li>
+                    </ul>
+                    <!-- for other files -->
+                    <ul class="cmnt_docattach files" ng-if="commentData.attachment[$feedindex].document.length > 0">
+                      <li class="afile" ng-repeat="filedata in commentData.attachment[$feedindex].document" ng-switch="filedata.fileType|getFileType">
+                        <div ng-switch-when="doc">
+                          <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                          <div class="file_icon doc"></div>
+                          <span class="file_name">{{filedata.fileName}}</span>
+                        </div>
+                        <div ng-switch-when="pdf">
+                          <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                          <div class="file_icon pdf"></div>
+                          <span class="file_name">{{filedata.fileName}}</span>
+                        </div>
+                        <div ng-switch-when="ppt">
+                          <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                          <div class="file_icon ppt"></div><span class="file_name">{{filedata.fileName}}</span>
+                        </div>
+                        <div ng-switch-when="xls" class="file_wrap floatl">
+                          <div class="delete_btn" ng-click="deleteDocAttachFile($feedindex, $index, $event)"></div>
+                          <div class="file_icon xls"></div><span class="file_name">{{filedata.fileName}}</span>
+                        </div>
+                      </li>
+                    </ul>
+
+                    <div class="required_field" ng-repeat="attachment in attachedFiles">
+                      <media-gallery-upload-panel attachment="attachment" media-type="attachment.type" on-add-block="addContentBlock(attachment.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+             </form>
+            </div>
+          </div><!-- right part -->
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <div ng-if="viewInFile">
+      <div class="art_btn btn_like floatl">
+        <div class="btn_icon" ng-click="addLike(tpl_feedid);" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'">
+          <!-- <span class="lnr lnr-thumbs-up"></span> -->
+        </div>
+        <div class="btn-lbl-wrap">
+          <span ng-if= "feed.userLiked == false"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="Like" analytics-category="Like"></span><!--Like--></span>
+		  <span ng-if= "feed.userLiked == true"><span class="lbl btn-lbl-txt" ng-if="tpl_showtext" ng-click="addLike(tpl_feedid);" translate analytics-on="click" analytics-event="UnLike" analytics-category="Like"></span><!--UnLike--></span>
+          <span class="lbl cnt-txt" ng-if="feed.likeCount > 0" ng-click="showMemberViewer()">&nbsp;({{feed.likeCount}})</span><!-- ng-init="userlistData = {type: 'feedLikes'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" ng-attr-data-trigger="{{(feed.likeCount > 0)?'click':''}}" data-auto-close="1" bs-popover -->
+        </div>
+      </div>		 	
+  </div>
+</div>

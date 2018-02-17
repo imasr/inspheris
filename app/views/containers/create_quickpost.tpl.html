@@ -1,0 +1,226 @@
+<div class="qpst-wrapper" ng-controller="CreateQuickpostCtrl">
+        <!-- For multiple communities -->
+    <div ng-if="editQuickpostData === '' || editQuickpostData.importFromSearch" class="row marb10">
+      <div ng-if="editQuickpostData === ''|| editQuickpostData.importFromSearch" class="btn-group ins_dropdown col-xs-12 col-sm-6 widthauto700" ng-click="selectCommunity()" >
+        <button type="button" class="btn btn-default" style="width: 86%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+            <span>{{selectedCommLabel | translate}}</span>
+        </button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+        </div>
+        <!--ng-if="(editQuickpostData === '' || editQuickpostData.importFromSearch) && selectedCommunities.length > 0"-->
+        <div ng-disabled="selectedCommunities.length < 1" class="col-xs-12 col-sm-6 btn-group ins_dropdown singlebar" ng-class="{'disableQuick':selectedCommunities.length < 1}">
+            <button  ng-disabled="selectedCommunities.length < 1" type="button" class="btn btn-default" data-toggle="dropdown" style="width: 86%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                <span ng-if="commTab" translate>{{commTab}}</span>
+                <span ng-if="!commTab">{{'select_community_tab' | translate}}</span></button>
+        <ul class="dropdown-menu" role="menu">
+                   <li class="ddli-lbl" ng-repeat="com in communityForTabsSelection" ng-click="stopPropagation($event)" ng-init="oIdx=$index">{{com.label}}
+            <ul>
+                        <li class="ddli-lbl" ng-repeat="tab in com.tabs track by tab.uid" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+                            <div class="ins_checkbox">
+                              <input type="checkbox" name="ccmtab{{oIdx+'_'+iIdx}}" id="ccmtab{{oIdx+'_'+iIdx}}" class="css-checkbox" ng-model="tab.selected" ng-checked="tab.selected" ng-click="chooseTab($event,tab)">
+                              <label for="ccmtab{{oIdx+'_'+iIdx}}" class="css-label" >{{tab.tabName}}</label>
+                            </div>
+                        </li>
+                      </ul>
+                    </li>
+              </ul>
+      </div>
+          </div>
+          <!-- End For multiple communities -->
+  <div class="disp_table width100">
+    <div class="tblr width100">
+      <div class="tblc square_uimg">
+        <!--
+        <img onerror-src="images/no_image_user.png" class="width100 height100 img-circle" ng-src="{{$root.getUserProfilePic($root.userData)}}">
+        -->
+        <div class="img-circle" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName}"></div>
+      </div>
+      <div class="tblc padl10 heighttextarea">
+        <textarea id="mainContent" msd-elastic mentio
+
+            mentio-macros="macros"
+            mentio-trigger-char="'@'"
+            mentio-items="members"
+
+            mentio-search="getKeywords(term)"
+            mentio-select="keyWordSelected(item)"
+            mentio-typed-term="typedTerm"
+            mentio-require-leading-space="true"
+           expandable-textarea ng-focus="init('quickpostTitle')" id="quickpostTitle"
+          class="quickpost-input floatl width100"
+          placeholder="{{'Whats_new?' | translate}}" ng-model="quickpostData.quickpostDesc"
+            ng-trim="false" maxlength="500" rows="6" ng-focus="showPublishOptions()" ng-disabled="disableTextArea"
+            style="overflow: hidden;" ng-if="enableMetions">
+        </textarea>
+<!--            <div class="tag-input-ctn" ng-class="{'enableinput': !disableTextArea}" ng-click="hostclick()" style="display: none;min-height: 70px;">
+            <div data-ng-repeat="(key,tag) in inputTags" class="input-tag">
+                <span class="hash-tag" ng-if="tag.hastag">{{tag.hastag}}
+                    <span class="delete-tag" ng-click="deleteTag(key)">&times;</span>
+                </span>
+                <span class="name-tag" ng-if="tag.name">{{tag.name}}</span>
+                <span class="name-tag" ng-if="tag.text" >{{tag.text}}</span>
+            </div>
+                <span class="name-tag" style="float: left;padding: 5px;color: dimgrey;" ng-if="disableTextArea">{{'Whats_new?' | translate}}</span>
+            <input  type="text" data-tag-input="" data-ng-model="quickpostData.quickpostDesc" data-ng-style="{width:inputWidth}" expandable-textarea
+                ng-focus="init('quickpostTitle')" id="quickpostTitle" ng-class="{'disableinput': disableTextArea}" ng-trim="false" ng-focus="showPublishOptions()" ng-disabled="disableTextArea"
+                 data-new-tag="newTag()"  ng-keydown="removeTagOnBackspace($event)">
+            </div>-->
+ 
+        <textarea  expandable-textarea ng-focus="init('quickpostTitle')" id="quickpostTitle"
+          class="quickpost-input floatl width100"
+          placeholder="{{'Whats_new?' | translate}}" ng-model="quickpostData.quickpostDesc"
+            ng-trim="false" maxlength="500" ng-focus="showPublishOptions()" ng-disabled="disableTextArea"
+            style="max-width: 100%; min-height: 60px; overflow: hidden; margin-bottom: 5px;" ng-if="!enableMetions">
+        </textarea>
+<!--                   <div data-ng-repeat="(key,tag) in inputTags" ng-if="tag.hastag" class="input-tag">
+                    <span class="hash-tag" ng-click="edithash(key,tag.hastag)" ng-if="tag.hastag">{{tag.hastag}}
+                    <span class="delete-tag" ng-click="deleteTag(key)">&times;</span>
+                </span></div>-->
+    
+      </div>
+    </div>
+      <span ng-if="disableTextArea" class="tblc padl10 alert-text quickpost-alert"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i> <span translate>Please choose communities and community tabs</span></span>
+  </div><!-- disp-table -->
+
+<!--  <div class="hashtagdiv" ng-click="hostclick()" style="display:none;">
+          <ul ng-repeat="hash in hashArr">
+            <li class="hashtagLi" ng-if="hash.text"> {{hash.text}} &nbsp;&nbsp;<span><a href="#" ng-click="$removeTag()">x</a></span></li>
+            <li class="mentionUser" ng-if="hash.label"> {{hash.label}}</li>
+          </ul>
+          <input mentio
+            ng-model="quickpostData.quickpostDesc"
+            mentio-id="'quickpostData.quickpostDesc' + myIndexValue"
+            type="text"
+            class="form-control"
+            ng-trim="false"
+            ng-focus="showPublishOptions()"
+            size="100"
+            id="input-focus"/>
+        </div>
+
+        <mentio-menu
+             mentio-for="'quickpostData.quickpostDesc' + myIndexValue"
+             mentio-trigger-char="'#'"
+             mentio-items="members"
+             mentio-search="hashtag(quickpostData.quickpostDesc)"
+             mentio-select="getProductTextRaw(item)"
+            ></mentio-menu>
+        <mentio-menu
+             mentio-for="'quickpostData.quickpostDesc' + myIndexValue"
+             mentio-trigger-char="'@'"
+             mentio-items="members"
+             mentio-search="getKeywords(term)"
+             mentio-select="keyWordSelected(item)"></mentio-menu>-->
+
+
+  <div class="qpst-controlls width100 mart10" ng-show="showOptionsFlag">
+          <div>
+
+            <!--
+            <div class="btn-group ins_dropdown floatl">
+              <button type="button" class="btn btn-default">Select</button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+
+              <ul class="dropdown-menu" role="menu">
+                <li ng-repeat="comm in communitylist" ng-click="whatsNewCommValChanged();">
+                  <a>{{comm.label}}</a>
+                </li>
+              </ul>
+            </div>
+            -->
+      <div ng-if="showCommSelect" class="clear topmargin">
+        <div ng-if="editQuickpostData != '' && !editQuickpostData.importFromSearch" class="row" style="padding: 15px;">
+            <div class="col-xs-12 col-sm-6 editQuickDrop1" dropdown-select="ddSelectOptions" dropdown-model="selectedCommUid" dropdown-onchange="quickpostCommSelecte(selected)" dropdown-item-label="text" ></div>
+      <div class="col-xs-12 col-sm-6 btn-group ins_dropdown singlebar editQuickDrop2" ng-show="tabsSelection.tabs.length > 0" >
+          <button title="{{tabsSelection.text}}" type="button" class="btn btn-default btnpaddingQuck" data-toggle="dropdown">{{tabsSelection.text}}</button>
+           <ul class="dropdown-menu" role="menu">{{tabsSelection.text}}
+                   <li class="ddli-lbl" ng-repeat="tab in tabsSelection.tabs" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="tab.selected" ng-checked="tab.selected" ng-click="chooseTab($event,tab)">
+                        <label for="cctbsel{{iIdx}}" class="css-label">{{tab.tabName}}</label>
+                      </div>
+                    </li>
+              </ul>
+      </div>
+    </div>
+
+
+
+       <div class="row">
+      <div class="col-sm-6 col-xs-12">
+      <div class="quickpost_attachment_wrapper" ng-show="showAttachmentOptns">
+              <div data-placement="bottom" ng-init="title = 'Video'"  data-template-url="../views/blocks/tooltip.tpl.html" data-content="Video" data-trigger="hover" data-auto-close="1" bs-popover ng-class="blockActive=='videoGallery' ? 'qp-active' : '' " class="fl_attach vdo" ng-click="addVideoGallery()"></div>
+              <div data-placement="bottom" ng-init="title = 'Document'"  data-template-url="../views/blocks/tooltip.tpl.html" data-content="Document" data-trigger="hover" data-auto-close="1" bs-popover ng-class="blockActive=='documentGallery' ? 'qp-active' : '' " class="fl_attach doc" ng-click="addDocGallery()"></div>
+              <div data-placement="bottom" ng-init="title = 'Images'"  data-template-url="../views/blocks/tooltip.tpl.html" data-content="Images" data-trigger="hover" data-auto-close="1" bs-popover ng-class="blockActive=='imageGallery' ? 'qp-active' : '' " class="fl_attach img" ng-click="addImageGallery()"></div>
+              <div data-placement="bottom" ng-init="title = 'Link'"  data-template-url="../views/blocks/tooltip.tpl.html" data-content="Link" data-trigger="hover" data-auto-close="1" bs-popover ng-class="blockActive=='linkEmbed' ? 'qp-active' : '' " class="fl_attach link" ng-click="addLinkEmbed()"></div>
+              <div data-placement="bottom" ng-init="title = 'Yammer'"  data-template-url="../views/blocks/tooltip.tpl.html" data-content="yammer" data-trigger="hover" data-auto-close="1" bs-popover ng-class="blockActive=='yammerEmbed' ? 'qp-active' : '' " class="fl_attach yam" ng-click="addYammerEmbed()"></div>
+      </div>
+          
+      </div>
+          <div class="col-sm-6 col-xs-12">
+              <span class="letter_cnt" style="float: right; margin-right: 5px;"> {{500 - quickpostData.quickpostDesc.length}}&nbsp;{{'characters_left' | translate}}</span>
+          </div>
+       <div class="col-sm-12 col-xs-12" style="text-align: initial;" ng-show="showAttachmentOptns">
+            <div class="hashtag_wraper"> 
+               <p><b>{{'Hashtags' | translate}}: </b>{{'write_hasthag_senttence' | translate}}</p> 
+               <p><b>{{'Sample' | translate}}: </b>#hashtag1 #hashtag2 #hashtag3</p> 
+               <tags-input ng-model="caHashTag" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}} #hashtag1 #hashtag2 #hashtag3" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'>
+                <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete>
+              </tags-input>
+
+            </div>
+      </div> 
+       <div style="clear:both;"></div>
+      <div class="col-sm-12" ng-if="attachedFiles.length > 0">
+            <!-- for file uploads -->
+            <div class="fc1 fs1 marb10 mart10 tal" ng-repeat="file in attachedFiles">
+                <strong ng-if="file.type=='videoGallery'"> <span>{{'Add Video' | translate}}</span></strong>
+                <strong ng-if="file.type=='documentGallery'"> <span>{{'Add Documents' | translate}}</span></strong>
+                <strong ng-if="file.type=='imageGallery'"> <span>{{'Add Images' | translate}}</span></strong>
+                <strong ng-if="file.type=='linkEmbed'"> <span>{{'Add Link' | translate}}</span></strong>
+                <strong ng-if="file.type=='yammerEmbed'"> <span>{{'Add Yammer' | translate}}</span></strong>
+            </div>
+
+            <div class="required_field" ng-switch="attachedFiles[0].type">
+              <div ng-switch-when="videoGallery">
+                   <media-gallery-upload-panel attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+              </div>
+              <div ng-switch-when="documentGallery">
+                   <media-gallery-upload-panel attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+              </div>
+              <div ng-switch-when="imageGallery">
+                   <media-gallery-upload-panel attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+              </div>
+              <div ng-switch-when="linkEmbed">
+                   <media-gallery-upload-panel attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+              </div>
+			  <div ng-switch-when="yammerEmbed">
+                   <media-gallery-upload-panel attachment="attachedFiles[0]" media-type="attachedFiles[0].type" on-add-block="addContentBlock(attachedFiles[0].type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-sm-8 col-xs-12 text-left">
+              <!--<span class="letter_cnt"> {{500 - quickpostData.quickpostDesc.length}}&nbsp;{{'characters_left' | translate}}</span>-->
+          </div>
+          <div class="col-sm-4 col-xs-12">
+              <button class="btn-default ins_btn_ctext floatl" ng-disabled="disabledPublishedQuickPost" ng-click="publishShortArt(caHashTag)"> {{'Publish' | translate}}
+              <span ng-if="disabledPublishedQuickPost"><i class="fa fa-spin fa-spinner"></i></span>
+              </button>
+          </div>
+          </div>
+
+
+      </div><!--row END-->
+
+
+      </div>
+     </div>
+        </div>

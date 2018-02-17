@@ -1,0 +1,14 @@
+<!-- urlobj {type: 'url', link: ''} -->
+<div class="editblock_wrap">
+	<div class="conrol_wrapper floatl"> 
+      <div class="inner_wrap floatr">
+        <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addContentBlock('url')"></div>
+        <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+        <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+      </div>
+    </div>
+
+    <div class="files_wrapper width100 floatl fixed">
+      <input class="ins_input_tex" ng-model="urlobj.path" type="text" placeholder="URL">  
+    </div>
+</div>

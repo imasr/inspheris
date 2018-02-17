@@ -1,0 +1,422 @@
+<div ng-init ="showArtInfoBar = $ctrl.showArticleInfoBar == 'true' ? true : false;
+ showControls = $ctrl.showControls == 'true' ? true : false;
+ showFullComments = $ctrl.showFullComments == 'true' ? true : false;
+ userDetail = $ctrl.userDetail;
+ index=$ctrl.index;
+ showViewInModal = $ctrl.showViewLabelInModal;
+ showFeedStatus = $ctrl.showFeedStatus; " class="feed_content">
+
+  <div class="fcf_div">
+    <div once-if="showArtInfoBar">
+      <!--<div ng-init="tpl_uinfo = feed; feeduid = feed.uid;" ng-include="'../app/views/blocks/feed_lv_userartinfo.tpl.html'"></div>-->
+      <feed-user-info show-feed-status="{{showFeedStatus}}"
+                      action-sentence="actSentence"
+                      feed-staus-loader="feedStausLoader"
+                      enable-tootip="{{enableTootip}}"
+                      selected-feed-status="selectedFeedStatus"
+                      feed-status-selection ="feedStatusSelection"
+                      on-change="feedStautsChanged(option)"
+                      uid-user-tooltip="userDetail.uid"
+                      index="index"
+                      type-view="listview"
+                      ></feed-user-info>
+    </div>
+
+    <!-- <a href="#/article/{{feed.uid}}"></a> -->
+    <!-- Article Container -->
+
+    <div class="fl_article_container" ng-class="feed.type">
+      <!-- specific for canal -->
+      <div once-if="feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki' || feed.type == 'imageGallery'">
+
+          <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.community.label|urlEncode}}', commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+          <div once-if="feed.type == 'quickpost'" class="post-title" ng-bind-html="feed.parseText"> </div>
+          </a>
+
+          <div  ng-if="headerImg.imageGridviewSmallThumb" class="left_part">
+            <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"
+                          small-image ="headerImg.smallImage"
+                          background-color ="headerImg.imageGridviewSmallThumbBackroundColor"
+                          posX ="headerImg.imageGridviewSmallThumbPosX"
+                          posY ="headerImg.imageGridviewSmallThumbPosY"
+              ></feed-thumb>
+              <!--<ng-include ng-init="imgsrc = headerImg.imageGridviewSmallThumb;smallImage = headerImg.smallImage;backgroundColor = headerImg.imageGridviewSmallThumbBackroundColor; posX = headerImg.imageGridviewSmallThumbPosX; posY = headerImg.imageGridviewSmallThumbPosY" src="'../app/views/blocks/feed_thumb.tpl.html'"></ng-include>-->
+            </a>
+          </div>
+
+          <!--For quickpost with Embed Link  -->
+           <div  ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" class="left_part"  style="text-align:center;">
+           		<div ng-if="mediaGalleryFiles[0].thumbnail_url" afkl-lazy-image="{{mediaGalleryFiles[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+           		<div ng-if="!mediaGalleryFiles[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{mediaGalleryFiles[0].subTitle}}</div>
+           </div>
+
+          <div class="right_part">
+            <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <div class="post-title"> {{artTitle}}</div><!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis data-ellipsis-append="{{readMoreText}}" to fadetext  add fadetext class -->
+            </a>
+
+              <!--<div title="{{artSubTitle}}" class="post-subtitle mxln2" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>-->
+
+              <!--For quickpost with Embed Link  -->
+              <div ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" style="margin-bottom: 5px;">
+              	<a href="{{mediaGalleryFiles[0].path}}"  target="_blank">
+	           		<div class="post-title" style="color:#1b1b1b">{{mediaGalleryFiles[0].title}}</div>
+	          		<div style=" max-height: 35px;" data-ng-bind="mediaGalleryFiles[0].description" once-if="mediaGalleryFiles[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+	          		<img ng-if="mediaGalleryFiles[0].favicon!=''" ng-src="{{mediaGalleryFiles[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{mediaGalleryFiles[0].location}}" target="_blank">{{mediaGalleryFiles[0].location}}</a>
+          		</a>
+              </div>
+                <!-- <div data-ng-bind="artText" once-if="artText != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div> -->
+                <a ng-if="feed.type == 'article'" ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})">
+                  <span translate>read+</span>
+                </a>
+
+
+            <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+              <div class="list_img_gallery">
+                <div once-if="mediaGalleryType == 'imageGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'videoGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'documentGallery'">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'linkEmbed' && mediaGalleryFiles.length > 1">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div once-if="feed.type == 'follower quickpost'">
+
+          <!--<div class="post-title" ng-bind-html="feed.parseText"> </div>-->
+
+          <!--For quickpost with Embed Link  -->
+           <div  ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" class="left_part">
+           		<div ng-if="mediaGalleryFiles[0].thumbnail_url" afkl-lazy-image="{{mediaGalleryFiles[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+           		<div ng-if="!mediaGalleryFiles[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{mediaGalleryFiles[0].subTitle}}</div>
+           </div>
+
+          <div class="right_part">
+            <a>
+              <div class="post-title"> {{artTitle}}</div><!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis data-ellipsis-append="{{readMoreText}}" to fadetext  add fadetext class -->
+            </a>
+
+              <!--<div title="{{artSubTitle}}" class="post-subtitle mxln2" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>-->
+
+              <!--For quickpost with Embed Link  -->
+              <div ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" style="margin-bottom: 5px;">
+              	<a href="{{mediaGalleryFiles[0].path}}"  target="_blank">
+	           		<div class="post-title" style="color:#1b1b1b">{{mediaGalleryFiles[0].title}}</div>
+	          		<div style=" max-height: 35px;" data-ng-bind="mediaGalleryFiles[0].description" once-if="mediaGalleryFiles[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+	          		<img ng-if="mediaGalleryFiles[0].favicon!=''" ng-src="{{mediaGalleryFiles[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{mediaGalleryFiles[0].location}}" target="_blank">{{mediaGalleryFiles[0].location}}</a>
+          		</a>
+              </div>
+
+            <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+              <div class="list_img_gallery">
+                <div once-if="mediaGalleryType == 'imageGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'videoGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'documentGallery'">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'linkEmbed' && mediaGalleryFiles.length > 1">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div once-if="feed.type == 'event'">
+        <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+          <div class="left_part">
+            <feed-event-thumb event="eventBlock"></feed-event-thumb>
+          </div>
+          <div class="right_part">
+              <div class="post-evt-title">{{artTitle}}</div> <!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis-->
+              <!--
+              <div once-if="artSubTitle != ''" class="post-evt-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+              -->
+              <div class="post-evt-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+          </div>
+        </a>
+      </div>
+      <!-- share container -->
+      <div once-if="feed.type == 'share'">
+      	<div once-if="sharedType == 'article' || sharedType == 'quickpost' || sharedType == 'wiki' || sharedType == 'imageGallery'">
+         <div  ng-if="headerImg.imageGridviewSmallThumb" class="left_part">
+            <a ui-sref="app.communityHomeWithArticle({ name: feed.sharedCommunity.label, commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+              <feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"></feed-thumb>
+              <!--<ng-include ng-init="imgsrc = headerImg.imageGridviewSmallThumb" src="'../app/views/blocks/feed_thumb.tpl.html'"></ng-include>-->
+            </a>
+        </div>
+
+        <div class="right_part">
+        	 <a ui-sref="app.communityHomeWithArticle({ name: feed.sharedCommunity.label, commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+              <div class="post-title" >{{artTitle}} </div><!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis data-ellipsis-append="{{readMoreText}}" to fadetext  add fadetext class -->
+            </a>
+            <div data-ng-bind="artText" once-if="artText != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+            <a ng-if="feed.type == 'article'" ui-sref="app.communityHomeWithArticle({ name: feed.sharedCommunity.label, commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'readmore',referer: referer})">
+                  <span translate>read+</span>
+            </a>
+
+             <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+              <div class="list_img_gallery">
+                <div once-if="mediaGalleryType == 'imageGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'videoGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'documentGallery'">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+                </div>
+              </div>
+            </div>
+			</div>
+      	</div>
+      	<div once-if="sharedType == 'event'">
+	      	<a ui-sref="app.communityHomeWithArticle({ name: feed.sharedCommunity.label, commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+	          <div class="left_part">
+              <feed-event-thumb event="eventBlock"></feed-event-thumb>
+	          </div>
+	          <div class="right_part">
+	              <div class="post-evt-title">{{artTitle}}</div> <!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis-->
+	              <!--
+	              <div once-if="artSubTitle != ''" class="post-evt-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+	              -->
+	              <div class="post-evt-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+	          </div>
+	        </a>
+      	</div>
+      	<div once-if="sharedType == 'document'" class="fl_docu_container">
+	      <a ui-sref="app.communityHomeWithArticle({ name: feed.sharedCommunity.label, commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+	        <div once-if="mediaGalleryFiles.length > 0" class="left_part">
+
+	          <div class="feedthumb_72" once-if="mediaGalleryFiles.length == 1">
+              <thumbnail file="mediaGalleryFiles[0]"></thumbnail>
+	          </div>
+
+	          <div once-if="mediaGalleryFiles.length > 1" class="feedthumb_72 thumb-more-files">
+	            <div class="disp_table">
+	              <div class="tblc">
+	                <span>
+	                  {{mediaGalleryFiles.length}}
+	                </span>
+	              </div>
+	            </div>
+	          </div>
+	        </div>
+
+	        <div class="right_part file_info">
+	          <div class="post-title">{{artTitle}}  </div> <!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis-->
+	          <!--
+	          <div once-if="artSubTitle != ''" class="post-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+	          -->
+	          <div class="post-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+	        </div>
+	      </a>
+      	</div>
+
+
+      </div>
+
+
+      <div once-if="feed.type == 'media'">
+        <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+          <div class="left_part">
+            <feed-media-thumb thumbmedia="mediaThumbInfo"></feed-media-thumb>
+          </div>
+          <div class="right_part">
+              <div class="post-title">{{artTitle}}</div> <!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis -->
+              <!--
+              <div once-if="artSubTitle != ''" class="post-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+              -->
+              <div class="post-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+          </div>
+        </a>
+      </div>
+
+
+    <!-- document container -->
+
+    <div once-if="feed.type == 'document'" class="fl_docu_container">
+<!--      <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div once-if="mediaGalleryFiles.length > 0" class="left_part">
+
+          <div class="feedthumb_72" once-if="mediaGalleryFiles.length == 1">
+            <thumbnail file="mediaGalleryFiles[0]"></thumbnail>
+          </div>
+
+          <div once-if="mediaGalleryFiles.length > 1" class="feedthumb_72 thumb-more-files">
+            <div class="disp_table">
+              <div class="tblc">
+                <span>
+                  {{mediaGalleryFiles.length}}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right_part file_info">
+          <div class="post-title">{{artTitle}}  </div>  data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis
+
+          <div once-if="artSubTitle != ''" class="post-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+
+          <div class="post-subtitle mxln2 fadetxt" once-html="artSubTitle"> </div>
+        </div>
+      </a>-->
+<div  ng-if="headerImg.imageGridviewSmallThumb" class="left_part">
+            <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"
+                          small-image ="headerImg.smallImage"
+                          background-color ="headerImg.imageGridviewSmallThumbBackroundColor"
+                          posX ="headerImg.imageGridviewSmallThumbPosX"
+                          posY ="headerImg.imageGridviewSmallThumbPosY"
+              ></feed-thumb>
+              <!--<ng-include ng-init="imgsrc = headerImg.imageGridviewSmallThumb;smallImage = headerImg.smallImage;backgroundColor = headerImg.imageGridviewSmallThumbBackroundColor; posX = headerImg.imageGridviewSmallThumbPosX; posY = headerImg.imageGridviewSmallThumbPosY" src="'../app/views/blocks/feed_thumb.tpl.html'"></ng-include>-->
+            </a>
+          </div>
+
+          <!--For quickpost with Embed Link  -->
+           <div  ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" class="left_part"  style="text-align:center;">
+               <div ng-if="mediaGalleryFiles[0].thumbnail_url" afkl-lazy-image="{{mediaGalleryFiles[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+               <div ng-if="!mediaGalleryFiles[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{mediaGalleryFiles[0].subTitle}}</div>
+           </div>
+
+          <div class="right_part">
+            <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <div class="post-title"> {{artTitle}}</div><!-- data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis data-ellipsis-append="{{readMoreText}}" to fadetext  add fadetext class -->
+            </a>
+
+              <!--<div title="{{artSubTitle}}" class="post-subtitle mxln2" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>-->
+
+              <!--For quickpost with Embed Link  -->
+              <div ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" style="margin-bottom: 5px;">
+               <a href="{{mediaGalleryFiles[0].path}}"  target="_blank">
+                  <div class="post-title" style="color:#1b1b1b">{{mediaGalleryFiles[0].title}}</div>
+                  <div style=" max-height: 35px;" data-ng-bind="mediaGalleryFiles[0].description" once-if="mediaGalleryFiles[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+                  <img ng-if="mediaGalleryFiles[0].favicon!=''" ng-src="{{mediaGalleryFiles[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{mediaGalleryFiles[0].location}}" target="_blank">{{mediaGalleryFiles[0].location}}</a>
+               </a>
+              </div>
+                <!-- <div data-ng-bind="artText" once-if="artText != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div> -->
+                <a ng-if="feed.type == 'article'" ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})">
+                  <span translate>read+</span>
+                </a>
+
+
+            <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+              <div class="list_img_gallery">
+                <div once-if="mediaGalleryType == 'imageGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'videoGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'documentGallery'">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'linkEmbed' && mediaGalleryFiles.length > 1">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+    </div>
+    
+    <!-- Grand Article -->
+	<div once-if="feed.type == 'grandArticle'">
+          <div  ng-if="headerImg.imageGridviewSmallThumb" class="left_part">
+            <a ng-if="feed.template.name == 'Template 1'" ui-sref="app.grandArticleTemplate1({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"
+                          small-image ="headerImg.smallImage"
+                          background-color ="headerImg.imageGridviewSmallThumbBackroundColor"
+                          posX ="headerImg.imageGridviewSmallThumbPosX"
+                          posY ="headerImg.imageGridviewSmallThumbPosY"
+              ></feed-thumb>   
+            </a>
+            <a ng-if="feed.template.name == 'Template 2'" ui-sref="app.grandArticleTemplate2({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <feed-thumb imgsrc = "headerImg.imageGridviewSmallThumb"
+                          small-image ="headerImg.smallImage"
+                          background-color ="headerImg.imageGridviewSmallThumbBackroundColor"
+                          posX ="headerImg.imageGridviewSmallThumbPosX"
+                          posY ="headerImg.imageGridviewSmallThumbPosY"
+              ></feed-thumb>   
+            </a>
+          </div>
+
+          <!--For quickpost with Embed Link  -->
+           <div  ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" class="left_part"  style="text-align:center;">
+           		<div ng-if="mediaGalleryFiles[0].thumbnail_url" afkl-lazy-image="{{mediaGalleryFiles[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+           		<div ng-if="!mediaGalleryFiles[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{mediaGalleryFiles[0].subTitle}}</div>
+           </div>
+
+          <div class="right_part">
+            <a ng-if="feed.template.name == 'Template 1'" ui-sref="app.grandArticleTemplate1({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <div class="post-title"> {{artTitle}}</div>
+        	</a>
+        	
+            <a ng-if="feed.template.name == 'Template 2'" ui-sref="app.grandArticleTemplate2({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+              <div class="post-title"> {{artTitle}}</div>
+        	</a>
+              <!--For quickpost with Embed Link  -->
+              <div ng-if="mediaGalleryFiles.length == 1 && mediaGalleryType == 'linkEmbed'" style="margin-bottom: 5px;">
+              	<a href="{{mediaGalleryFiles[0].path}}"  target="_blank">
+	           		<div class="post-title" style="color:#1b1b1b">{{mediaGalleryFiles[0].title}}</div>
+	          		<div style=" max-height: 35px;" data-ng-bind="mediaGalleryFiles[0].description" once-if="mediaGalleryFiles[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+	          		<img ng-if="mediaGalleryFiles[0].favicon!=''" ng-src="{{mediaGalleryFiles[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{mediaGalleryFiles[0].location}}" target="_blank">{{mediaGalleryFiles[0].location}}</a>
+          		</a>
+              </div>            
+                <a ng-if="feed.type == 'article'" ui-sref="app.grandArticleTemplate1({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})">
+                  <span translate>read+</span>
+                </a>
+
+
+            <div class="fl_gallery_container" once-if="mediaGalleryFiles.length > 0">
+              <div class="list_img_gallery">
+                <div once-if="mediaGalleryType == 'imageGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="images"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'videoGallery'">
+                  <div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="videos"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'documentGallery'">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+                </div>
+                <div once-if="mediaGalleryType == 'linkEmbed' && mediaGalleryFiles.length > 1">
+                   <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div once-if="showControls" class="feed_controls">
+    <feed-controls
+            list-view = "true"
+            feed-index = "index"
+            show-comment-label = "true"
+            keep-open = "true"
+            referer-community = "referer"
+            show-full-comments = "showFullComments"
+            feed ="feed"
+            on-click-delete-feed="deleteFeed(feed.uid)"
+            show-view-label="showViewInModal"
+    ></feed-controls>
+      <!--<div ng-init="tpl_cmntboxid = feedDivId; feedindex = $index; tpl_feedid= feed.uid; tpl_showtext = true; allowComment = feed.allowComment; keepopen = true;referer = referer;allowShare=feed.allowShare;showFullComments=showFullComments" ng-include="'../app/views/blocks/feed_controls.tpl.html'"></div>-->
+  </div>
+
+</div>

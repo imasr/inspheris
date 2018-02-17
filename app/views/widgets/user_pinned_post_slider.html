@@ -1,0 +1,82 @@
+<div class="container widthauto">
+	<div ng-show="showPreBtn" class="left profile-pinned-post-control">
+		<span class="slide-left" ng-click="onClickPrev();"></span>
+	</div>
+	<div ng-if="showNextBtn" class="right profile-pinned-post-control">
+		<span class="slide-right" ng-click="onClickNext();"></span>
+	</div>	
+    <div class="second-slide-content">
+        <div class="row row-centered" style="padding-bottom: 10px;">
+        	<div ng-if="isCurrentUser" class="col-lg-3 col-md-3 col-sm-4 col-xs-6 paddBtm20 padblw767add">  
+        		<div class="addnewpin"  ng-click="addNewPin();">
+            			<!--<span class="glyphicon glyphicon-pushpin"></span>-->
+                                <p class="lnr lnr-plus-circle font20 posAbs"></p>
+            			<p class="addnewpinP" translate>Add a new Pin</p>
+            	</div>
+        	</div>
+            <div ng-if="totalItems > 0" ng-repeat="pin in pinnedPosts" class="col-lg-3 col-md-3 col-sm-4 col-xs-6 paddBtm20 padblw767">
+        		
+                <div ng-if="!isCurrentUser" ng-class="pin.currentUserPinned || pin.sourcePinUser? 'btn_greenpin floatr':'btn_redpin floatr'"  ng-click="copyPin(pin);">
+                        <div class="btn_icon">
+                        </div>
+                </div>
+                
+             	<div class="pinnedImage">
+                	<a ng-if="pin.pinType == 'Link'" target-blank="true"  once-href="pin.link.path" style="cursor: pointer;">
+	                    	<div style="height: 200px;">
+	                    		<div ng-if="!pin.image" ng-style="{'background-image' : 'url('+pin.link.thumbnail_url+')'}" class="profile-pinned-post-img"></div>
+	                    		<div ng-if="pin.image" no-cache-background-image="{{pin.image.url}}" class="profile-pinned-post-img"></div>
+	                    	</div>       
+                   	</a>
+                        
+                        <div ng-if="pin.pinType == 'Text'">
+                            <div style="height: 200px;" ng-click="showDetails(pin)">
+                                    <div ng-if="pin.image" no-cache-background-image="{{pin.image.url}}" class="profile-pinned-post-img"></div>
+                                    <!--fake when text pin have no image-->
+                                    <img ng-if="!pin.image" style="width:100%;height:150px;border-radius:6px 6px 0px 0px;" src="images/grid_view/grid_articles.png" alt=""/>
+                            </div>
+                        </div>
+					<div ng-if="pin.pinType == 'Video'">
+                   		<div style="height: 200px;" ng-click="showDetails(pin)">
+                 			<div ng-style="{'background-image' : 'url('+pin.video.thumbUrl+')'}" class="profile-pinned-post-img"></div>
+                    	</div>
+                 	</div>
+                   	<div class="title-content">
+                            <p ng-if="pin.pinType == 'Text'" class="pinnedPtag">{{pin.title}}</p>
+                            <p ng-if="pin.pinType == 'Link'" class="pinnedPtag">{{pin.link.title}}</p>
+                            <p ng-if="pin.pinType == 'Video'" class="pinnedPtag">{{pin.video.embedVideoTitle}}</p>
+                            <div ng-if="pin.description && pin.description != ''" class="tblc clk" ng-init="title = pin.description" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              				<div class="uilink mxln1" data-ng-bind="pin.description" data-ellipsis-symbol="..." data-ellipsis> </div>
+                            </div>
+                        </div>
+                        <div class="pinFoot">
+                        	<div class="art_btn btn_like floatl">
+                        		<div class="btn_icon" ng-click="likePin(pin);"></div>
+                        		<div class="btn-lbl-wrap">						         
+						      		<span class="lbl cnt-txt" ng-if="pin.likeCount > 0" ng-click="showMemberViewer(pin.id)">&nbsp;({{pin.likeCount}})</span>
+						        </div>
+                        	</div>
+                            
+                            <div ng-if="isCurrentUser" class="btn_delete floatr"  ng-click="deletePin(pin.id);">
+                                <div class="btn_icon">
+                                </div>
+                            </div>
+                            <span ng-if="isCurrentUser" class="btn_seprator floatr" style="padding-top: 5px;"> • </span>
+                            <div ng-if="isCurrentUser" class="btn_edit floatr"  ng-click="editPin(pin.id);">
+                                <div class="btn_icon">
+                                </div>
+                            </div>
+                        </div>
+              	</div>
+
+            </div> 
+            <div ng-if="totalItems == 0 && isCurrentUser" class="container min-content-ht">
+            	<div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            		<div style="height:250px; border:1px dotted #ccc; text-align: center;line-height: 150px;">
+            			<p> <span translate>You don't have any pin.</span> <a ng-click="addNewPin();" translate>Create a new one</a></p>
+            		</div>
+            	</div>
+            </div>
+        </div>
+    </div>
+</div>

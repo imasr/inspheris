@@ -1,0 +1,229 @@
+<div ng-controller="ReportDetailsCtrl" class="report-details" >
+	<div ng-if="reportType != 'gbconnect' && reportType!='gbcontent' && reportType!='userdetails' && reportType != 'communitycontent'" class="btn-group width100 tac mart10 marb10" >
+			<button ng-repeat="item in preiodText track by $index" ng-click="select($index,item)" type="button" class="ng-class:{'active': $index == selected}; btn btn-default navbar-btn" ><span translate>{{item.name}}</span></button>
+			<!-- Calendar picker -->
+			<div id="period-button" class="period-button" style="display: none;" >
+					<div class="ins_btn_liconbor floatl" style="margin-top: 8px; margin-bottom: 8px; height: 34px">
+				            <div class="form-group right">
+				           		<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+				            </div>
+				     </div>
+			     
+				     <div class="ins_btn_liconbor floatl" style="margin-left:5px;margin-top: 8px; margin-bottom: 8px; height: 34px">
+
+			            <div class="form-group right">
+			               <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+			            </div>
+      			    </div>
+				     <button style="float: left;margin-left:5px" type="button" class="btn btn-default navbar-btn" ng-click="selectPeriod(dateFrom,dateTo)" translate>Accept</button>
+			</div>
+			<p style="text-align:center;clear:both;">{{periodLabel}}</p>			
+	</div>
+	
+	<div ng-if="reportType == 'userdetails'" class="btn-group width100 tac mart10 marb10" >		
+		<button ng-repeat="filter in userDetailsFilters track by $index" ng-click="selectUserDetails($index,filter)" type="button" class="ng-class:{'active': $index == selectedFilter}; btn btn-default navbar-btn" ><span translate>{{filter.name}}</span></button>		
+		<!--<p style="text-align:center;clear:both;">{{defaultFilter}}</p>  -->
+	</div>
+	<div ng-if="reportType == 'userdetails'" class="btn-group width100 tac mart10 marb10" >
+		<div class="input-group search_wrapper bordergray floatl" style="width: 40%;">
+       		<input type="text" class="form-control" placeholder="{{'Search' | translate}}" ng-model="searchText" ng-keyup="filterUsers($event,searchText)">
+          	<span class="input-group-addon glyphicon glyphicon-search" ng-click="doFilter(searchText)"></span>
+      	</div>
+      	
+      	<!--  Add the filter date for 'All users' sub-tab and 'User Connection Summary'-->
+      	<div ng-if="userFilter == 'userDetailsAndActions' || userFilter == 'connectUserSummary'" class="btn-group width100 tac mart10 marb10" >
+			<button ng-repeat="item in preiodText track by $index" ng-click="select($index,item)" type="button" class="ng-class:{'active': $index == selected}; btn btn-default navbar-btn" ><span translate>{{item.name}}</span></button>
+			<!-- Calendar picker -->
+			<div id="period-button" class="period-button" style="display: none;" >
+					<div class="ins_btn_liconbor floatl" style="margin-top: 8px; margin-bottom: 8px; height: 34px">
+				            <div class="form-group right">
+				           		<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+				            </div>
+				     </div>
+			     
+				     <div class="ins_btn_liconbor floatl" style="margin-left:5px;margin-top: 8px; margin-bottom: 8px; height: 34px">
+
+			            <div class="form-group right">
+			               <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+			            </div>
+      			    </div>
+				     <button style="float: left;margin-left:5px" type="button" class="btn btn-default navbar-btn" ng-click="selectPeriod(dateFrom,dateTo)" translate>Accept</button>
+			</div>
+			<p style="text-align:center;clear:both;">{{periodLabel}}</p>			
+		</div>
+		<!--  END Add the filter date for 'All users' sub-tab -->
+	</div>
+
+	<!-- Communtiy tab -->
+	<div ng-if="reportType == 'communitycontent'" class="btn-group width100 tac mart10 marb10" >
+		<button ng-repeat="filter in communityContentFilters track by $index" ng-click="selectCommunityContentDetails($index,filter)" type="button" class="ng-class:{'active': $index == selectedCommunityContentFilter}; btn btn-default navbar-btn" ><span translate>{{filter.name}}</span></button>		
+	</div>
+	<div ng-if="reportType == 'communitycontent'" class="btn-group width100 tac mart10 marb10" >
+      	<div class="btn-group width100 tac mart10 marb10" >
+			<button ng-repeat="item in preiodText track by $index" ng-click="select($index,item)" type="button" class="ng-class:{'active': $index == selected}; btn btn-default navbar-btn" ><span translate>{{item.name}}</span></button>
+			<!-- Calendar picker -->
+			<div id="period-button" class="period-button" style="display: none;" >
+					<div class="ins_btn_liconbor floatl" style="margin-top: 8px; margin-bottom: 8px; height: 34px">
+				            <div class="form-group right">
+				           		<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+				            </div>
+				     </div>
+			     
+				     <div class="ins_btn_liconbor floatl" style="margin-left:5px;margin-top: 8px; margin-bottom: 8px; height: 34px">
+
+			            <div class="form-group right">
+			               <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+			            </div>
+      			    </div>
+				     <button style="float: left;margin-left:5px" type="button" class="btn btn-default navbar-btn" ng-click="selectPeriod(dateFrom,dateTo)" translate>Accept</button>
+			</div>
+			<p style="text-align:center;clear:both;">{{periodLabel}}</p>			
+		</div>
+		<!--  END Add the filter date for 'All users' sub-tab -->
+	</div>	
+	
+	<h5 ng-if="reportType == 'activity' || reportType == 'commentlike' || reportType == 'contentviewdbysource' || reportType == 'userdetails' || reportType == 'userDetailsAndActions' || reportType == 'communitycontent'" style="text-align:center;" translate>{{chartTitle}}</h5>
+	
+	<a href="#menu-toogle" id="toggle-menu-report" ng-if="reportType == 'activity' || reportType == 'commentlike' || reportType == 'contentviewdbysource' || reportType == 'userdetails' || reportType == 'userDetailsAndActions' || (reportType == 'communitycontent' && communityContentFilter == 'activity')" ng-click="hiddenExport()"><span></span></a>
+			<div id="menu-toogle">
+				  <ul>
+				    <li><a href="#home" ng-click="exportReport(reportType,userFilter)" translate>Export</a></li>
+				  </ul>
+			</div>
+	
+	<!-- Global Connection Tab -->
+	<div ng-if="reportType == 'gbconnect'" style="text-align: center;" class="btn-group width100 tac mart10 marb10" >
+			<button ng-repeat="item in golbalConnectText track by $index" ng-click="selectGlobal($index,item)" type="button" class="ng-class:{'active': $index == golbalSelected}; btn btn-default navbar-btn" translate>{{item}}</button>
+	</div>
+	<div ng-if="reportType == 'gbconnect' && globalType == 'connecttotal'" class="btn-group width100 tac mart10 marb10" >
+		<button ng-repeat="format in formatTypes track by $index" ng-click="selectFormat($index,format)" type="button" class="ng-class:{'active': $index == selectedFormatIndex}; btn btn-default navbar-btn" ><span translate>{{format}}</span></button>		
+	</div>
+	<div ng-if="reportType == 'gbconnect' && globalType == 'connecttotal' && selectedFormat == 'table'" class="btn-group width100 tac mart10 marb10" >
+      	<div class="btn-group width100 tac mart10 marb10" >
+			<button ng-repeat="item in preiodText track by $index" ng-click="select($index,item)" type="button" class="ng-class:{'active': $index == selected}; btn btn-default navbar-btn" ><span translate>{{item.name}}</span></button>
+			<!-- Calendar picker -->
+			<div id="period-button" class="period-button" style="display: none;" >
+					<div class="ins_btn_liconbor floatl" style="margin-top: 8px; margin-bottom: 8px; height: 34px">
+				            <div class="form-group right">
+				           		<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+				            </div>
+				     </div>
+			     
+				     <div class="ins_btn_liconbor floatl" style="margin-left:5px;margin-top: 8px; margin-bottom: 8px; height: 34px">
+
+			            <div class="form-group right">
+			               <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+			            </div>
+      			    </div>
+				     <button style="float: left;margin-left:5px" type="button" class="btn btn-default navbar-btn" ng-click="selectPeriod(dateFrom,dateTo)" translate>Accept</button>
+			</div>	
+		</div>
+		<div>
+				<h5 style="text-align:center;" translate>{{chartTitle}}</h5>
+				<p style="text-align:center;clear:both;">{{periodLabel}}</p>	
+		</div>	
+	</div>
+	<a href="#menu-toogle-gbconnect" id="toggle-menu-report" ng-if="reportType == 'gbconnect' && globalType == 'connecttotal' && selectedFormat == 'table'" ng-click="hiddenGbconnectExport()"><span></span></a>
+	<div id="menu-toogle-gbconnect">
+		<ul>
+			<li><a href="#home" ng-click="exportReport(reportType,userFilter)" translate>Export</a></li>
+		</ul>
+	</div>
+	
+	<div ng-show="loadding" style="text-align:center;"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></div>
+	<ng:switch on="reportType" ng-show="!loadding">
+		<!-- Report 7th -->
+		<div ng-switch-when="commentlike" class="marb20" >
+			<div id="commentlikerp" ui-grid="gridCommentAndLikeReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		</div>
+		<!-- Report 1th -->
+		<div ng-switch-when="gbconnect" class="marb20">
+			<div ng-if="selectedFormat == 'chart'" class="marb20" style="height: 400px; overflow-y: scroll; margin-bottom: 20px;">
+				<div  id="gbconnectReport"></div>
+			</div>
+			<div ng-if="selectedFormat == 'table'" class="marb20">
+				<div id="totalGlobalConnectionsTableByDate" ui-grid="gridTotalGlobalConnectionsTableByDateReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			</div>			
+		</div>
+		<!-- Report 3th -->
+		<div ng-switch-when="gbcontent" class="marb20" style="height: 400px; overflow-y: scroll; margin-bottom: 20px;">
+			<div id="gbcontentReport"></div>
+		</div>
+		<div ng-switch-when="community" class="marb20" style="height: 400px; overflow-y: scroll; margin-bottom: 20px;">
+			<div id="communityrp"></div>
+		</div>
+		
+		<div ng-switch-when="communitycontent" class="marb20">
+			<div ng-if="communityContentFilter == 'contentpercommunity'" class="marb20" style="height: 400px; overflow-y: scroll;margin-bottom: 20px;">
+				<div id="contentcreatecommunityReport"></div>
+			</div>
+			
+			<div ng-if="communityContentFilter == 'contentviewcommunity'" class="marb20" style="height: 400px; overflow-y: scroll; margin-bottom: 20px;">
+				<div id="contentviewcommunityReport"></div>	
+			</div>
+			
+			<div ng-if="communityContentFilter == 'activity'" class="marb20" style="height: 400px; overflow-y: scroll; margin-bottom: 20px;">
+				<table class="table table-bordered table-striped table-condensed">
+					<tr>
+						<th translate width="60%;" ng-click="sortReport('comName', 'asc')"  class="sort-header ng-class:{'ui-grid-icon-down-dir': 'asc' == sortKey, 'ui-grid-icon-up-dir': 'desc' == sortKey};">Community Name</th>
+						<th translate>Tab Name</th>
+						<th translate>Number of viewed tabs</th>
+					</tr>
+					<tbody>
+						<tr ng-repeat="item in list">
+							<td ng-if="$index == 0 || ($index != 0 && list[$index-1].communityName != list[$index].communityName)">{{item.communityName}}</td>
+							<td ng-if="$index != 0 && list[$index-1].communityName == list[$index].communityName"></td>
+							<td>{{item.communityTabName}}</td>
+							<td>{{item.viewingTabCount}}</td>
+						</tr>					
+					</tbody>
+				</table>
+			</div>			
+		</div>	
+		
+		<!-- Report 6th -->
+		<div ng-switch-when="contentviewdbysource" class="marb20" >
+			<div id="contentViewBySource" ui-grid="contentViewdBySourceReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		</div>
+		<!-- Report 9th -->
+		<div ng-switch-when="userdetails" class="marb20">
+			<div ng-if="userFilter == 'userneverconnected'" id="userNeverConnected" ui-grid="userNeverConnectedReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			<div ng-if="userFilter == 'userconnectedlessequal10'" id="userConnectedLessEqual10" ui-grid="userConnectedLessEqual10Report" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			<div ng-if="userFilter == 'allusersconnected'" id="allUsersConnected" ui-grid="allUsersConnectedReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			<div ng-if="userFilter == 'userDetailsAndActions'" id="userDetailsAndActions" ui-grid="gridUserDetailsAndActionsReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			<div ng-if="userFilter == 'connectUserSummary'" id="userConnectionSummary" ui-grid="gridUserConnectionSummaryReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+			<div ng-if="userFilter == 'usersConnectedAtTheMoment'" id="usersConnectedAtTheMoment" ui-grid="gridUsersConnectedAtTheMomentReport" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		</div>	
+		<div style="text-align: right;" id="userDetailsDiv" ng-if="reportType == 'userdetails'"><span>{{'Total connections' | translate}} : {{totalConnections}} / </span><span>{{'uniqueConnectionSeries' | translate}} : {{totalUniqueUsers}}</span></div>
+		<p>(*)<span translate>{{reportDescription}}</span></p>
+	</ng:switch>	
+	<style>
+		.sort-header:hover {
+			cursor: pointer;
+		}
+		@font-face {
+		  font-family: 'ui-grid';
+		  src: url('ui-grid.eot#iefix') format('embedded-opentype'), url('../../custom_font/ui-grid.woff') format('woff'), url('../../custom_font/ui-grid.ttf') format('truetype'), url('ui-grid.svg?#ui-grid') format('svg');
+		  font-weight: normal;
+		  font-style: normal;
+		}
+
+		.ui-grid-icon-down-dir{
+			content: '\c358';
+		}
+		.ui-grid-icon-up-dir {
+			  content: '\c359';
+		}
+		
+		.ui-grid-icon-down-dir:before {
+			  content: '\c358';
+		}
+		.ui-grid-icon-up-dir:before {
+			  content: '\c359';
+		}
+		
+		.ui-grid-viewport {
+    		overflow-x: auto !important;
+		}	
+	</style>
+</div>

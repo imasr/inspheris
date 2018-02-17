@@ -1,0 +1,56 @@
+<div class="upload_more upload_square"  once-class="{'one-btn': !showBrowseRemoteFiles}">
+  <div class="abswrap">
+    <div ng-if="!showOnlyBrowseRemoteFiles" class="absinr">
+      <div class="tp_btn">
+        <div class="disp_table width100 ht100">
+           <!--
+            <div class="file_select" type="file" ng-file-select="filesSelected($files)" multiple="multiple" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;"></div>
+            -->
+          <div ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="docBlockAdddocs($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'.doc,.docx,.xls,.xlsx,.ppt,.pptx,.xlsm,application/pdf'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;"></div><!-- ng-file-drop ng-file-select class="file_select" ng-file-change="filesSelected($files, $event)" ng-multiple="true" ng-accept="'.doc,.docx,.xls,.xlsx,.ppt,.pptx,application/pdf'" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" -->
+
+          <div class="tblc_m width100 ht100">
+            <span class="floatl width100 plus_icon"><span class="lnr lnr-plus-circle"></span></span>
+            <span class="floatl width100">{{'Upload' | translate}} /</span>  <span>{{'Drag and Drop' | translate}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="btm_btn disp_table" once-if="showBrowseRemoteFiles">
+        <div class="tblc_m">
+          <div class="dropdown ins-ddbtn">
+            <span class="dropdown-toggle clk" data-toggle="dropdown" once-text="'Browse' | translate">
+            </span>
+            <ul class="dropdown-menu" role="menu">
+              <li class="hide" once-if="showBrowseRemoteFiles" ng-click="showBrowseDocumentPopup()"><a href="javascript: void(0)" once-text="'Browse_all' | translate"></a></li>
+			  <li once-if="showBrowseRemoteFiles"  ng-click="openFileBrowsePopup('document')"><a href="javascript: void(0)" once-text="'Browse_all' | translate"></a></li>
+			  <li ng-click="openGoogleDriveBrowse('doc')"><a href="javascript: void(0)">Google Drive</a></li>
+              <!--
+              <li><a>Google Drive</a>showBrowseDocumentPopup('doc')</li>
+              <li><a href="#">Dropbox</a></li>
+              -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Specific for post from profile -->
+    <div ng-if="showOnlyBrowseRemoteFiles" class="absinr">
+    	<div class="btm_btn disp_table" once-if="showBrowseRemoteFiles" style="height: 100%;">
+        <div class="tblc_m">
+          <div class="dropdown ins-ddbtn">
+            <span class="dropdown-toggle clk" data-toggle="dropdown" once-text="'Browse' | translate">
+            </span>
+            <ul class="dropdown-menu" role="menu">
+              <li once-if="showBrowseRemoteFiles" ng-click="showBrowseDocumentPopup()"><a href="javascript: void(0)" once-text="'Browse_all' | translate"></a></li>
+			  <li ng-click="showGoogleDriveImageFiles()" ><a href="javascript: void(1)" once-text="'GoogleDrive' | translate"></a></li>
+			 
+              <!--
+              <li><a>Google Drive</a></li>
+              <li><a href="#">Dropbox</a></li>
+              -->
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="ins_popup wide_popup">
+<!-- /*
+AddImageGalleryCtrl
+CreateArticleCtrl
+*/ -->
+
+  <div class="popup_header floatl">
+      <div class="popup_title">Yammer</div>
+      <div class="close_btn" ng-click="closeCreateYammerPopup()"> X </div>
+  </div>
+
+  <div class="create_art_container">
+ 	<div class="row">
+	    <div class="col-lg-1" >
+		    <span>Search</span>
+		</div>
+		<div class="col-lg-10">
+		  <input type="text" class="form-control" ng-model="txtSerach" />
+		</div>
+		<div class="col-lg-1" >
+		    <button class="btn glyphicon glyphicon-search"></button>
+		</div>
+	</div>
+	<div class="row" ng-repeat="message in yammerData.data" style="border: 1px solid black;margin:5px 5px 5px 5px;border-radius: 5px;">
+	      <div class="col-lg-12"> 
+				<h4>
+					{{message.body.rich}}
+				</h4>
+		  </div>
+		  <div class="col-lg-12"> 
+				 <span>
+					{{message.created_at}}
+				</span>
+		  </div>
+          <div class="col-lg-12" ng-if="message.attachments.length > 0">
+               <div id="boxdivsub" ng-repeat="attach in message.attachments">
+                   <img ng-src="{{attach.image.url}}" style="width:220px;height:128px" />
+               </div>
+           </div>
+          <div class="col-lg-12" style="margin-bottom:2px">
+              <button class='btn btn-primary pull-right' ng-click="addYammer(message)">Add</button>
+          </div> 
+       </div>
+  </div><!--create_art_container-->
+  
+</div>

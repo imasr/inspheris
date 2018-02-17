@@ -1,0 +1,148 @@
+<div class="row myporfile-cover" ng-class="coverData.bannerUrl != null ? 'tpl_with_banner' : 'tpl_no_banner'"> <!-- class: tpl_with_banner {tpl_no_banner, tpl_with_banner}-->
+    <!--<img class="cover_image" src="images/media/Cover1.png" ng-style="coverImageCss">-->
+    
+    <img class="cover_image" no-cache-src="{{coverData.bannerUrl}}" ng-style="coverImageCss">
+    <!--
+    <div class="cover_image" ng-style="{'background-image': 'url('+coverData.bannerUrl+')', 'height': coverImageCss.height}">
+      
+    </div>
+    -->
+
+    <div class="cover-bottom">
+      <div class="container no_padd_lr">
+        <div class="ful-content"><!--row-->
+          <div class="col-md-2 col-sm-2  col-xs-6">
+            <div class="user_image_m" ng-class="{'circle_user': (coverData.type == 'userprofile')}">
+
+              <a ng-href="{{coverData.logoHref}}" class="thumbnail">
+                <div class="thumb-edit-corner clk" ng-click="changeProfilePic()" ng-if="coverData.showCoverEditBtn">
+                  <i class="fa fa-pencil"></i>
+                </div>
+                <!-- <img src="images/media/art_image.png" alt="..."> -->
+                <!--<img block-right-click no-cache-src="{{coverData.logoUrl}}">-->
+                <!--width100 ht100-->
+                <div class="profile-image" ng-if="coverData.isReady" profile-photo="{url: coverData.logoUrl, firstName: coverData.firstName, lastName: coverData.lastName, nochache: true}"></div>
+                <img style="position: absolute;z-index: 1;top: -35px;left: 0px;width: 60px;height: 60px;" ng-if="coverData.isShowBadge && coverData.badgeImageUrl" src="{{coverData.badgeImageUrl}}">
+                <div class="thumb-lock-corner" ng-show="coverData.isPrivate">
+                  <i class="fa fa-lock"></i>
+                </div>
+              </a>
+            </div>
+          </div><!--col-md-4-->
+
+          <div class="col-md-4 col-sm-4 col-xs-12">
+              <div class="cvr_overflow">
+                  <div class="cvr_udetail">
+                  <span class='cdtitle'>{{coverData.label}}</br><span ng-if="coverData.active == false" style="color:red;font-size:9px;">{{ 'Inactived_User' | translate }}</span></span>
+                  <!--
+                  <div class="cvr_unm">Steven Anderson</div>
+                  <div class="unm_edit"></div>
+                  <div class="cvr_desg">Project Manager</div>
+                  -->
+                </div>
+              </div><!--cvr_overflow-->
+          </div><!--cvr_udetail END-->
+      
+
+        <div class="col-md-6 col-sm-6 col-xs-6 cover-info-section">
+          <div class="cvr_btm_bar">
+            
+          <div class="block-mobile-view disp_table">
+            <div class="tblr" ng-if="coverData.isReady">
+              <!--<div class="tblc_m cover-actn-btn" ng-if="coverData.showCoverEditBtn">
+                <div class="setting_btn clk" ng-click="coverEdit()">
+
+                 {{ 'Edit_My_Profile' | translate }} <span class="fa-stack">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+                  </span>
+                </div>
+                <div class="ver_seprator"></div>
+              </div>-->
+              <!--<div class="tblc_m">
+                <div ng-if="coverData.showSubscribeBtn.flag" class="cover_btn" ng-click="subscribe(coverData.showSubscribeBtn.val)" translate>
+                  {{coverData.showSubscribeBtn.title}}
+                </div>
+              </div>-->
+
+              
+              <div class="setting-round fa tblc_m" translate-title="you_are_community_manager" ng-if="comm.statusOfCurrentUser == 'CommunityManager'"> <img src="../images/comm/comm_crown.png"/> </div>
+              <div class="setting-round fa tblc_m" translate-title="you_are_contributor" ng-if="comm.statusOfCurrentUser == 'Contributor'"> <img src="../images/edit_dark_blue_16x16.png"/> </div>
+
+            <div class="tblc_m" ng-if="coverData.showSubscribeBtn.flag">               
+                <div class="flwr_cnt_wrapper text-center cover-actn-btn setting_btn clk">
+                  <div class="text-center" ng-click="subscribe(coverData.showSubscribeBtn.val)" ng-show="showSubscribeBtn"><!--class="setting-round"-->
+                    <i class="setting-round fa" ng-class="{'fa-plus': coverData.showSubscribeBtn.val == 'follow', 'fa-minus': coverData.showSubscribeBtn.val == 'unfollow'}"></i>
+                  </div>
+                  <span class="hidden-xs" translate ng-click="subscribe(coverData.showSubscribeBtn.val)" ng-show="showSubscribeBtn">{{coverData.showSubscribeBtn.title}}</span>
+                  <div ng-if="coverData.showFollosers || coverData.showContributors" class="ver_seprator"></div>
+                </div>
+              </div>
+
+
+			  <div class="tblc_m" ng-if="coverData.showFollowerBtn">
+			  	<button class="btn btn-default follow-button" type="button">             
+                    <span ng-if="!coverData.isFollowed" class="button-text follow-text" ng-click="followerUser('follow')">
+                        <i class="fa fa-user-plus" aria-hidden="true"></i> {{'Follow_me' | translate }}
+                    </span>
+                    <span ng-if="coverData.isFollowed" class="button-text unfollow-text" ng-click="followerUser('unfollow')" translate-title="Unfollow_me" >
+                        {{'Unfollow_me' | translate }}
+                    </span>                  
+                </button>
+                <!-- <div class="flwr_cnt_wrapper text-center cover-actn-btn setting_btn clk">
+	                  <div class="text-center" ng-click="followerUser()">
+	                   	 <i ng-if="coverData.isFollowed" class="setting-round fa fa-check"></i>
+	                   	 <i ng-if="!coverData.isFollowed" class="setting-round fa fa-minus"></i>
+	                  </div>
+	                  <span  ng-if="coverData.isFollowed" class="hidden-xs" translate ng-click="followerUser()">{{ 'Follower' | translate }}</span>
+	                  <span  ng-if="!coverData.isFollowed" class="hidden-xs" translate ng-click="followerUser()">{{ 'Not Follower' | translate }}</span>
+                </div> -->
+              </div>
+              <div class="tblc_m" ng-if="coverData.showCoverEditBtn">
+                <div class="flwr_cnt_wrapper text-center cover-actn-btn setting_btn clk">
+                  <div class="text-center" ng-click="coverEdit()"><!--class="setting-round"-->
+                    <i class="setting-round fa fa-pencil"></i>
+                  </div>
+                  <span class="hidden-xs" translate ng-click="coverEdit()">{{ 'Edit' | translate }}</span>
+                  <div ng-if="coverData.showFollosers || coverData.showContributors" class="ver_seprator"></div>
+                </div>
+              </div>
+
+              <div ng-if="coverData.showFollosers" class="tblc_m">
+                <div class="flwr_cnt_wrapper cover-actn-btn clk" ng-click="showMemberViewer({uid: coverData.uid, for: coverData.type, type: 'followerList'})"><!-- ng-init="userlistData = {uid: coverData.uid, for: coverData.type, type: 'followerList'}" data-placement="bottom" data-template-url="../app/views/popup_userslist.html" ng-attr-data-trigger="{{(coverData.followerCount > 0)?'click':''}}" data-auto-close="1" bs-popover -->
+                  <div class="cnt" ng-bind="coverData.followerCount"></div>
+                  <span class="hidden-xs" translate>followers</span>
+                  <div class="ver_seprator"></div>
+                </div>
+              </div>
+              
+              <div ng-if="coverData.showContributors" class="tblc_m">
+                <div class="cntbtn_cnt_wrapper cover-actn-btn clk" ng-click="showMemberViewer({uid: coverData.uid, for: coverData.type, type: 'contributorList'})"><!-- ng-init="userlistData = {uid: coverData.uid, for: coverData.type, type: 'contributorList'}" data-placement="bottom" data-template-url="../app/views/popup_userslist.html" ng-attr-data-trigger="{{(coverData.contributorCount > 0)?'click':''}}" data-auto-close="1" bs-popover -->
+                  <div class="cnt" ng-bind="coverData.contributorCount"></div>
+                  <span class="hidden-xs" translate>Contribution</span>
+                </div>
+              </div>  
+            </div>
+          </div>
+          <!--
+          <div class="block-mobile-view">
+            <div class="floatl">
+              <i class="fa fa-cog"></i>
+            </div>
+            <div class="flwr_cnt_wrapper floatl">
+              <div class="cnt">{{coverData.followerCount}}</div>
+              <span>{{ 'followers' | translate }}</span>
+              <div class="ver_seprator"></div>
+            </div>
+            <div class="cntbtn_cnt_wrapper floatl">
+              <div class="cnt">{{coverData.contributorCount}}</div>
+              <span>{{ 'Contribution' | translate }}</span>
+            </div>
+          </div>
+          -->
+        </div><!-- cvr_btm_bar -->
+      </div><!--col-md-6 END-->
+      </div><!--row END-->
+      </div><!--container END-->
+    </div>
+</div> <!-- myprofile-cover -->

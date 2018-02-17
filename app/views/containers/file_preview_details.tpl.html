@@ -1,0 +1,180 @@
+
+<div class="slider">
+<div class="closebtn" style="background-color:white;color:#A7A7AF;" ng-click="closePopup()"> X </div>
+    <div  class="row">
+        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+            <div class="headerNEW col-md-8">
+                   <div class="headertitle" ng-if="file.fileName">{{file.fileName}}</div>
+            </div>
+        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+    </div>
+<div class="row secondrow">
+<div  class="col-md-2 col-sm-2 col-xs-2 rowpopdocbody" ng-click="closePopup()"></div>
+    <div class="marginn rowtop rowtopsingle  col-md-8" ng-if="fileType == 'image'" >
+        <div class="col-md-12 ivgallery_wrap">
+            <ul id="bx-slider" class="bxslider">
+                <li>
+	       			<!-- <div class="image-download">
+	         	   		<span>
+	                   		<a class="floatl" target="_blank" title="{{'Download'| translate}}" ng-href="{{file.url}}" download="{{file.url}}">
+	                      		<div class="download-btn">
+	                           		<i class="fa fa-download"></i>
+	                          	</div>
+	                    	</a>
+	               		</span>
+		               </div> -->
+	               	<img class="imageIvagallry" src="{{file.url}}" id="imagesId"/>
+
+                </li>
+                </ul>
+
+        </div>
+        <div class="fullscreenImagediv">
+          <a class="fullscreenImageSingle" ng-click="fullscreenImageSingle()">
+            <img src="../images/icons/fullscreenBtn.png" alt="">
+          </a>
+        </div>
+    </div>
+
+    <div  class="marginn rowtop col-md-8 videorow" ng-if="fileType == 'video'">
+        <div class="col-md-12 ivgallery_wrap">
+            <ul id="bx-slider" class="bxslider">
+                <li class="videoli">
+                	<custom-videogular-directive data="file"></custom-videogular-directive>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div  class="marginn rowtop col-md-8 newrow" ng-if="fileType == 'document'" ng-class="{'doc-view': (fileType == 'document')}">
+        <div class="col-md-12 col-sm-12 ivgallery_wrap" >
+            <ul id="bx-slider" class="bxslider">
+                <li ng-init="$index=0;" class="width100 document-viewer-div">
+                    <div class="width100 floatl">
+                        <div class="document_list" >
+                                <div class="row marginn" ng-controller="PreviewFileDetailsCtrl">
+                                        <!-- <div class="col-md-4 col-sm-4 col-xs-12">
+                                                <div class="file-details">
+                                                        <div class="well well-sm border-0 boxs-0 marb10">
+                                                                <div class="left_part" style="padding:0;">
+                                                                <img class="floatl tblc_m feedthumb_40" set-icon-file="{fileName: file.fileName, url: '', internal : true, mineType : file.fileType}">
+                                                        </div>
+                                                        <div class="right_part tblc_m">
+                                                                <div ng-show="file.fileTitle" class="fs1">
+                                                                        <div class="clk" style="max-width: 200px" ng-init="title = file.fileTitle" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                                                                        <div style="max-height:45px;overflow: hidden;">{{file.fileTitle}}</div>
+                                                                        </div>
+                                                                </div>
+
+                                                                <span class="fc3 fs3" ng-if="file.fileUploadedDate">
+                                                                        {{file.fileUploadedDate | date: $root.localDateFormat}}
+                                                                </span>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        </div>
+                                                        <div class="table-details ovfh">
+                                                                <table class="table table-borderless table-3px-td">
+                                                                        <tr ng-show="file.author">
+                                                                        <td width="30%"><span class="fc1" translate>By</span></td>
+                                                                        <td><a ng-href="{{$root.generateLink('userProfilePage', file.author)}}" ng-click="closeImgaVideoGalleryPopup()">{{file.author.firstName}} {{file.author.lastName}}</a></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                        <td width="30%"><span class="fc1">{{'File' | translate}}  </span></td>
+                                                                        <td>
+                                                                                <div class="clk" style="max-width: 300px" ng-init="title = file.fileName" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                                                                                 <div>{{file.fileName}}</div>
+                                                                                </div>
+                                                                        </td>
+                                                                        </tr>
+                                                        </table>
+                                                </div>
+                                          </div>
+                                        </div> -->
+                              <div class="row tabledivDoc">
+                                            <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                                                <tbody >
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">Version:</td>
+                                                    <td class="infoTrTd2">{{file.version}} </td>
+                                                  </tr>
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">By:</td>
+                                                    <td class="infoTrTd2">{{file.author.firstName}} {{file.author.lastName}}</td>
+                                                  </tr>
+                                              </tbody>
+                                            </table>
+                                            <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                                              <tbody class="borderleft">
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">File:</td>
+                                                    <td class="infoTrTd2">{{file.fileName}}</td>
+                                                  </tr>
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">Language:</td>
+                                                    <td class="infoTrTd2">{{file.language}}</td>
+                                                  </tr>
+                                                   </tbody>
+                                              </table>
+                                            <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                                              <tbody class="borderleft">
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">Audience:</td>
+                                                    <td class="infoTrTd2">{{file.audience}}</td>
+                                                  </tr>
+                                                  <tr class="infoTr">
+                                                    <td class="infoTrTd1">Created:</td>
+                                                    <td class="infoTrTd2">{{file.uploadedDate | date}}</td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                            </div>
+                                        <div class="col-md-12 col-sm-12 hiddensmall">
+                                                <div ng-if="'pdf' == canPreview(file.url) || 'ppt' == canPreview(file.url) || 'doc' == canPreview(file.url) || 'xls' == canPreview(file.url)" class="preview-div" style="height: 500px;">
+                                                    <ng-include  src="'../app/views/blocks/pdf_view.tpl.html'"></ng-include>
+                                              </div>
+                                              <div ng-if="'pdf' != canPreview(file.url) && 'ppt' != canPreview(file.url) && 'doc' != canPreview(file.url) && 'xls' != canPreview(file.url)" class="tac no-preview-docs">
+                                                    <h4 translate>No preview available</h4>
+                                              </div>
+                                        </div>
+                                </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+<div  class="col-md-2 col-sm-2 col-xs-2 rowpopdocbody" ng-click="closePopup()"></div>
+
+
+</div>
+    
+
+<!--<div  class="row marginn Downloadbtn">
+        <a href="{{file.url}}" src="{{file.url}}">
+          <button type="button" class="btn btn-default btn_img">
+            <i class="fa fa-download" aria-hidden="true"></i>
+            &nbsp;&nbsp;&nbsp; Download File
+          </button>
+        </a>
+    </div>-->
+
+    <div class="fixedFooter setFooter">
+        
+              <div class="galleryDoc">
+                <div class="row marginn" style="max-width: 100%;" >
+                        <div class="col-md-12">  
+                  <div class="btndiv">        
+                      <span ng-if="file.url">
+                        <a target="_blank" title="{{'Download File' | translate}}" ng-href="{{file.url}}">
+                          <button type="button" class="btn btn-default button_file">
+                            <i class="fa fa-download-new" aria-hidden="true"></i>
+                            <span>&nbsp;&nbsp;&nbsp; {{'Download File' | translate}}</span>
+                          </button>
+                        </a>
+                      </span>
+              </div>
+            </div>
+            </div><!--galleryDoc END-->
+        </div><!--end of fixedFooter-->
+
+</div>

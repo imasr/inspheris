@@ -1,0 +1,581 @@
+<div class="ins_popup wide_popup" ng-controller="CreateArticleCtrl">
+
+  <div class="popup_header floatl">
+      <div class="popup_title">{{popupTitle | translate}}</div>
+      <div class="close_btn" ng-click="closeCreateArticlePopup()"> X </div>
+  </div>
+
+  <div class="create_art_container">
+  <div class="row">
+    <div ng-if="modalStatus.status == 1 || modalStatus.status == 0" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+    <h5 class="rclor" ng-if="modalStatus.status == 3" translate>something_went_wrong</h5>
+    <div ng-show="modalStatus.status == 2">
+      <div class="col-md-8 col-sm-12 col-xs-12 left_side">
+      	<div class="required_field" ng-show="popupData.type == 'grandArticle'">
+      		<div style="width: 50%" class="floatl width100 margin_bottom" dropdown-select="grandArticleTemplateOptions" dropdown-model="grandArticleTemplateSelected" dropdown-item-label="text" dropdown-onchange="grandArticleTemplateChanged(selected)"></div>
+      		<div style="width: 30%;margin-left: 10px;" class="floatl width100 margin_bottom">
+				<span ng-if="grandArticleTemplateSelected.text == 'Template 1'"><a href="#!/staticArticle" target="_blank" style="color: #428bca;" translate>Preview</a></span>
+				<span ng-if="grandArticleTemplateSelected.text == 'Template 2'"><a href="#!/newStaticArticle" target="_blank" style="color: #428bca;" translate>Preview</a></span>
+			</div>
+        </div>
+        <div class="required_field" ng-show="popupData.type == 'article' || popupData.type == 'documentGallery' || popupData.type == 'imageGallery' || popupData.type == 'grandArticle'">
+            <input class="ins_input_tex" ng-model="headingBlock.title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">
+
+            <div class="letter_cnt floatr"> {{$root.uiConfig.maxTitleLen - headingBlock.title.length}} <span once-text="'characters_left' | translate"></span></div>
+        </div>
+
+        <div class="no_required_field" ng-show="popupData.type == 'article' || popupData.type == 'documentGallery' || popupData.type == 'imageGallery' || popupData.type == 'grandArticle'">
+            <input class="ins_input_tex" ng-model="headingBlock.subTitle" type="text" placeholder="{{'Subtitle' | translate}}">
+        </div>
+
+        <div class="required_field" ng-show="popupData.type == 'template'">
+            <input class="ins_input_tex" ng-model="templateInfo.name" type="text" placeholder="{{'Name_of_template' | translate}}">
+        </div>
+
+        <div class="no_required_field" ng-show="popupData.type == 'template'">
+            <input class="ins_input_tex" ng-model="templateInfo.description" type="text" placeholder="{{'Description' | translate}}">
+        </div>
+
+        <!-- disable multiple community select featue -->
+        <div class="required_field hide">
+            <!--
+            <div id="selArtComm" class="floatl theme_left_setting" dropdown-select="ddSelectOptions" dropdown-model="communitySelected" dropdown-item-label="text" dropdown-onchange="whatsNewCommValChanged(selected)"></div> -->
+              <div id="selArtComm" class="ins_btn_licon floatl" ng-click="selectCommunity()">
+               <div class="icon setting_icon">
+                <i class="fa fa-cog"></i>
+               </div>
+                <p>{{selectedCommLabel | translate}}</p>
+              </div>
+              <!--
+              <div id="selVisibleComm" class="floatl" dropdown-select="ddSelectOptions" dropdown-model="communitySelected" dropdown-item-label="text" dropdown-onchange="whatsNewCommValChanged(selected)"></div>
+              -->
+        </div>
+
+        <div class="required_field" ng-show="popupData.type != 'content' && popupData.type != 'linkEmbed'">
+			<div ng-if="popupData.action == 'create'" id="selArtComm" class="ins_btn_licon width100" ng-click="selectCommunity()">
+   				<div class="icon setting_icon">
+                	<i class="fa fa-cog"></i>
+               	</div>
+                <p>{{selectedCommLabel | translate}}</p>
+			</div>
+          <div ng-if="popupData.action == 'edit'" class="floatl width100" dropdown-select="ddSelectOptions" dropdown-model="selectedCommUid" dropdown-onchange="quickpostCommSelecte(selected, popupData.type)" dropdown-item-label="text"></div>
+        </div>
+
+        <div class="required_field" ng-show="(popupData.type == 'article'  || popupData.type == 'documentGallery' || popupData.type == 'imageGallery' || popupData.type == 'event' || popupData.type == 'grandArticle') && (communityForTabsSelection.length > 0)">
+          <div class="btn-group ins_dropdown width100">
+              <button type="button" class="btn btn-default" data-toggle="dropdown">{{selectedTabsLabel}}</button>
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+              </button>
+
+              <ul class="dropdown-menu" role="menu">
+                <li class="ddli-ttl" ng-repeat="com in communityForTabsSelection" ng-init="oIdx=$index">{{com.label}}
+                  <ul>
+                    <li class="ddli-lbl" ng-repeat="tab in com.tabs track by tab.uid" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="cctbsel{{oIdx+'_'+iIdx}}" id="cctbsel{{oIdx+'_'+iIdx}}" class="css-checkbox" ng-model="tab.selected" ng-checked="tab.selected">
+                        <label for="cctbsel{{oIdx+'_'+iIdx}}" class="css-label">{{tab.tabName}}</label>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+          </div>
+        </div>
+
+        <div class="no_required_field" ng-show="$root.enablePinCommunityFeature && isPinCommunity && (popupData.type == 'article'  || popupData.type == 'documentGallery' || popupData.type == 'imageGallery' || popupData.type == 'event' || popupData.type == 'grandArticle') && (communityForTabsSelection.length > 0)">
+			<div id="selArtComm" class="floatl width100" dropdown-select="pinCommunityTabSelectOptions" dropdown-model="pinCommunityTabSelected" dropdown-item-label="text"></div>
+        </div>
+
+
+        <ul ng-show="caBlocksArray.length > 0" class="vsortlist" ui-sortable="sortableBlocks" ng-model="caBlocksArray">
+          <!-- specific for canal -->
+          <!--
+          <li ng-if="caBlocksArray.length <= 0" class="fixed">
+            <div class="no_required_field">
+              <div class="texteditor_outer">
+                <span once-text="'Add Block' | translate"> </span>
+              </div>
+            </div>
+          </li>
+          -->
+
+          <li class="vsortlist_item" ng-repeat="item in caBlocksArray" ng-switch="item.type">
+            <!-- ritchtext block -->
+            <div ng-switch-when="richText" class="required_field width100 floatl">
+              <div class="texteditor_outer">
+              	  <span ng-show="popupData.type == 'grandArticle'" translate>Intro</span>
+                  <ng-include ng-init="rtobj = item" src="'../app/views/blocks/edit_richtext_block.tpl.html'"></ng-include>
+              </div>
+            </div>
+
+            <!-- documentGallery, imageGallery, videoGallery, linkEmbed blocks -->
+            <div ng-if="(item.type == 'documentGallery' || item.type == 'imageGallery' || item.type == 'videoGallery' || item.type == 'linkEmbed')" class="required_field width100 floatl">
+              <!--
+              <div class="right_part texteditor_outer">
+                <ng-include ng-init="docobj = item" src="'../app/views/blocks/edit_document_block.tpl.html'"></ng-include>
+              </div>
+              -->
+              <!--
+              <div class="right_part texteditor_outer">
+                  <ng-include ng-init="itemobj = item; type = 'documents';" src="'../app/views/blocks/edit_image_block.tpl.html'"></ng-include>
+              </div>
+              -->
+              <!--<div class="texteditor_outer">-->
+                <!--<ng-include ng-init="attachment = item; type = 'documents';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>-->
+                <media-gallery-upload-panel attachment="item" media-type="item.type" on-add-block="addContentBlock(item.type)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>
+              <!--</div>-->
+            </div>
+
+            <!-- document block -->
+            <div ng-switch-when="document" class="required_field width100 floatl">
+              <div class="texteditor_outer">
+                  <ng-include ng-init="document = item" src="'../app/views/blocks/create_document.tpl.html'"></ng-include>
+              </div>
+            </div>
+
+            <!-- image block -->
+            <!--<div ng-switch-when="imageGallery" class="required_field width100 floatl">-->
+              <!--
+              <div class="right_part texteditor_outer">
+                  <ng-include ng-init="itemobj = item; type = 'images';" src="'../app/views/blocks/edit_image_block.tpl.html'"></ng-include>
+              </div>
+              -->
+              <!--<div class="texteditor_outer">-->
+                <!--<ng-include ng-init="attachment = item; type = 'images';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>-->
+               <!-- <media-gallery-upload-panel attachment="item"  on-add-block="addContentBlock(item.type)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!-- Video block -->
+            <!--<div ng-switch-when="videoGallery" class="required_field width100 floatl">-->
+              <!--
+              <div class="right_part texteditor_outer">
+                <ng-include ng-init="videoobj = item" src="'../app/views/blocks/edit_video_block.tpl.html'"></ng-include>
+              </div>
+              -->
+              <!--
+              <div class="right_part texteditor_outer">
+                  <ng-include ng-init="itemobj = item; type = 'videos';" src="'../app/views/blocks/edit_image_block.tpl.html'"></ng-include>
+              </div>
+              -->
+              <!--<div class="texteditor_outer">-->
+                <!--<ng-include ng-init="attachment = item; type = 'videos';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>-->
+                <!--<media-gallery-upload-panel attachment="item"  on-add-block="addContentBlock(item.type)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>-->
+              <!--</div>-->
+            <!--</div>-->
+
+            <!-- URL block -->
+            <div ng-switch-when="url" class="required_field width100 floatl">
+              <div class="texteditor_outer">
+                <ng-include ng-init="urlobj = item" src="'../app/views/blocks/edit_url_block.tpl.html'"></ng-include>
+              </div>
+            </div>
+
+            <!-- Quote block -->
+            <div ng-switch-when="quote" class="required_field width100 floatl">
+              <div class="texteditor_outer">
+                <ng-include ng-init="quoteobj = item" src="'../app/views/blocks/edit_quote_block.tpl.html'"></ng-include>
+              </div>
+            </div>
+
+            <!-- event block -->
+            <div ng-switch-when="event" class="required_field width100 floatl">
+                <div class="disp_table texteditor_outer">
+                  <ng-include ng-init="eventobj = item" src="'../app/views/blocks/edit_event_block.tpl.html'"></ng-include>
+                </div>
+            </div>
+
+            <!-- wiki block -->
+            <div ng-switch-when="wiki" class="required_field width100 floatl">
+                <div class="texteditor_outer">
+                   <ng-include ng-init="wikiobj = item" src="'../app/views/blocks/edit_wiki_block.tpl.html'"></ng-include>
+                </div>
+            </div>
+
+             <!-- link embed block -->
+            <!--<div ng-switch-when="linkEmbed" class="required_field width100 floatl">-->
+              <!--<div class="texteditor_outer">-->
+                <!--<ng-include ng-init="attachment = item; type = 'linkEmbed';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>-->
+                <!--<media-gallery-upload-panel attachment="item"  on-add-block="addContentBlock(item.type)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>-->
+              <!--</div>-->
+
+            <!--</div>>-->
+          </li>
+        </ul>
+        
+        <!-- Grand Article -->
+ 		<div class="required_field well" ng-show="popupData.type == 'grandArticle'">
+        	<span class="marb10"><h5>{{'Grand Article Pages' | translate}}:</h5></span>
+			<div ui-sortable="sortableGrandArticlePageOptions" ng-model="grandArticlePages">
+				<div class="row well well-sm" ng-repeat="page in grandArticlePages" style="margin:5px 0px;cursor:pointer;" ng-init="pIndex = $index">
+					<div class="col-lg-12 col-md-12" style="padding-right:0px;">
+						<div class="row">
+								<span style="padding:0px;">{{page.title}}</span>	
+								<span class="del_btn " ng-click="editGrandArticlePage($index)" style="margin-left:10px;cursor:pointer;color:#245aa2;"><i class="fa fa-pencil-square-o"></i></span>
+								<span class="del_btn " ng-click="removeGrandArticlePage($index,page.id)" style="margin-left:10px;cursor:pointer;color:#245aa2;"><i class="fa fa-trash-o"></i></span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="btn btn-primary" ng-click="addGrandArticlePage()" style="margin:5px auto;"> {{'Add' | translate}}</div>  
+        </div>
+        
+        <!-- specific for canal -->
+        <div class="no_required_field">
+          <!-- <span class="mark left_part">*</span> -->
+          <ul class="navwitc nav nav-pills">
+            <li class="navwitc_li atext active" ng-click="showCaSection('caText')" ng-class="{'disabled': isDisabledBlock('caText'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Article' | translate"></a>
+            </li>
+            <li class="navwitc_li aimage" ng-click="showCaSection('caUploadImg')" ng-class="{'disabled': isDisabledBlock('caUploadImg'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Images' | translate"></a>
+            </li>
+            <li ng-if="popupData.type != 'content'" class="navwitc_li avideo" ng-click="showCaSection('caUploadVdo')" ng-class="{'disabled': isDisabledBlock('caUploadVdo'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Video' | translate"></a>
+            </li>
+            <li class="navwitc_li aurl hide" ng-click="showCaSection('caUploadUrl')" ng-class="{'disabled': isDisabledBlock('caUploadUrl'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'URL' | translate"></a>
+            </li>
+            <li class="navwitc_li adoc" ng-click="showCaSection('caUplodDocGallery')" ng-class="{'disabled': isDisabledBlock('caUplodDocGallery'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Documents' | translate"></a>
+            </li>
+            <li class="navwitc_li aquote hide" ng-click="showCaSection('caUploadQuote')" ng-class="{'disabled': isDisabledBlock('caUploadQuote'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Quote' | translate"></a>
+            </li>
+            <li class="navwitc_li aevent" ng-click="showCaSection('caUploadEvent')" ng-class="{'disabled': isDisabledBlock('caUploadEvent'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Event' | translate"></a>
+            </li>
+            <li ng-if="popupData.type == 'content'" class="navwitc_li atext" ng-click="showCaSection('caGrandArticle')" ng-class="{'disabled': isDisabledBlock('caGrandArticle'),'navwitc_li20' : popupData.type == 'content'}">
+              <a class="navwitc_a" href="javascript: void(0)" once-text="'Grand Article' | translate"></a>
+            </li>
+            <!--
+            <li class="navwitc_li acode">
+              <a class="navwitc_a">Code</a>
+            </li>
+            -->
+            <li ng-if="popupData.type != 'content'" class="navwitc_li dropdown amore">
+              <a href="javascript: void(0)" class="dropdown-toggle navwitc_a" data-toggle="dropdown" once-text="'More' | translate"></a>
+              <ul class="dropdown-menu" role="menu">
+                <li ng-click="showCaSection('caLinkEmbed')"><a href="javascript: void(0)" once-text="'Link Embed' | translate" ng-class="{'disabled': isDisabledBlock('caUploadLinkEmbed')}"></a></li>
+                <!-- <li ng-click="showCaSection('caUploadEvent')"><a href="javascript: void(0)" once-text="'Event' | translate" ng-class="{'disabled': isDisabledBlock('caUploadEvent')}"></a></li> -->
+                <li class="hide" ng-click="showCaSection('caWiki')" ng-class="{'disabled': isDisabledBlock('caWiki')}"><a>Wiki</a></li>
+                <!--ng-click="showCaSection('caUploadDocument')"-->
+                <li class="hide">
+                  <a>Upload Document</a>
+                </li>
+                <li class="hide"><a>Twitter</a></li>
+                <li class="hide"><a>Google</a></li>
+                <li class="hide"><a>Facebook</a></li>
+                <li class="hide"><a>Sharepoint</a></li>
+				<li><a ng-click="showYammerLogin()">Yammer</a></li>
+				<li class="hide" ng-click="showCaSection('caGrandArticle')" ng-class="{'disabled': isDisabledBlock('caGrandArticle')}">
+              		<a>{{'Grand Article' | translate}}</a>
+            	</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+
+		
+
+        <div class="no_required_field" ng-show="popupData.type != 'content'">
+            <div class="hashtag_wraper">
+              <p><b>{{'Hashtags' | translate}}: </b>{{'write_hasthag_senttence' | translate}}</p>
+              <p><b>{{'Sample' | translate}}: </b>#hashtag1 #hashtag2 #hashtag3</p>
+              <!-- <input class="ins_input_tex" type="text" ng-model="caHashTag" placeholder="#hashtags" ng-options="state for state in states" bs-typeahead> -->
+              <tags-input ng-model="caHashTag" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}}" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'>
+                <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete>
+              </tags-input>
+
+            </div>
+        </div>
+
+      </div>
+
+      <div class="right_side col-md-4 col-sm-12 col-xs-12">
+        <div class="div_group floatl" ng-show="popupData.type == 'article' || popupData.type == 'grandArticle'">
+          <p><span translate>Upload an image from your computer</span> (<span translate>minimum size</span> {{modalStatus.headerImgDim.w}}X{{modalStatus.headerImgDim.h}} px)</p>
+          <div class="res-rectangle" ng-style="{'padding-top' : getHeaderImgHeight(), 'background-color' : headingBlock.backGroundThumbViewer}" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="showSelectHeaderImage($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable"><!-- type="file" ng-file-select ng-file-change="showSelectHeaderImage($files)" ng-multiple="false" accept="image/*" -->
+            <div ng-class="headingBlock.smallImage==true ? '' : 'rect-content'" ng-style="{'left' : headingBlock.imageHeaderPosX + '%', 'top' : headingBlock.imageHeaderPosY + '%'}" style="position:absolute;">
+              <img ng-if="headingBlock.imageHeader != ''" no-cache-src="{{headingBlock.imageHeader}}" ng-style="{'width' : headingBlock.imageHeaderWidth}">
+              <div ng-if="headingBlock.imageHeader == ''" class="disp_table">
+                <div class="tblc">
+                  <div class="no-img-thumb"></div>
+                  <span class="lbl" translate>Article Image</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floatl width100 marb10" ng-if="headingBlock.imageHeader != ''">
+            <div class="ins_btn_ctext" ng-click="removeHeaderImage()" translate>Delete</div>
+          </div>
+
+          <div class="floatl width100" ng-show="headingBlock.uid && !headingBlock.smallImage">
+            <div class="ins_btn_ctext" ng-click="recropHeaderImage()" translate>
+              Recrop Header Image
+            </div>
+          </div>
+
+          <div class="floatl width100" ng-show="headingBlock.uid && headingBlock.smallImage">
+            <div class="ins_btn_ctext" ng-click="reModifiedHeaderImage()" translate>
+              Modified Header Image
+            </div>
+          </div>
+
+          <!--
+          <div class="ins_btn_licon floatl margin_bottom">
+            <div class="icon zen_icon"></div>
+            <p> Zen Mode</p>
+          </div> -->
+
+          <!-- specific for canal -->
+
+          <!-- <p class="mart10">{{'select_hedader_color' | translate}}:</p>
+          <input colorpicker="rgba" class="width100" value="" type="text" ng-model="headingBlock.headerImageColor" style="padding: 5px;" /> -->
+
+          <!-- <div class="mart10" custom-color-picker ng-model="headingBlock.headerImageColor"></div> -->
+        </div>
+
+        <!--<div class="div_group floatl">
+            <div ng-show="popupData.type == 'article' || popupData.type == 'template'" class="floatl width100 margin_bottom" dropdown-select="templateOptions" dropdown-model="templateSelected" dropdown-item-label="text" dropdown-onchange="templateChanged(selected)"></div>
+
+            <div ng-show="(popupData.action == 'edit')" class="floatl width100 margin_bottom">--> <!-- (popupData.type == 'article') &&  -->
+              <!--<div ng-class="{'fsb_1': selectedFeedStatus.val == 'Draft', 'fsb_2': selectedFeedStatus.val == 'Pending For Validation', 'fsb_3': selectedFeedStatus.val == 'Pending for translation', 'fsb_4': selectedFeedStatus.val == 'Publication scheduled', 'fsb_5': selectedFeedStatus.val == '5', 'fsb_6': selectedFeedStatus.val == '6', 'fsb_7': selectedFeedStatus.val == 'Published and Signed', 'fsb_8': selectedFeedStatus.val == 'Archived'}">
+                <div class="btn-group ins_dropdown status-dropdown width100">
+                    <button type="button" class="btn btn-default">
+                      <span class="btn-lbl">{{selectedFeedStatus.text | translate}}</span>
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <div ng-if="!feedStausLoader">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                      </div>
+                      <div ng-if="feedStausLoader">
+                        <i class="fa fa-spinner fa-spin"></i>
+                      </div>
+                    </button>
+
+                    <ul class="dropdown-menu" role="menu">
+                      <li class="clk" ng-repeat = "opn in feedStatusSelection" ng-click="feedStautsChanged(opn)"><span>{{opn.text | translate}}</span></li>
+                    </ul>
+                </div>
+              </div>
+            </div>
+
+            <div ng-show="popupData.type == 'article'" class="floatl width100 margin_bottom" dropdown-select="tplBlockOptns" dropdown-model="tplBlockSelected" dropdown-item-label="text" dropdown-onchange="tplBlockChanged(selected)"></div>
+
+            <ng-include ng-if="templateSelected.text == 'Zen Mode' && popupData.type == 'article'" ng-init="zenImages = zenModeImages" src="'../app/views/widgets/ca_zenmode_optns.tpl.html'"></ng-include>
+        </div>-->
+
+        <!--
+        <div class="div_group floatl" ng-show="popupData.type == 'article' || popupData.type == 'template'">
+            <p ng-show="popupData.type == 'article'">{{"Edit_block_template" | translate}} :</p>
+            <div ng-show="popupData.type == 'article'" class="floatl width100 margin_bottom" dropdown-select="tplBlockOptns" dropdown-model="tplBlockSelected" dropdown-item-label="text" dropdown-onchange="editTplBlockChanged(selected)"></div>
+        </div>
+        -->
+        
+        <div class="div_group floatl" ng-show="popupData.type != 'template'">
+          <div ng-include="'../app/views/widgets/ca_more_optns.tpl.html'"></div>
+        </div>
+
+        <div class="div_group floatl" ng-if="modalStatus.translationService && ((popupData.type == 'article' && popupData.action == 'create') || (popupData.type == 'grandArticle' && popupData.action == 'create'))" ng-include="'../app/views/widgets/ca_translate_on_demand.tpl.html'"></div>
+
+	    <!-- #875 : Module "In the Name Of" Write for others -->
+		<div class="div_group floatl" ng-show="$root.writeContentForOtherUserFeature && popupData.action == 'create' && popupData.type != 'template' && popupData.type != 'content'">
+       		<div class="panel-group ins_collapse" bs-collapse data-start-collapsed="false">
+				<div class="panel panel-default">
+			   		<div class="panel-heading clk">
+			        	<div bs-collapse-toggle class="ins_btn_licon">
+			            	<div class="icon setting_icon">
+			               		<i class="fa fa-cog"></i>
+			              	</div>
+			              	<p>{{'Author' | translate}}</p>
+			          	</div>
+			     	</div>
+			
+			    	<div class="panel-collapse" bs-collapse-target>
+			       		<div class="panel-body">
+			          		<ul class="margin_bottom" id="ca_more_optns">
+			              		<li>
+			                    	<div class="ins_checkbox">
+			                      		<input type="radio" ng-model="isOwner" name="isOwner" id="isOwner" class="css-checkbox" ng-value="true"> {{'Myself' | translate}} [{{$root.userData.firstName}} {{$root.userData.lastName}}]
+			                    	</div>
+			                  	</li>
+			                  	<li>
+			                    	<div class="ins_checkbox">
+			                      		<input type="radio" ng-model="isOwner" id="isWriteFor" name="isWriteFor" class="css-checkbox" value="false"> {{ 'Write For' | translate }}
+			                    	</div>
+			                  	</li>
+			                  	<li ng-if="isOwner == 'false' || isOwner == false" style="padding-bottom: 50px;">			                    	
+									<div class="btn-group ins_dropdown floatl dropdown-scroll" id="add_to_col">
+				                   		<button type="button" class="btn btn-default">{{selectedNewAuthor}}</button>
+				                       	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            				<span class="caret"></span>
+                            				<span class="sr-only">Toggle Dropdown</span>
+                          				</button>
+                          
+                          				<ul class="dropdown-menu" role="menu" >
+                            				<li  ng-click="stopPropagationEvent($event)">
+					                      		<div class="input-group search_wrapper bordergray">
+					                           		<input type="text" class="form-control" placeholder="{{'Search'| translate}}" ng-model="q"></input>
+					                               	<span class="input-group-addon glyphicon glyphicon-search"></span>
+					                           	</div> 
+                            				</li>
+					                       	<li role="presentation" ng-repeat='user in users | filter:q' ng-click="selectNewAthor(user)"> 
+												<span> {{user.firstName}} {{user.lastName}}</span>
+											</li>		
+                          				</ul>
+                      				</div>                       			
+			                  	</li>
+			     			</ul>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
+        </div>
+        <!-- #875 : END Module "In the Name Of" Write for others -->
+        
+        <div class="div_group floatl" ng-show="popupData.type != 'template'">
+          <div class="panel-group ins_collapse" bs-collapse data-start-collapsed="true">
+            <div class="panel panel-default">
+              <div class="panel-heading clk">
+                    <div bs-collapse-toggle class="ins_btn_licon">
+                     <div class="icon setting_icon">
+                      <i class="fa fa-cog"></i>
+                     </div>
+                      <p>{{'Manage publishing date & time' | translate}}</p>
+                    </div>
+              </div>
+
+              <div class="panel-collapse" bs-collapse-target>
+                <div class="panel-body">
+                  <ul class="floatl margin_bottom" id="ca_more_optns">
+
+                    <li>
+                        <p><b>{{'Publication_Start' | translate}}</b></p>
+                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                          <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="publishDates.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                          <input type="text" class="form-control timepicker_licon" placeholder="{{'Start_Time' | translate}}" size="8" ng-model="publishDates.startTime" name="time" bs-timepicker>
+                        </div>
+                    </li>
+
+                    <li>
+                        <p><b>{{'Publication_End' | translate}}</b></p>
+                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                          <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="publishDates.endDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+
+                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                          <input type="text" class="form-control timepicker_licon" placeholder="{{'End_Time' | translate}}" size="8" ng-model="publishDates.endTime" name="time" bs-timepicker>
+                        </div>
+                    </li>
+
+
+
+
+                    <!--
+                    <hr>
+                    <li>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Publish in community calendar</label>
+                      </div>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Not newsfeed it</label>
+                      </div>
+                    </li>
+                    <hr>
+                    <li>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Twitter block</label>
+                      </div>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Google+ block</label>
+                      </div>
+                    </li>
+                    <hr>
+                    <li>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Facebook block</label>
+                      </div>
+                      <div class="ins_checkbox">
+                        <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked">
+                        <label for="checkbox1" class="css-label">Sharepoint block</label>
+                      </div>
+                    </li>
+                    -->
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="div_group floatl" ng-show="popupData.type == 'article' || popupData.type == 'grandArticle'">
+          <div class="doble_btn_wraper floatl margin_bottom">
+            <button class="btn-default ins_btn_ctext floatl" ng-click="publishArticle('draft')" ng-disabled="disablePublishArticle">
+              <span>{{'Save_Draft' | translate}}</span>
+            </button>
+            <button class="btn-default ins_btn_ctext floatr" ng-click="publishArticle('preview')" ng-disabled="disablePublishArticle">
+              <span>{{'Preview' | translate}}</span>
+            </button>
+          </div>
+
+          <button class="ins_btn_ctext floatl margin_bottom btn-default" ng-click="publishArticle('publish')" ng-disabled="disablePublishArticle" ng-class="{'disabled': isPublishing}" analytics-on="click" analytics-event="Publish" analytics-category="Article">
+            <span>{{'Publish_Article' | translate}}</span> <i ng-if="disablePublishArticle" class="fa fa-spin fa-spinner" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="div_group floatl" ng-show="popupData.type == 'template'">
+          <div class="ins_checkbox">
+            <input type="checkbox" ng-model="templateInfo.active" name="tplActive" id="tplActive" class="css-checkbox" checked>
+            <label for="tplActive" class="css-label">{{"Active" | translate}}</label>
+          </div>
+        </div>
+
+        <div class="div_group floatl" ng-show="popupData.type == 'template'">
+          <div class="ins_btn_ctext floatl margin_bottom" ng-click="createTemplate('publish')">
+            <span>{{'Create_Template' | translate}}</span>
+          </div>
+        </div>
+
+        <div class="div_group floatl" ng-show="popupData.type == 'documentGallery' || popupData.type == 'imageGallery'">
+          <div class="ins_btn_ctext floatl margin_bottom" ng-class="{'disabled': isPublishing}" ng-click="publishFeed('publish')">
+            <span>{{'Publish' | translate}}</span>
+          </div>
+        </div>
+
+        <!--
+        <div class="div_group floatl" ng-show="popupData.type == 'imageGallery'">
+          <div class="ins_btn_ctext floatl margin_bottom" ng-click="publish_image_gallery('publish')">
+            <span>{{'Publish' | translate}}</span>
+          </div>
+        </div>
+        -->
+
+        <div class="div_group floatl" ng-show="popupData.type == 'event'">
+          <div class="ins_btn_ctext floatl margin_bottom" ng-click="publishEvent()">
+            <span>{{'Publish_Event' | translate}}</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    </div><!--row END-->
+  </div><!--create_art_container-->
+  
+  
+  
+  
+
+
+</div>

@@ -1,0 +1,205 @@
+<div class="search_wrapper" id="glob_search">
+    <div class="input-group" style="width:100%;">
+      <input type="text" class="form-control" id="globle_search" ng-model="searchText" placeholder="{{ 'Search' | translate }}" ng-keyup="globleSearch($event, this)">
+      <span class="input-group-addon glyphicon glyphicon-search"></span>
+    </div>
+    <div class="search_list_out" ng-show="selSearchType">
+      <div ng-show="feeds.length <= 0">
+        <div ng-repeat=" stype in searchTypes">
+          <div class="search_list_li" ng-click="setSearchType(stype)" ng-class="{'active' : (selectedType.val == stype.val)}">
+            <div class="left_part" ng-class="stype.val">
+              
+            </div>
+            <div class="right_part">
+              <div class="categ">
+                <p>{{stype.title}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--
+        <div class="search_list_li">
+          <div class="left_part all_articles">
+            
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All articles</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_notes">
+            
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All notes</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_docs">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All documents</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_audio">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All audio files</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_images">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All images</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_images">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All images</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_vdos">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All videos</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_events">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All events</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_membs">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All members</p>
+            </div>
+          </div>
+        </div>
+        <div class="search_list_li">
+          <div class="left_part all_comm">
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>All communities</p>
+            </div>
+          </div>
+        </div>
+        -->
+      </div>
+      
+      <div ng-if="feeds.length > 0">
+        <div class="search_list_li">
+          <div class="left_part all">
+            <!-- <img src="images/feed/community_icon.png" class="thumb"> -->
+          </div>
+          <div class="right_part">
+            <div class="categ">
+              <p>{{ 'See_all' | translate }} <span ng-if="selectedType.val == 'all'">{{'results' | translate}}</span> <span ng-if="selectedType.val != 'all'">{{selectedType.val}}</span> for <strong>{{searchText}}</strong></p>
+            </div>
+          </div>
+        </div>
+
+        <div ng-repeat=" feed in feeds" ng-switch="feed.type">
+          <!-- for article -->
+          <div ng-switch-when="article" ng-controller="GblSearchFeedCtrl" class="search_list_li">
+            <!-- <a ng-href="#/article/{{feed.uid}}"></a> -->
+            <div ng-click="loadSearhWithType('article')">
+              <div class="left_part thumb" ng-if="thumbStyle != ''" ng-style="thumbStyle">
+                <!--
+                <div ng-if="thumbStyle == 'event'" class="evnt_date">
+                  <div class="wrap-dt">
+                    <span class="dt">21</span><br>
+                    <span class="mth">Apil</span>
+                  </div>
+                </div>
+                -->
+                <div ng-if="thumbStyle == 'event'" class="floatl width100 ht100">
+                  <feed-event-thumb event="eventBlock"></feed-event-thumb>
+                </div>
+              </div>
+              <div class="right_part">
+                <div class="title" ng-bind-html="title">
+                  <!-- html tilte will be evaluated here -->
+                </div>
+                <div class="act_info" data-ng-bind="actiSentence" data-ellipsis-symbol="..." data-ellipsis></div>
+                <!-- <span>Article by</span><span class="unm">John Swensson</span> <span>in</span> -->
+              </div>
+            </div>
+          </div>
+          <!-- for event -->
+          <div ng-switch-when="event" ng-init="highlightText = searchText;" ng-controller="GblSearchFeedCtrl" class="search_list_li">
+            <!-- <a ng-href="#/article/{{feed.uid}}"></a> -->
+            <div ng-click="loadSearhWithType('event')">
+              <div class="left_part thumb">
+                <div class="floatl width100 ht100">
+                  <feed-event-thumb event="eventBlock"></feed-event-thumb>
+                </div>
+              </div>
+              <div class="right_part">
+                <div class="title" ng-bind-html="title">
+                  <!-- html tilte will be evaluated here -->
+                </div>
+                <div class="act_info" data-ng-bind="actiSentence" data-ellipsis-symbol="..." data-ellipsis></div>
+              </div>
+            </div>
+          </div>
+          <!-- for community -->
+          <div ng-switch-when="community" ng-init="highlightText = searchText;" ng-controller="GblSearchFeedCtrl" class="search_list_li">
+            <!-- <a ng-href="#/community/{{communityLabel}}/{{feed.uid}}"></a> -->
+            <div ng-click="loadSearhWithType('community')">
+              <div class="left_part thumb" ng-if="thumbStyle != ''" ng-style="thumbStyle">
+              </div>
+              <div class="right_part">
+                <div class="title" ng-bind-html="title">
+                  <!-- html tilte will be evaluated here -->
+                </div>
+                <div class="act_info" data-ng-bind="actiSentence" data-ellipsis-symbol="..." data-ellipsis></div>
+                <!-- <span>Article by</span><span class="unm">John Swensson</span> <span>in</span> -->
+              </div>
+            </div>
+          </div>
+          <!-- for member -->
+          <div ng-switch-when="member" ng-init="highlightText = searchText;" ng-controller="GblSearchFeedCtrl" class="search_list_li">
+            <div ng-click="loadSearhWithType('people')">
+              <div class="left_part thumb" ng-if="thumbStyle != ''" ng-style="thumbStyle">
+              </div>
+              <div class="right_part">
+                <div class="title" ng-bind-html="title">
+                  <!-- html tilte will be evaluated here -->
+                </div>
+                <div class="act_info" data-ng-bind="actiSentence" data-ellipsis-symbol="..." data-ellipsis></div>
+                <!-- <span>Article by</span><span class="unm">John Swensson</span> <span>in</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+</div>

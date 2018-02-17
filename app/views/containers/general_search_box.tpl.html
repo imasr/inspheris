@@ -1,0 +1,285 @@
+<div class="general-search-wrap width100" id="glob_search"><!-- ng-controller="GeneralSearchCtrl" --> 
+
+  <h3 class="wclor"> {{popupTitle | translate}} </h3>
+
+  <div class="disp_table width100 marbottom40">
+    <div class="tblr">
+      <div class="tblc width100">
+        <div class="disp_table width100">
+          <div class="tblr">
+
+            <div class="tblc width100">
+              <!-- <input class="stxt-box floatl"  type="text" ng-model="$parent.searchText" placeholder="{{'Search' | translate}}" vp-detect-focus="searchFocus" ng-keyup="generalSearch($event, this)"> -->
+              <input class="stxt-box" type="text" ng-model="$parent.searchText" placeholder="{{'Search' | translate}}" vp-detect-focus="searchFocus" ng-keyup="generalSearch($event, this)" xng-clearable />
+            </div>
+            <div ng-if="hashTags" class="tblc" style="min-width: 150px;">
+              <input class="stxt-box"  type="text" ng-model="hashTags" placeholder="{{'Search' | translate}}" disabled>
+            </div>
+
+          </div>
+        </div>
+        
+        <!--<div class=" width100 scat-wrapper">
+          
+            <div ng-repeat="scat in searchTypes" ng-switch="scat.type.toLowerCase()" class="round-icons" ng-init="title = scat.title" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover ng-click="setSearchType(scat)" ng-class="{'active': (scat.type == selectedType.type)}">
+              <div ng-switch-when="all">
+                <i class="fa fa-newspaper-o"></i>
+              </div>
+              <div ng-switch-when="article">
+                <i class="fa fa-list"></i>
+              </div>
+              <div ng-switch-when="quickpost">
+                <i class="fa fa-bars"></i>
+              </div>
+              <div ng-switch-when="document">
+                <i class="fa fa-file-text"></i>
+              </div>
+              <div ng-switch-when="event">
+                <i class="fa fa-calendar"></i>
+              </div>
+              <div ng-switch-when="image">
+                <i class="fa fa-picture-o"></i>
+              </div>
+              <div ng-switch-when="video">
+                <i class="fa fa-video-camera"></i>
+              </div>
+              <div ng-switch-when="audio">
+                <i class="fa fa-volume-up"></i>
+              </div>
+              <div ng-switch-when="community">
+                <i class="fa fa-user"></i>
+              </div>
+              <div ng-switch-when="people">
+                <i class="fa fa-users"></i>
+              </div>
+
+              <div ng-switch-when="direction">
+                <i class="fa fa-users"></i>
+              </div>
+              <div ng-switch-when="service">
+                <i class="fa fa-users"></i>
+              </div>
+              <div ng-switch-when="office">
+                <i class="fa fa-users"></i>
+              </div>
+              <div ng-switch-when="department">
+                <i class="fa fa-users"></i>
+              </div>
+            </div>
+        </div>-->
+        <!--
+        <div class="scat-wrapper width100">
+          <tags-input ng-model="hashTags" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}}" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'>
+              <auto-complete source="$root.loadTags($query)"></auto-complete>
+          </tags-input>
+        </div>
+        -->
+      </div>
+      <div class="tblc">
+        <div class="sicon-box"  ng-click="doSearch($parent.searchText)">
+          <i class="fa fa-search"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<pre>{{searchStatus}}</pre>-->
+  <div class="disp_table width100" style="min-height: 200px; color: #fff;" ng-if="searchStatus != 0 && visibleData.length <= 0">
+    <div class="tblc_m">
+      <div class="hori_center" ng-if="searchStatus == 2 && visibleData.length <= 0">
+        <span>{{'No_Results_found' | translate}}</span>
+      </div>
+      <div class="hori_center fa-loader" ng-if="searchStatus == 1">
+        <i class="fa fa-spinner fa-pulse"></i>
+      </div>
+    </div>
+  </div>
+  <div class="container clearfix marbottom40 org-search-res-container" infinite-scroll="$parent.showMoreResults()" infinite-scroll-container="'.modal'"><!-- infinite-scroll-distance='0' -->
+    <div ng-if="modalData.type == 'directory1'" ng-repeat="dir in visibleData">
+      <div class="col-xs-12">
+        <h3 class="wclor" ng-bind="dir.name"></h3><!-- organizatoin name -->
+      </div>
+      <!--
+      <div ng-repeat="position in dir.positions">
+        <div ng-repeat="ppl in position.people">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6" >
+            <div class="width100 disp_blk user-details-block">
+              <div class="width100 disp_table">
+                <div class="tblr width100">
+                  <div class="tblc padr10">
+                    <div class="uthumb feedthumb_72">
+                      <img class="width100" src="{{ppl.thumbLogoUrl}}">
+                    </div> 
+                  </div>
+                  <div class="tblc">
+          
+                      <div class="post-title">
+                        <span ng-bind="ppl.firstName"></span> <span ng-bind="ppl.lastName"></span>
+                      </div>
+                      <div class="post-subtitle" ng-bind="position.name"></div>
+                      <div ng-if="ppl.email" class="lbl" ng-init="title = ppl.email" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                        <span>email: </span> <span class="uilink"> {{ppl.email}} </span>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+      -->
+      <!--
+      data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis
+      -->
+
+      <!--<div ng-repeat="children in dir.employees">
+        <div class="col-xs-12">
+          <h4 class="wclor" ng-bind="dir.name"></h4>organizatoin name
+        </div>-->
+        <div  ng-repeat="ppl in dir.employees">
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" >
+            <div class="width100 disp_blk user-details-block" ng-class="{'search-result-highlight': ppl.searchResult}">
+              <div class="width100 disp_table detail-wrapper">
+                <div class="tblr width100">
+                  <div class="tblc padr10" ng-if="ppl.logoUrl" style="width: 100px;">
+                    <div class="uthumb feedthumb_72">
+                      <a ng-href="{{$root.generateLink('userProfilePage', ppl)}}">
+                        <img block-right-click alt="photo" class="width100" src="{{ppl.logoUrl}}">
+                      </a>
+                    </div> 
+                  </div>
+                  <div class="tblc">
+                      <div class="post-title">
+                        <a ng-href="{{$root.generateLink('userProfilePage', ppl)}}">
+                        <!--<span ng-bind="ppl.firstName"></span> <span ng-bind="ppl.lastName"></span>-->
+                        <span ng-bind-html="(ppl.firstName +' '+ppl.lastName) | highlight:$root.highlightText"></span>
+                        </a>
+                      </div>
+                      <div class="post-subtitle" ng-bind="position.name"></div>
+
+                      <div ng-if="ppl.email" class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'email' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.email" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="uilink mxln1 lbl" data-ng-bind="ppl.email | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+
+                      <div  class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'Telephone' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.telephone" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="mxln1" data-ng-bind="ppl.telephone | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+
+                      <div ng-repeat="position in ppl.positions">
+                        <div class="lbl disp_table">
+                          <div class="tblc">
+                            <span>{{'Position' | translate}}:&nbsp;&nbsp;</span> 
+                          </div>
+                          <div class="tblc" ng-init="title = position.name" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                            <div class="uilink mxln1" data-ng-bind="position.name | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div ng-if="ppl.division" class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'Service' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.division" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="mxln1" data-ng-bind="ppl.division | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+                      
+                      <div ng-if="ppl.office" class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'Office' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.office" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="mxln1" data-ng-bind="ppl.office | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+
+                      <div class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'Emplacement' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.office" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="uilink mxln1" data-ng-bind="ppl.office | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+
+                      <div  class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{'Department' | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.department" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="uilink mxln1" data-ng-bind="ppl.department | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+
+                      <div  class="lbl disp_table">
+                        <div class="tblc">
+                          <span>{{"speciality" | translate}}:&nbsp;&nbsp;</span> 
+                        </div>
+                        <div class="tblc" ng-init="title = ppl.speciality" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="hover" data-auto-close="1" bs-popover>
+                          <div class="uilink mxln1" data-ng-bind="ppl.speciality | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> 
+        </div>
+      <!--</div>-->
+      
+    </div>
+
+    <div ng-if="modalData.type == 'directory'"><!-- ng-repeat="dir in showFeeds" -->
+      <!-- grouping is done by angular-filter plugin -->
+      <div ng-repeat="ppl in visibleData"> <!-- | groupBy: 'division' -->
+        <!--
+        <div class="col-xs-12">
+          <h3 class="wclor" ng-bind="key"></h3>
+        </div>
+        -->
+        
+        <!-- <div bindonce ng-animate="'animate'" ng-repeat="ppl in value track by ppl.uid"> -->
+          <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" >
+            <div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/orgchart_search_result.tpl.html'"></div>
+          </div> 
+        <!--</div>-->
+      </div>
+    </div>
+    
+
+    <div ng-if="modalData.type == 'general'" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" ng-repeat="feed in visibleData">
+
+      <div ng-if="feed.type != 'community' && feed.type != 'member'">
+        <feed-grid-view open-in-new-tab="false" feed="feed" index="$index" is-pinned-tab="false"></feed-grid-view>
+        <!--<div ng-init="openInNewTab = false;" ng-include="'../app/views/containers/feed_gv.tpl.html'"></div>-->
+        <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+      </div>
+
+      <div ng-if="feed.type == 'community'" >
+          <community-grid-feed community="feed" ></community-grid-feed>
+      </div>
+      
+      <div ng-if="feed.type == 'member'" class="width100" >
+        <div ng-init="openInNewTab = false; ppl = feed;" ng-include="'../app/views/containers/orgchart_search_result.tpl.html'"></div>
+      </div>
+      
+    </div>
+  </div>
+  <!--
+  <div class="disp_table width100" ng-if="feeds.length > 0">
+    <div class="hori_center ins_btn_solid">
+      {{'View_more_results' | translate}}
+    </div>
+  </div>
+  -->
+</div>

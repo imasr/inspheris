@@ -1,0 +1,24 @@
+<div class="ins_popup custom_popup alert_module"  ng-controller="StatUserDetailsReport" style="min-width: 1050px">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>{{popupData.action}}</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="report-details col-md-12">	
+		<div>
+			<a href="#menu-toogle" id="toggle-menu-report" ng-click="hiddenExport()"><span></span></a>
+				<div id="menu-toogle-userdetails">
+					<ul>
+				    	<li><a href="#home" ng-click="exportReport(popupData.action)" translate>Export</a></li>
+				  	</ul>
+				</div>	
+		</div>	
+		<div ng-show="popupData.action == 'publish'" id="gridStatUserDetailsByPublications" ui-grid="gridPublications" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		<div ng-show="popupData.action == 'view'" id="gridStatUserDetailsByViews" ui-grid="gridViews" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		<div ng-show="popupData.action == 'like'" id="gridStatUserDetailsByLikes" ui-grid="gridLikes" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		<div ng-show="popupData.action == 'comment'" id="gridStatUserDetailsByComments" ui-grid="gridComments" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		<div ng-show="popupData.action == 'share'" id="gridStatUserDetailsByShares" ui-grid="gridShares" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>
+		<div ng-show="popupData.action == 'download'" id="gridStatUserDetailsByDownloads" ui-grid="gridDownloads" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>				
+	</div>
+</div>

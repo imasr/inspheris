@@ -1,0 +1,68 @@
+<div class="panel panel-default widget widget-all-attachments" id="widgetattachments">
+	<div class="disp_table widget-title">
+		<div class="tblr">
+			<div class="tblc_m icn">
+            <div class="icon_widget icon_calendar">
+            	<div class="btn_icon"></div>
+            	<i class="fa fa-file"></i>
+            </div>
+         </div>
+
+		  <div class="tblc_m title">
+		    {{'Files' | translate}}
+		  </div>
+		  <!--<div class="tblc_m icn">
+		    <i class="fa fa-minus clk" onclick="widgetToggle('widgetattachments');"></i>
+		  </div>-->
+		</div>
+	</div>
+
+	<div class="panel-body">
+		<div class="attachment-list">
+		 	<div class="fc1 fs1 marb10 lbl_title">
+				<strong><span>{{'Files' | translate}}:</span></strong>
+			</div>
+			<ul class="files">
+				<li ng-repeat="file in attachedDocs">
+					<a class="uilink" href="{{file.path}}">
+		        		<div class="file_icon" ng-class="file.fileType|getFileType"></div>
+		        		<span class="file_name">{{file.fileName}}</span>
+		        	</a>
+				</li>
+				<!--
+				<li>
+					<a href="{{$root.siteUrl+file.path}}">
+		            <div class="file_icon pdf"></div><span class="file_name">file.pdf</span>
+		        </a>
+				</li>
+				<li>
+					<a href="{{$root.siteUrl+file.path}}">
+		            <div class="file_icon ppt"></div><span class="file_name">file.ppt</span>
+		        </a>
+				</li>
+				<li>
+					<a href="{{$root.siteUrl+file.path}}">
+		            <div class="file_icon xls"></div><span class="file_name">file.xls</span>
+		        </a>
+				</li>
+				-->
+			</ul>
+		</div>
+	</div>
+</div>
+
+<!--
+<div class="widget-all-attachments">
+	<div class="fc1 fs1 marb10 lbl_title">
+		<strong><span>Files:</span></strong>
+	</div>
+	<ul class="files">
+		<li ng-repeat="file in attachedDocs">
+			<a class="uilink" href="{{file.path}}">
+        		<div class="file_icon" ng-class="file.fileType|getFileType"></div>
+        		<span class="file_name">{{file.fileName}}</span>
+        	</a>
+		</li>
+	</ul>
+</div>
+-->

@@ -1,0 +1,134 @@
+<div class="panel panel-default widget widget-birthday">
+	<div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    	<div class="tblr">
+    		<div class="tblc_m icn">
+            <div class="icon_widget icon_birthday">
+            	<div class="btn_icon"></div>
+            </div>
+         </div>
+      		
+      		<div class="tblc_m title" ng-bind="$ctrl.widget.title"></div>
+      		<div class="tblc_m icn">
+      			<span ng-if="$ctrl.userCanEditWidget"> 
+					<i ng-click="editWidget($ctrl.widget)" class="lnr lnr-pencil clk"></i> 
+					<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+				</span> 
+				<span ng-if="!$ctrl.userCanEditWidget"> 
+					<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+				</span>
+      		</div>
+    	</div>
+  	</div>
+            
+  	<div class="panel-body" ng-show="isWidgetOpen">
+     	<div class="agenda-section birthday-section">
+       		<div class="bthdy-today">
+				<p ng-if="$ctrl.widget.isBirthday" style="text-align: center;font-size: 15px;" translate>{{'Happy Birthday' | translate}} {{$root.userData.firstName}} !</p>
+       			<div class="sec-title col-sm-12 marb10" translate>Today</div>
+       				<div class="container-fluid" ng-if="$ctrl.widget.todayBirthdays && $ctrl.widget.todayBirthdays.length > 0">
+       					<div class="row">
+       						<div ng-repeat="birth in $ctrl.widget.todayBirthdays" ng-if="$index <= 3">
+	              				<div class="col-xs-6 col-sm-3 col-md-3 col-lg-3 marb10">
+	    							<div class="small-profile">
+	    								<a ng-if="enableTootip" class="disp_blk" ui-sref="app.myprofile({uid: birth.uid, activetab: 'About'})" ng-init="userDetail = birth" data-placement="top" data-template-url="../views/blocks/mini_userfinfo.tpl.html" data-trigger="hover" trigger="hover" bs-popover>
+	      									<div class="hori_center">
+	        									<div class="feedthumb_40">
+	          										<!--<img class="com_icon img-circle" src="{{$root.getUserProfilePic(birth)}}">  -->
+	          										<div class="user_image uaa_item img-circle"  profile-photo="{url: birth.headerLogoUrl, firstName: birth.firstName, lastName: birth.lastName}"></div>
+	          										<img style="position: absolute;z-index: 1;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && birth.badge" ng-src="{{birth.badge.image.url}}">
+	        									</div>
+	      									</div>
+	      									<p class="tac mxln2">{{birth.firstName}} {{birth.lastName}}</p>
+	    								</a>
+	    								<a ng-if="!enableTootip" class="disp_blk" ui-sref="app.myprofile({uid: birth.uid, activetab: 'About'})">
+	      									<div class="hori_center">
+	        									<div class="feedthumb_40">
+	          										<!--<img class="com_icon img-circle" src="{{$root.getUserProfilePic(birth)}}">  -->
+	          										<div class="user_image uaa_item img-circle"  profile-photo="{url: birth.headerLogoUrl, firstName: birth.firstName, lastName: birth.lastName}"></div>
+	          										<img style="position: absolute;z-index: 1;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && birth.badge" ng-src="{{birth.badge.image.url}}">
+	        									</div>
+	      									</div>
+	      									<p class="tac mxln2">{{birth.firstName}} {{birth.lastName}}</p>
+	    								</a>
+	    							</div><!--small-profile END-->
+	  							</div>
+  							</div>
+  						</div><!--row END-->
+
+  						<div class="detail-area fc1" ng-if="$ctrl.widget.todayBirthdays.length > 4">
+    						<span>Total: {{$ctrl.widget.todayBirthdays.length}}</span>
+    						<span class="pull-right"><a ng-click="showFullBirthdays($ctrl.widget.todayBirthdays)">More</a></span>
+    						<div class="clearifix"></div>
+  						</div><!--detail-area END-->
+ 			 		</div><!--container-fluid END-->
+ 			 		
+ 			 		<div ng-if="!$ctrl.widget.todayBirthdays || $ctrl.widget.todayBirthdays.length <= 0">
+						<div class="disp_table width100">
+              				<div class="tblr">
+                				<div class="tblc_m tac pad10">
+                  					<div class='title'>
+                  						{{'No Birthday' | translate}}
+                  					</div>
+                				</div>
+              				</div>
+         				</div>
+					</div>	
+
+			</div><!--bthdy-today END-->
+
+   			<div class="bthdy-next">      
+				<div class="sec-title col-sm-12 marb10" translate>Next birthdays</div>
+	       			<div class="container-fluid" ng-if="$ctrl.widget.nextBirthdays && $ctrl.widget.nextBirthdays.length > 0">
+	       				<div class="row">
+	       					<div ng-repeat="birth in $ctrl.widget.nextBirthdays" ng-if="$index <= 3">
+		              			<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 marb10">
+		    						<div class="small-profile">
+		    							<a ng-if="enableTootip" class="disp_blk" ui-sref="app.myprofile({uid: birth.uid, activetab: 'About'})" ng-init="userDetail = birth" data-placement="top" data-template-url="../views/blocks/mini_userfinfo.tpl.html" data-trigger="hover" trigger="hover" bs-popover>
+		      								<div class="hori_center">
+		        								<div class="feedthumb_40">
+		          									<!--<img class="com_icon img-circle" src="{{$root.getUserProfilePic(birth)}}">  -->
+		          									<div class="user_image uaa_item img-circle"  profile-photo="{url: birth.headerLogoUrl, firstName: birth.firstName, lastName: birth.lastName}"></div>
+		          									<img style="position: absolute;z-index: 1;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && birth.badge" ng-src="{{birth.badge.image.url}}">
+												</div>
+		        								<span class="bth-date">{{birth.day}}</span>
+		     								</div>
+		      								<p class="tac mxln2">{{birth.firstName}} {{birth.lastName}}</p>
+		    							</a>
+		    							<a ng-if="!enableTootip" class="disp_blk" ui-sref="app.myprofile({uid: birth.uid, activetab: 'About'})">
+		      								<div class="hori_center">
+		        								<div class="feedthumb_40">
+		          									<!--<img class="com_icon img-circle" src="{{$root.getUserProfilePic(birth)}}">  -->
+		          									<div class="user_image uaa_item img-circle"  profile-photo="{url: birth.headerLogoUrl, firstName: birth.firstName, lastName: birth.lastName}"></div>
+		          									<img style="position: absolute;z-index: 1;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && birth.badge" ng-src="{{birth.badge.image.url}}">
+												</div>
+		        								<span class="bth-date">{{birth.day}}</span>
+		     								</div>
+		      								<p class="tac mxln2">{{birth.firstName}} {{birth.lastName}}</p>
+		    							</a>
+		    						</div><!--small-profile END-->
+		  						</div>
+	  						</div>
+	  				</div><!--row END-->
+	
+	  				<div class="detail-area fc1" ng-if="$ctrl.widget.nextBirthdays.length > 4">
+	    				<span>Total: {{$ctrl.widget.nextBirthdays.length}}</span>
+	    				<span class="pull-right"><a ng-click="showFullBirthdays($ctrl.widget.nextBirthdays)" translate>More</a></span>
+	    				<div class="clearifix"></div>
+	  				</div><!--detail-area END-->
+				</div><!--container-fluid END-->
+				
+				<div ng-if="!$ctrl.widget.nextBirthdays || $ctrl.widget.nextBirthdays.length <= 0">
+					<div class="disp_table width100">
+              			<div class="tblr">
+                			<div class="tblc_m tac pad10">
+                  				<div class='title'>
+                  					{{'No Birthday' | translate}}
+                  				</div>
+                			</div>
+              			</div>
+         			</div>
+				</div>	
+	  		</div><!--bthdy-next END-->
+		</div>
+	</div>
+</div>

@@ -1,0 +1,13 @@
+<a href="{{link.path}}" target="_blank" class="floatl marb10 " ng-repeat="link in links" style="color:#333">
+       	<div>
+       		<div style="float:left;height:93px;">
+       			<img src="{{link.thumbnail_url}}" style=" max-width: 175px;max-height: 93px;"/>
+       		</div>
+       		
+       		<div class="right_part" style="padding-left:20px;height: 93px;">
+        		<p class="post-title" >{{link.title}}</p>
+        		<div style="max-height:35px;" data-ng-bind="link.description" once-if="link.description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+        		<img ng-if="link.favicon != ''" ng-src="{{link.favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><span style="color: #059bcd;">{{link.location}}</span>
+       		</div>
+       	</div>
+</a>

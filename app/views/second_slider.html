@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="second-slide-content">
+        <div class="row row-centered"><!--row -->
+        
+            <div ng-repeat="slider in $ctrl.sliderContent" class="col-xs-6 col-sm-3 col-md-3 col-centered">
+                <a target-blank="{{!slider.openSameTab}}"  once-href="(slider.url ? slider.url : 'javascript:void(0);')"><!-- once-href="slider.url"-->
+                    <div class="thumbnail">
+                        <!--<div class="summary">
+                            <h4>{{slider.title}}</h4>
+                        </div>-->
+                        <div class="caption animated fadeInup">
+                            <p once-text="slider.title"></p>
+                            <!--<p>{{slider.subTitle}}</p>-->
+                        </div>
+                        <img class="animated fadeInDown" once-src="slider.imageLevel2.sliderUrl" alt="...">
+                    </div>
+                </a>
+            </div>
+        
+        </div><!--row-->
+    </div><!--second-slide-content END-->
+</div><!--container-->

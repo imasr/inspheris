@@ -1,0 +1,74 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="UsefulLinkManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title" once-text="md.title | translate"></p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+
+		<button type="button" class="btn btn-default navbar-btn" ng-click="createHeading(null)" translate>Create Heading</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;" ng-controller="sortableHeadingCtrl">
+	      <ul class="list-group">
+	        <li class="list-group-item" ng-if="users.length <= 0">
+	          <span><strong>{{'Loading' | translate}}...</strong></span>
+	        </li>
+	        <div ui-sortable="sortableOptions" ng-model="headingList">
+		        <li class="list-group-item" ng-repeat="heading in headingList">
+		        	<span ng-bind="heading.heading"></span>
+	
+		        	<div class="floatr">
+				        <div class="btn_delete floatr" ng-click="deleteHeading(heading)" title="{{ 'delete' | translate }}">
+				           <div class="btn_icon">
+				            <!-- <i class="fa fa-trash-o"></i> -->
+				           </div>
+				        </div>
+				        <span class="btn_seprator floatr"> • </span>
+				        <div class="btn_edit floatr" ng-click="createHeading(heading)" title="{{ 'edit' | translate }}">
+				          <div class="btn_icon">
+				            <!-- <i class="fa fa-pencil-square-o"></i> -->
+				          </div>
+				        </div>
+			      	</div>
+		        </li>
+	        </div>
+	      </ul>
+	    </div>
+
+	    <h4 translate>Link Manager</h4>
+
+	    <button type="button" class="btn btn-default navbar-btn" ng-click="createLink({footer: md.footer})" translate>Create Link</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;" ng-controller="sortableLinkCtrl">
+	      <ul class="list-group">
+	        <li class="list-group-item" ng-if="users.length <= 0">
+	          <span><strong>{{'Loading' | translate}}...</strong></span>
+	        </li>
+	        <div ui-sortable="sortableOptions" ng-model="linkList">
+		        <li class="list-group-item" ng-repeat="link in linkList">
+		        	<strong> <span translate>Title</span> : </strong><span ng-bind="link.title"></span>
+		        	<br>
+		        	<strong><span translate>Heading</span> : </strong><span ng-bind="link.heading.heading"></span>
+		        	<br>
+		        	<strong><span translate>Link</span> : </strong><span ng-bind="link.link"></span>
+		        	
+		        	<div class="floatr btn-fixed-right">
+				        <div class="btn_delete floatr" title="{{ 'delete' | translate }}" ng-click="deleteLink(link)">
+				           <div class="btn_icon">
+				            <!-- <i class="fa fa-trash-o"></i> -->
+				           </div>
+				        </div>
+				        <span class="btn_seprator floatr"> • </span>
+				        <div class="btn_edit floatr" title="{{ 'edit' | translate }}" ng-click="createLink(link)">
+				          <div class="btn_icon">
+				            <!-- <i class="fa fa-pencil-square-o"></i> -->
+				          </div>
+				        </div>
+			      	</div>
+		        </li>
+	        </div>
+	      </ul>
+	    </div>  
+	</div>
+</div>

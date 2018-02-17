@@ -1,0 +1,528 @@
+<div class="stickyhalf" sticky-top="{{stickyCoverPrams.top}}" sticky-offset="{{stickyCoverPrams.offset}}" sticky-cover>
+    <div class="stickyhalf-child width100">
+        <div ng-include="'../app/views/blocks/account_cover.tpl.html'"></div>
+        <div ng-if="hideshowdrop" class="filterbody" ng-include="'views/filter.tpl.html'"></div>
+
+        <div ng-include="'../app/views/blocks/second_menu.tpl.html'"></div>
+    </div>
+    
+</div>
+<div ng-if="$root.writePrivateMessageFeature && !coverData.isCurrentUser && currentTab.tabType.toLowerCase() == 'activities'" class="container">
+    <div class="full-content">
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div  ng-include="'../app/views/blocks/create_quickpost_profile.tpl.html'"></div>
+        </div>
+    </div>
+</div>		  
+<div class="container" ng-show="(pageData.feeds.length <= 0) && !(currentTab.tabType.toLowerCase() == 'about') && !(currentTab.tabType.toLowerCase() == 'myboard')">
+    <div class="row content dotted">
+        <div class="tblc_m">
+            <h5 ng-if="pageData.status == 2 && pageData.feeds.length <= 0" translate>No_activities_msg</h5>
+            <h5 ng-if="pageData.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+            <h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+        </div>
+    </div>
+</div>
+
+<div class="container list_view no_padd_lr martop60 min-content-ht" ng-if="(activeView == 'list') && (pageData.feeds.length > 0)">
+    <div class="full-content"><!--row-->
+        
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <!--<div ng-if="coverData.isFollowed && currentTab.tabType.toLowerCase() == 'activities'"  ng-include="'../app/views/blocks/create_quickpost_profile.tpl.html'"></div>  -->
+
+
+            <div class="lable_today" style="display: none;">{{ 'Today' | translate }}</div>
+
+            <div ng-repeat="feed in pageData.feeds">
+                <!--ng-init="showFeedStatus = feedStatusDropDown" ng-include="'../app/views/containers/feed_lv.tpl.html'"-->
+                <feed-list-view feed="feed" index="$index" show-feed-status="feedStatusDropDown" is-pinned-tab="false"></feed-list-view>
+            </div>
+
+            <div class="cust1_feed_li_last" ng-if="pageData.showViewMoreBtn">
+                <div class="tblr">
+                    <div class="tblc com_icon_outer">
+
+                    </div>
+                    <div class="tblc lvfeedstatus">
+                        <div class="feed_line_outer_last"></div>
+                    </div>
+                    <div class="tblc">
+                        <div class="feed_content_wrapper">
+                            <div class="feed_content">
+                                <button type="button" class="btn-default view_more_feed" ng-click="getFeedData()" ng-disabled="disableGetFeedData"><span translate>View_More_Activities</span>
+                                    <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                                    <input type="hidden" ng-model="page"/>
+                                </button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-lg-6 -->
+        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <!--<div ng-include="'views/filter.tpl.html'"></div>-->
+        </div>
+    </div><!-- /.row -->
+</div>
+
+
+<div ng-if="(activeView == 'grid') && (pageData.feeds.length > 0)" class="container grid_view min-content-ht">
+    <div class="row">
+        <div class="col-lg-8">
+            <!-- input outer was here -->
+            <!--<div ng-if="coverData.isFollowed && currentTab.tabType.toLowerCase() == 'activities'"  ng-include="'../app/views/blocks/create_quickpost_profile.tpl.html'"></div>  -->
+        </div><!-- col-lg-8 -->
+
+
+    </div><!-- row -->
+
+    <div class="row" ng-if="pageData.feeds.length > 0">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" ng-repeat="feed in pageData.feeds">
+            <feed-grid-view feed="feed" index="$index" index="$index" is-pinned-tab="false"></feed-grid-view>
+            <!--<div ng-include="'../app/views/containers/feed_gv.tpl.html'"></div>-->
+        </div>
+    </div><!-- row -->
+
+    <div class="row">
+        <div class="col-lg-12" ng-if="pageData.showViewMoreBtn">
+            <button type="button" class="btn-default view_more_feed grid_more_feed" ng-click="getFeedData()" ng-disabled="disableGetFeedData"><span translate>View_More_Activities</span>
+                <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                <input type="hidden" ng-model="page"/>
+            </button>
+        </div>
+    </div>
+</div><!-- Grid_view -->
+
+<div class="container min-content-ht martop60" ng-if="currentTab.tabType.toLowerCase() == 'about'">
+    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div class="profile-desc dotted marb30">
+
+            <h4 translate>General Information</h4>
+            <h5>{{userProfileData.firstName}} {{userProfileData.lastName}}</h5>
+
+            <table class="table borderless marb10">
+                <!--<tr>
+                  
+                  <td><span class="p-title">{{'Display_Name' | translate}}</span></td>
+                  <td>:</td>
+                  <td>{{userProfileData.displayName}}</td>
+                </tr>-->
+
+                <tr>
+                    <td><span class="p-title" translate>First_Name</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.firstName}}</td>
+                </tr>
+
+                <tr>
+                    <td><span class="p-title" translate>Last_Name</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.lastName}}</td>
+                </tr>
+
+				<tr ng-if="userProfileData.initialsName">
+
+                    <td><span class="p-title" translate>Initials Name</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.initialsName}}</td>
+                </tr>
+                
+                <tr ng-if="userProfileData.email">
+
+                    <td><span class="p-title" translate>email</span></td>
+                    <td>:</td>
+                    <td><a href="mailto:{{userProfileData.email}}">{{userProfileData.email}}</a></td>
+                </tr>
+
+                <tr ng-if="userProfileData.telephone">
+
+                    <td><span class="p-title" translate>Telephone</span></td>
+                    <td>:</td>
+                    <td><p show-phone-number="{{userProfileData.telephone}}"></p></td>
+                </tr>
+
+                 <tr ng-if="userProfileData.division">
+
+                    <td><span class="p-title" translate>Direction</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.division}}</td>
+                </tr>
+
+                <tr ng-if="userProfileData.service">
+                    <td><span class="p-title" translate>Service</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.service}}</td>
+                </tr>
+
+                <tr ng-if="userProfileData.positions">
+                    <td><span class="p-title" translate>position</span></td>
+                    <td>:</td>
+                    <td>
+                        <span ng-repeat="position in userProfileData.positions"> {{position.name}}    
+                            <span ng-if="$index < userProfileData.positions.length - 1"> , </span>    
+                        </span>
+                    </td>
+                </tr>
+
+                <tr ng-if="userProfileData.zipCode">
+
+                    <td><span class="p-title" translate>Zip code</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.zipCode}}</td>
+                </tr>
+
+                <tr ng-if="userProfileData.town">
+
+                    <td><span class="p-title" translate>town</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.town}}</td>
+                </tr>
+
+                <!--temporary variable-->
+                <tr ng-if="userProfileData.dateOfEntry">
+
+                    <td><span class="p-title" translate>Date Of Entry</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.dateOfEntry| date: $root.customDateFormat}}</td>
+                </tr>
+
+                <tr ng-if="userProfileData.dateOfBirth">
+
+                    <td><span class="p-title" translate>Date Of Birthday</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.dateOfBirth| date: $root.birthdayDateFormat}}</td>
+                </tr>
+
+                <!--temporary variable-->
+                <tr ng-if="userProfileData.dateDf">
+
+                    <td><span class="p-title" translate>Date df</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.dateDf| date: $root.birthdayDateFormat}}</td>
+                </tr>
+                
+                <tr ng-if="userProfileData.address">
+
+                    <td><span class="p-title" translate>Address</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.address}}</td>
+                </tr>
+
+
+                <!-- <tr ng-if="userProfileData.company">
+                    <td><span class="p-title" translate>company</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.company}}</td>
+                </tr>
+
+                <tr ng-if="userProfileData.department">
+                    <td><span class="p-title" translate>Department</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.department}}</td>
+                </tr>
+
+                
+
+                <tr class="hide" ng-if="userProfileData.office">
+
+                    <td><span class="p-title" translate>office</span></td>
+                    <td>:</td>
+                    <td>{{userProfileData.office}}</td>
+                </tr> -->
+
+
+
+                <tr ng-if="userProfileData.customFields" ng-repeat="customField in userProfileData.customFields">            
+                    <td ng-if="customField.value"><span class="p-title" translate>{{customField.name}}</span></td>
+                    <td ng-if="customField.value">:</td>
+                    <td ng-if="customField.value">
+                    	<span ng-if="customField.type == 'Date'">{{customField.value| date: $root.birthdayDateFormat}}</span>
+                    	<span ng-if="customField.type !== 'Date'">{{customField.value}}</span>
+                    </td>
+                </tr>
+
+
+                <!--<tr>
+                  <td>#</td>
+                  <td><span class="p-title">{{'hashTag' | translate}}</span></td>
+                  <td>:</td>
+                  <td><span ng-repeat="tag in userProfileData.hashTags">{{tag}}    
+                  <span class="tg" ng-if="$index < userProfileData.hashTags.length - 1"> , </span>    
+              </span>
+            </td>
+                </tr>-->
+
+            </table>
+
+            <!-- <div class="report">
+            <a href="mailto:floriane.Werckx@staff.voo.be?subject=intranet" class="fc1 fs3" translate="">Report a error</a>
+          </div> -->
+            <!--report-->   
+
+        </div><!--profile-desc END-->
+
+
+        <div class="profile-desc my-communities dotted marb30">
+            <h4 translate>My_Communities</h4>
+            <div class="clearfix">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="comm in usersCommunities.data">
+                    <community-list-feed community="comm" ></community-list-feed>
+                </div>
+
+                <p ng-if="usersCommunities.status == 1" translate>Loading...</p>
+                <p ng-if="usersCommunities.status == 2 && usersCommunities.data.length <= 0" translate>No_Results_found</p>
+                <p class="rclor" ng-if="usersCommunities.status == 3" translate>something_went_wrong</p>
+            </div>
+        </div><!--profile-desc END-->       
+
+        <!--my experiences-->
+        <!--profile-desc END-->
+
+        <!--<div class="profile-desc dotted hide">
+          <h3>My Social Links</h3>
+  
+          <table class="table borderless">
+            <tr>
+              <td><i class="fa fa-linkedin-square"></i></td>
+              <td><span class="p-title">Linkedin</span></td>
+              <td>:</td>
+              <td><a href="#" target="_blank">http://#</a></td>
+            </tr>
+  
+            <tr>
+              <td><i class="fa fa-tumblr-square"></i></td>
+              <td><span class="p-title">Tumblr</span></td>
+              <td>:</td>
+              <td><a href="#" target="_blank">http://#</a></td>
+            </tr>
+  
+            <tr>
+              <td><i class="fa fa-twitter-square"></i></td>
+              <td><span class="p-title">Twitter</span></td>
+              <td>:</td>
+              <td><a href="#" target="_blank">http://#</a></td>
+            </tr>
+  
+            <tr>
+              <td><i class="fa fa-facebook-square"></i></td>
+              <td><span class="p-title">Facebook</span></td>
+              <td>:</td>
+              <td><a href="#" target="_blank">http://#</a></td>
+            </tr>
+          </table>
+  
+        </div>-->
+        <!--profile-desc END-->
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+        <!--<div ng-if="userProfileData" ng-init="userProfileData = userProfileData;" ng-include="'../app/views/widgets/user_information.tpl.html'"></div>-->
+
+        <div ng-include="'../app/views/widgets/user_skills.tpl.html'"></div>
+
+        <div class="hide" ng-include="'../app/views/widgets/user_hobbies.tpl.html'"></div>
+
+        <div ng-if="$root.followUserFeature && userProfileData.followers" ng-include="'../app/views/widgets/my_followers.tpl.html'"></div>
+
+        <div ng-if="$root.followUserFeature && userProfileData.followings" ng-include="'../app/views/widgets/my_followings.tpl.html'"></div>
+
+        <div ng-include="'../app/views/widgets/user_hashtag.tpl.html'"></div>
+
+        <!-- <div ng-if="$root.customProfileFieldFeature && coverData.isCurrentUser">           
+            <user-actions-widget></user-actions-widget>
+        </div> -->
+
+        <div ng-repeat="wgt in userWidgets" ng-switch="wgt.type">
+        	<div ng-switch-when="RegularCalendar">
+        		<regular-calendar-widget user-can-edit-widget="coverData.isCurrentUser" widget="wgt" ></regular-calendar-widget>
+        	</div>
+        </div>		
+		
+        <div ng-if="coverData.isCurrentUser && $root.isShowFullCalendar" ng-include="'../app/views/widgets/user_calendar.tpl.html'"></div>
+
+    </div>
+</div>
+
+<div class="container min-content-ht martop60" ng-if="currentTab.tabType.toLowerCase() == 'myboard'">
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <!--my projects-->
+    	<div ng-show="$root.isShowUserProject" class="editprof my-projects marb30">
+        	<!-- Nav tabs -->
+           	<ul class="nav nav-tabs protab" role="tablist" style="border:none;padding-right: 10px;">
+           		<li><h4 translate>Projects</h4></li>
+               	<li class="pull-right" role="presentation">|<a href="#past" aria-controls="past" role="tab" data-toggle="tab" style="display: inline-block;" ng-click="showProjects('past')" translate>Past</a></li>
+            	<li role="presentation" class="pull-right active"><a href="#present" aria-controls="present" role="tab" data-toggle="tab" ng-click="showProjects('present')" translate>Present</a></li>
+           	</ul>
+
+         	<!-- Tab panes -->
+           	<div class="tab-content">
+            	<div role="tabpanel" class="tab-pane active" id="present">        
+                    <table class="table table-nobordered" style="background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #ddd;">
+	                    <tr ng-show="userProfileData.projects.total > 0" ng-repeat="project in userProfileData.projects.rows" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: 10px 10px;">
+	               			<td class="border-top0">
+	                  	   		<div class="img-part">
+	                  	      		<img ng-if="project.image" no-cache-src="{{project.image.url}}">
+	                         	   	<div ng-if="!project.image" style="background-color: #e7e7e7;text-align: center;font-size: 5.5em;width: 150px;height: 150px;" class="disp_table">
+	                        	      	<div class="tblc_m">{{project.title.charAt(0)}}</div>
+	                           		</div>
+	                      		</div>
+	                       	</td>
+	                      	<td class="border-top0">
+	                  			<div class="text-part">
+	                           		<h4>{{project.title}}</h4>
+	                             	<p ng-if="project.projectCode">{{'Project Code' | translate}} : {{project.projectCode}}</p>
+	                               	<p ng-if="project.dateFrom || project.dateTo">
+	                                	<span ng-if="project.dateFrom">{{'From' | translate}} : {{project.dateFrom| date: $root.customDateFormat}}</span> /
+	                                 	<span ng-if="project.dateTo"> {{'To' | translate}} : {{project.dateTo| date: $root.customDateFormat}}</span>
+	                               	</p>
+	                              	<p ng-if="project.position">{{'position' | translate}} : {{project.position}}</p>
+	                               	<p ng-if="project.description">{{'Description' | translate}}: {{project.description}}</p>
+	                        	</div>
+	                     	</td>
+	                	</tr>
+	                  	<tr ng-show="userProfileData.projects.total === 0">
+	                   		<td>
+	                       		<p translate>No project</p>
+	                       	</td>
+	                 	</tr>
+              		</table>
+                   	<div ng-if="userProfileData.projects.total > 2 && (projectPage*size < userProfileData.projects.total)" class="show-more">
+                   		<a class="more pad10 disp_blk viewall"  ng-click="viewMoreProjects('present')">{{'View All' | translate}} </a>
+                  	</div>          
+         		</div>
+
+   				<div role="tabpanel" class="tab-pane" id="past">
+                	<table class="table table-nobordered" style="background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #ddd;">
+                    	<tr ng-if="userProfileData.projects.total > 0" ng-repeat="project in userProfileData.projects.rows" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: 10px 10px;">
+                        	<td class="border-top0">
+                           		<div class="img-part">
+                               		<img ng-if="project.image" no-cache-src="{{project.image.url}}">
+                                    <div ng-if="!project.image" style="background-color: #e7e7e7;text-align: center;font-size: 5.5em;width: 150px;height: 150px;" class="disp_table">
+                                    	<div class="tblc_m">{{project.title.charAt(0)}}</div>
+                                    </div>
+                            	</div>
+                            </td>
+                            <td class="border-top0">
+                     			<div class="text-part">
+                                	<h4>{{project.title}}</h4>
+                          			<p ng-if="project.projectCode">{{'Project Code' | translate}} : {{project.projectCode}}</p>
+                                   	<p ng-if="project.dateFrom || project.dateTo">
+                                    	<span ng-if="project.dateFrom">{{'From' | translate}} : {{project.dateFrom| date: $root.customDateFormat}}</span> /
+                                      	<span ng-if="project.dateTo"> {{'To' | translate}} : {{project.dateTo| date: $root.customDateFormat}}</span>
+                                   	</p>
+                                	<p ng-if="project.position">{{'position' | translate}} : {{project.position}}</p>
+                                  	<p ng-if="project.description">{{'Description' | translate}} : {{project.description}}</p>
+                            	</div>
+                           	</td>
+                  		</tr>
+                     	<tr ng-show="userProfileData.projects.total === 0">
+                        	<td>
+                           		<p translate>No project</p>
+                          	</td>
+                   		</tr> 
+                 	</table>
+                   	<div ng-if="userProfileData.projects.total > 2 && (projectPage*size < userProfileData.projects.total)" class="show-more">
+                  		<a class="more pad10 disp_blk viewall"  ng-click="viewMoreProjects('past')">{{'View All' | translate}} </a>
+                 	</div>
+          		</div>
+     		</div>
+    	</div><!--profile-desc END-->
+        
+    	<div ng-show="$root.isShowUserExperience" class="my-experiences marb30">
+      		<h4 translate>Experiences</h4>
+
+            <table class="table table-nobordered" style="background: #fff; border-radius: 6px; overflow: hidden; border: 1px solid #ddd;">
+                <tr ng-show="userProfileData.experiences.total > 0" ng-repeat="experience in userProfileData.experiences.rows" class="col-lg-6 col-md-6 col-sm-12 col-xs-12" style="padding: 10px 10px;">
+                    <td class="border-top0">
+                   		<div class="img-part">
+                        	<img ng-if="experience.image" no-cache-src="{{experience.image.url}}">
+                           	<div ng-if="!experience.image" style="background-color: #e7e7e7;text-align: center;font-size: 5.5em;width: 150px;height: 150px;" class="disp_table">
+                          		<div class="tblc_m">{{experience.title.charAt(0)}}</div>
+                           	</div>
+                       	</div>
+                  	</td>
+                   	<td class="border-top0">
+                  		<div class="text-part">
+                    		<h4>{{experience.title}}</h4>
+			              	<p ng-if="experience.position">{{'position' | translate}} : {{experience.position}}</p>	
+			              	<p ng-if="experience.dateFrom || experience.dateTo">
+			                	<span ng-if="experience.dateFrom">{{'From' | translate}} : {{experience.dateFrom| date: $root.customDateFormat}}</span> /
+			                   	<span ng-if="experience.dateTo"> {{'To' | translate}} : {{experience.dateTo| date: $root.customDateFormat}}</span>
+			            	</p>
+			             	<p ng-if="experience.location">{{'Location' | translate}} : {{experience.location}}</p>
+			             	<p ng-if="experience.description">{{'Description' | translate}} : {{experience.description}}</p>
+                    	</div>
+                  	</td>                            
+            	</tr>
+            	<tr ng-show="userProfileData.experiences.total === 0" class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              		<td>
+                		<p translate>No experience</p>
+                  	</td>
+               	</tr>         
+            </table>
+            <div class="show-more" ng-show="userProfileData.experiences.total > 2 && (experiencePage*size < userProfileData.experiences.total)">
+                <a class="more pad10 disp_blk viewall"  ng-click="viewMoreExperiences()">{{'View All' | translate}} </a>
+            </div>
+        </div>
+	</div>
+	
+   	<!-- #1038 : Special for Genfit -- My Pinned Posts-->
+	<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="$root.isShowUserPinnedPost">
+    	<user-pinned-post-slider></user-pinned-post-slider>
+	</div>
+</div>
+
+<!--Widget menu for mobile-->
+<div class="widget-nav" ng-controller="sortableCtrl">
+    <div class="widget-nav-child">
+        <div class="widget-nav-menu-opener layout-hambergertocross" ng-class="{'menu-opened': widgetMenuObject.widgetMenuEnable == true}" ng-click="widgetMenuObject.widgetMenuEnable = !widgetMenuObject.widgetMenuEnable;
+                            widgetMenuObject.activateWidget = ''"><span></span></div>
+        <div class="btn-group btn-group-justified" role="group" aria-label="..." ng-class="{'visible': widgetMenuObject.widgetMenuEnable == true}">
+            <div class="btn-group" role="group" ng-repeat="wgt in activeWidgets" style="width: 150px;">
+                <button style="height: 40px;" type="button" class="btn btn-default wid-menu-btn" ng-click="widgetMobileMenuClicked(wgt)" ng-class="{'widget-icon-automatedCalendar': wgt.type == 'AutomatedCalendar' ,'widget-icon-calendar': wgt.type == 'RegularCalendar' , 'widget-icon-fckEditor': wgt.type == 'FCKEditor', 'widget-icon-image': wgt.type == 'ImageGallery', 'widget-icon-video': wgt.type == 'VideoGallery', 'widget-icon-poll': wgt.type == 'Poll', 'widget-icon-admin': wgt.type == 'Admin', 'widget-icon-birthday': wgt.type == 'Birthday', 'widget-icon-foodTruck': wgt.type == 'FoodTruck', 'widget-icon-RSS': wgt.type == 'RSS', 'widget-icon-note': wgt.type == 'NoteDeServices', 'widget-icon-skills': wgt.type == 'UserSkills', 'widget-icon-userCalendar': wgt.type == 'UserCalendar', 'widget-icon-hobbies': wgt.type == 'UserHobbies', 'widget-icon-hashTag': wgt.type == 'UserHashtag', 'widget-icon-follower': wgt.type == 'UserFollowers', 'widget-icon-following': wgt.type == 'UserFollowings', 'widget-icon-userAction': wgt.type == 'UserActions' } " title="{{wgt.title}}"></button>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="widgetMenuObject.activateWidget">
+        <div ui-sortable="sortableOptions" ng-model="activeWidgets">
+            <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserSkills' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<user-skills-widget widget="userProfileData"></user-skills-widget>-->
+                    <div ng-include="'../app/views/widgets/user_skills.tpl.html'"></div>
+                </div>
+
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserHobbies' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<user-hobbies-widget></user-hobbies-widget>-->
+                    <div ng-include="'../app/views/widgets/user_hobbies.tpl.html'"></div>
+                </div>
+
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserFollowers' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<my-followers-widget></my-followers-widget>-->
+                    <div ng-include="'../app/views/widgets/my_followers.tpl.html'"></div>
+                </div>
+
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserFollowings' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<my-followings-widget></my-followings-widget>-->
+                    <div ng-include="'../app/views/widgets/my_followings.tpl.html'"></div>
+                </div>
+
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserHashtag' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<user-hashtag-widget></user-hashtag-widget>-->
+                    <div ng-include="'../app/views/widgets/user_hashtag.tpl.html'"></div>
+                </div>
+
+                <!--<div ng-if="widgetMenuObject.activateWidget.type == 'UserActions' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <user-actions-widget></user-actions-widget>
+                </div>  -->
+
+                <div ng-if="widgetMenuObject.activateWidget.type == 'UserCalendar' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                    <!--<user-calendar-widget></user-calendar-widget>-->
+                    <div ng-include="'../app/views/widgets/user_calendar.tpl.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

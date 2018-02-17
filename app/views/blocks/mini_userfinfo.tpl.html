@@ -1,0 +1,69 @@
+<div class=" disp_blk user-details-block mini-profile" style="position: absolute;z-index:9999;min-height: 60px;min-width:190px;padding:5px;" ng-controller="MiniProfileCtrl">
+  <div class="disp_table detail-wrapper">
+    <div class=""><!--tblr-->
+      <div class="tblc padr10">
+        <div class="uthumb">
+          <a target-blank="{{openInNewTab}}" href="{{userDetail.userlink}}" class="text-center">
+            
+            <div class="hori_center">
+              <div class="org-result-profile-pic" style="max-height:50px; max-width:50px;">
+              	<img ng-if="userDetail.headerLogoUrl && userDetail.headerLogoUrl != ''"  ng-src="{{userDetail.headerLogoUrl}}" />
+              	<div style="height:50px; width:50px;" ng-if="userDetail.headerLogoUrl==undefined || userDetail.headerLogoUrl==''" class='username-initials disp_table'><div class='tblc_m' style="font-size:10px;">{{userDetail.initials}}</div></div>
+              	<img style="position: absolute;z-index:1;width: 25px;height: 25px;left: 20px;top: -5px;" ng-if="$root.isShowUserBadge && userDetail.badge" ng-src="{{userDetail.badge.image.url}}">
+              </div>
+            </div>
+            
+           
+          </a>
+        </div> 
+      </div>
+      <div class="tblc_m padr10" style="font-size:10px;">
+        <div class="uthumb">
+          <div class="post-title mxln2" style="font-size:10px;">
+            <a target-blank="{{openInNewTab}}" href="{{userDetail.userlink}}">
+              <span class="uppercase" style="font-size:10px;" >{{userDetail.firstName}} {{userDetail.lastName}}</span>
+            </a>
+          </div>
+          <!-- <div class="post-subtitle" once-text="position.name"></div> -->
+
+          <div once-if="userDetail.office && userDetail.office!='undefined'" class="lbl disp_table">
+            <div class="tblc" >
+              <span once-text="'Office' | translate"></span>:&nbsp;&nbsp; 
+            </div>
+            <div class="tblc clk" ng-init="title = userDetail.office" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="mxln1" data-ng-bind="userDetail.office | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+
+          <div  class="lbl disp_table hide" once-if="userDetail.telephone">
+            <div class="tblc">
+              <span once-text="'Telephone' | translate"></span> :&nbsp;&nbsp;
+            </div>
+            <div class="tblc clk">{{userDetail.telephone}}</div>
+          </div>
+
+          <div  class="lbl disp_table" once-if="userDetail.mobilephone">
+            <div class="tblc">
+              <span once-text="'mobilephone' | translate"></span>:&nbsp;&nbsp;
+            </div>
+            <div class="tblc clk" >{{userDetail.mobilephone}}</div>
+          </div>
+
+         </div> 
+      </div>
+    </div>
+
+    <div once-if="userDetail.email" class="lbl directory-email disp_table">
+            <div class="tblc">
+                   <span class="lnr lnr-envelope"></span> &nbsp;
+            </div>
+
+            <a style="font-size:10px;" once-if="userDetail.email" ng-href="mailto:{{userDetail.email}}" class="uilink mxln1 lbl width100">
+              <div data-ng-bind="userDetail.email.toLowerCase() | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis></div>
+            </a>
+          </div>
+
+
+
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<div class="panel panel-default widget user_hashtag widget-hastags marb20">
+  <div class="disp_table widget-title">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_hastag">
+              <!-- <div class="btn_icon"></div> -->#
+            </div>
+         </div>
+      <div class="tblc_m title" translate>hashTag</div>
+      <!--<div class="tblc_m icn">
+        <i class="fa fa-minus clk" ng-click="widgetToggle();"></i>
+      </div>-->
+    </div>
+  </div>
+  <div class="panel-body">
+    <div class="hashtags-list">
+    <!--<p ng-if="userProfileData.hobbies" ng-bind-html="userProfileData.hobbies"></p>  -->
+    <ul>
+        <li ng-repeat="hobby in userProfileData.hobbyListing">
+          <a ui-sref="app.search.category({type: 'general', filter: 'all', category: 'global', text: hobby, page: 0,internalSearch: true})"><span class="tg">{{hobby}}</span></a>
+        </li>
+    </ul>
+    <ul>
+        <li ng-repeat="tag in userProfileData.hashTags">
+          <a ui-sref="app.search.category({type: 'general', filter: 'all', category: 'global', text: tag, page: 0,internalSearch: true})"><span class="tg">{{tag}}</span></a>
+        </li>
+    </ul>
+    <!--<p ng-if="!userProfileData.hashTags || userProfileData.hashTags.length <= 0" translate>No hashtag(s) available</p>-->
+  </div>
+    <!--<span ng-repeat="tag in userProfileData.hashTags">{{tag}}    
+            <span class="tg" ng-if="$index < userProfileData.hashTags.length - 1"> , </span>  
+          </span>-->
+  </div>
+</div>

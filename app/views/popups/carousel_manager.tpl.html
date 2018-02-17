@@ -1,0 +1,68 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CarouselManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{ 'Carousel_Manager' | translate }}</p>
+	    <div class="close_btn" ng-click="closeCarouselManagerPopup()"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<button type="button" class="btn btn-default navbar-btn" ng-click="openCarouselPopup()">{{ 'Create_carousel' | translate }}</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+	      <ul class="list-group">
+	        <li class="list-group-item" ng-repeat="carousel in md.carousels">
+	        	<div class="disp_table">
+	        		<div class="tblr">
+			        	<div class="tblc" style="width: 72px; height 72px;" ng-if="carousel.type == 'image' || carousel.type == 'advertisement' ">
+			        		<img ng-if="carousel.level == 1" src="{{carousel.imageLevel1.thumbGalleryUrl}}" style="width: 72px; height 72px;">
+			        		<img ng-if="carousel.level == 2" src="{{carousel.imageLevel2.thumbGalleryUrl}}" style="width: 72px; height 72px;">
+			        	</div>
+			        	<div class="tblc" ng-if="carousel.type == 'video'">
+			        		<div class="feedthumb_72" ng-style="{'background-image' : 'url('+carousel.thumbUrl+')'}" style="background-repeat: no-repeat; background-size: cover; background-position: center;">
+			        			
+			        		</div>
+			        	</div>
+			        	<div class="tblc">
+			        		<strong>{{ 'Title' | translate }}:</strong> <span>{{carousel.title}}</span>
+				           	<br> 
+				           	<strong>{{ 'Sub_Title' | translate }}:</strong> <span>{{carousel.subTitle}}</span>
+				           	<br>
+							<span class="ins_checkbox">
+								<input type="checkbox"  id="carousel{{$index}}" name="carousel{{$index}}" class="css-checkbox" ng-model="carousel.display" ng-checked="carousel.display == 1" ng-click="activeCarousel(carousel,$event)">
+								<label for="carousel{{$index}}" class="css-label">{{ 'Pulished' | translate }}</label>
+							</span>
+							<br>
+							<!--
+							<div class="floatl" dropdown-select="levelSelOptions" dropdown-model="carousel" dropdown-onchange="levelSelected(selected, $index)" dropdown-item-label="val"></div>
+							-->
+							
+							<select class="fixed" ng-model="carousel.level" ng-options="level.value as level.name for level in levels"></select>
+							<br>
+							<label>Sequence Number</label>
+							<input type="text" ng-model="carousel.sequenceNumber" number-input>
+							<!--
+							<select class="fixed" ng-model="carousel.sequenceNumber" ng-options="sequenceNumber.val as sequenceNumber.name for sequenceNumber in sequenceNumbers"></select>
+							-->
+
+							<br>
+							<button type="button" class="btn btn-default navbar-btn" ng-click="publishCarousel(carousel)">{{ 'Publish' | translate }}</button>
+							<span class="badge clk" title="{{ 'edit' | translate }}" ng-click="openEditCarouselPopup(carousel)">
+								<i class="fa fa-pencil-square-o"></i>
+							</span>
+							<span class="badge clk" title="{{'Delete' | translate}}" ng-click="deleteCarousel(carousel)">
+								<i class="fa fa-trash-o"></i>
+							</span>
+			        	</div>
+	        		</div>
+	        	</div>
+	        </li>
+	      </ul>
+	     
+	     <h5 ng-if="md.status == 2 && md.carousels.length <= 0">{{"No_Results_found" | translate}}</h5>
+         <h5 ng-if="md.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+         <h5 class="rclor" ng-if="md.status == 3" translate>something_went_wrong</h5>
+
+	      <a ng-if="md.showViewMoreBtn" href="javascript:void(0)" ng-click="fetchAllCarouselData('more')" translate>View_more_results</a>
+	    </div>
+	</div>
+</div>

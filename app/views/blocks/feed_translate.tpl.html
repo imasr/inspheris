@@ -1,0 +1,24 @@
+<div class="popover translate_popover feed_translate_modal" ng-controller="FeedTranslateCtrl"><!--class: pp_uli_out -->
+	<div class="arrow">	
+	</div>
+	<div class="translated_content floatl width100">
+		<div class="loader" ng-show="translationStatus == 0">{{ 'Loading' | translate }}...</div>
+		<p ng-show="translationStatus == 2">{{ 'Error_in_fetching_translated_data' | translate }}.</p>
+		<div ng-if="translationStatus == 1">
+			<feed-content-list-view feed ="translatedFeed" show-controls="false" show-article-info-bar="false"></feed-content-list-view>
+		 <!--ng-init="feed = translatedFeed; showControls = false; showArtInfoBar = false;" ng-include="'../app/views/blocks/lv_feed_content.tpl.html'">-->
+		 </div>
+	</div>
+	
+	<div class="translate_controls">
+		<div class="floatl selectwob" ng-class="{'asbtn': fromLangOptions.length <= 0}" dropdown-select="fromLangOptions" dropdown-model="fromLangSelected" dropdown-item-label="name" dropdown-onchange="fromLangChanged(selected)"></div>
+
+		<div class="tlrarrow floatl"><i class="fa fa-arrow-right"></i></div>
+
+		<div class="floatl selectwob" ng-class="{'asbtn': toLangOptions.length <= 0}" dropdown-select="toLangOptions" dropdown-model="toLangSelected" dropdown-item-label="name" dropdown-onchange="toLangChanged(selected)"></div>
+
+		<div class="floatr translater_info">
+			<p class="floatl lbl">{{ 'Translated_By' | translate }}:</p> <p class="floatl tservice">{{toLangSelected.translationService.name}}</p>
+		</div>
+	</div>
+</div>

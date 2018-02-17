@@ -1,0 +1,11 @@
+<div class="ins_popup wide_popup" ng-controller="CollectionArticleDetailPopupCtrl">
+  
+  <div class="popup_header floatl">
+    <div class="popup_title">{{ 'Community_Name' | translate }}</div>
+	<div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div> 
+  </div>
+
+  <div class="floatl width100"><!-- class: create_art_container-->
+    <ng-include src="'../app/views/containers/article_detail.tpl.html'"></ng-include>
+  </div>
+</div>

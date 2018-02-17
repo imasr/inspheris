@@ -1,0 +1,427 @@
+<div class="slider">
+    
+        <div ng-if="gallerytype == 'images'" class="imagepop">
+    
+    
+            <div class="ivgallery_wrap heightImgagallery" ng-if="fileslist.length > 1">
+                <ul id="bx-slider" class="bxslider">
+                    <!--<li><img src="images/media/Cover1.png" /></li>-->
+                    <li ng-repeat="item in fileslist" ng-init="imgurl = item.url ? item.url : item.path">
+                        <div class="closebtn" style="background-color:white;color:#A7A7AF;" ng-click="closePopup()"> X </div>
+                        <div class="popwrap-cover">
+                        <div  class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                        <div class="headerNEW col-md-8">
+                            <div class="headertitle" ng-if="item.fileName">{{item.fileName}}</div>
+                            
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                    </div>        
+                    <div class="row mainrow">
+                    <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+            <div ng-if="item.isInternal" class="marginn rowtop1 col-md-8 imagefull">
+                            <!-- <div class="image-download">
+                                <span>
+                                    <a class="floatl" target="_blank" title="{{'Download'| translate}}" ng-href="{{imgurl}}" download="{{imgurl}}">
+                                        <div class="download-btn">
+                                            <i class="fa fa-download"></i>
+                                        </div>
+                                    </a>
+                                </span>
+    
+                            </div> -->
+                            <img src="{{imgurl}}" class="image_poupup" id="imagesId{{$index}}"/>
+                        <div ng-if="item.isInternal" class="fullscreenImagediv">
+                            <a class="fullscreenImage" ng-click="fullscreenImage($index)">
+                              <img src="../images/icons/fullscreenBtn.png" alt="">
+                            </a>
+                        </div>
+                        </div>
+                    
+                        <div ng-if="!item.isInternal" class="marginn rowtop col-md-8 no-preview-image">
+                            <div style="text-align: center;vertical-align: middle;height:10px;font-size: 20px;">
+                                <div translate>There is no preview available</div>
+                                <div><a target="_blank" href="{{item.path}}" translate>Open In Google Drive</a></div>
+                            </div>
+                        </div>
+                    
+    
+                        
+                    <div  class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+                    </div>
+                </div>
+                        
+                    </li>
+                </ul>            
+    
+            </div>
+    
+            
+            <div class="fixedFooter setFooter">
+                    
+                <div class="galleryDoc">
+                   <div class="row">
+                            <div class="col-md-12">  
+                    <div class="btndiv">        
+                        <span>
+                            <a target="_blank" title="{{'Download File' | translate}}" ng-href="{{fileslist[currentIndex].url ? fileslist[currentIndex].url : fileslist[currentIndex].path}}"  download="{{fileslist[currentIndex].url ? fileslist[currentIndex].url : fileslist[currentIndex].path}}">
+                            <button type="button" class="btn btn-default button_file">
+                                <i class="fa fa-download-new" aria-hidden="true"></i>
+                               <span> &nbsp;&nbsp;&nbsp; {{'Download File' | translate}}</span>
+                            </button>
+                            </a>
+                        </span>
+                    </div>
+                    
+                    <div ng-if="fileslist.length > 1" class="btndiv" ng-click="downloadAllImages()">
+                        <span ng-if="fileslist.length > 1">
+                            <button type="button" class="btn btn-default button_file" title="{{'Download All' | translate}}">
+                                 <span> <i class="fa fa-download-new" aria-hidden="true"></i>
+                                    <span>  &nbsp;&nbsp;&nbsp; {{'Download All' | translate}}</span>
+                            </button>
+                        </span>
+                    </div>
+    
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+                    <div class="filetotal" ng-if="fileslist.length > 1">{{(currentIndex + 1)}} / {{fileslist.length}}</div>
+            
+                    <div class="searchFilter search-roundbox" ng-if="fileslist.length > 1 && showgallery">
+                        <input type="text" class="search_light" ng-model="filterPopupData.fileName" placeholder="Search.." />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+                </div><!--galleryDoc END-->
+            
+                <div class="row slide-files border-top fixed-slidetop" style="position:relative" ng-if="showgallery && fileslist.length > 1">
+                        <div class="col-md-12 zeroPaddingLeftRight">
+                    <ul class="uploaded-list no_padd_lr"> 
+                    <li ng-repeat="item in fileslist" ng-hide="(filterPopupData.fileName !== null && filterPopupData.fileName !== '' && item.fileName.toLowerCase().indexOf(filterPopupData.fileName.toLowerCase())!==0)" ng-click="clicked($index)" class="ng-class:{'active': $index == currentIndex};">
+                        <div class="update-nag" style="position:relative;" class="ng-class:{'active': $index == currentIndex};">
+                            <div class="icon-split img" ng-if="item.isInternal">
+                                    <img src="{{item.thumbGalleryUrl}}" class="imageThumb_poupup"/>
+                            </div>
+                            <div class="icon-split img" ng-if="!item.isInternal">
+                                    <img src="../images/media/gdrive_thumb_gallery.png" class="imageThumb_poupup"/>
+                            </div>
+                            <div class="file-thumb-info text" ng-class="{'active': $index == currentIndex}" >
+                                <span class="mxln2 file-text" >{{item.fileName}}</span>                        
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                        </div>
+               
+                </div><!--Images-slide END-->
+            
+    
+            </div><!--end of fixedFooter-->
+    
+            <div class="popwrap-cover" ng-if="fileslist.length == 1 && fileslist[0].isInternal">
+            <div class="row" ng-if="fileslist.length == 1 && fileslist[0].isInternal">
+                <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                    <div class="headerNEW col-md-8">
+                    <div class="headertitle" ng-if="fileslist[0].fileName">{{fileslist[0].fileName}}</div>
+                    </div>
+                    <div class="closebtn" style="background-color:white;color:#A7A7AF;" ng-click="closePopup()"> X </div>
+                <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+            </div>        
+            <div class="row mainrow" ng-if="fileslist.length == 1 && fileslist[0].isInternal">
+                <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+            <div class="col-md-8 rowtop1" ng-if="fileslist.length == 1 && fileslist[0].isInternal">
+                <img class="preview_image" ng-if="fileslist.length == 1 && fileslist[0].isInternal" ng-init="imgurl = fileslist[0].url ? fileslist[0].url : fileslist[0].path" src="{{imgurl}}" id="imagesId"/>
+                <div ng-if="fileslist.length == 1 && fileslist[0].isInternal" class="fullscreenImagediv">
+                    <a class="fullscreenImageSingle" ng-click="fullscreenImageSingle()">
+                        <img src="../images/icons/fullscreenBtn.png" alt="">
+                    </a>
+                </div>
+            
+    
+            </div>
+    
+            <span class="col-md-8" ng-if="fileslist.length == 1 && !fileslist[0].isInternal">
+                    <div style="color: white;text-align: center;vertical-align: middle;height:10px;font-size: 20px;">
+                       <div translate>There is no preview available</div>
+                      <div><a style="color: white;" target="_blank" href="{{fileslist[0].path}}" translate>Open In Google Drive</a></div>
+                   </div>
+            </span>
+            <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+            </div></div>
+            <!--<div class="row marginn previewDownload" ng-if="fileslist.length == 1 && fileslist[0].isInternal" ng-init="imgurl = fileslist[0].url ? fileslist[0].url : fileslist[0].path">
+              <a title="{{'Download'| translate}}" ng-href="{{imgurl}}" download="{{imgurl}}">
+                <button type="button" class="btn btn-default button_md2">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                    <span>&nbsp;&nbsp;&nbsp; Download File</span>
+                  </button>
+              </a>
+            </div>-->
+        </div><!--gallerytype == 'images' Ends-->
+    
+        <div ng-if="gallerytype == 'videos'" class="videopopup">
+    
+            <div class="ivgallery_wrap heightImgagallery" ng-if="fileslist.length >= 1">
+                <ul id="bx-slider" class="bxslider">
+                    <!--<li><img src="images/media/Cover1.png" /></li>-->
+                    <li ng-repeat="item in fileslist">
+                        <div class="popwrap-cove">
+                        <div  class="row">
+                        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                            <div class="headerNEW col-md-8">
+                                   <div class="headertitle" ng-if="item.embedVideoTitle || item.videoName">{{item.embedVideoTitle}}{{item.videoName}}</div>
+                            </div>
+                            <div class="closebtn" style="background-color:white;color:#A7A7AF;" ng-click="closePopup()"> X </div>
+
+                                <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                            </div>
+                        <div class="row mainrow" style="padding-bottom:250px;">
+                        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+                        <div class="marginn rowtop1 col-md-8 vdo_viewer" ng-bind-html="item.embedVideo | unsafehtml" ng-if="!item.internalVideo">
+    
+                        </div>
+                        <div class="marginn rowtop1 col-md-8" ng-if="item.internalVideo">
+                    		<custom-videogular-directive ng-if="item.fileExist" data="item"></custom-videogular-directive>
+                    		
+                        	<!-- #41[V5.5] : show message for old article using the video if it is deleted -->
+                        	<div ng-if="!item.fileExist" style="background-color: #000;width: 100%; height: 500px;margin: 0 auto;position: relative;">
+								<div style="color: hsla(0, 100%, 100%, .88);font-size: 2.4rem;font-weight: 400;line-height: 40rem;text-align: center;" translate>This video is unavailable</div>
+							</div>
+                        </div>
+                        <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbodyImg" ng-click="closePopup()"></div>
+                        </div>
+                    </div>
+
+                    <!--<div class="row marginn centerDownload">
+                      <a title="{{'Download'| translate}}" ng-href="{{item.videoUrl}}" download="{{item.videoUrl}}">
+                        <button type="button" class="btn btn-default button_md">
+                            <i class="fa fa-download" aria-hidden="true"></i>
+                            <span>&nbsp;&nbsp;&nbsp; Download File</span>
+                        </button>
+                      </a>
+                        <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+                        <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+    
+                       <div class="filetotal" ng-if="fileslist.length > 1">
+                         Total: {{fileslist.length}} files
+                       </div>
+                    </div>-->
+                  </li>
+                </ul>
+            </div>
+    
+            <!--<div class="ivgallery_thumb" ng-if="fileslist.length > 1" ng-show="showgallery">
+                <ul id="bxthumb-slider" class="bxslider">
+                    <li ng-repeat="item in fileslist" ng-click="clicked($index)" class="bx-thumb"  ng-class="{'active': $index == currentIndex}">
+                        <div class="file-thumb-info"  ng-class="{'active': $index == currentIndex}">
+                            <span>{{file.embedVideoTitle}}</span>
+                        </div>
+                        <img src="{{item.thumbUrl}}" />
+                        <span class="detailsvideo">{{item.videoName}}</span>
+                    </li>
+                </ul>
+            </div>-->
+    
+    <!--        <div class="vdo_viewer" ng-if="fileslist.length == 1" ng-bind-html="fileslist[0].embedVideo | unsafehtml">
+    
+            </div>-->
+            <!--<img class="preview_image" ng-if="fileslist.length == 1" src="{{fileslist[0].url}}"/>-->
+    
+            
+            
+            <div class="fixedFooter setFooter">
+                
+                <div class="galleryDoc" style="position: relative;">
+                    <div class="row">
+                            <div class="col-md-12">
+                   <!-- <div class="btndiv">        
+                        <span>
+                            <a target="_blank" title="{{'Download Video' | translate}}" ng-href="{{fileslist[currentIndex].videoUrl}}" download="{{fileslist[currentIndex].videoUrl}}">
+                            <button type="button" class="btn btn-default button_file">
+                                <i class="fa fa-download-new" aria-hidden="true"></i>
+                                &nbsp;&nbsp;&nbsp; {{'Download' | translate}}
+                            </button>
+                            </a>
+                        </span>
+                    </div>
+                    
+                    <div ng-if="fileslist.length > 1" class="btndiv" ng-click="downloadAllVideos()">
+                        <span ng-if="fileslist.length > 1">
+                            <button type="button" class="btn btn-default button_file" title="{{'Download All Videos' | translate}}">
+                                <i class="fa fa-download-new" aria-hidden="true"></i>
+                                &nbsp;&nbsp;&nbsp; {{'Download All' | translate}}
+                            </button>
+                        </span>
+                    </div>-->
+    
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()" style="margin-right:0;"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()" style="margin-right:0;"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+                    <div class="filetotal" ng-if="fileslist.length > 1">{{(currentIndex + 1)}} / {{fileslist.length}}</div>
+            
+                    <div class="searchFilter search-roundbox" ng-if="fileslist.length > 1 && showgallery">
+                        <input type="text" class="search_light" ng-model="filterPopupData.videoName" placeholder="Search.." />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+                </div><!--galleryDoc END-->
+            
+                <div class="row slide-files border-top fixed-slidetop" style="position:relative" ng-if="showgallery && fileslist.length > 1">
+                        <div class="col-md-12 zeroPaddingLeftRight">
+                    <ul class="uploaded-list no_padd_lr"> 
+                    <li ng-repeat="item in fileslist" ng-hide="(filterPopupData.videoName !== null && filterPopupData.videoName !== '' && item.videoName.toLowerCase().indexOf(filterPopupData.videoName.toLowerCase())!==0)" ng-click="clicked($index)" class="ng-class:{'active': $index == currentIndex};">
+                        <div class="update-nag" style="position:relative;" class="ng-class:{'active': $index == currentIndex};">
+                            <div class="icon-split img">
+                                    <img src="{{item.thumbUrl}}" class="imageThumb_poupup"/>
+                            </div>
+                            <div class="file-thumb-info text" ng-class="{'active': $index == currentIndex}" >
+                                <span class="mxln2 file-text" >{{item.videoName}}</span>                        
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                </div><!--Video-slide END-->
+            </div><!--end of fixedFooter-->
+        </div>
+    </div>
+    
+        <!-- ******************** document ****************** -->
+        <div ng-if="gallerytype == 'documents'" ng-class="{'doc-view': (gallerytype == 'documents')}" class="docPopup">
+            <div class="ivgallery_wrap" ng-if="fileslist.length > 0">
+                <ul id="bx-slider" class="bxslider">
+                    <!--<li><img src="images/media/Cover1.png" /></li>-->
+                    <li ng-repeat="file in fileslist" class="width100 document-viewer-div" style="position:relative !important;">
+                        <span class="hide" ng-init="selIndex = $index;"></span>
+                        <div class="width100 floatl">
+                            <ng-include ng-init="file = file;
+                                    showGalleryEdit = true;
+                                    allFilesList = fileslist;
+                                    otherData = other;" src="'../app/views/containers/file_detail_edit.tpl.html'"></ng-include>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!--  <div class="ivgallery_thumb" ng-if="fileslist.length > 0">
+              <ul id="bxthumb-slider" class="bxslider">
+                <li ng-repeat="file in fileslist" ng-click="clicked($index)" class="bx-thumb">
+                  <div class="file-thumb-info" once-text="file.fileName"></div>
+                  <img class="feedthumb_72" set-icon-file="{fileName: file.fileName, url: file.thumbGalleryUrl}">
+                </li>
+              </ul>
+            </div>-->
+        </div>
+        <!-- ******************** document ****************** -->
+    
+        <div ng-if="gallerytype == 'documentsOld'">
+            <ul class="docs_hlist">
+                <li class="docli" ng-repeat="file in fileslist" ng-click="$root.openDocInGoogleViewer()">
+                    <div class="left_part">
+                        <img class="feedthumb_72" set-icon-file="{fileName: file.fileName, url: file.thumbGalleryUrl}">
+                    </div>
+                    <div class="right_part file_info">
+                        <div class="post-title" data-ng-bind="file.fileName" data-ellipsis-symbol="..." data-ellipsis>  </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    
+        <!-- ******************** linkEmbed ****************** -->
+        <div ng-if="gallerytype == 'linkEmbed'" class="linkembed" style="margin-bottom: 250px;">
+            <div class="closebtn" style="background-color:white;color:#A7A7AF;" ng-click="closePopup()"> X </div>
+            <div class="popwrap-cover">
+            <div  class="row">
+            <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                <div class="headerNEW col-md-8">
+                       <div class="headertitle" >{{fileslist[currentIndex].title}}</div>
+                </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closePopup()"></div>
+                </div>
+            <div class="row">
+            <div class="col-md-2 col-sm-2 col-xs-2 linkheight" ng-click="closePopup()"></div>
+            <div  class="marginn rowtop col-md-8 ivgallery_wrap" ng-if="fileslist.length > 1">
+                <ul id="bx-slider" class="bxslider">
+                    <li ng-repeat="item in fileslist">
+                            <div class="linkDisplay">
+                                <div class="iconlink">
+                                  <a href="{{item.path}}" style="color:#333" target="_blank">
+                                    <img class="imglink" ng-if="item.thumbnail_url" src="{{item.thumbnail_url}}" style="max-width:150px;min-width:150px;"/>
+                                  </a>
+                                </div>
+                                <div class="right_part">
+                                    <h4 class="post-head">{{item.title}}</h4>
+                                    <div class="mxln2 excerpt">{{item.description}}</div>
+                                    <a href="{{item.location}}" target="_blank" style="color:#e24c52;">
+                                      <img ng-if="item.favicon != ''" src="{{item.favicon}}" style="margin-right:3px;width: 16px;height: 16px;display: inline;" />{{item.location}}</a>
+                                </div>
+                            </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-2 col-sm-2 col-xs-2 linkheight" ng-click="closePopup()"></div>
+            </div>
+        </div>
+           <!-- <div class="ivgallery_thumb" ng-if="fileslist.length > 1">
+                    <div class="row marginn centerDownload" ng-class="{'linknewcss': !showgallery}">
+                        <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+                        <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+    
+                       <div class="filetotal" ng-if="fileslist.length > 1">
+                         Total: {{fileslist.length}} files
+                       </div>
+                    </div>
+                <ul id="bxthumb-slider" class="bxslider" ng-show="showgallery">
+                    <li ng-repeat="item in fileslist" ng-click="clicked($index)" class="bx-thumb" ng-class="{'active': $index == currentIndex}">
+                        <p ng-if="!item.thumbnail_url" style="color:#fff;word-wrap:break-word;position: absolute;top:50%;left: 50%;transform: translate(-50%, -50%);">{{item.subTitle}}</p>
+                        <div class="file-thumb-info" ng-class="{'active': $index == currentIndex}">
+                            <span>{{item.location}}</span>
+                        </div>
+                        <div class="tac">
+                            <img class="imglink" ng-if="item.thumbnail_url" src="{{item.thumbnail_url}}"/>
+                        </div>
+                    </li>
+                </ul>
+            </div>-->
+    
+            
+            
+            
+            <div class="fixedFooter setFooter" >
+                
+                <div class="galleryDoc" style="position: relative;">
+                    <div class="row">
+                    <div class="col-md-12">
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+                    <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+                    <div class="filetotal" ng-if="fileslist.length > 1">{{(currentIndex + 1)}} / {{fileslist.length}}</div>
+            
+                    <div class="searchFilter search-roundbox" ng-if="fileslist.length > 1 && showgallery">
+                        <input type="text" class="search_light" ng-model="filterPopupData.title" placeholder="Search.." />
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+                </div><!--galleryDoc END-->
+            
+                <div class="row slide-files border-top fixed-slidetop" style="position:relative" ng-if="showgallery && fileslist.length > 1">
+                        <div class="col-md-12 zeroPaddingLeftRight">
+                    <ul class="uploaded-list no_padd_lr"> 
+                    <li ng-repeat="item in fileslist"  ng-hide="(filterPopupData.title !== null && filterPopupData.title !== '' && item.title.toLowerCase().indexOf(filterPopupData.title.toLowerCase())!==0)" ng-click="clicked($index)" class="ng-class:{'active': $index == currentIndex};">
+                        <div class="update-nag" style="position:relative;" class="ng-class:{'active': $index == currentIndex};">
+                            <div class="icon-split img" ng-if="item.thumbnail_url">
+                                    <img src="{{item.thumbnail_url}}" class="imageThumb_poupup"/>
+                            </div>
+                            <div class="icon-split img" ng-if="!item.thumbnail_url">
+                                <img src="../images/media/gdrive_thumb_gallery.png" class="imageThumb_poupup"/>
+                            </div>
+                            <div class="file-thumb-info text" ng-class="{'active': $index == currentIndex}" >
+                                <span class="mxln2 file-text" >{{item.title}}</span>                        
+                            </div>
+                        </div>
+                    </li>
+                    </ul>
+                </div><!--Video-slide END-->
+            </div>
+            </div><!--end of fixedFooter-->
+    
+        </div>
+    </div>
+    

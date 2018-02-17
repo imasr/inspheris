@@ -1,0 +1,15 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+		  <div class="modal-title">
+		  	<h4>{{ngDialogData.title | translate}}</h4>
+		  </div>
+		</div>
+		<div class="modal-body">{{ngDialogData.message | translate}}</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary" ng-click="closeThisDialog('save')">{{'save_in_draft' | translate}}</button>
+			<button type="button" class="btn btn-default" ng-click="closeThisDialog('cancel')">{{'continue_editing' | translate}}</button>
+			<button type="button" class="btn btn-default" ng-click="closeThisDialog('close')">{{'close_without_saving' | translate}}</button>
+		</div>
+    </div>
+</div>

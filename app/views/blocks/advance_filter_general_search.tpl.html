@@ -1,0 +1,234 @@
+<div class="container">
+
+<div class="fileSearch-page">
+    <div class="row">
+
+      <!-- <div class="col-md-10 col-md-offset-1 form-group paddingserarch" >
+          <label translate>SEARCH</label>
+
+          <input type="text" placeholder="Search" class="form-control" style="padding-left: 15px;" ng-model="q" ng-keyup="searchByKeyWord(q)">
+          <div class="tblc general-search-btn searchboxcolor">
+
+              <span class="glyphicon glyphicon-search search-box-icon clk searchglyph" ng-click="searchByKeyWord(q)"></span>
+          </div>
+      </div> -->
+      <!-- <div  class="container general-search-wrap mart widthSearchSm">
+          <div class="col-lg-12">
+              <div class="disp_table width100 marb10 martop10">
+                  <div class="tblr">
+                      <div class="tblc width100">
+                          <div class="disp_table width100">
+                              <div class="tblr">
+                                  <div class="tblc width100">
+                                      <input class="stxt-box" type="text" ng-model="q" ng-keyup="searchByKeyWord(q)" placeholder="{{'Search'| translate}}">
+                                  </div>
+                                  <div ng-if="hashTags" class="tblc" style="min-width: 150px;">
+                                      <input class="stxt-box"  type="text" ng-model="hashTags" placeholder="{{'Search'| translate}}" disabled>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tblc general-search-btn ins_checkbox" ng-if="enableExternalSearch">
+                          <input type="checkbox" name="searchInternal" id="searchInternal" class="css-checkbox" ng-model="searchInternal" checked="checked">
+                          <label for="searchInternal" class="css-label" translate>search internal</label>
+                      </div>
+                      <div class="tblc general-search-btn ins_checkbox search-external" ng-if="enableExternalSearch">
+                          <input type="checkbox" name="searchExternal" id="searchExternal" class="css-checkbox" ng-model="searchExternal" checked="checked" ng-click="showExternalSites($event)">
+                          <label for="searchExternal" class="css-label" translate>search external</label>
+                          <a  ng-if="searchExternal && externalSites.length > 0" class="dropdown-toggle extra-menu" data-toggle="dropdown">
+                              <i class="fa " ng-class="showIcon? 'fa-angle-up' : 'fa - angle - down'" style="font-size: 14px;padding-left: 2px;" ng-click="activeIcon(showIcon)"></i>
+                          </a>
+                          <ul ng-show="searchExternal  && externalSites.length > 0" id="searchDropdown" class="dropdown-menu " role="menu" style="padding-top: 0px;padding-left: 10px;top: inherit;left: inherit;z-index: 200; display:block;">
+                              <li class="ddli-lbl draf-dropdow " ng-repeat="site in externalSites" ng-click="stopPropagation($event)" ng-init="iIdx = $index" style="display:inline;">
+                                  <hr  ng-class="$index == 0 ? 'first-custom-hr' : 'custom - hr'" />
+                                  <div class="ins_checkbox">
+                                      <input ng-disabled="site != 'Google'" type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="externalType" ng-click="checkSites($event, site)"> <!--ng-checked="stab.selected" ng-click="checkFilters($event,stab)">  -->
+                                      <!-- <label for="cctbsel{{iIdx}}" class="css-label">{{site| translate}}</label>
+                                  </div>
+                              </li>
+                          </ul>
+                      </div>
+                      <div class="tblc general-search-btn"> -->
+                          <!--<div class="sicon-box" ng-click="doSearch(searchText, 'global')">
+                            <i class="fa fa-search"></i>
+                          </div>-->
+                          <!-- <span class="glyphicon glyphicon-search search-box-icon clk" ng-click="searchByKeyWord(q)"></span>
+                          <img src="../images/canal/recherche_active.svg" ng-click="doSearch(searchText, 'global')" />
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div> -->
+
+      <div class="col-md-12" ng-if="(q && q != '') || (selectedCommunityNames.length > 0) || (selectedTypes.length > 0) || (selectedAuthorNames.length > 0 ) || (dateToFilter.length>0) || (dateFromFilter.length>0)">
+          <div class="col-md-12" style="padding-left:5px;">
+              <label class="selected-text-label" >
+                  <strong ng-if="q && q != ''">{{'Search' | translate}} :</strong>
+                    <span>{{q}} </span>
+
+                    <strong ng-if="dateFromFilter.length>0">Date {{'from' | translate}} :</strong>
+                      <span>{{dateFrom | date: $root.customDateFormat}} </span>
+
+                      <strong ng-if="dateToFilter.length>0">Date {{'to' | translate}} :</strong>
+                        <span>{{dateTo | date: $root.customDateFormat}}</span>
+
+                  <strong ng-if="selectedCommunityNames.length > 0">{{'Community' | translate}} : </strong>
+                    <span ng-repeat="communityFilter in selectedCommunityNames"> {{communityFilter}}
+                      <span ng-if="$index < selectedCommunityNames.length - 1"> , </span>
+                    </span>
+                  <strong ng-if="selectedTypes.length > 0">{{'File Type' | translate}} : </strong>
+                    <span ng-repeat="typeFilter in selectedTypes"> {{typeFilter}}
+                            <span ng-if="$index < selectedTypes.length - 1"> , </span>
+                    </span>
+                  <strong ng-if="selectedAuthorNames.length > 0 ">{{'Uploaded by' | translate}} : </strong>
+                    <span ng-repeat="authorFilter in selectedAuthorNames"> {{authorFilter}}
+                            <span ng-if="$index < selectedAuthorNames.length - 1"> , </span>
+                    </span>
+                  <span style="padding-left: 20px; position: relative; top: -2px;cursor:pointer;" ng-click="removesearch()">
+                    <img src="../images/icons/close_icon.png" alt=""/>
+                  </span>
+              </label>
+          </div>
+      </div>
+
+        <div class="col-md-12 search-box filesearchbox">
+
+
+            <div class="col-md-3 form-group">
+                <label translate>COMMUNITY</label>
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default" style="padding-left: 40px;" data-toggle="dropdown" translate>Select community</button>
+                        <img class="left-icon" src="../images/icons/community_icon.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu">
+                          <ul class="ng-scope" ng-click="stopPropagation($event)" >
+                            <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 24px;"/>
+                            <input type="text" placeholder="{{'search community' | translate}}" ng-model="c" class="form-control" style="padding-left:10px;padding-right:40px;height:inherit;background-color: #F5F5F5;">
+                          </ul>
+                          <div class="scrolldiv">
+                            <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="community in communities| filter:c" ng-click="stopPropagation($event)" ng-init="comIdx = $index">
+                              <div class="ins_checkbox" ng-class="{'redbg': community.selected, 'greenbg': !community.selected}">
+
+                                    <input type="checkbox" name="comm{{comIdx}}" id="comm{{comIdx}}" class="css-checkbox" ng-model="community.selected"
+                                     ng-checked="community.selected"    ng-click="filterCommunities($event, community)">
+                                    <label for="comm{{comIdx}}"
+                                    ng-class="{'redbg': community.selected, 'greenbg': !community.selected}" class="css-label">{{community.label}}</label>
+                                </div>
+
+                                <!-- <label class="control control--checkbox">{{community.label}}
+                                  <input type="checkbox" ng-model="community.selected" ng-checked="community.selected"
+                                         ng-click="filterCommunities($event, community)"/>
+                                  <div class="control__indicator control__indic"></div>
+                                </label> -->
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-3 form-group widthfile">
+                <label translate>FILE TYPE</label>
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select type</button>
+                        <img class="left-icon-file" src="../images/icons/book.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu">
+
+                          <ul class="ng-scope" ng-click="stopPropagation($event)">
+                            <input type="button" class="btn btnfileType" style="padding-left: 15px;height: inherit;" ng-click="selectAll($event)"
+                            ng-class="{'grey': select, 'red': !select}" value="{{'All Types' | translate}}"/>
+                          </ul>
+                          <div class="scrolldiv">
+                            <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="type in fileTypes" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                              <!-- <div class="checkbox" ng-class="{'redbg': type.selected, 'greenbg': !type.selected}">
+
+                                       <label class="control control--checkbox">
+                                         <img ng-if="type.name == 'Word'" src="../images/icons/word-icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'Image'" src="../images/icons/image-icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'Video'" src="../images/icons/video-icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'PDF'" src="../images/icons/pdf-icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'Other'" src="../images/icons/xml_icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'JSON'" src="../images/icons/json_icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="fileimg">
+                                         <img ng-if="type.name == 'Powerpoint'" src="../images/icons/powerpoint-icon.png"  class="fileimg">
+                                         {{type.name}}
+                                         <input type="checkbox" ng-model="type.selected" ng-checked="type.selected"
+                                              ng-click="filterTypes($event, type.name)"/>
+                                         <div class="control__indicator control__indic"></div>
+                                       </label>
+                                     </div> -->
+
+                                <div class="ins_checkbox">
+                                    <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="type.selected" ng-checked="type.selected"
+                                           ng-click="filterTypes($event, type.name)">
+                                    <label for="cctbsel{{iIdx}}" class="css-label" ng-class="{'redbg': type.selected, 'greenbg': !type.selected}" >
+                                      <img ng-if="type.name == 'Word'" src="../images/icons/word-icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'Image'" src="../images/icons/image-icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'Video'" src="../images/icons/video-icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'PDF'" src="../images/icons/pdf-icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'Other'" src="../images/icons/xml_icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'JSON'" src="../images/icons/json_icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="fileimg">
+                                      <img ng-if="type.name == 'Powerpoint'" src="../images/icons/powerpoint-icon.png"  class="fileimg">
+
+                                      {{type.label | translate}} </label>
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+			<div class="col-md-3 form-group widthfile">
+                <label translate>Uploaded by</label>
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select Uploaded By</button>
+                        <img class="left-icon" src="../images/icons/author_icon.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu">
+                          <ul class="ng-scope" ng-click="stopPropagation($event)" >
+                            <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 15px;"/>
+                            <input type="text" placeholder="{{'search uploaded by' | translate}}" ng-model="p" class="form-control" style="padding-left:10px;height:inherit;background-color: #F5F5F5;">
+                          </ul>
+                          <div class="scrolldiv">
+                            <li ng-if="author.firstName" class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="author in authors| filter:p" ng-click="stopPropagation($event)" ng-init="authIdx = $index">
+                              <div class="ins_checkbox" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}">
+
+
+                                       <!-- <label class="control control--checkbox">
+                                         <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                                         <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                                       {{author.firstName}} {{author.lastName}}
+                                         <input type="checkbox" ng-model="author.selected" ng-checked="author.selected"
+                                              ng-click="filterAuthors($event, author)"/>
+                                         <div class="control__indicator control__indic"></div>
+                                       </label> -->
+                                    <input type="checkbox" name="author{{authIdx}}" id="author{{authIdx}}" class="css-checkbox" ng-model="author.selected" ng-checked="author.selected"
+                                           ng-click="filterAuthors($event, author)">
+                                    <label for="author{{authIdx}}" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}" class="css-label">
+                                    <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                                    <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                                      {{author.firstName}} {{author.lastName}}</label>
+                                </div>
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1 form-group left leftdate" >
+                <label translate>DATE</label>
+                <input type="text" placeholder="{{'from' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px" class="form-control" ng-model="dateFrom" data-max-date="" data-date-format="mediumDate" data-date-format="yyyy-MM-dd" data-autoclose="1" bs-datepicker ng-change="filterDateFrom(dateFrom)">
+            </div>
+            <div class="col-md-1 form-group left leftdate">
+                <label style="visibility: hidden" translate>to</label>
+                <input type="text" placeholder="{{'to' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px" class="form-control" ng-model="dateTo" data-max-date="" data-date-format="mediumDate" data-date-format="yyyy-MM-dd" data-autoclose="1" bs-datepicker ng-change="filterDateTo(dateTo)">
+            </div>
+        </div>
+
+
+    </div>
+</div>
+</div>

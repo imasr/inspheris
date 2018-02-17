@@ -1,0 +1,202 @@
+<div ng-switch="gallerytype">
+	<ul ng-switch-when="images" class="gallery_wraper">
+		<li ng-repeat="(key, value) in count  track by $index" ng-style="squareCss">
+			<div ng-if="($index+1) < count.length" class="thumbwrap" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+
+				<thumbnail file="datalist[$index]"></thumbnail>
+
+				<div class="thumbinfo">
+					<!--<p data-ng-bind="datalist[$index].fileName"></p> data-ellipsis-symbol="..." data-ellipsis-->
+				</div>
+			</div>
+			<div ng-if="datalist.length == count.length && ($index+1) == count.length" class="thumbwrap" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+				<thumbnail file="datalist[$index]"></thumbnail>
+				<div class="thumbinfo">
+					<!--<p data-ng-bind="datalist[$index].fileName"></p>-->
+				</div>
+			</div>
+			<div ng-if="(datalist.length > count.length) && ($index+1) == count.length" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: null})">
+				<div class="gal_thumb_last thumbwrap">
+					<thumbnail file="datalist[$index]"></thumbnail>
+					<div class="list_gallery_more">
+						<div class="disp_table width100 ht100">
+						    <div class="tblr">
+							      <div class="tblc_m">
+							        +{{datalist.length - count.length + 1}}
+							      </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<ul ng-switch-when="documents" class="document_gallerry_wrapper gallery_wraper">
+		<li ng-repeat="(key, value) in count  track by $index" ng-style="squareCss">
+			<div ng-if="($index+1) < count.length" class="thumbwrap" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index, other: other,selectedUid:datalist[$index].uid})">
+				<div class="thumb_content">
+					<thumbnail file="datalist[$index]"></thumbnail>
+					<div class="thumbinfo">
+						<p data-ng-bind="datalist[$index].fileName"></p>
+					</div>
+				</div>
+			</div>
+			<div ng-if="datalist.length == count.length && ($index+1) == count.length" class="thumbwrap width100 ht100" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index, other: other,selectedUid:datalist[$index].uid})">
+				<div class="thumb_content">
+					  <thumbnail file="datalist[$index]"></thumbnail>
+		        </div>
+				<div class="thumbinfo">
+					<p data-ng-bind="datalist[$index].fileName"></p>
+				</div>
+			</div>
+			<div ng-if="(datalist.length > count.length) && ($index+1) == count.length" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: null, other: other,selectedUid:datalist[$index].uid})">
+				<div class="gal_thumb_last thumbwrap">
+					<thumbnail file="datalist[$index]"></thumbnail>
+					<div class="list_gallery_more">
+						<div class="disp_table width100 ht100">
+						    <div class="tblr">
+							      <div class="tblc_m">
+							        +{{datalist.length - count.length + 1}}
+							      </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<ul ng-switch-when="videos" class="video_wraper gallery_wraper">
+		<li ng-repeat="(key, value) in count  track by $index" ng-style="squareCss">
+			<div ng-if="($index+1) < count.length" class="thumbwrap" no-cache-background-image="{{datalist[$index].thumbUrl}}" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+				<div class="thumbinfo">
+					<!--<p data-ng-bind="datalist[$index].embedVideoTitle" data-ellipsis-symbol="..." data-ellipsis></p>-->
+				</div>
+			</div>
+			<div ng-if="datalist.length == count.length && ($index+1) == count.length" class="thumbwrap" no-cache-background-image="{{datalist[$index].thumbUrl}}" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+				<div class="thumbinfo">
+					<!--<p data-ng-bind="datalist[$index].embedVideoTitle" data-ellipsis-symbol="..." data-ellipsis></p>-->
+				</div>
+			</div>
+			<div ng-if="(datalist.length > count.length) && ($index+1) == count.length" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: null})">
+				<div class="gal_thumb_last thumbwrap" no-cache-background-image="{{datalist[$index].thumbUrl}}">
+					<div class="list_gallery_more">
+						<div class="disp_table width100 ht100">
+						    <div class="tblr">
+							      <div class="tblc_m">
+							        +{{datalist.length - count.length + 1}}
+							      </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</li>
+	</ul>
+	<div ng-switch-when="linkEmbed">
+		<ul class="" style="padding-left: 0px;padding-top: 0px;overflow: hidden;" ng-if="datalist.length == 1">
+				<a href="{{datalist[0].path}}" style="color:#333" target="_blank">
+
+				<div class="left_part " style="text-align:center;">
+					<div ng-if="datalist[0].thumbnail_url"  afkl-lazy-image="{{datalist[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+					<div ng-if="!datalist[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{datalist[0].subTitle}}</div>
+		        </div>
+
+		          		<!-- <div style="float:left;height:93px;">
+		          			<img src="{{datalist[0].thumbnail_url}}" style=" max-width: 175px;max-height: 93px;"/>
+		          		</div> -->
+
+		         <div class="right_part">
+			     	<p class="post-title padr10">{{datalist[0].title}}</p>
+			     	<div data-ng-bind="datalist[0].description" once-if="datalist[0].description != ''" class="mxln2 padr10" data-ellipsis-symbol="..." data-ellipsis></div>
+			     	<img ng-if="datalist[0].favicon != ''" ng-src="{{datalist[0].favicon}}"  style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{datalist[0].location}}" target="_blank">{{datalist[0].location}}</a>
+		   		</div>
+		   		<div class="clearfix"></div>
+				</a>
+		</ul>
+		<ul ng-if="datalist.length > 1" class=" gallery_wraper">
+			<li ng-repeat="(key, value) in count  track by $index" ng-style="squareCss">
+				<div ng-if="($index+1) < count.length" class="thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}" style="background-size: 95% auto; background-position: 50% 50%;" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+					<p ng-if="!datalist[$index].thumbnail_url" style="position:absolute;top:50%;left:50%;transform: translate(-50%, -50%)"></p>
+					<div class="thumbinfo thumblinkEmbed">
+						<p ng-if="!datalist[$index].thumbnail_url" data-ng-bind="datalist[$index].title" data-ellipsis-symbol="..." data-ellipsis></p>
+						<p data-ellipsis-symbol="..." data-ellipsis></p>
+					</div>
+				</div>
+				<div ng-if="datalist.length == count.length && ($index+1) == count.length" class="thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}" style="background-size: 95% auto; background-position: 50% 50%;" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+					<p ng-if="!datalist[$index].thumbnail_url" style="position:absolute;top:50%;left:50%;transform: translate(-50%, -50%)">{{datalist[$index].subTitle}}</p>
+					<div class="thumbinfo">
+
+						<!--<p data-ng-bind="datalist[$index].title" data-ellipsis-symbol="..." data-ellipsis></p>-->
+					</div>
+				</div>
+				<div ng-if="(datalist.length > count.length) && ($index+1) == count.length" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: null})">
+					<div class="gal_thumb_last thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}">
+						<div class="list_gallery_more">
+							<div class="disp_table width100 ht100">
+							    <div class="tblr">
+								      <div class="tblc_m">
+								        +{{datalist.length - count.length + 1}}
+								      </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<div ng-switch-when="yammerEmbed">
+		<ul class="" style="padding-left: 0px;padding-top: 0px;overflow: hidden;" ng-if="datalist.length == 1">
+				<a href="{{datalist[0].path}}" style="color:#333" target="_blank">
+
+				<div class="left_part " style="text-align:center;">
+					<div ng-if="datalist[0].thumbnail_url"  afkl-lazy-image="{{datalist[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" ></div>
+					<div ng-if="!datalist[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93 tblc_m" >{{datalist[0].subTitle}}</div>
+		        </div>
+
+		          		<!-- <div style="float:left;height:93px;">
+		          			<img src="{{datalist[0].thumbnail_url}}" style=" max-width: 175px;max-height: 93px;"/>
+		          		</div> -->
+
+		         <div class="right_part">
+			     	<p class="post-title padr10">{{datalist[0].title}}</p>
+			     	<div data-ng-bind="datalist[0].description" once-if="datalist[0].description != ''" class="mxln2 padr10" data-ellipsis-symbol="..." data-ellipsis></div>
+			     	<img ng-if="datalist[0].favicon != ''" ng-src="{{datalist[0].favicon}}"  style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{datalist[0].location}}" target="_blank">{{datalist[0].location}}</a>
+		   		</div>
+		   		<div class="clearfix"></div>
+				</a>
+		</ul>
+		<ul ng-if="datalist.length > 1" class=" gallery_wraper">
+			<li ng-repeat="(key, value) in count  track by $index" ng-style="squareCss">
+				<div ng-if="($index+1) < count.length" class="thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}" style="background-size: 95% auto; background-position: 50% 50%;" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+					<p ng-if="!datalist[$index].thumbnail_url" style="position:absolute;top:50%;left:50%;transform: translate(-50%, -50%)">{{datalist[$index].subTitle}}</p>
+					<div class="thumbinfo">
+						<p data-ng-bind="datalist[$index].title" data-ellipsis-symbol="..." data-ellipsis></p>
+					</div>
+				</div>
+				<div ng-if="datalist.length == count.length && ($index+1) == count.length" class="thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}" style="background-size: 95% auto; background-position: 50% 50%;" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: $index})">
+					<p ng-if="!datalist[$index].thumbnail_url" style="position:absolute;top:50%;left:50%;transform: translate(-50%, -50%)">{{datalist[$index].subTitle}}</p>
+					<div class="thumbinfo">
+
+						<p data-ng-bind="datalist[$index].title" data-ellipsis-symbol="..." data-ellipsis></p>
+					</div>
+				</div>
+				<div ng-if="(datalist.length > count.length) && ($index+1) == count.length" ng-click="$root.showGalleryPopup(datalist, gallerytype, {selectedIndex: null})">
+					<div class="gal_thumb_last thumbwrap" ng-style="{'background-image': 'url('+datalist[$index].thumbnail_url+')'}">
+						<div class="list_gallery_more">
+							<div class="disp_table width100 ht100">
+							    <div class="tblr">
+								      <div class="tblc_m">
+								        +{{datalist.length - count.length + 1}}
+								      </div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

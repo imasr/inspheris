@@ -1,0 +1,51 @@
+<!--<div class="container" ng-controller="LoginCtrl">
+	<div class="panel panel-default center-block" style="width:400px;">
+	  	<div class="panel-body">
+		   <form name="loginForm" role="form">
+			   <div class="form-group">
+			   		<label for="username">{{ 'Username' | translate }}</label>
+			 		<input type="text" class="form-control" name="username" id="username" ng-model="user.username">
+				</div>
+				 <div class="form-group">
+				 	<label for="password">{{ 'Password' | translate }}</label>
+					<input type="password" class="form-control" name="password" id="password" ng-model="user.password">		
+				</div>
+				<button class="btn btn-default" ng-click="login(user);">{{ 'Login' | translate }}</button>
+			</form>
+		</div>
+	</div>
+<div>-->
+
+
+<div class="container" ng-controller="LoginCtrl">
+
+    	<!--<div class="alert alert-danger alert-dismissible" role="alert">
+		  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		  <p>Votre tentative de connexion a échoué, veuillez réessayer</p>
+		  <p><strong>Raison:</strong> informations de connexion erronées.</p>
+		</div>-->
+
+        <div class="login login-container">
+            
+            
+            <div class="text-center">
+            	<img src="../images/canal/logo.png" />
+            	<p style="color: #555;">Connexion avec identifiant et mot de passe</p>
+            </div>
+
+            <form class="form-signin" name="loginForm" role="form">
+                <span id="reauth-email" class="reauth-email"></span>
+                <input type="text" class="form-control" name="username" id="username" ng-model="user.username">
+                <input type="password" class="form-control" name="password" id="password" ng-model="user.password">
+                <!--<div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>-->
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" ng-click="login(user);">{{ 'Login' | translate }}</button>
+            </form><!-- /form -->
+            <!--<a href="#" class="forgot-password">
+                Forgot the password?
+            </a>-->
+        </div><!-- /login-container -->
+    </div><!-- /container -->

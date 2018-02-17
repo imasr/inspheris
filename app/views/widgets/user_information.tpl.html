@@ -1,0 +1,45 @@
+<div class="panel panel-default widget user_info widget-userinfo marb20" ng-controller="WidgetUserInfo">
+  <div class="disp_table widget-title">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_user">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+      <div class="tblc_m title">
+        {{'Information' | translate}}
+      </div>
+      <!--<div class="tblc_m icn">
+        <i class="fa fa-minus clk" ng-click="widgetToggle();"></i>
+      </div>-->
+    </div>
+  </div>
+  <div class="panel-body" ng-show="isWidgetOpen">
+    <div class="user-info-tbl disp_table width100">
+      <div class="tblr">
+        <div class="tblc lbl">
+          {{'First_Name' | translate}}
+        </div>
+        <div class="tblc">: <span ng-bind="userProfileData.firstName"></span></div>
+      </div>
+      <div class="tblr">
+        <div class="tblc lbl">
+          {{'Last_Name' | translate}}
+        </div>
+        <div class="tblc">: <span ng-bind="userProfileData.lastName"></span></div>
+      </div>
+      <div class="tblr">
+        <div class="tblc lbl">
+          {{'Display_Name' | translate}}
+        </div>
+        <div class="tblc">: <span ng-bind="userProfileData.displayName"></span></div>
+      </div>
+      <div class="tblr">
+        <div class="tblc lbl">
+          {{'Email' | translate}}
+        </div>
+        <div class="tblc email">: <span ng-bind="userProfileData.email"></span></div>
+      </div>
+    </div>
+  </div>
+</div>

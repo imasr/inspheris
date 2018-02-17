@@ -1,0 +1,27 @@
+<div class="modal fade full_screen_popup" data-backdrop="static" afkl-image-container>
+  <div class="modal-dialog">
+    <div class="modal-content general-search-popup">
+      <div class="modal-body">
+        <!--  
+          <div class="input-group" style="width:100%;">
+            <input type="text" class="form-control" id="globle_search" ng-model="searchText" placeholder="{{ 'Search' | translate }}">
+            <span class="input-group-addon glyphicon glyphicon-search"></span>
+          </div>
+        -->
+        <div class="disp_table">
+          <div class="tblr">
+            <div class="tblc width100">
+              <ng-include src="'../app/views/containers/general_search_box.tpl.html'"></ng-include>
+            </div>
+            <div class="tblc">
+              <div class="close-general-search clk" ng-click="close('cancel')" data-dismiss="modal">
+                <!--<i class="fa fa-times"></i>-->
+                <span>&times;</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

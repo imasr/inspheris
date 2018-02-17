@@ -1,0 +1,319 @@
+<div id="menu" ng-controller="MainMenuCtrl as mmc">
+    <div class="top_menu">
+
+        <nav role="navigation" class="navbar navbar-default navbar-fixed-top" id="main-navigation">
+            <div class="container-fluid">
+
+                <!-- Title -->
+                <div class="navbar-header pull-left">
+                    <a class="navbar-brand animated pulse"  ui-sref="app.home" ui-sref-opts="{reload: true}">
+                        <img width="92" ng-src="{{logo}}">
+                        <!-- <img src="images/genfit/logo.png" class="hidden-xs" /> -->
+                        <!-- <img src="images/genfit/logo_mob.png" class="visible-xs" /> -->
+                    </a>
+                </div>
+
+                <!-- 'Sticky' (non-collapsing) right-side menu item(s) -->
+                <div class="navbar-header header-menu-optns">
+                    <button type="button" data-toggle="collapse" data-target=".headermenu-collapse" class="navbar-toggle"><span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="navbar-toggle" style="margin: -5px 0;padding: 3px 0 4px 0;"  ng-if="menuObj.hideWidget && menu.mobWidget">
+                        <button type="button" class="navbar-toggle lnr lnr-list widget-header-menu" ng-click="toggleWidgetClick(menuObj.wMenuToggle = !menuObj.wMenuToggle)" ng-disabled="menuObj.setDisabled">
+                            <span class="sr-only">Toggle Widget</span>
+                        </button>
+                    </div>
+                    <ul class="nav navbar-nav header-menu-right">
+                        <div class="user_account_area">
+                            <div ng-click="$root.openGeneralSearchPopup()" class="uaa_li user-search hidden-xs animated fadeIn">
+
+                                <div class="btn-group left_dropdown arti_dropdown user_dropdown animated fadeIn">
+                                    <div class="btn btn-default">
+                                        <span class="right-menu-icon search-icon animated fadeIn"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div ng-show="showContentCreationOptns" class="uaa_li no_padd hidden-xs">
+                                <div class="btn-group left_dropdown arti_dropdown user_dropdown animated fadeIn">
+                                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <div class="user_badge uaa_item">
+                                            <span class="right-menu-icon create-icon animated fadeIn"></span>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-click="$root.openCreateFeedPopup({type: 'content'})">
+                                            <div class="noti_li">
+                                                <!-- <span class="right-menu-icon article-icon"></span> -->
+                                                <span translate>Content creation</span>
+                                            </div>
+                                        </li>
+                                        <li ng-show="$root.isQuicpostBlockEnabled" ng-click="$root.openCreateQuickpostPopup()">
+                                            <div class="noti_li">
+                                                <!-- <span class="right-menu-icon quickpost-icon"></span> -->
+                                                <span translate>Create quickpost</span>
+                                            </div>
+                                        </li>
+                      					<!-- Only GCM can create alert -->
+                      					<li ng-show="$root.alertFeature && $root.userData.role == 'GlobalCommunityManager'" ng-click="$root.openAlertPopup()">
+					                        <div class="noti_li">
+					                          <span translate>Create an alert</span>
+					                        </div>
+                      					</li>
+                      					<!-- Only GCM and CM can create note -->
+					                	<li ng-show="$root.noteTheServiceFeature && showNoteDeServiceCreationOptns" ng-click="$root.openNotePopup()">
+					                   	    <div class="noti_li">
+					                   	      <span translate>Create note de service</span>
+					                   	    </div>
+					                	</li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="uaa_li no_padd" ng-controller="NotificationCtrl">
+                                <div class="btn-group left_dropdown user_dropdown drop_big animated fadeIn">
+                                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown" ng-click="getNotifications()">
+                                        <div class="user_badge uaa_item">
+                                            <span class="right-menu-icon icon-alarm"></span>
+                                            <span class="badge" ng-hide="notificationCount < 1" ng-class="ng - hide" ng-bind="notificationCount"> </span>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu notification-dropdown" role="menu">
+                                        <li ng-if="notifications.length <= 0">
+                                            <div class="noti_li">
+                                                <h5 ng-if="nd.status == 2 && notifications.length <= 0" translate>No_Results_found</h5>
+                                                <h5 ng-if="nd.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+                                                <h5 ng-if="nd.status == 3" class="rclor" translate>something_went_wrong</h5>
+                                            </div>
+                                        </li>
+
+                                        <li ng-repeat="notification in notifications">
+                                            <div ng-include="'../app/views/containers/notification_li.tpl.html'"></div>
+                                        </li>
+
+                                        <li>
+                                            <div class="noti_li viewall" >
+                                                <a class="pull-left pad0" ui-sref="app.notifications">
+                                                    <span translate> View all</span>
+                                                </a>
+
+                                                <a class="pull-right pad0 hide" ng-click="$root.openConfigureManagerPopup()">
+                                                    <span translate>Configure</span>
+                                                </a>
+
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div ng-if="$root.translationService && $root.displayLanguageIcon" class="uaa_li lang_icon no_padd">
+                                <div class="btn-group left_dropdown user_dropdown animated fadeIn">
+                                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <div class="user_badge uaa_item">
+                                            <span class="right-menu-icon language-icon"></span>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li ng-repeat="lang in $root.languages">
+                                            <div ng-if="lang.isShowOnHeader" class="noti_li clk" ng-class="{'active': $root.currentLanguage.code == lang.code}" ng-click="$root.chooseLanguage(lang)" translate>
+                                                <span>{{lang.name}}</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+
+
+                            <div ng-if="$root.isUserHasRightAdmin" class="uaa_li admin_icon no_padd hidden-xs hidden-sm">
+                                <div class="btn-group left_dropdown user_dropdown animated fadeIn">
+                                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <div class="user_badge uaa_item">
+                                            <span class="right-menu-icon admin-icon"></span>
+                                        </div>
+                                    </div>
+                                    <ul class="dropdown-menu" role="menu" style="min-width:260px;">
+                                        <li class="noti_li" ng-click="$root.openWidgetManagerPopup()"> <span translate>Widget manager</span> </li>
+
+                                        <li class="noti_li" ng-click="openCreateCommPopup()"> <span>{{'Create_Community'| translate}}</span> </li>
+
+                                        <li class="noti_li" ng-click="openCarouselManagerPopup()"> <span translate>Carrousel manager</span> </li>
+
+                                        <li class="noti_li" ng-click="$root.openUsefulLinkManagerPopup('header')"> <span translate>Header Menu Manager</span> </li>
+                                        <li class="noti_li" ng-click="$root.openUsefulLinkManagerPopup('footer')"> <span translate>Footer Menu Manager</span> </li>
+                                        <li class="noti_li" ng-click="$root.openStatisticReportPopup()"> <span translate>Statistiques</span> </li>
+                                        <li class="noti_li" ng-if="$root.digestFeature" ng-click="$root.openDigestPopup()"> <span translate>Digest</span> </li>
+                                        <li class="noti_li hide"> <span>{{"Template manager"| translate}}</span> </li>
+                                        <!-- <li class="noti_li" ng-click="openFileBrowsePopup()"> <span>File Browse</span> </li> -->
+
+                                        <!-- <li class="noti_li"> <span translate>Organization management</span> </li>
+
+                                        <li class="noti_li"> <a ui-sref="app.search({type:'general', filter: 'all'})"> <span translate>Main search</span> </a></li> -->
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                            <div class="uaa_li no_padd user-main">
+                                <div class="btn-group left_dropdown user_dropdown animated fadeIn">
+                                    <div class="btn btn-default user-btn dropdown-toggle" data-toggle="dropdown">
+
+                                        <div class="user_badge uaa_item">
+                                            <div class="user_image uaa_item img-circle" profile-photo="{url: $root.userData.headerLogoUrl, firstName: $root.userData.firstName, lastName: $root.userData.lastName, nochache: true}"> </div>
+                                            <img style="position: absolute;z-index: 1;top: -8px;left: 25px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && $root.userData.badge" ng-src="{{$root.userData.badge.image.url}}">
+                                        </div>
+                                        <span class="caret user-caret"></span>
+                                    </div>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li>
+                                            <a ui-sref="app.myprofile({uid: $root.userData.uid, activetab: 'Activities'})" class="no_padd">
+                                                <div class="noti_li" ng-click="">
+                                                    <!-- <span class="right-menu-icon user-icon"></span> -->
+                                                    {{'My profile'| translate}}
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <div class="noti_li" ng-click="$root.openChangePasswordPopup()">
+                                                <!-- <span class="right-menu-icon password-icon"></span> -->
+                                                {{'Change_Password'| translate}}
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="noti_li" ng-click="logout()">
+                                                <!-- <span class="right-menu-icon logout-icon"></span> -->
+                                                {{'Log out'| translate}}
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div><!--user_account_area-->
+
+
+                    </ul>
+                </div>
+
+                <!-- The Collapsing items     navbar-left or navbar-right -->
+                <div class="collapse headermenu-collapse navbar-left">
+                    <!-- pull-right keeps the drop-down in line -->
+
+                    <ul class="nav navbar-nav navbar-left-nav pull-right">
+
+                        <li ui-sref-active="active">
+                            <a ng-click="refreshFeeds()" class="animated bounceIn" ui-sref="app.home">
+                                <span class="top-menu-icon icon-home"></span>
+                                {{ 'Home' | translate }}
+                            </a>
+                        </li>
+
+
+                        <li class="visible-xs" ng-click="$root.openGeneralSearchPopup()"> <a href="javascript: void(0)" class="animated bounceIn">
+                                <span class="top-menu-icon search-icon animated fadeIn"></span>
+                                {{ 'Search' | translate }}</a></li>
+
+
+                        <li ui-sref-active="active"> <a ui-sref="app.communities" class="animated bounceIn">
+                                <span class="top-menu-icon icon-communities"></span>
+                                {{ 'Communities' | translate }}</a></li>
+
+                        <li ui-sref-active="active" class="annuaires"><a ui-sref="app.search.random({type:'directory', filter: 'all'})" class="animated bounceIn">
+                                <span class="top-menu-icon icon-directory"></span>
+                                {{ 'Directory' | translate }}</a></li>
+
+
+                        <li ng-click="$root.openCreateFeedPopup({type: 'content'})" class="visible-xs">
+                            <a href="javascript: void(0)" class="animated bounceIn">
+                                <span class="top-menu-icon article-icon"></span>
+                                <span translate>Content creation</span></a>
+                        </li>
+
+                        <li ng-if="$root.isQuicpostBlockEnabled" ng-click="$root.openCreateQuickpostPopup()" class="visible-xs">
+                            <a href="javascript: void(0)" class="animated bounceIn">
+                                <span class="top-menu-icon quickpost-icon"></span>
+                                <span translate>Create quickpost</span>
+                            </a>
+                        </li>
+
+
+                        <li class="dropdown usefullink-dropdown hidden-xs">
+                            <a ng-click="showUsefulLinks()" class="dropdown-toggle animated bounceIn" data-toggle="dropdown" role="button" aria-expanded="false">
+                                <span class="top-menu-icon icon-custom-link"></span>
+                                {{ 'Custom_Link' | translate }} <span class="caret"></span></a>
+                            <div class="dropdown-menu ins-subdropdown-menu" role="menu">
+                                <div class="container-fluid">
+                                    <ul class="row main-row">
+                                        <li ng-repeat="sbmn in usefulLinks" class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                            <div class="menu-section-title">{{sbmn.heading}}</div>
+                                            <ul class="usefullink-sections">
+                                                <li ng-repeat="link in sbmn.links">
+                                                    <span class="sub-item-style"><i class="fa fa-caret-right"></i></span> <a target="_blank" once-href="link.link" once-text="link.title"></a>
+                                                </li>
+                                            </ul>
+                                        </li><!--custom-menu part-->
+
+                                        <!--mes application part: with icons-->
+                                        <!-- <li class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+                                            <div class="menu-section-title">Mes applications</div>
+                                            <ul class="usefullink-sections list-inline mes-applications">
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/1.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/2.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/3.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/4.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/5.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/6.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/7.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/8.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/9.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/10.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/11.png" ></a>
+                                                </li>
+                                                <li>
+                                                    <a target="_blank" href="#"><img src="images/genfit/12.png" ></a>
+                                                </li>
+                                            </ul>
+                                        </li> -->
+
+                                    </ul><!--row-->
+                                </div><!--container-fluid END-->
+
+                            </div><!--ins-subdropdown-menu-->
+                        </li>
+
+                    </ul>
+                </div>
+            </div><!--top MENU END-->
+
+        </nav>
+    </div>
+
+</div><!--menu END-->

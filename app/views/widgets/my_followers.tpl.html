@@ -1,0 +1,54 @@
+<div class="panel panel-default widget my_followers marb20" id="myfollowers" ng-controller="WidgetMyFollowers">
+  <div class="disp_table widget-title">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_user">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+      <div class="tblc_m title">
+        {{'My_Followers' | translate}}
+      </div>
+      <div class="tblc_m icn">
+        <!-- <i class="fa fa-minus clk" ng-click="widgetToggle();"></i> -->
+        <span class="badge" ng-click="showFollower(userProfileData.followers)">{{userProfileData.followerCount}}</span>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body" ng-show="isWidgetOpen">
+      <div class="wrap_user circle-image" ng-repeat="follower in userProfileData.followers" ng-if="$index <= 5">
+	      	<a ui-sref="app.myprofile({uid: follower.uid, activetab: 'About'})">
+	        	<img class="com_icon" src="{{$root.getUserProfilePic(follower)}}">
+	        	<img style="position: absolute;z-index: 1;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && follower.badge" src="{{follower.badge.image.url}}">
+	        </a>
+	        <p>
+	        	<a ui-sref="app.myprofile({uid: follower.uid, activetab: 'About'})">	
+		          <span ng-bind="follower.firstName"></span>
+		          <span ng-bind="follower.lastName"></span>
+	          	</a>
+	        </p>
+      </div>
+       <p ng-if="userProfileData.followers.length > 6" ng-click="showFollower(userProfileData.followers)" style="color:#059bcd;" translate>
+       		More
+       </p>
+      <div ng-if="userProfileData.followers.length <= 0" class="marb10">
+        <p>
+          <span class="fwb" translate="No Followers_users"></span>
+        </p>
+      </div>
+      <!--
+      <div class="wrap_user">
+        <img class="com_icon" src="/api/attachment?file=attachments/e6716ac4-2be5-4935-817d-15430824491a/user1_128x96.jpg">
+        <p>Sophie Warren</p>
+      </div>
+      <div class="wrap_user">
+        <img class="com_icon" src="/api/attachment?file=attachments/e6716ac4-2be5-4935-817d-15430824491a/user1_128x96.jpg">
+        <p>Sophie Warren</p>
+      </div>
+      <div class="wrap_user">
+        <img class="com_icon" src="/api/attachment?file=attachments/e6716ac4-2be5-4935-817d-15430824491a/user1_128x96.jpg">
+        <p>Sophie Warren</p>
+      </div>
+      -->
+  </div>
+</div>

@@ -1,0 +1,53 @@
+<!-- docobj {type: 'doc', title: '', attachedDocs: [{index: docIndex, file: f, name: f.name, fileType: f.type}]} -->
+<div class="editblock_wrap">
+	<div class="conrol_wrapper floatl">
+    <div class="inner_wrap floatr">
+      <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addDocBlock()"></div>
+      <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+      <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+    </div>
+  </div>
+
+	<div class="ca_browse_block floatl fixed">
+	    <div class="btn_wrapper floatl">
+	      <div class="cad_btn floatl width50">
+	        <input type="file" class="file_select" ng-file-select="docBlockAdddocs($files, $index)" multiple="multiple" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;">
+	        {{ 'Upload_Document' | translate }}Download Document
+	      </div>
+	      <!-- <div class="cad_btn floatl width50" ng-click="showBrowseDocumentPopup($index)">
+	        Browse Document
+	      </div> -->
+        <div class="cad_btn floatl width50">
+          <div class="dropdown ins-ddbtn">
+          <p class="dropdown-toggle" data-toggle="dropdown">{{ 'Browse_Document' | translate }}</p>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="showBrowseDocumentPopup($index)"><a>{{ 'Browse_all' | translate }}</a></li>
+            <li ng-click="showImageUrlPopup($index)"><a>Google Drive</a></li>
+            <li><a href="#">Dropbox</a></li>
+          </ul>
+        </div>
+        </div>
+
+	    </div>
+	</div>
+
+    <div class="files_wrapper width100 floatl fixed">
+        <ul class="vsortlist">
+          <li class="vsortlist_item" ng-repeat="attachment in docobj.attachedDocs">
+              <div class="fl_docu_container ng-scope">
+                  <div class="left_part">
+                    <div class="feedthumb_72">
+                      <thumbnail file="attachment"></thumbnail>
+                    </div>
+                  </div>
+                  <div class="right_part file_info">
+                      <div class="art_title"> {{attachment.name}} </div>
+                       <!-- <div class="list_ritch_text"> <span class="gray_font">Uploaded Sep 5, 8:54</span> </div> -->
+                  </div>
+            </div>
+          </li>
+        </ul>
+    </div>
+
+    <input class="ins_input_tex fixed" type="text" ng-model="docobj.title" placeholder="{{'Title' | translate}}">
+</div>

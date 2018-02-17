@@ -1,0 +1,483 @@
+<!doctype html>
+<html class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-motion/dist/angular-motion.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-datetimepicker/src/css/datetimepicker.css" />
+    <link rel="stylesheet" href="bower_components/angular-dropdowns/css/dropdowns.css" />
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
+    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog.css" />
+    <link rel="stylesheet" href="bower_components/ngDialog/css/ngDialog-theme-default.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angular-notify/dist/angular-notify.css" />
+    <link rel="stylesheet" href="bower_components/ng-tags-input/ng-tags-input.min.css" />
+    <link rel="stylesheet" href="bower_components/fullcalendar/fullcalendar.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/colorpicker.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/buttons.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/widgets.css">
+    <link rel="stylesheet" href="styles/default_theme.css">
+    <link rel="stylesheet" href="styles/grid_view.css">
+    <link rel="stylesheet" href="styles/communities.css">
+    <link rel="stylesheet" href="styles/myprofile.css">
+    <link rel="stylesheet" href="styles/community_home.css">
+    <link rel="stylesheet" href="styles/collection.css">
+    <link rel="stylesheet" href="styles/popup.css">
+    <link rel="stylesheet" href="styles/article_detail.css">
+    <link rel="stylesheet" href="styles/jquery.bxslider.css">
+    <link rel="stylesheet" href="styles/theme_blue_color.css">
+    <!-- endbuild -->
+
+  </head>
+  <body ng-app="inspherisProjectApp">
+  <div class="appbody">
+    
+  
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="top_menu" ng-controller="MainMenuCtrl">
+      <nav class="navbar navbar-default" role="navigation">
+          <!-- Brand and toggle get grouped for better mobile display -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+              <span class="sr-only">Toggle Navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <!-- <a class="navbar-brand" href="#">Brand</a> -->
+
+            <div class="site_logo">
+              <a class="brand" href="index.html"> <img src="images/gray_icons/logo_gray.png"></a>
+            </div>
+          </div>
+
+          <div class="user_account_area">
+              <div class="uaa_li">
+                <a href="#!/myprofile">
+                <div class="user_image uaa_item" style="background-image: url(images/media/user.png);"> 
+                  <!-- <a href="#/myprofile"><img src="images/media/user.png"></a> -->
+                </div>
+                </a>
+              </div>
+              <div class="uaa_li">
+                <div class="art_write_badge uaa_item">  </div>
+              </div>
+              <div class="uaa_li no_padd">
+                <!--
+                <div class="notification_badge uaa_item"> 
+                  <div class="notification_count">10</div> 
+                </div>
+                -->
+
+                <div class="btn-group left_dropdown noti_dropdown">
+                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <div class="notification_badge uaa_item"> 
+                        <div class="notification_count">3</div> 
+                      </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <div class="noti_li">
+                          <div class="nclose">
+                            <i class="fa fa-times"></i>
+                          </div>
+                          <div class="left_part">
+                            <div class="com_icon_outer">
+                                  <img class="com_icon" src="images/feed/community_icon.png">
+                            </div>
+                          </div>
+                          <div class="right_part">
+                            <span class="unm"><a href="#">User #1</a></span> <span class="action">has liked your article</span>
+                            <br>
+                            <span class="title"><a href="#">Article Title</a></span>
+                            <br>
+                            <span class="time"> 10h ago </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="noti_li">
+                          <div class="left_part">
+                            <div class="com_icon_outer">
+                                  <img class="com_icon" src="images/feed/community_icon.png">
+                            </div>
+                          </div>
+                          <div class="right_part">
+                            <span class="unm"><a href="#">User #1</a></span> <span class="action">has liked your article</span>
+                            <br>
+                            <span class="title"><a href="#">Article Title</a></span>
+                            <br>
+                            <span class="time"> 10h ago </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="noti_li">
+                          <div class="left_part">
+                            <div class="com_icon_outer">
+                                  <img class="com_icon" src="images/feed/community_icon.png">
+                            </div>
+                          </div>
+                          <div class="right_part">
+                            <span class="unm"><a href="#">User #1</a></span> <span class="action">has liked your article</span>
+                            <br>
+                            <span class="title"><a href="#">Article Title</a></span>
+                            <br>
+                            <span class="time"> 10h ago </span>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="noti_li viewall">
+                          View all
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+
+              </div>
+              <div class="uaa_li no_padd">
+                <!-- <div class="lang_badge uaa_item"> </div> -->
+                <div class="btn-group left_dropdown lang_dropdown">
+                    <div class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <div class="lang_badge uaa_item"> </div>
+                    </div>
+                    <ul class="dropdown-menu" role="menu">
+                      <li ng-repeat="lang in $root.languages">
+                        <div class="noti_li" ng-class="{'active': $root.currentLanguage.code == lang.code}" ng-click="$root.chooseLanguage(lang)">
+                          <a>{{lang.name}}</a>
+                        </div>
+                      </li>
+                    </ul>
+                </div>
+              </div><!-- uaa_li -->
+			  <div>
+				<a class="btn" ng-click="logout()"> Log out</a>
+			  </div>
+          </div>
+
+          <div class="container">
+            <div class="row">
+                  <!-- Collect the nav links, forms, and other content for toggling -->
+                  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                      <li active-link="active" data-href="#/"> <a href="#/">{{ 'Home' | translate }}</a></li>
+                      <li active-link="active" data-href="#/communities"> <a href="#/communities">{{ 'Communities' | translate }}</a></li>
+                       <li ><a>{{ 'Directory' | translate }}</a></li>
+                       <li active-link="active" data-href="#/collection"> <a href="#/collection">{{ 'Collections' | translate }}</a></li>
+                       
+                       <li ng-class="{'open': submenuFlag}"><a ng-click="showSubmenu()">{{ 'Custom_Link' | translate }}</a></li>
+                      
+                        <!--
+                        <li class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown">Custom Link<span class="caret"></span></a>
+                          <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">First Item</a></li>
+                            <li><a href="#">Second Item</a></li>
+                            <li><a href="#">Third Item</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">One more separated link</a></li>
+                          </ul>
+                        </li>
+                        -->
+                        
+                    </ul>
+                    
+                     <ul class="nav navbar-nav navbar-right">
+                      <form class="navbar-form navbar-left" role="search">
+                          <!-- <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Search">
+                          </div>
+                          <button type="submit" class="btn btn-default">Submit</button> -->
+                          <div controller-name="GlobleSearchCtrl" globle-search></div>
+                      </form> 
+                     </ul>
+                  </div><!-- /.navbar-collapse -->
+                 
+            </div>
+          </div><!-- container -->
+
+      </nav>
+      <div class="fullhori-dropdown" ng-show="submenuFlag">
+        <ul class="fhd-submenu">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ul>
+        <ul class="fhd-submenu">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ul>
+        <ul class="fhd-submenu">
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+          <li>Item 4</li>
+          <li>Item 5</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="webcontent-view" ng-view="">
+
+    </div>
+
+    <footer>
+      <!--
+      <div class="footer-outer">
+        <div class="footer-left-side">
+        <div class="footer-text-logo">
+          <div class="canal-plus">CANAL+</div>
+          <div class="canal-plus-content">
+            <p>v1.7.7.126</p>
+            <div>Contact</div>
+            <div>Meteo</div>  
+          </div>
+        </div>
+        </div>
+        <div class="footer-right-side">
+          <div class="footer-link-heading">Les sites du Groupe</div>
+          <div class="footer-link-outer">
+            <div class="footer-link">CANAL+</div>
+            <div class="footer-link">CANALSAT</div>
+            <div class="footer-link">STUDIOCANALCANAL</div>
+            <div class="footer-link">CANAL+ GROUP</div>
+            <div class="footer-link">CANAL+ Regie</div>
+            <div class="footer-link">CANAL+ OVERSEAS</div>
+          </div>
+          <div class="footer-link-outer">
+            <div class="footer-link">VIVENDI Intranet</div>
+            <div class="footer-link">CANALPLAY</div>
+            <div class="footer-link">CINE +</div>
+            <div class="footer-link">COMEDIE +</div>
+            <div class="footer-link">JIMMYE</div>
+            <div class="footer-link">PLANETE +</div>
+          </div>
+          <div class="footer-link-outer">
+            <div class="footer-link">SEASONS</div>
+            <div class="footer-link">LES OFFRES CANAL</div>
+            <div class="footer-link">CUISINE+</div>
+            <div class="footer-link">MAISON+</div>
+            <div class="footer-link">i>TELE</div>
+            <div class="footer-link">INFOSPORT+</div>
+          </div>
+          <div class="footer-link-outer">
+            <div class="footer-link">Piwi +</div>
+            <div class="footer-link">SPORT +</div>
+            <div class="footer-link">TeleTOON +</div>
+           
+          </div>
+
+        </div>
+      </div>
+      -->
+      <div class="footer-outer" ng-style="{'background-color': '#105982'}">
+        <div class="container">
+            <div class="footer-vmenu floatl">
+              <span class="fvmenu-title">Menu Heading</span>
+              <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+                <li>Menu 4</li>
+              </ul>
+            </div>
+            <div class="footer-vmenu floatl">
+              <span class="fvmenu-title">Menu Heading</span>
+              <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+                <li>Menu 4</li>
+              </ul>
+            </div>
+            <div class="footer-vmenu floatl">
+              <span class="fvmenu-title">Menu Heading</span>
+              <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+                <li>Menu 4</li>
+              </ul>
+            </div>
+            <div class="footer-vmenu floatl">
+              <span class="fvmenu-title">Menu Heading</span>
+              <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+                <li>Menu 4</li>
+              </ul>
+            </div>
+            <div class="footer-vmenu floatr">
+              <span class="fvmenu-title">Menu Heading</span>
+              <ul>
+                <li>Menu 1</li>
+                <li>Menu 2</li>
+                <li>Menu 3</li>
+                <li>Menu 4</li>
+              </ul>
+            </div>
+        </div>
+      </div>
+      <div class="footer-outer" ng-style="{'background-color': '#05375C'}">
+        <div class="container">
+          <span>&copy; | 2014</span>
+          <div class="floatr">
+            <span><i class="fa fa-envelope"></i> Email us at: abc@abc.com</span>
+            <br>
+            <span><i class="fa fa-phone"></i> Call us at: 1800 7456 8843</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    </div> <!-- appbody for click listener -->
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <script src="scripts/ckeditor/ckeditor.js"></script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload.js"></script>
+    <script src="bower_components/ng-file-upload-shim/angular-file-upload-shim.js"></script>
+    <script src="bower_components/angular-dropdowns/dist/angular-dropdowns.js"></script>
+    <script src="bower_components/textAngular/dist/textAngular.min.js"></script>
+    <script src="bower_components/ngDialog/js/ngDialog.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/angular-notify/dist/angular-notify.js"></script>
+    <script src="bower_components/ng-tags-input/ng-tags-input.min.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+    <script src="bower_components/fullcalendar/fullcalendar.js"></script>
+    <script src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+    <script src="bower_components/angular-elastic/elastic.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!--
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true&libraries=places&language=en-US"></script>
+    -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js --> 
+    <script src="scripts/bootstrap-colorpicker.js"></script>
+    <script src="scripts/bootstrap-colorpicker-module.js"></script>
+    <script src="scripts/jquery.dotdotdot.js"></script>
+    <script src="scripts/template.js"></script>
+    <script src="scripts/sortable.js"></script>
+    <script src="scripts/angular-sticky.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/jquery.Jcrop.js"></script>
+    <script src="scripts/jquery.bxslider.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/translation-table.js"></script>
+    <script src="scripts/services/config.js"></script>
+    <script src="scripts/services/modal_services.js"></script>
+    <script src="scripts/directives/ng-ckeditor.js"></script>
+    <script src="scripts/directives/custom_directive.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/main_menu.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/communities.js"></script>
+    <script src="scripts/controllers/search_result.js"></script>
+    <script src="scripts/controllers/myprofile.js"></script>
+    <script src="scripts/filters/filters.js"></script>
+    <script src="scripts/controllers/blocks_controllers.js"></script>
+    <script src="scripts/controllers/community_home.js"></script>
+    <script src="scripts/controllers/collection.js"></script>
+    <script src="scripts/controllers/whats_new_section.js"></script>
+    <script src="scripts/controllers/comment_wrapper.js"></script>
+    <script src="scripts/controllers/widget_ca_zenmode.js"></script>
+    <script src="scripts/controllers/widget_translate_on_demand.js"></script>
+    <script src="scripts/controllers/widgets/widgets.js"></script>
+    <script src="scripts/controllers/popup/CommentEditCtrl.js"></script>
+    <script src="scripts/controllers/popup/ShareArtPopupCtrl.js"></script>
+    <script src="scripts/controllers/popup/CreateArticleCtrl.js"></script>
+    <script src="scripts/controllers/popup/CreateCarouselCtrl.js"></script>
+    <script src="scripts/controllers/popup/SelectCommPopupCtrl.js"></script>
+    <script src="scripts/controllers/popup/SelectHeaderImgCtrl.js"></script>
+    <script src="scripts/controllers/popup/SelectZenImgCtrl.js"></script>
+    <script src="scripts/controllers/article_detail.js"></script>
+    <script src="scripts/controllers/preview_article.js"></script>
+    <script src="scripts/controllers/popup/VideoUrlCtrl.js"></script>
+    <script src="scripts/controllers/popup/BrowseImageCtrl.js"></script>
+    <script src="scripts/controllers/popup/BrowseDocumentCtrl.js"></script>
+    <script src="scripts/controllers/popup/SelectPeopleCtrl.js"></script>
+    <script src="scripts/controllers/popup/ChooseLocationCtrl.js"></script>
+    <script src="scripts/controllers/popup/ImagesCropCtrl.js"></script>
+    <script src="scripts/controllers/popup/imageVideoGalleryCtrl.js"></script>
+    <script src="scripts/controllers/popup/DocumentViewerCtrl.js"></script>
+    <script src="scripts/controllers/generic_add_media_gallery.js"></script>
+    <script src="scripts/controllers/feeds.js"></script>
+	  <script src="scripts/controllers/request_community.js"></script>
+    <script src="scripts/controllers/feed_translate.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+    <!-- endbuild -->
+
+    <!-- google drive API -->
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
+    <script type="text/javascript">
+      // The Browser API key obtained from the Google Developers Console.
+      function handleClientLoad() {
+      }
+    </script>
+  </body>
+</html>

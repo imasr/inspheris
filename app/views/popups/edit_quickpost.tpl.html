@@ -1,0 +1,16 @@
+<div class="ins_popup medium_popup" ng-controller="CreateQuickpostPopupCtrl">
+  
+	<div class="popup_header floatl">
+	  <!--
+	  <div class="user_image floatl">
+	  	<img src="images/media/user.png">
+	  </div>
+	  -->
+	  <div class="popup_title">{{popupTitle | translate}}</div>
+	  <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div> 
+	</div>
+
+  <div class="comment_wrapper">
+  	<div ng-init="editData = modalData.data" ng-include="'../app/views/containers/create_quickpost.tpl.html'"></div>
+  </div>
+</div>

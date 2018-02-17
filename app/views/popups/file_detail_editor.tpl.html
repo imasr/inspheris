@@ -1,0 +1,91 @@
+<div class="ins_popup medium_popup gallery_popup" ng-controller="FileDetailEditorCtrl">
+
+  <!-- <div class="popup_header floatl">
+      <span class="popup-heaer-icon"><i class="fa fa-dropbox"></i></span>
+        <span class="popup_title">{{'File_Details' | translate}}</span>
+  </div>
+
+  <div class="close-o-btn" ng-click="closeThisDialog({flag: 'cancel', data: null})">
+        <i class="fa fa-times"></i>
+  </div> -->
+  <div class="popup_header floatl">
+     <div class="popup_title" style="padding-left:5px;">
+         <span class="popup-heaer-icon"><i class="fa fa-dropbox"></i></span>
+         {{'File_Details'| translate}}</div>
+     <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})" style="background-color:white;color:#A7A7AF;"> X </div>
+  </div>
+
+  <div class="popup_wrapper floatl width100" style="padding: 0px 10px 10px 10px;">
+
+    <div class="popup_nav block_group" ng-if="fileArray.length > 1">
+      <div ng-if="fileindex != 0" class="nav_btn floatl" ng-click="navigate('prev')">&larr; {{'Previous' | translate}} </div>
+      <div ng-if="fileindex != (fileArray.length-1)" class="nav_btn floatr" ng-click="navigate('next')">{{'Next' | translate}} &rarr;</div>
+    </div>
+    <!--
+    <div class="document_list">
+      <div class="document-info-bar">
+        <div class="disp_table">
+          <div class="tblc">
+            <div class="doc-thumb-wrap" ng-switch="fileArray[fileindex].fileType|getFileType">
+                <div class="feedthumb_72" ng-switch-when="img" style="background-image: url('images/media/image_file.png')"></div>
+                <div class="feedthumb_72" ng-switch-when="pdf" style="background-image: url('images/media/pdf.png')"></div>
+                <div class="feedthumb_72" ng-switch-when="ppt" style="background-image: url('images/media/ppt.png')"></div>
+                <div class="feedthumb_72" ng-switch-when="xls" style="background-image: url('images/media/xls.png')"></div>
+                <div class="feedthumb_72" ng-switch-when="doc" style="background-image: url('images/media/doc.png')"></div>
+            </div>
+          </div>
+          <div class="tblc doc-meta" ng-if="currentFile">
+
+            <span contentEditable="true" ng-model="currentFile.fileName" class="doc-title">{{currentFile.fileName}}</span>
+
+            <span contentEditable="true" ng-model="currentFile.caption" class="doc-desc">{{currentFile.caption}}</span>
+            <div class="doc-user-info">
+
+              <a class="pull-left" href="#">
+                <img class="media-object thumb28x28" src="images/media/user.png" alt="user name" style="margin-right: 5px;">
+              </a>
+              By <a href="">Aron</a> <span>{{currentFile.uploadedDate | timeago}}</span>
+            </div>
+
+            <div class="floatl width100">
+              <i class="fa fa-dropbox"></i>
+              <span>File Source </span> <span>•</span> <span>Dropbox</span>
+            </div>
+            <div class="floatl width100">
+              <i class="fa fa-file"></i>
+              <span>Version 1</span> <span>•</span> <span>Last updated 55 min ago by User1</span>
+            </div>
+            <div class="floatl width100">
+              <i class="fa fa-user"></i>
+              <span>Author</span> <span>•</span> <span>Aron</span>
+            </div>
+            <div class="floatl width100">
+              <i class="fa fa-globe"></i>
+              <span>Language</span> <span>•</span> <span>English</span>
+            </div>
+            <div class="floatl width100">
+              <span># Hashtag</span> <span>•</span> <span contentEditable="true" ng-model="currentFile.caption">{{currentFile.caption}}</span>
+            </div>
+          </div>
+          <div class="tblc doc-action">
+            <a href="{{currentFile.path}}">
+              <div class="download-btn">
+                <i class="fa fa-download"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    -->
+    <!--
+    <div class="width100 floatl" ng-if="currentFile">
+      <ng-include ng-init="file = currentFile;" src="'../app/views/containers/file_detail_edit.tpl.html'"></ng-include>
+    </div>
+    -->
+    <div class="width100 floatl" ng-repeat="fl in fileArray" ng-show="fileindex == $index">
+      <ng-include ng-init="file = fl; otherData = modalData.otherData;" src="'../app/views/containers/file_detail_edit.tpl.html'"></ng-include>
+    </div>
+  </div>
+
+</div>

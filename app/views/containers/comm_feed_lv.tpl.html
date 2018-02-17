@@ -1,0 +1,98 @@
+<div ng-init="community=$ctrl.community" class="comm_li lv-community-feed afkl-lazy-wrapper" ng-class="{'commli_banner' : community.headerBannerUrl}" afkl-lazy-image="{{community.headerBannerUrl}}" afkl-lazy-image-options="{background: true}">
+  <div ng-if="community.headerBannerUrl" class="bg_overlay"> </div>
+  
+    <a ui-sref="app.communityHome({name: community.label, commuid: community.uid})">
+      <div class="disp_table width100">
+        <div class="tblr">
+          <!--
+          <div ng-if="community.headerLogoUrl" class="tblc com-feed-thumb"  ng-class="{'private-community': community.privated == '1'}">
+            <img class="width100" src="{{community.headerLogoUrl}}"/>
+          </div>
+          -->
+          <div ng-if="community.headerLogoUrl" class="tblc com-feed-thumb afkl-lazy-wrapper afkl-img-ratio-1-1" ng-class="{'private-community': community.privated == '1'}" afkl-lazy-image="{{community.headerLogoUrl}}"></div>
+
+          <div class="tblc comm-feed-content">
+            <div class="content-wrap">
+                <div class="ctitle" ng-bind-html="(community.label | highlight:$root.highlightText)"></div>
+              <div class="cdesc ellipses" data-ng-bind="(community.description | highlight:$root.highlightText)" data-ellipsis-symbol="..." data-ellipsis></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+    <!--
+    <div class="left_part" ng-if="community.headerLogoUrl">
+      <img class="comm_li_thumb" src="{{community.headerLogoUrl}}"/>  
+    </div>
+
+    <div class="right_part">
+      <div class="comm_desc_wraper">
+        <a ui-sref="communityHome({name: community.label, commuid: community.uid})"><div class="art_title"> {{community.label}} </div> </a>
+        <span class="desc ellipses" data-ng-bind="community.description" data-ellipsis-symbol="..." data-ellipsis></span>
+      </div>  
+    </div>
+    -->
+    
+    <div class="comm_cntrl_wrapper">
+
+      <div class="comm_li_btn memb_cnt hide" translate-title="Subscriber">
+        <span ng-bind="community.followerCount"></span> 
+      </div>
+      <div class="comm_li_btn art_cnt hide" translate-title="Contributors">
+        <span ng-bind="community.contributorCount"></span> 
+      </div>
+
+        <!--
+        <div class="comm_li_btn memb_cnt">
+          <span ng-bind="community.followerCount"></span> 
+        </div>
+        <div class="comm_li_btn art_cnt">
+          <span ng-bind="community.contributorCount"></span> 
+        </div>
+        <div class="comm_li_btn add_btn">
+          
+        </div>
+        -->
+        <!--<div class="comm_li_btn disp_table clk">
+          <div class="tblc_m">
+            <i class="fa fa-users"></i>
+            <span ng-bind="community.followerCount"></span>
+          </div>
+        </div>
+        <div class="comm_li_btn disp_table clk art_cnt">
+          <div class="tblc_m">
+            <span ng-bind="community.contributorCount"></span>
+          </div>
+        </div>-->
+		
+		    <!-- if current user has not follow community yet-->
+        <div class="comm_li_btn disp_table clk" ng-if="community.statusOfCurrentUser == 'NotFollower'">
+          <div class="tblc_m" translate-title="Follow" ng-click="followCommunity('follow')">
+            <i class="fa fa-check-square green"></i>
+          </div>
+        </div>
+
+    		<!-- if current user is follower of community-->
+    		<div class="comm_li_btn disp_table clk" ng-if="community.statusOfCurrentUser == 'Follower'">
+              <div translate-title="Unfollow" class="tblc_m" ng-click="followCommunity('unfollow')">
+                <i class="fa fa-plus-square"></i>
+              </div>
+        </div>
+
+    		<!-- if current user is community manager/contributor of community so user don't need to follow community-->
+        <!--
+    		<div class="comm_li_btn disp_table clk" ng-if="community.statusOfCurrentUser != 'NotFollower' && community.statusOfCurrentUser != 'Follower'">
+          <div class="tblc_m" ng-click="">
+            <i class="fa fa-plus"></i>
+          </div>
+        </div>
+        -->
+
+        <div ng-if="community.canEdit" class="comm_li_btn disp_table clk" ng-click="editCommunity();">
+          <div class="tblc_m">
+            <i class="fa fa-cog"></i>
+          </div>
+        </div>
+    </div>
+
+</div>

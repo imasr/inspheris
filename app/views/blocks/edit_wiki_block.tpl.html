@@ -1,0 +1,24 @@
+<!-- wikiobj {type: 'wiki', title:'', text: ''} -->
+<div class="editblock_wrap" ng-controller="EditWikiBlockCtrl">
+ 	<div class="conrol_wrapper floatl"> 
+	    <div class="inner_wrap floatr">
+	      <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addContentBlock('wiki')"></div>
+	      <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+	      <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+	    </div>
+	</div>
+
+    <input class="ins_input_tex floatl marb10 fixed" type="text" ng-model="wikiobj.title" placeholder="{{'Title' | translate}}">
+
+    <input class="ins_input_tex floatl marb10 fixed" type="text" ng-model="wikiobj.subtitle" placeholder="{{'Subtitle' | translate}}">
+
+	<div class="floatl wysiwyg_wrapper fixed">
+	    <div text-angular ng-model="wikiobj.content" ta-toolbar="[['quote'],['p'],['bold','italics','strikethrough'],['ul','ol','indent','outdent'],['insertImage','insertVideo','insertLink']]"></div>  
+	</div>
+
+	<div class="floatl single_fileselect">
+        <div class="file_select" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="wikiBlockAddImg($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable"> <!-- type="file" ng-file-select="wikiBlockAddImg($files)" accept="image/*" -->
+        </div>
+        <span ng-if="wikiobj.image.fileName">{{wikiobj.image.fileName}}</span> <span ng-if="!wikiobj.image.fileName">{{'Upload_Image' | translate}}</span>
+	</div>
+</div>

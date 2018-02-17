@@ -1,0 +1,830 @@
+<div class="stickyhalf not-printable" sticky-top="{{stickyCoverPrams.top}}" sticky-offset="{{stickyCoverPrams.offset}}" sticky-cover> <!-- sticky sticky-top="-100" -->
+    <div class="stickyhalf-child width100">
+        <ng-include src="'../app/views/blocks/account_cover.tpl.html'"></ng-include>
+        <div ng-if="hideshowdrop" class="filterbody" ng-include="'views/filter.tpl.html'"></div>
+        <ng-include src="'../app/views/blocks/second_menu.tpl.html'"></ng-include>
+    </div>
+</div>
+
+<div class="container" ng-if="!feed && feeds.length <= 0 && typeCommunityTab != 'gdrive' && typeCommunityTab != 'files' && typeCommunityTab != 'projectmanagement'">
+    <div class="row disp_table">
+        <div class="tblc_m">
+            <h5 ng-if="md.status == 2 && feeds.length <= 0" translate>No_activities_msg</h5>
+            <h5 ng-if="md.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+            <h5 class="rclor" ng-if="md.statuss == 3" translate>something_went_wrong</h5>
+        </div>
+    </div>
+</div>
+
+ <!-- Project Management Tab -->
+ <div class="container" ng-if="currentTab.tabType.toLowerCase() == 'projectmanagement'">
+	<div class="projectMangemnet row disp_table">
+        <div class="tblc_m">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <div class="cust1_feed_li bl_lv_feed">
+              <div class="tblr">
+                <div class="tblc com_icon_outer">
+                    <a>
+                    <img class="iconPro" src="images/media/imagetimeline.png"/>
+                    </a>
+                </div>
+                <div class="tblc feed_line_outer hidden-xs">
+                  <div>
+                    <div class="feed_status">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tblc">
+                  <div class="feed_content_wrapper">
+
+                      <div class="arrow hidden-sm hidden-xs"> </div>
+                      <div class="mainFeedPro" >
+                          <div class="divprof">
+                          <ul ng-repeat="data in feedProject">
+                              <li class="projectfeed" ng-click="hiddenDiv = !hiddenDiv">
+                                    <span ng-if="$index==0?!hiddenDiv:hiddenDiv" class="plusminus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    <span ng-if="$index==0?hiddenDiv:!hiddenDiv" class="plusminus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    <span class="downangle"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                                    <span class="headcon">{{data.phase}}</span>
+                                    <span class="lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                              </li>
+                              <ul ng-if="$index==0?!hiddenDiv:hiddenDiv" class="protext" >
+                              <li ng-repeat="newdata in data.child" class="childfeed"><span class="childPro"><p id="numb">2</p><p id="data">Anyone</p> </span> {{newdata.plan1}}</li>
+                              <li ng-repeat="newdata in data.child" class="childfeed"><span class="childPro"><p id="numb">3</p><p id="data">Anyone</p> </span> {{newdata.plan2}}</li>
+                              </ul>
+                          </ul>
+                              
+                          </div>
+                          <!--<span class="addsign"><i class="fa fa-plus" aria-hidden="true"></i></span>-->
+                      </div>  
+                  </div>
+                </div>
+              </div>
+
+            </div>
+                
+            <div class="cust1_feed_li bl_lv_feed">
+              <div class="tblr">
+                <div class="tblc com_icon_outer">
+                    <a>
+                    <img class="iconPro" src="images/media/imagetimeline.png"/>
+                    </a>
+                </div>
+                <div class="tblc feed_line_outer hidden-xs">
+                  <div>
+                    <div class="feed_status">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="tblc">
+                  <div class="feed_content_wrapper">
+
+                      <div class="arrow hidden-sm hidden-xs"> </div>
+                      <div class="mainFeedPro" >
+                          <div class="divprof">
+                          <ul ng-repeat="data in feedProject2">
+                              <li class="projectfeed" ng-click="hiddenDiv = !hiddenDiv" >
+                                    <span ng-if="$index==0||$index==1||$index==2?!hiddenDiv:hiddenDiv"class="plusminus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                    <span ng-if="$index==0||$index==1||$index==2?hiddenDiv:!hiddenDiv" class="plusminus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                    <span class="downangle"><i class="fa fa-angle-down" aria-hidden="true"></i></span>
+                                    <span class="headcon">{{data.phase}}</span>
+                                    <span class="lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                              </li>
+                              <ul ng-if="$index==0||$index==1||$index==2?!hiddenDiv:hiddenDiv"  class="protext" >
+                                  <li class="childfeed" ng-repeat="newdata in data.child"><span class="childPro"><p id="numb">2</p><p id="data">{{newdata.user}}</p> </span>
+                                      <div class="divChild"><span class="fontsize">{{newdata.content}}</span>
+                                    <span class="fontsize"><a class="morecontent">{{newdata.more}}...</a></span>
+                                    <span class="dateFeed"> 
+                                        <span>(Started:{{newdata.start_date}}</span>
+                                        <i ng-if="newdata.due_date" class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                        <span ng-if="newdata.due_date"  style="color:red">Due:{{newdata.due_date}})</span>
+                                    </span>
+                                      
+                                    <span ng-if="newdata.lock"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                                    <span ng-if="newdata.attachment"><i class="fa fa-paperclip" aria-hidden="true"></i></span>
+                                    <span ng-if="newdata.repeat"><i class="fa fa-repeat" aria-hidden="true"></i></span>
+                                    <span ng-if="newdata.comment"><i style="color:green;" class="fa fa-comment" aria-hidden="true"></i></span>
+                                    </div>
+                                  </li>
+                                  <li class="childfeed"><a style="color:#074a73;">21 Completed</a></li>
+                              </ul>
+                          </ul>
+                              
+                          </div>
+                          <!--<span class="addsign"><i class="fa fa-plus" aria-hidden="true"></i></span>-->
+                      </div>  
+                  </div>
+                </div>
+              </div>
+
+            </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                
+            <div class="panel panel-default widget widget-html">
+                <div class="activityHead activHead3 disp_table widget-title widget-move">
+                  <div class="tblr">
+                    <div class="tblc_m icn">
+                        <div class="icon_widget icon_html">
+                          <div class="btn_icon"></div>
+                        </div>
+                     </div>
+                    <div class="tblc_m title" >Chronologie du projet</div>
+                    <div class="tblc_m icn">
+                    <span >
+                        <i ng-click="widgetToggle();show2=!show2" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body activityWid activ3" ng-if="show2">
+                    <div class="col-md-10"> 
+                        <img class="imageImg" src="images/media/imagetimeline.png"/>
+                    </div>
+                    <div class="col-md-2">
+                        <span class="width99"><i class="fa fa-print" aria-hidden="true"></i></span>
+                        <span class="width99"><i class="fa fa-eye" aria-hidden="true"></i></span>
+                        <span class="width99"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span>
+                    </div>
+                    <div class="col-lg-12"></div>
+                </div>                  
+            </div>
+            
+            <div class="panel panel-default widget widget-html">
+                <div class="activityHead disp_table widget-title widget-move">
+                  <div class="tblr">
+                    <div class="tblc_m icn">
+                        <div class="icon_widget icon_html">
+                          <div class="btn_icon"></div>
+                        </div>
+                     </div>
+                    <div class="tblc_m title" >Activités</div>
+                    <div class="tblc_m icn">
+                    <span >
+                        <i ng-click="widgetToggle();show=!show" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body activityWid" ng-if="show">
+                    <ul class="margin_bottom" id="ca_more_optns" >
+                        <li ng-repeat="data in activity track by $index">
+                            <div class="ins_checkbox">
+                                <input type="checkbox" ng-model="data.check" ng-checked="data.selected" id="check{{$index}}" name="check{{$index}}" class="css-checkbox">
+                                <label for="check{{$index}}" class="css-label"></label>
+                            </div>
+                            <div class="activityData activity11">
+                                <div class="innerAct" style="width:30px;position: absolute;">
+                                <img ng-if="data.imageLogo" alt="" class="img-responsive" width="40" src="{{data.imageLogo}}">
+                                <span ng-if="!data.imageLogo" class="profileimgLettr"  style="text-transform: uppercase;">{{data.name.charAt(0)}}</span>
+                                </div>
+                                <div class="innerAct" style="width:59%;margin-left: 30px;">
+                                    <span class="actiName"><a>{{data.name}}</a> </span>
+                                    <span class="task">{{data.task}}:</span>
+                                    <span class="editedLink"><a>{{data.edited}}</a></span>
+                                    <span class="editedLink">(List:<a>{{data.List}}</a>)</span>
+                                </div>
+                                <div class="innerAct pull-right">
+                                    <span class="time">{{data.creationTime}}</span>
+                                    <span ><i class="fa fa-lock" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li> <span><i class="fa fa-angle-down"></i></span></li>
+                    </ul>
+                </div>                  
+            </div>
+            <div class="panel panel-default widget widget-html">
+                <div class="activityHead activHead disp_table widget-title widget-move">
+                  <div class="tblr">
+                    <div class="tblc_m icn">
+                        <div class="icon_widget icon_html">
+                          <div class="btn_icon"></div>
+                        </div>
+                     </div>
+                    <div class="tblc_m title" >Memberes du projet</div>
+                    <div class="tblc_m icn">
+                    <span >
+                        <i ng-click="widgetToggle();show1=!show1" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body activityWid activ2" ng-if="show1">
+                    <ul class="margin_bottom" id="ca_more_optns" >
+                        <li ng-repeat="data in activity track by $index">
+<!--                            <div class="ins_checkbox">
+                                <input type="checkbox" ng-model="data.check" ng-checked="data.selected" id="check{{$index}}" name="check{{$index}}" class="css-checkbox">
+                                <label for="check{{$index}}" class="css-label"></label>
+                            </div>-->
+                            <div class="activityData">
+                                <div class="innerAct user"><i class="fa fa-user" aria-hidden="true"></i></div>
+                                <div class="innerAct" style="width:32px; margin-left: 5px;">
+                                <img ng-if="data.imageLogo" alt="" class="img-responsive" width="40" src="{{data.imageLogo}}">
+                                <span ng-if="!data.imageLogo" class="profileimgLettr"  style="text-transform: uppercase;">{{data.name.charAt(0)}}</span>
+                                </div>
+                                <div class="innerAct">
+                                    <span class="keyyy"><i ng-if="data.icon" class="fa fa-key" aria-hidden="true"></i></span>
+                                    <span class="actiName" style="margin-left: 20px;font-size:12px;"><a >{{data.name}}</a> </span>
+                                </div>
+                                <div class="innerAct pull-right">
+                                    <span ><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                                </div>
+                            </div>
+                        </li>
+                        <li style="background: #f7005bf7;height: 25px;"></li>
+                    </ul>
+                </div>                  
+            </div>
+            
+                
+            <div class="panel panel-default widget widget-html">
+                <div class="activityHead activHead4 disp_table widget-title widget-move">
+                  <div class="tblr">
+                    <div class="tblc_m icn">
+                        <div class="icon_widget icon_html">
+                          <div class="btn_icon"></div>
+                        </div>
+                     </div>
+                    <div class="tblc_m title" >Fichiers</div>
+                    <div class="tblc_m icn">
+                    <span >
+                        <i ng-click="widgetToggle();show3=!show3" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+                    </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body activityWid activ4" ng-if="show3">
+                    <div class="col-lg-12">
+                        <div class="col-lg-3">
+                            <img src="images/media/excelfake.png"/>
+                            <p>community_1</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <img src="images/media/pdf1.png"/>
+                            <p>organization</p>
+                        </div>
+                        <div class="col-lg-3">
+                            <img src="images/media/excelfake.png"/>
+                            <p>Article1</p>
+                        </div>
+                        <div class="col-lg-3 new">
+                            <img src="images/media/pdf1.png"/>
+                            <p>Article_2</p>
+                        </div>
+                    </div>
+                </div>                  
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+ <!--File/Folder search-->
+<div class="file-search" ng-if="currentTab.tabType.toLowerCase() == 'files'">
+    <community-file-search files="feeds"></community-file-search>
+</div>
+
+<div ng-if="!feed && activeView == 'list' && currentTab.tabType.toLowerCase() != 'files' && currentTab.tabType.toLowerCase() != 'projectmanagement'" class="container list_view no_padd_lr martop60" id="listViewContainer">
+    <div class="min-content-ht">
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+            <!-- input outer was here -->
+            <div class="hide" ng-if="$root.isQuicpostBlockEnabled" ng-include="'../app/views/containers/create_quickpost.tpl.html'"></div>
+
+            <div class="lable_today" style="display: none;">{{ 'Today' | translate }}</div>
+            <div ng-if="typeCommunityTab == 'gdrive'">
+                <ng-include  ng-repeat="feed in feeds" src="'../app/views/containers/feed_lv_gdrive.tpl.html'"></ng-include>
+                <ng-include  ng-if="feeds.length == 0" src="'../app/views/containers/feed_lv_gdrive.tpl.html'"></ng-include>
+            </div>
+            <div ng-if="typeCommunityTab != 'gdrive'" ng-repeat="feed in feeds">
+                <feed-list-view feed="feed" index="$index" is-pinned-tab="pinnedTab"></feed-list-view>
+            </div>
+
+            <!--
+            <div ng-if="totalFeeds == total" class="cust1_feed_li_last">
+              <div class="com_icon_outer">
+
+              </div>
+              <div class="feed_outer">
+                <div class="feed_line_outer_last"></div>
+                <div class="feed_content_wrapper">
+                  <div class="feed_content">
+                    <div class="view_more_feed" ng-click="viewMoreFeed()">{{'View_More_Activities' | translate}}
+                      <input type="hidden" ng-model="page"/>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            -->
+            <div ng-if="typeCommunityTab != 'gdrive'">
+                <div class="cust1_feed_li_last" ng-if="md.showViewMoreBtn">
+                    <div class="tblr">
+                        <div class="tblc com_icon_outer">
+
+                        </div>
+                        <div class="tblc lvfeedstatus">
+                            <div class="feed_line_outer_last"></div>
+                        </div>
+                        <div class="tblc">
+                            <div class="feed_content_wrapper">
+                                <div class="feed_content">
+                                    <button type="button" class="btn-default view_more_feed" ng-click="getFeedData()" ng-disabled="disableGetFeedData" ><span translate>View_More_Activities</span>
+                                        <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                                        <input type="hidden" ng-model="page"/>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div><!-- /.col-lg-6 -->
+
+
+
+        <!-- remove 'ng-show' when md.status ==2 for calendar -->
+        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+            <!--
+            <div class="panel panel-default widget" id="widget2">
+                <div class="disp_table widget-title">
+                  <div class="tblr">
+                    <div class="tblc_m title">
+                      Widget Name
+                    </div>
+                    <div class="tblc_m icn">
+                      <i class="fa fa-minus clk" onclick="widgetToggle('widget2');"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="panel-body">
+                  <img src="images/media/widget_247x218.png" class="img-responsive widget_image" />
+                  <div class="widget_text">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  </div>
+                </div>
+            </div>
+            -->
+            <div ng-if="userCanEditWidget">
+                <div ng-controller="sortableCtrl">
+                    <div ui-sortable="sortableOptions" ng-model="activeWidgets">
+                        <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                            <div ng-switch-when="Admin">
+                                <community-actions-widget user-can-edit-widget="userCanEditWidget"></community-actions-widget>
+                                <!--<div ng-include="'../app/views/widgets/community_actions.tpl.html'"></div>-->
+                            </div>
+                            <div ng-switch-when="AutomatedCalendar">
+                                <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                            </div>
+                            <div ng-switch-when="FCKEditor">
+                                <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                            </div>
+                            <div ng-switch-when="ImageGallery">
+                                <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                            </div>
+                            <div ng-switch-when="VideoGallery">
+                                <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                            </div>
+                            <div ng-switch-when="RegularCalendar">
+                                <div ng-if="!wgt.defaultWidget">
+                                    <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                                </div>
+                                <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+
+                                <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                                    <!--full calendar widget-->
+                                    <div class="panel panel-default calendar widget" ng-controller="fullCalendarCtrl">
+
+
+                                        <div class="widget-title widget-move">
+                                            <div class="tblr">
+                                                <div class="tblc_m icn">
+                                                    <div class="icon_widget icon_calendar">
+                                                        <div class="btn_icon"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="tblc_m title">
+                                                    Calendar
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                        </div>
+                                    </div><!--panel END-->
+                                </div>
+                            </div>
+                            <!--Poll widget-->
+                            <div ng-switch-when="Poll">
+                                <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                                <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                            </div>
+
+                            <!-- RSS widget -->
+                            <div ng-switch-when="RSS">
+                                <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                                <!--<div ng-include="'../app/views/widgets/rss.tpl.html'"></div>-->
+                            </div>
+
+                            <!-- Food Truck -->
+                            <div ng-switch-when="FoodTruck">
+                                <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                                <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                            </div>
+                            <!-- Birthday -->
+                            <div ng-switch-when="Birthday">
+                                <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                                <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                            </div>
+                            <!-- Note de services -->
+		                    <div ng-switch-when="NoteDeServices">
+		                    	<div ng-if="$root.noteTheServiceFeature">
+			                        <note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+			                        <!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+		                        </div>
+		                    </div>
+		            		
+		            		<!-- Countdown clock widget -->
+                        	<div ng-switch-when="CountdownClock">
+                            	<countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                        	</div>
+                        	
+                  			<!-- Bike booking (Villo) widget -->
+                			<div ng-switch-when="BikeBooking">
+                   				<bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                  			</div>
+                        
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-if="!userCanEditWidget">
+                <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                    <div ng-switch-when="AutomatedCalendar">
+                        <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                        <!--<div ng-include="'../app/views/widgets/automated_calendar.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="FCKEditor">
+                        <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                        <!--<div ng-include="'../app/views/widgets/html_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="ImageGallery">
+                        <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                        <!--<div ng-include="'../app/views/widgets/image_gallery_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="VideoGallery">
+                        <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                        <!--<div ng-include="'../app/views/widgets/video_gallery_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="RegularCalendar">
+                        <div ng-if="!wgt.defaultWidget">
+                            <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                        </div>
+                        <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+                        <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                            <!--full calendar widget-->
+                            <div class="panel panel-default calendar widget">
+                                <div class="widget-title widget-move">
+                                    <div class="tblr">
+                                        <div class="tblc_m icn">
+                                            <div class="icon_widget icon_calendar">
+                                                <div class="btn_icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="tblc_m title">
+                                            Calendar
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body" ng-controller="fullCalendarCtrl">
+                                    <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                </div>
+                            </div><!--panel END-->
+                        </div>
+                    </div>
+                    <!--Poll widget-->
+                    <div ng-switch-when="Poll">
+                        <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                        <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- RSS widget -->
+                    <div ng-switch-when="RSS">
+                        <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                        <!--<div ng-include="'../app/views/widgets/rss.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- Food Truck -->
+                    <div ng-switch-when="FoodTruck">
+                        <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                        <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- Birthday -->
+                    <div ng-switch-when="Birthday">
+                        <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                        <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- Note de services -->
+                    <div ng-switch-when="NoteDeServices">
+                    	<div ng-if="$root.noteTheServiceFeature">
+	                        <note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+	                        <!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+                        </div>
+                    </div>
+                    
+                 	<!-- Countdown clock widget -->
+                   	<div ng-switch-when="CountdownClock">
+                   		<countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                   	</div>
+                   	
+               		<!-- Bike booking (Villo) widget -->
+                	<div ng-switch-when="BikeBooking">
+                   		<bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                  	</div>
+
+                </div>
+            </div>
+        </div><!-- /.col-lg-6 -->
+    </div><!-- /.row -->
+</div><!-- list_view -->
+
+ <!--Widget menu for mobile-->
+ <div class="widget-nav" ng-controller="sortableCtrl" ng-if="currentTab.tabType.toLowerCase() != 'files' && currentTab.tabType.toLowerCase() != 'projectmanagement'">
+            <div class="widget-nav-child">
+                <div class="widget-nav-menu-opener layout-hambergertocross" ng-class="{'menu-opened': widgetMenuObject.widgetMenuEnable == true}" ng-click="widgetMenuObject.widgetMenuEnable = !widgetMenuObject.widgetMenuEnable;
+                                    widgetMenuObject.activateWidget = ''"><span></span></div>
+                <div class="btn-group btn-group-justified" role="group" aria-label="..." ng-class="{'visible': widgetMenuObject.widgetMenuEnable == true}">
+                    <div class="btn-group" role="group" ng-repeat="wgt in activeWidgets" style="width: 150px;">
+                        <button style="height: 40px;" type="button" class="btn btn-default wid-menu-btn" ng-click="widgetMobileMenuClicked(wgt)" ng-class="{'widget-icon-automatedCalendar': wgt.type == 'AutomatedCalendar' ,'widget-icon-calendar': wgt.type == 'RegularCalendar' , 'widget-icon-fckEditor': wgt.type == 'FCKEditor', 'widget-icon-image': wgt.type == 'ImageGallery', 'widget-icon-video': wgt.type == 'VideoGallery', 'widget-icon-poll': wgt.type == 'Poll', 'widget-icon-admin': wgt.type == 'Admin', 'widget-icon-birthday': wgt.type == 'Birthday', 'widget-icon-foodTruck': wgt.type == 'FoodTruck', 'widget-icon-RSS': wgt.type == 'RSS', 'widget-icon-note': wgt.type == 'NoteDeServices' } " title="{{wgt.title}}"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div ng-style="widgetMenuObject.widgetContainerHeight" ng-if="widgetMenuObject.activateWidget">
+                <div ui-sortable="sortableOptions" ng-model="activeWidgets">
+                    <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                        <div ng-switch-when="Admin" ng-if="widgetMenuObject.activateWidget.type == 'Admin' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <community-actions-widget user-can-edit-widget="userCanEditWidget"></community-actions-widget>
+                            <!--<div ng-include="'../app/views/widgets/community_actions.tpl.html'"></div>-->
+                        </div>
+                        <div ng-switch-when="AutomatedCalendar" ng-if="widgetMenuObject.activateWidget.type == 'AutomatedCalendar' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                        </div>
+                        <div ng-switch-when="FCKEditor" ng-if="widgetMenuObject.activateWidget.type == 'FCKEditor' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                        </div>
+                        <div ng-switch-when="ImageGallery" ng-if="widgetMenuObject.activateWidget.type == 'ImageGallery' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                        </div>
+                        <div ng-switch-when="VideoGallery" ng-if="widgetMenuObject.activateWidget.type == 'VideoGallery' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                        </div>
+                        <div ng-switch-when="RegularCalendar" ng-if="widgetMenuObject.activateWidget.type == 'RegularCalendar' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <div ng-if="!wgt.defaultWidget">
+                                <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                            </div>
+                            <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+
+                            <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                                <!--full calendar widget-->
+                                <div class="panel panel-default calendar widget" ng-controller="fullCalendarCtrl">
+                                    <div class="widget-title widget-move">
+                                        <div class="tblr">
+                                            <div class="tblc_m icn">
+                                                <div class="icon_widget icon_calendar">
+                                                    <div class="btn_icon"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tblc_m title">
+                                                Calendar
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                    </div>
+                                </div><!--panel END-->
+                            </div>
+                        </div>
+                        <!--Poll widget-->
+                        <div ng-switch-when="Poll" ng-if="widgetMenuObject.activateWidget.type == 'Poll' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                            <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- RSS widget -->
+                        <div ng-switch-when="RSS" ng-if="widgetMenuObject.activateWidget.type == 'RSS' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                            <!--<div ng-include="'../app/views/widgets/rss.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- Food Truck -->
+                        <div ng-switch-when="FoodTruck" ng-if="widgetMenuObject.activateWidget.type == 'FoodTruck' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                            <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                        </div>
+                        <!-- Birthday -->
+                        <div ng-switch-when="Birthday" ng-if="widgetMenuObject.activateWidget.type == 'Birthday' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                            <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- Note de services -->
+                        <div ng-switch-when="NoteDeServices" ng-if="$root.noteTheServiceFeature && widgetMenuObject.activateWidget.type == 'NoteDeServices' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+                            <!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+                        </div>
+                        
+                     	<!-- Countdown clock widget -->
+                        <div ng-switch-when="CountdownClock" ng-if="$root.noteTheServiceFeature && widgetMenuObject.activateWidget.type == 'CountdownClock' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                        </div>
+                        
+                   		<!-- Bike booking (Villo) widget -->
+                        <div ng-switch-when="BikeBooking" ng-if="widgetMenuObject.activateWidget.type == 'BikeBooking' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Widget-->
+        </div>
+<div ng-if="!feed && activeView == 'grid' && currentTab.tabType.toLowerCase() != 'files' && currentTab.tabType.toLowerCase() != 'projectmanagement'" class="container grid_view no_padd_lr martop60" id="gridViewContainer">
+
+    <div class=""><!--row-->
+        <div class="col-lg-12">
+            <!-- input outer was here -->
+            <div class="hide" ng-if="$root.isQuicpostBlockEnabled" ng-include="'../app/views/containers/create_quickpost.tpl.html'"></div>
+        </div><!-- col-lg-8 -->
+
+        <!--<div class="col-lg-4">
+          <div class="btn-group select_widget">
+            <button type="button" class="btn btn-default">{{ 'Select_widget' | translate }}</button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="caret"></span>
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="#">Action</a></li>
+              <li><a href="#">Another action</a></li>
+              <li><a href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+            </ul>
+          </div>
+        </div>--><!-- col-lg-4 -->
+    </div><!-- row -->
+
+
+    <div class="min-content-ht">
+        <!--
+        <div ng-class="$index == 0 ? 'col-lg-8':'col-lg-4'" ng-repeat="feed in feeds">
+          <ng-include src="'../app/views/blocks/gv_feed_content.tpl.html'"></ng-include>
+        </div>
+        -->
+        <!-- row old design -->
+        <div class="container">
+            <div class="row">
+                <div ng-if="(currentTab.tabType.toLowerCase() == 'document') && showDocumentUploadBlk" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 grid_feeds marb20">
+                    <feed-gridview-doc-upload></feed-gridview-doc-upload>
+                    <!--<ng-include src="'../app/views/containers/feed_gv_doc_upload.tpl.html'"></ng-include>-->
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 grid_feeds marb20" ng-repeat="feed in feeds">
+                    <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+                    <feed-grid-view feed="feed" index="$index" is-pinned-tab="pinnedTab"></feed-grid-view>
+                </div>
+            </div><!--row END-->
+        </div><!--container END-->
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12" ng-if="md.showViewMoreBtn">
+            <button type="button" class="btn-default view_more_feed grid_more_feed" ng-click="getFeedData()" ng-disabled="disableGetFeedData" > <span translate>View_More_Activities</span>
+                <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                <input type="hidden" ng-model="page"/>
+            </button>
+        </div>
+    </div>
+</div><!-- Grid_view -->
+
+<!-- for article detail view -->
+<div ng-if="feed" class="row article_detail_wrapper" ng-class="{zenMode: (feed.template.name == 'Zen Mode'), atStandard: (feed.template.name != 'Zen Mode')}">
+    <!-- template class can be: atStandard, zenMode -->
+    <div class="article_top_image not-printable" ng-if="article.topImage">
+        <div class="wrapper">
+            <div class="white_overlay"></div>
+            <img class="header_img" ng-src="{{article.topImage.path}}">
+        </div>
+    </div>
+
+    <div class="container no_padd_lr">
+        <div class="content"><!--row-->
+
+            <div class="container_artdetail">
+                <div class="col-lg-12 col-md-12 not-printable">
+                    <div class="popup_nav block_group">
+                        <div class="nav_btn floatl"><a ui-sref="app.communityHomeWithTab({name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid})"><span class="lnr lnr-chevron-left"></span> {{"Back_to_aritcle_list"| translate}}</a> </div>
+                    </div>
+                </div>
+
+                <div  class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                    <div id="printable-area">
+                        <div class="block_group" ng-class="feed.migratedContent ? 'migratedContent' : 'newcontent'">
+                            <!-- article header with image -->
+                            <ng-include ng-if="article.heading.imageHeader" ng-init="img_path = article.heading.imageHeader;
+                                            atitle = article.heading.title;
+                                            asubtitle = article.heading.subTitle;
+                                            smallImage = article.heading.smallImage;
+                                            backgroundColor = article.heading.imageHeaderBackgroundColor;
+                                            posX = article.heading.imageHeaderPosX;
+                                            posY = article.heading.imageHeaderPosY;
+                                            heightRatio = getHeaderImgHeight()" src="'../app/views/article_blocks/headerimg_with_title_subtitle.tpl.html'"></ng-include>
+                            <!-- article header without image -->
+                            <ng-include ng-if="!article.heading.imageHeader && article.heading.title" ng-init="atitle = article.heading.title;
+                                            asubtitle = article.heading.subTitle;" src="'../app/views/article_blocks/heading_with_title_subtitle.tpl.html'"></ng-include>
+                        </div>
+
+                        <!-- load all blocks -->
+                        <div ng-include="'../app/views/blocks/article_detail_blocks.tpl.html'"></div>
+                    </div>
+                    <div class="block_group not-printable" ng-if="feed.uid">
+                        <!--
+                        <ng-include ng-init="tpl_cmntboxid = feed.uid; tpl_feedid= feed.uid; tpl_showtext=true;" src="'../app/views/blocks/feed_controls.tpl.html'"></ng-include>
+
+                        <ng-include src="'../app/views/comment_wrapper.html'" ng-controller="CommentWrapperCtrl"></ng-include>
+                        -->
+                        <feed-controls
+                            feed-index = "$index"
+                            show-comment-label = "true"
+                            keep-open = "true"
+                            show-full-comments = "showFullComments"
+                            feed ="feed"
+                            on-click-delete-feed="deleteFeed(feed.uid)"
+                            ></feed-controls>
+                        <!--<ng-include ng-init="keepopen = true; tpl_cmntboxid = feed.uid; feedindex = $index; tpl_feedid= feed.uid; tpl_showtext=true; allowComment = feed.allowComment; showAllComments = true;allowShare=feed.allowShare" src="'../app/views/blocks/feed_controls.tpl.html'">
+                             </ng-include>-->
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 not-printable">
+
+                    <!--<button class="btn btn-default marb10" ng-click="printArticle()"><i class="fa fa-print"></i> <span transalte>Print to pdf</span> </button>
+
+                    <button class="btn btn-primary marb10" ng-click="$root.editArticle(feed)"><i class="fa fa-pencil-square-o"></i>
+                              <span>{{'Edit' | translate}}</span>
+                    </button>-->
+
+                    <div ng-if="feed.author">
+                        <!--<div ng-init="authorinfo = feed.author;" ng-include="'../app/views/widgets/author_name.tpl.html'"></div>-->
+                        <author-name-widget author-info="feed.author" feed="feed"></author-name-widget>
+                    </div>
+
+                    <div class="widget_group" ng-if="feed.uid">
+                        <ul class="widget_ul">
+                            <!--<li class="widget_li" ng-if="feed.canEdit">
+                              <div class="bcti_btn floatl" ng-click="$root.editArticle(feed)">
+                                <div class="hori_center">
+                                  <div class="icn feather"></div>
+                                  <span>{{'Edit' | translate}}</span>
+                                </div>
+                              </div>
+                            </li>
+                            <li class="widget_li">
+                              <ng-include src="'../app/views/widgets/article_controls.tpl.html'"></ng-include>
+                            </li>-->
+
+                            <li ng-if="hashtags.length > 0">
+                            <ng-include src="'../app/views/widgets/hashtags_list.tpl.html'"></ng-include>
+                            </li>
+
+                            <li ng-if="documentArray.length > 0">
+                            <ng-include ng-init="attachedDocs = documentArray" src="'../app/views/widgets/attachment_filesview.tpl.html'"></ng-include>
+                            </li>
+
+                            <!--<li>
+                              <ng-include src="'../app/views/widgets/article_information.tpl.html'"></ng-include>
+                            </li>-->
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.row -->
+    </div>
+
+    <div class="article_bottom_image not-printable" ng-if="article.bottomImage">
+        <div class="wrapper">
+            <div class="white_overlay"></div>
+            <img class="header_img" ng-src="{{article.bottomImage.path}}">
+        </div>
+    </div>
+</div>

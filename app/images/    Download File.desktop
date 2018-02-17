@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Link to     Download File
+Type=Link
+URL=http://localhost:9000/api/mediamanager?file=attachments/e921ce30-4eb6-4ed5-9bd2-8d46b1223ebd/1(54).jpg
+Icon=text-html

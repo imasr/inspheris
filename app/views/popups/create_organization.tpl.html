@@ -1,0 +1,30 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CreateOrganizationCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Create_Community' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<div ng-repeat="nm in names">
+			<input class="ins_input_tex marb10" ng-model="nm.name" type="text" placeholder="{{nm.langLbl}} Name">
+		</div>
+
+		<input class="ins_input_tex marb10" ng-model="description" type="text" placeholder="{{'Description' | translate}}">
+
+		<div class="floatl width100 marb10">
+	      <div class="floatl width100" dropdown-select="levelOptions" dropdown-model="selectedLevel" dropdown-onchange="levelSelected(selected)" dropdown-item-label="label"></div>
+	    </div>
+
+	    <div class="floatl width100 marb10">
+	      <div class="floatl width100" dropdown-select="parentOptions" dropdown-model="selectedPrarent" dropdown-onchange="parentSelected(selected)" dropdown-item-label="name"></div>
+	    </div>
+
+
+		<div class="floatl width100">
+			<div class="ins_btn_ctext" ng-click="createOrganization()">
+				<span>{{'Create_Organization' | translate}}</span>
+			</div>
+		</div>
+	</div>
+</div>

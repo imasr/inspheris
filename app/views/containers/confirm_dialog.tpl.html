@@ -1,0 +1,15 @@
+<div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+		  <div class="modal-title">
+		  	<h4>{{ngDialogData.title | translate}}</h4>
+		  </div>
+		</div>
+		<div class="modal-body">
+			<h4>{{ngDialogData.message | translate}}</h4></div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger btn-md btn-danger-modified" ng-click="closeThisDialog('ok')">{{'Yes' | translate}}</button>
+			<button type="button" class="btn btn-default btn-md btn-default-modified" ng-click="closeThisDialog('cancel')">{{'No' | translate}}</button>
+		</div>
+    </div>
+</div>

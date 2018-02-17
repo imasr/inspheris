@@ -1,0 +1,194 @@
+<div class="feed_content" ng-switch="feed.type">
+                    
+    <div class="feed_user_action">
+        <div class="floatl">
+        <a class="unm" href="#"> {{feed.author.displayName}} </a> {{ 'Published' | translate }} <span ng-show="feed.type == 'article'">an</span> <span ng-show="feed.type == 'note'">a</span> {{feed.type}} {{ 'in' | translate }}<br><a class="gnm" href="#"> {{feed.community.label}} </a> <span ng-show="feed.community.group"> - <span class="glyphicon glyphicon glyphicon-lock"> {{feed.community.group.groupName}} </span></span>
+        </div>
+        <div class="floatr">
+          <div class="btn_delete floatr">
+             <div class="btn_icon">
+              <!-- <i class="fa fa-trash-o"></i> -->
+             </div>
+          </div>
+          <span class="btn_seprator floatr"> &bull; </span>
+          <div class="btn_edit floatr">
+             <div class="btn_icon">
+              <!-- <i class="fa fa-pencil-square-o"></i> -->
+             </div>
+          </div>
+        </div>
+    </div>
+
+    <!-- Article Container -->
+    <div ng-switch-when="article" class="fl_article_container">
+      <div class="left_part" ng-if="feed.content.image.path">
+        <img class="feedthumb_140" ng-show="feed.content.image.path" src="{{$root.siteUrl+feed.content.image.path}}"/>
+      </div>
+
+      <div class="right_part">
+        <div class="art_title" ng-show="feed.content.heading.title"> {{feed.content.heading.title}} </div>
+        <div class="art_sub_title ellipses" ng-show="feed.content.heading.subtitle" ng-bind-html="feed.content.heading.subtitle"> </div>
+        
+        <div class="list_ritch_text ellipses" ng-if="feed.content.richtext.data" ng-bind-html="feed.content.richtext.data"></div>
+        
+      </div>
+    </div>
+
+    <!-- quickpost Container -->
+    <div ng-switch-when="quickpost" class="fl_article_container">
+      <!--Left part is not present here -->
+      <div class="right_part quickpost_info">
+        <!--
+        <div class="art_title" ng-show="feed.content.heading.title"> {{feed.content.heading.title}} </div>
+        <div class="art_sub_title ellipses" ng-show="feed.content.heading.subtitle" ng-bind-html="feed.content.heading.subtitle"> </div>
+        -->
+        <div class="list_ritch_text ellipses" ng-if="feed.content.text.text" ng-bind-html="feed.content.text.text"></div>
+        
+        <div class="fl_docu_container" ng-if="feed.content.images.length > 0" ng-repeat="img in feed.content.images">
+          <div class="left_part" ng-if="feed.content.document">
+            <img class="feedthumb_72" set-icon-src="{type: feed.content.document.fileType, url: feed.content.document.thumbGalleryUrl}">
+          </div>
+          <div class="left_part" ng-if="feed.content.images">
+              <img class="feedthumb_72" src="{{$root.siteUrl+img.thumbUrl}}">
+          </div>
+          <div class="right_part file_info">
+            <div ng-if="feed.content.document" class="art_title"> {{feed.content.document.caption}} </div>
+            <div ng-if="img.caption" class="art_title"> {{img.caption}} </div>
+            <div class="list_ritch_text"> <span class="gray_font">Uploaded {{feed.creationDate|timeago}}</span> </div> 
+          </div>
+        </div>
+        <!--
+        <div class="video_container">
+          <iframe width="560" height="349" src="//www.youtube.com/embed/R4-YdC5N6Lo" frameborder="0" allowfullscreen></iframe>
+        </div> -->
+      </div>
+    </div>
+
+    <!-- Wiki Container -->
+    <div ng-switch-when="wiki" class="fl_article_container">
+      <div class="left_part">
+        <img class="feedthumb_140" ng-show="feed.content.image.path" src="{{$root.siteUrl+feed.content.image.path}}"/>
+      </div>
+      <div class="right_part">
+          <div class="art_title" ng-show="feed.content.heading.title"> {{feed.content.heading.title}} </div>
+          <div class="art_sub_title ellipses" ng-show="feed.content.heading.subtitle" ng-bind-html="feed.content.heading.subtitle"> </div>
+
+           <div class="list_ritch_text ellipses" ng-if="feed.content.richtext.data" ng-bind-html="feed.content.richtext.data" html-ellipsis></div>
+      </div>
+
+      <span class="list_ritch_text" ng-show="block.type == 'simpleText'"> {{block.content}}</span>  
+    </div>
+
+    <!-- -->
+    <div ng-switch-when="wikipage" class="fl_article_container">
+      
+      <div class="right_part">
+        <div class="art_title" ng-show="feed.content.heading.title"> {{feed.content.heading.title}} </div>
+        <div class="art_sub_title ellipses" ng-show="feed.content.heading.subtitle" ng-bind-html="feed.content.heading.subtitle"> </div>
+        
+        <div class="list_ritch_text ellipses" ng-if="feed.content.richtext.data" ng-bind-html="feed.content.richtext.data"></div>
+        
+      </div>
+    </div>
+
+    <!-- document container -->
+    <div ng-switch-when="document" class="fl_docu_container">
+      <div class="left_part" ng-if="feed.content.document">
+        <img class="feedthumb_72" set-icon-src="{type: feed.content.document.fileType, url: feed.content.document.thumbGalleryUrl}">
+      </div>
+      <div class="left_part" ng-if="feed.content.image">
+        <img class="feedthumb_72" set-icon-src="{type: feed.content.image.fileType, url: feed.content.image.thumbGalleryUrl}">
+      </div>
+      <div class="right_part file_info">
+        <div ng-if="feed.content.document" class="art_title"> {{feed.content.document.caption}} </div>
+        <div ng-if="feed.content.image" class="art_title"> {{feed.content.image.caption}} </div>
+        <div class="list_ritch_text"> <span class="gray_font">{{ 'uploaded' | translate }} {{feed.creationDate|timeago}}</span> </div> 
+      </div>
+    </div>
+
+    <!-- event container -->
+    <div ng-switch-when="event" class="fl_event_container">
+      <div class="left_part">
+        <div class="feedthumb_72 event_thumb"> <p class="event_thumb_day">{{feed.content.event.dateFrom|getDate}}<br></p> <p class="event_thumb_month">{{feed.content.event.dateFrom|getMonthName}}</p></div>
+      </div>
+      <div class="right_part">
+        <div class="art_title"> {{feed.content.event.title}} </div>
+        <p class="list_ritch_text"> <span class="gray_font">{{feed.content.event.location}}</span> </p>
+      </div>
+    </div>
+
+    <!-- gallery container -->
+    <div ng-switch-when="ImageGallery" class="fl_gallery_container">
+      <div class="art_title"> {{feed.content.imageGallery.name}} </div>
+      <div class="list_img_gallery">
+            <!-- 
+            <img class="feedthumb_130" ng-repeat='image in feed.content.imageGallery.images' ng-src='http://publishin-dev.inspherisit.eu.cloudbees.net{{image.thumbUrl}}'> -->
+            <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" images='feed.content.imageGallery.images'></div>
+            <!--
+            <img class="feedthumb_130" src="{{feed.blocks.imageGallery.images[]}}">
+            <img class="feedthumb_130" src="images/media/image1_129X129.png">
+            <img class="feedthumb_130" src="images/media/image1_129X129.png">
+            <div class="feedthumb_130" style="background-image: url(images/media/image1_129X129.png)">
+              <div class="list_gallery_more">+21</div>
+            </div>-->                    
+      </div>
+    </div>
+
+    <div class="art_control_wraper">
+
+      <div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed.uid)">
+        <div class="btn_icon">
+          <!-- <i class="fa fa-comment"></i> -->
+        </div>
+        <p><!-- {{ 'Comment' | translate }}  --><span ng-if="feed.commentCount > 0" class="gray_font">({{feed.commentCount}})</span> </p>
+      </div>
+
+      <span class="btn_seprator floatl">&bull;</span>
+      
+      <div class="art_btn btn_like floatl" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-click="addLike(feed.uid);" data-placement="top" data-template-url="views/popup_userslist.html" data-trigger="hover" ng-attr-data-trigger="{{(feed.likeCount > 0)?'hover':''}}" bs-popover>
+        <div class="btn_icon">
+          <!-- <i class="fa fa-heart"></i> -->
+        </div>
+        <p><!-- {{ 'Likes' | translate }} --> <span ng-if="feed.likeCount > 0" class="gray_font">({{feed.likeCount}})</span> </p>
+      </div>
+
+      <span class="btn_seprator floatl"> &bull; </span>
+      <div class="art_btn btn_share floatl" ng-click="showSharePopup(feed);">
+        <div class="btn_icon">
+          <!-- <i class="fa fa-share-alt"></i> -->
+        </div>
+        <p><!-- {{ 'Share' | translate }} --> <span class="gray_font">(1)</span> </p>
+      </div>
+
+      <!--
+      <span class="btn_seprator floatl"> </span>
+      <div class="art_btn btn_hide floatl">
+        <div class="btn_icon"> </div>
+        <p>Hide</p>
+      </div>
+      -->
+
+      <span class="btn_seprator floatl" ng-if="feed.hashtags.length > 0"> &bull; </span>
+      <div class="art_btn btn_hashtag floatl" ng-if="feed.hashtags.length > 0" data-placement="top" data-template-url="views/popup_hashtags.html" data-trigger="hover" trigger="hover" bs-popover>
+        <div class="btn_icon">#</div>
+        <p>Hashtag</p>
+      </div> 
+
+      <span class="btn_seprator floatl" ng-show="feed.language != 'ENG'"> &bull; </span>
+      <div class="art_btn btn_lang floatl" ng-show="feed.language != 'ENG'">
+          <div class="btn_icon">
+            <!-- <i class="fa fa-globe"></i> -->
+          </div>
+          <!-- <p>{{ 'Translate' | translate }}</p> -->
+      </div>
+
+      <span class="btn_seprator floatl" ng-show="feed.type == 'document'"> &bull; </span>
+      <div class="art_btn btn_download floatl" ng-show="feed.type == 'document'">
+        <a href="{{$root.siteUrl+feed.blocks[0].document.path}}">
+          <div class="btn_icon"> </div>
+          <!--<p>Download</p>-->
+        </a>
+      </div>
+
+    </div>
+</div>

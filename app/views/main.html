@@ -1,0 +1,493 @@
+<images-slider-level1 images-show="imageSlideshow" on-click-prev-image-slider="imageSlidePrev()" on-click-next-image-slider="imageSlideNext()"></images-slider-level1>
+<!--<div ng-include="'../app/views/imgSliderLevel1.html'"></div>-->
+
+<div class="second-slider" ng-if="$root.isShowSecondarySlider">
+    <second-slider slider-content="secondSlider"></second-slider>
+</div>
+<!--<div class="second-slider" ng-include="'../app/views/second_slider.html'"></div>-->
+
+<div ng-if="activeView == 'list'" class="container list_view home-list_view" id="listViewContainer">
+    <div class="row">
+
+        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        	
+        	<!-- #852 : CTS  pin article -->
+     		<div ng-if="$root.enablePinArticleFeature && pinnedContents && pinnedContents.length > 0" ng-repeat="pinnedContent in pinnedContents" class="pin_article">
+                    <pin-content pinned-content="pinnedContent" 
+                                 show-last-activity-date="showLastActivityDate" 
+                                 show-tumb-type="showTumbType" 
+                                 show-last-activity-user="showLastActivityUser"
+                                 enable-tootip="enableTootip">
+                    </pin-content>                  
+           	</div>
+           	
+           	<!-- Specially for CTS : Pin Community Post -->   
+          	<div class="home_widget" ng-if="$root.enablePinCommunityFeature">
+				<pinned-communities pinned-communities="pinnedCommunities" user-can-pin-community="userCanPinCommunity"></pinned-communities>
+         	</div><!--home_widget-->
+            <!-- END pin community post -->
+
+            <!-- load list template -->   
+            <div ng-repeat="feed in feeds">
+                <feed-list-view feed="feed" index="$index"></feed-list-view>
+            </div>
+
+
+            <div class="cust1_feed_li_last" ng-if="md.showViewMoreBtn">
+                <div class="tblr">
+                    <div class="tblc com_icon_outer">
+
+                    </div>
+                    <div class="tblc lvfeedstatus">
+                        <div class="feed_line_outer_last"></div>
+                    </div>
+                    <div class="tblc">
+                        <div class="feed_content_wrapper">
+                            <div class="feed_content">
+                                <button class="view_more_feed btn btn-default" ng-click="getFeedData()" ng-disabled="disableGetFeedData"><span translate>View_More_Activities</span>
+                                    <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                                    <input type="hidden" ng-model="page"/>
+                                </button>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div><!-- /.col-lg-6 -->
+        <div class="widget-nav" ng-controller="sortableCtrl">
+            <div class="widget-nav-child">
+                <div class="widget-nav-menu-opener layout-hambergertocross" ng-class="{'menu-opened': widgetMenuObject.widgetMenuEnable == true}" ng-click="widgetMenuObject.widgetMenuEnable = !widgetMenuObject.widgetMenuEnable; widgetMenuObject.activateWidget = ''"><span></span></div>
+                <div class="btn-group btn-group-justified" role="group" aria-label="..." ng-class="{'visible': widgetMenuObject.widgetMenuEnable == true}">
+                    <div class="btn-group" role="group" ng-repeat="wgt in activeWidgets" style="width: 150px;">
+                        <button style="height: 40px;" type="button" class="btn btn-default wid-menu-btn" ng-click="widgetMobileMenuClicked(wgt)" ng-class="{'widget-icon-automatedCalendar': wgt.type == 'AutomatedCalendar' ,'widget-icon-calendar': wgt.type == 'RegularCalendar' , 'widget-icon-fckEditor': wgt.type == 'FCKEditor', 'widget-icon-image': wgt.type == 'ImageGallery', 'widget-icon-video': wgt.type == 'VideoGallery', 'widget-icon-poll': wgt.type == 'Poll', 'widget-icon-admin': wgt.type == 'Admin', 'widget-icon-birthday': wgt.type == 'Birthday', 'widget-icon-foodTruck': wgt.type == 'FoodTruck', 'widget-icon-RSS': wgt.type == 'RSS', 'widget-icon-note': wgt.type == 'NoteDeServices'} " title="{{wgt.title}}"></button>
+                    </div>
+                </div>
+            </div>
+            <div ng-style="widgetMenuObject.widgetContainerHeight" ng-if="widgetMenuObject.activateWidget">
+                <div ui-sortable="sortableOptions" ng-model="activeWidgets">
+                    <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                        <div ng-switch-when="AutomatedCalendar" ng-if="widgetMenuObject.activateWidget.type == 'AutomatedCalendar' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                        </div>
+                        <div ng-switch-when="FCKEditor" ng-if="widgetMenuObject.activateWidget.type == 'FCKEditor' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                        </div>
+                        <div ng-switch-when="ImageGallery" ng-if="widgetMenuObject.activateWidget.type == 'ImageGallery' && && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                        </div>
+                        <div ng-switch-when="VideoGallery" ng-if="widgetMenuObject.activateWidget.type == 'VideoGallery' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                        </div>
+
+                        <div ng-switch-when="RegularCalendar" ng-if="widgetMenuObject.activateWidget.type == 'RegularCalendar' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <div ng-if="!wgt.defaultWidget">
+                                <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                            </div>	
+                            <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+                            <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                                <!--full calendar widget-->
+                                <div class="panel panel-default calendar widget" ng-controller="fullCalendarCtrl">
+
+                                    <div class="widget-title widget-move">
+                                        <div class="tblr">
+                                            <div class="tblc_m icn">
+                                                <div class="icon_widget icon_calendar">
+                                                    <div class="btn_icon"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tblc_m title">
+                                                {{ 'Calendar' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">   
+                                        <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                    </div>
+                                </div><!--panel END-->
+                            </div>
+                        </div>
+
+                        <!--Poll widget-->	
+                        <div ng-switch-when="Poll" ng-if="widgetMenuObject.activateWidget.type == 'Poll' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                            <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                        </div>
+
+                        <!--Admin widget-->	
+                        <div class="hide" ng-switch-when="Admin" ng-if="widgetMenuObject.activateWidget.type == 'Admin' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <div ng-if="userCanSeeAdminWidget" class="panel panel-default widget" ng-controller="SimpleWidgetController">
+                                <div class="disp_table widget-title widget-move">
+                                    <div class="tblr">
+                                        <div class="tblc_m icn">
+                                            <div class="icon_widget icon_list">
+                                                <div class="btn_icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="tblc_m title" translate>
+                                            Administrator Actions
+                                        </div>
+                                        <div class="tblc_m icn">                   
+                                            <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+                                        </div>			                  
+                                    </div>
+                                </div>
+                                <div class="panel-body" ng-show="isWidgetOpen">
+                                    <p class="mart10 marl10">Actions on content</p>
+                                    <p class="mart10 marl10"><a ui-sref="app.staticArticle">Static Article Template</a></p>
+                                    <p class="mart10 marl10"><a ui-sref="app.newStaticArticle">New Static Article</a></p>
+                                    <ul class="widget_ulli">
+                                        <li ng-click="$root.openWidgetManagerPopup()"> <i class="fa fa-caret-right"></i> <span translate>Widget manager</span> </li>
+
+                                        <li ng-click="openCreateCommPopup()"> <i class="fa fa-caret-right"></i>  <span>{{'Create_Community'| translate}}</span> </li>
+
+                                        <li ng-click="openCarouselManagerPopup()"> <i class="fa fa-caret-right"></i>  <span translate>Carrousel manager</span> </li>
+
+                                        <li ng-click="$root.openUsefulLinkManagerPopup('header')"> <i class="fa fa-caret-right"></i>  <span translate>Header Menu Manager</span> </li>
+                                        <li ng-click="$root.openUsefulLinkManagerPopup('footer')"> <i class="fa fa-caret-right"></i>  <span translate>Footer Menu Manager</span> </li>
+                                        <li ng-click="$root.openStatisticReportPopup()"> <i class="fa fa-caret-right"></i> <span translate>Statistiques</span> </li>
+                                        <li ng-if="$root.digestFeature" ng-click="$root.openDigestPopup()"> <i class="fa fa-caret-right"></i> <span translate>Digest</span> </li>
+                                    </ul>
+
+                                    <p class="mart10 marl10" translate>Other actions</p>
+                                    <ul class="widget_ulli">
+                                        <li ng-click="openCreateTemplatePopup()"> <i class="fa fa-caret-right"></i>  <span>{{"Template manager"| translate}}</span> </li>
+
+                                        <li ng-click="openOrganizationMgmtPopup()"> <i class="fa fa-caret-right"></i>  <span translate>Organization management</span> </li>
+
+                                        <li> <a ui-sref="app.search({type:'general', filter: 'all'})"> <i class="fa fa-caret-right"></i>  <span translate>Main search</span> </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>					
+                        </div>     
+
+                        <!-- Birthday -->
+                        <div ng-switch-when="Birthday" ng-if="widgetMenuObject.activateWidget.type == 'Birthday' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                            <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- Food Truck -->
+                        <div ng-switch-when="FoodTruck" ng-if="widgetMenuObject.activateWidget.type == 'FoodTruck' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                            <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- RSS widget -->
+                        <div ng-switch-when="RSS" ng-if="widgetMenuObject.activateWidget.type == 'RSS' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                        </div>
+
+                        <!-- Note de services -->
+                        <div ng-switch-when="NoteDeServices" ng-if="$root.noteTheServiceFeature && widgetMenuObject.activateWidget.type == 'NoteDeServices' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+                            <!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+                        </div>
+                        
+                 		<!-- Countdown clock widget -->
+                   		<div ng-switch-when="CountdownClock" ng-if="$root.noteTheServiceFeature && widgetMenuObject.activateWidget.type == 'CountdownClock' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                   			<countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                   		</div>
+                   		
+                   		<!-- Bike booking (Villo) widget -->
+                        <div ng-switch-when="BikeBooking" ng-if="widgetMenuObject.activateWidget.type == 'BikeBooking' && widgetMenuObject.activateWidget.uid == wgt.uid">
+                            <bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--End Widget-->
+        </div>
+        <div class="col-lg-4 col-md-4 hidden-sm hidden-xs" id="sortable" ng-controller="sortableCtrl"><!--ng-show="md.status == 2"-->
+
+            <!-- if user is GCM then he can edit and order widgets -->
+            <div ng-if="userCanEditWidget">
+                <div ui-sortable="sortableOptions" ng-model="activeWidgets">
+                    <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                        <div ng-switch-when="AutomatedCalendar">
+                            <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                        </div>
+                        <div ng-switch-when="FCKEditor">
+                            <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                        </div>
+                        <div ng-switch-when="ImageGallery">
+                            <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                        </div>
+                        <div ng-switch-when="VideoGallery">
+                            <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                        </div>
+
+                        <div ng-switch-when="RegularCalendar">
+                            <div ng-if="!wgt.defaultWidget">
+                                <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                            </div>	
+                            <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+                            <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                                <!--full calendar widget-->
+                                <div class="panel panel-default calendar widget" ng-controller="fullCalendarCtrl">
+
+                                    <div class="widget-title widget-move">
+                                        <div class="tblr">
+                                            <div class="tblc_m icn">
+                                                <div class="icon_widget icon_calendar">
+                                                    <div class="btn_icon"></div>
+                                                </div>
+                                            </div>
+                                            <div class="tblc_m title">
+                                                {{ 'Calendar' | translate }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">   
+                                        <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                    </div>
+                                </div><!--panel END-->
+                            </div>
+                        </div>
+
+                        <!--Poll widget-->	
+                        <div ng-switch-when="Poll">
+                            <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                            <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                        </div>
+
+                        <!--Admin widget-->	
+                        <div ng-switch-when="Admin" class="hide">
+                            <div ng-if="userCanSeeAdminWidget" class="panel panel-default widget" ng-controller="SimpleWidgetController">
+                                <div class="disp_table widget-title widget-move">
+                                    <div class="tblr">
+                                        <div class="tblc_m icn">
+                                            <div class="icon_widget icon_list">
+                                                <div class="btn_icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="tblc_m title" translate>
+                                            Administrator Actions
+                                        </div>
+                                        <div class="tblc_m icn">                   
+                                            <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+                                        </div>			                  
+                                    </div>
+                                </div>
+                                <div class="panel-body" ng-show="isWidgetOpen">
+                                    <p class="mart10 marl10">Actions on content</p>
+                                    <p class="mart10 marl10"><a ui-sref="app.staticArticle">Static Article Template</a></p>
+                                    <p class="mart10 marl10"><a ui-sref="app.newStaticArticle">New Static Article</a></p>
+                                    <ul class="widget_ulli">
+                                        <li ng-click="$root.openWidgetManagerPopup()"> <i class="fa fa-caret-right"></i> <span translate>Widget manager</span> </li>
+
+                                        <li ng-click="openCreateCommPopup()"> <i class="fa fa-caret-right"></i>  <span>{{'Create_Community'| translate}}</span> </li>
+
+                                        <li ng-click="openCarouselManagerPopup()"> <i class="fa fa-caret-right"></i>  <span translate>Carrousel manager</span> </li>
+
+                                        <li ng-click="$root.openUsefulLinkManagerPopup('header')"> <i class="fa fa-caret-right"></i>  <span translate>Header Menu Manager</span> </li>
+                                        <li ng-click="$root.openUsefulLinkManagerPopup('footer')"> <i class="fa fa-caret-right"></i>  <span translate>Footer Menu Manager</span> </li>
+                                        <li ng-click="$root.openStatisticReportPopup()"> <i class="fa fa-caret-right"></i> <span translate>Statistiques</span> </li>
+                                        <li ng-if="$root.digestFeature" ng-click="$root.openDigestPopup()"> <i class="fa fa-caret-right"></i> <span translate>Digest</span> </li>
+                                    </ul>
+
+                                    <p class="mart10 marl10" translate>Other actions</p>
+                                    <ul class="widget_ulli">
+                                        <li ng-click="openCreateTemplatePopup()"> <i class="fa fa-caret-right"></i>  <span>{{"Template manager"| translate}}</span> </li>
+
+                                        <li ng-click="openOrganizationMgmtPopup()"> <i class="fa fa-caret-right"></i>  <span translate>Organization management</span> </li>
+
+                                        <li> <a ui-sref="app.search({type:'general', filter: 'all'})"> <i class="fa fa-caret-right"></i>  <span translate>Main search</span> </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>					
+                        </div>     
+
+                        <!-- Birthday -->
+                        <div ng-switch-when="Birthday">
+                            <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                            <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- Food Truck -->
+                        <div ng-switch-when="FoodTruck">
+                            <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                            <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                        </div>
+
+                        <!-- RSS widget -->
+                        <div ng-switch-when="RSS">
+                            <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                        </div>
+
+                        <!-- Note de services -->
+                        <div ng-switch-when="NoteDeServices">
+                        	<div ng-if="$root.noteTheServiceFeature">
+                            	<note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+                            	<!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+                            </div>
+                        </div>
+                        
+                   		<!-- Countdown clock widget -->
+                        <div ng-switch-when="CountdownClock">
+                            <countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                        </div>
+                        
+                      	<!-- Bike booking (Villo) widget -->
+                        <div ng-switch-when="BikeBooking">
+                            <bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- if user is regular user -->
+            <div ng-if="!userCanEditWidget">
+                <div ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+                    <div ng-switch-when="AutomatedCalendar">
+                        <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+                        <!--<div ng-include="'../app/views/widgets/automated_calendar.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="FCKEditor">
+                        <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+                        <!--<div ng-include="'../app/views/widgets/html_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="ImageGallery">
+                        <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+                        <!--<div ng-include="'../app/views/widgets/image_gallery_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="VideoGallery">
+                        <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+                        <!--<div ng-include="'../app/views/widgets/video_gallery_widget.tpl.html'"></div>-->
+                    </div>
+                    <div ng-switch-when="RegularCalendar">
+                        <div ng-if="!wgt.defaultWidget">
+                            <regular-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></regular-calendar-widget>
+                        </div>
+                        <!--<div ng-if="!wgt.defaultWidget" ng-include="'../app/views/widgets/regular_calendar.tpl.html'"></div>-->
+                        <div ng-if="wgt.defaultWidget && $root.isShowFullCalendar">
+                            <!--full calendar widget-->
+                            <div class="panel panel-default calendar widget">
+                                <div class="widget-title">
+
+                                    <div class="tblr">
+                                        <div class="tblc_m icn">
+                                            <div class="icon_widget icon_calendar">
+                                                <div class="btn_icon"></div>
+                                            </div>
+                                        </div>
+                                        <div class="tblc_m title">
+                                            Calendar
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel-body" ng-controller="fullCalendarCtrl">   
+                                    <div id="fullCalendar" ui-calendar="uiConfig.calendar" class="span8 calendar" ng-model="eventSources" ></div>
+                                </div>
+                            </div><!--panel END-->
+                        </div>
+                    </div>
+                    <!--Poll widget-->	
+                    <div ng-switch-when="Poll">
+                        <poll-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></poll-widget>
+                        <!--<div ng-include="'../app/views/widgets/poll_widget.tpl.html'"></div>-->
+                    </div>
+                    <!-- RSS widget -->
+                    <div ng-switch-when="RSS">
+                        <rss-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></rss-widget>
+                        <!--<div ng-include="'../app/views/widgets/rss.tpl.html'"></div>-->
+                    </div>
+
+
+                    <!-- Birthday -->
+                    <div ng-switch-when="Birthday">
+                        <birthday-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></birthday-widget>
+                        <!--<div ng-include="'../app/views/widgets/birthday.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- Food Truck -->
+                    <div ng-switch-when="FoodTruck">
+                        <food-truck-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></food-truck-widget>
+                        <!--<div ng-include="'../app/views/widgets/food_truck.tpl.html'"></div>-->
+                    </div>
+
+                    <!-- Note de services -->
+                    <div ng-switch-when="NoteDeServices">
+                    	<div ng-if="$root.noteTheServiceFeature">
+	                        <note-de-service-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></note-de-service-widget>
+	                        <!--<div ng-include="'../app/views/widgets/note_service.tpl.html'"></div>-->
+                        </div>
+                    </div>
+            		
+            		<!-- Countdown clock widget -->
+                   	<div ng-switch-when="CountdownClock">
+                   		<countdown-clock-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></countdown-clock-widget>
+                   	</div>
+                   	
+               		<!-- Bike booking (Villo) widget -->
+                	<div ng-switch-when="BikeBooking">
+                   		<bike-booking-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></bike-booking-widget>      
+                  	</div>
+
+                </div>
+            </div>	
+
+        </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+</div>
+
+<div ng-if="activeView == 'grid'" class="pin-content mart20 marb10">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-8 col-sm-12 pin-cntnt">
+                <!--<div class="pin_article" ng-include="'../app/views/pin_article.html'" ng-repeat="pinnedContent in pinnedContents"></div>  --><!--pin_article END-->
+                <div ng-if="$root.enablePinArticleFeature && pinnedContents && pinnedContents.length > 0" ng-repeat="pinnedContent in pinnedContents" class="pin_article">
+                    <pin-content pinned-content="pinnedContent" 
+                                 show-last-activity-date="showLastActivityDate" 
+                                 show-tumb-type="showTumbType" 
+                                 show-last-activity-user="showLastActivityUser"
+                                 enable-tootip="enableTootip">
+                    </pin-content>            
+                </div>
+                <!-- Specially for CTS : Pin Community Post -->   
+                <div class="home_widget" ng-if="$root.enablePinCommunityFeature">
+					<pinned-communities pinned-communities="pinnedCommunities" user-can-pin-community="userCanPinCommunity"></pinned-communities>
+                </div><!--home_widget-->
+                <!-- END pin community post -->
+            </div>
+
+            <div class="col-xs-12 col-md-4 col-sm-12 note-col" ng-if="$root.noteTheServiceFeature">
+                <!-- Note de services -->
+                <note-de-service-widget></note-de-service-widget>
+            </div>
+        </div><!--row-->
+    </div><!--container-->
+</div><!--pin-content END-->
+<div ng-if="activeView == 'grid'" class="container list_view home-list_view" id="gridViewContainer">
+
+    <div class="row" ng-if="feeds.length > 0">
+
+        <div  ng-if="(currentTab.tabType.toLowerCase() == 'document') && showDocumentUploadBlk" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 grid_feeds marb20">
+            <feed-gridview-doc-upload></feed-gridview-doc-upload>		
+            <!--<div ng-include="'../app/views/containers/feed_gv_doc_upload.tpl.html'"></div>-->
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 grid_feeds marb20" ng-repeat="feed in feeds">
+            <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+        </div>
+
+    </div><!-- row -->
+
+
+    <div class="row">
+        <div class="col-lg-12" ng-if="md.showViewMoreBtn">
+            <button type="button" class="btn-default view_more_feed grid_more_feed" ng-click="getFeedData()" ng-disabled="disableGetFeedData" > <span translate>View_More_Activities</span>
+                <span ng-if="disableGetFeedData"><i class="fa fa-spin fa-spinner"></i></span>
+                <input type="hidden" ng-model="page"/>
+            </button>
+        </div>
+    </div>
+</div><!-- Grid_view -->
+
+<div class="container">
+    <h5 ng-if="md.status == 2 && feeds.length <= 0">{{"No_activities_msg"| translate}}</h5>
+    <h5 ng-if="md.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+    <h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+</div>

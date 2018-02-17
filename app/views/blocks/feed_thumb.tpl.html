@@ -1,0 +1,5 @@
+<!--<img class="feedthumb_125" src="{{imgsrc}}"/>-->
+<div ng-if="$ctrl.smallImage==false" afkl-lazy-image="{{$ctrl.imgsrc}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_125x93" ></div>
+<div ng-if="$ctrl.smallImage==true" class="feedthumb_125 custom-small-thumb" ng-style="{'background-color' : $ctrl.backgroundColor, 'overflow' : 'hidden'}">
+	<img ng-src="{{$ctrl.imgsrc}}" ng-style="{'left' : $ctrl.posX + '%' , 'top' : $ctrl.posY + '%'}" />
+</div>

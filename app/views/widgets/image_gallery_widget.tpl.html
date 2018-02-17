@@ -1,0 +1,29 @@
+<!-- to show the HTML widget created using CKEditor -->
+<div class="panel panel-default widget widget-image-gallery">
+    <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+      <div class="tblr">
+        <div class="tblc_m icn">
+            <div class="icon_widget icon_img">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+
+        <div class="tblc_m title">
+          {{$ctrl.widget.title}}
+        </div>
+        <div class="tblc_m icn">
+			<span ng-if="$ctrl.userCanEditWidget">
+		    	<i ng-click="editWidget($ctrl.widget)" class="lnr lnr-pencil clk"></i>
+		    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    	</span>
+		    <span ng-if="!$ctrl.userCanEditWidget">
+		    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+		    </span>
+        </div>
+      </div>
+    </div>
+    <div class="panel-body" ng-show="isWidgetOpen">
+      <div img-gallery feedthumb="feedthumb_90" showthumbcnt="2" datalist="$ctrl.widget.imageGallery" gallerytype="images" other="{feed: feed}"></div>      
+      </div>
+    </div>
+</div>

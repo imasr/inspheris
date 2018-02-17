@@ -1,0 +1,418 @@
+<div class="gridfeedtpl2" ng-if="feed" ng-init="openInNewTab = $ctrl.openInNewTab == 'true' ? true : false ;">
+  <!-- <a href="#/article/{{feed.uid}}"></a> -->
+  <div class="square_feedcontent"  ng-class="feed.migratedContent ? 'migratedContent' : 'newcontent'"><!--{'migratedContent': (migratedContent == false)}-->
+
+    <!--<div ng-if="feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki'" class="feed_content" ng-class="isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb'" ng-style="{'background-image': 'url('+headerImg.imageGridviewThumb+')'}">-->
+    <div ng-if="(feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki' || feed.type == 'imageGallery') && (!headerImg.smallImage || headerImg.smallImage == false)" class="feed_content afkl-lazy-wrapper" ng-class="(isHeaderImage || mediaGalleryType == 'imageGallery'  ? 'wth-bkthumb' : 'wth-nothumb') + ' ' +(headerImg.imageGridviewThumb ? '':'nobg-'+feed.type)" ng-init="wallImage = (headerImg.imageGridviewThumb ? headerImg.imageGridviewThumb : (mediaGalleryFiles[0].isInternal ? mediaGalleryFiles[0].thumbGalleryUrl : '../mages/media/gdrive_thumb_gallery.png'))" afkl-lazy-image="{{wallImage}}" afkl-lazy-image-options="{background: true}">
+      <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.community.label|urlEncode}}', commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="info-wrapper" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor" ng-class="(mediaGalleryType == 'imageGallery'  ? 'gallery' : '')">
+            <div title="{{artTitle}}" ng-if="!isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div title="{{artTitle}}" ng-if="isIEbrowser" class="post-title" ng-bind-html="artTitle"></div>
+            <div title="{{artSubTitle}}" class="post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-if="!isHeaderImage">
+          <!--<div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>-->
+
+          <div ng-if="feed.type !='quickpost' && isIEbrowser" class="post-title hide" ng-bind-html="artText"></div>
+          <div ng-if="feed.type !='quickpost' && !isIEbrowser" class="post-title hide" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+          <div ng-if="feed.type =='quickpost' && isIEbrowser" class="post-title" ng-bind-html="feed.parseText"></div>
+          <div ng-if="feed.type =='quickpost' && !isIEbrowser" class="post-title" data-ng-bind="feed.parseText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="videos" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'linkEmbed'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content -->
+
+	<div ng-if="(feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki' || feed.type == 'imageGallery') && headerImg.smallImage==true" ng-style="{'background-color': headerImg.imageGridviewThumbBackgroundColor,}" class="feed_content" ng-class="(isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb') + ' ' + (headerImg.smallImage ? 'grid-smallimg' : '')" afkl-lazy-image="{{headerImg.imageGridviewThumb}}" afkl-lazy-image-options="{background: true}">
+      <!-- <img src="{{headerImg.imageGridviewThumb}}" ng-style="{'left' : headerImg.imageGridviewThumbPosX + '%', 'top' : headerImg.imageGridviewThumbPosY +'%'}" /> -->
+      <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div class="grid-smallimg-title post-title" ng-if="!isIEbrowser" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div class="grid-smallimg-title post-title" ng-if="isIEbrowser" ng-bind-html="artTitle"></div>
+            <div class="grid-smallimg-subtitle post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-hide="isHeaderImage">
+          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="videos" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content small Image -->
+
+        <!--<div ng-if="feed.type == 'article' || feed.type == 'quickpost' || feed.type == 'wiki'" class="feed_content" ng-class="isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb'" ng-style="{'background-image': 'url('+headerImg.imageGridviewThumb+')'}">-->
+    <div ng-if="(feed.type == 'follower quickpost') && (!headerImg.smallImage || headerImg.smallImage == false)" class="feed_content afkl-lazy-wrapper" ng-class="(isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb') + ' ' +(headerImg.imageGridviewThumb ? '':'nobg-'+feed.type)" afkl-lazy-image="{{headerImg.imageGridviewThumb}}" afkl-lazy-image-options="{background: true}">
+      <a>
+        <div class="info-wrapper" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div title="{{artTitle}}" ng-if="!isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div title="{{artTitle}}" ng-if="isIEbrowser" class="post-title" ng-bind-html="artTitle"></div>
+            <div title="{{artSubTitle}}" class="post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-if="!isHeaderImage">
+          <!--<div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>-->
+          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="videos" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'linkEmbed'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content -->
+
+    <div ng-if="(feed.type == 'follower quickpost') && headerImg.smallImage==true" ng-style="{'background-color': headerImg.imageGridviewThumbBackgroundColor,}" class="feed_content" ng-class="(isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb') + ' ' + (headerImg.smallImage ? 'grid-smallimg' : '')">
+      <a>
+        <div class="" ng-hide="artTitle == '' && artSubTitle == ''" ng-style="headerImageColor" >
+            <div class="grid-smallimg-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div class="grid-smallimg-subtitle" ng-bind-html='artSubTitle'></div>
+        </div>
+
+        <div class="art_desc" ng-hide="isHeaderImage">
+          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content small Image -->
+
+    <div ng-if="feed.type == 'event'" class="feed_content wth-nothumb nobg-event">
+      <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name: '{{feed.community.label|urlEncode}}', commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div ng-if="feed.type == 'event'" class="art_desc">
+          <div class="left_part">
+            <feed-event-thumb event="eventBlock"></feed-event-thumb>
+          </div>
+          
+        </div>
+          <div ng-if="feed.type == 'event'" class="art_desc bottomevent">
+          <div class="right_part">
+            <div ng-if="artTitle != '' && !isIEbrowser" class="post-evt-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis>  </div>
+            <div ng-if="artSubTitle != '' && !isIEbrowser" class="post-evt-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+
+            <div ng-if="artTitle != '' && isIEbrowser" class="post-evt-title" ng-bind-html="artTitle">  </div>
+            <div ng-if="artSubTitle != '' && isIEbrowser" class="post-evt-subtitle" ng-bind-html="artSubTitle"></div>
+          </div>
+          </div>
+      </a>
+    </div><!-- feed_content -->
+
+    <div ng-if="feed.type == 'share'" class="feed_content wth-nothumb">
+    	<div ng-if="sharedType == 'article' || sharedType == 'quickpost' || sharedType == 'wiki' || sharedType == 'imageGallery'" class="feed_content afkl-lazy-wrapper" ng-class="(isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb') + ' ' +(headerImg.imageGridviewThumb ? '':'nobg-'+sharedType)" afkl-lazy-image="{{headerImg.imageGridviewThumb}}" afkl-lazy-image-options="{background: true}">
+	      <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.sharedCommunity.label|urlEncode}}', commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+	        <div class="info-wrapper" ng-hide="artTitle == '' && artSubTitle == ''">
+	          <div class="info-layer" ng-style="headerImageColor">
+	           <div title="{{artTitle}}" ng-if="!isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+                    <div title="{{artTitle}}" ng-if="isIEbrowser" class="post-title" ng-bind-html="artTitle"></div>
+	            <div title="{{artSubTitle}}" class="post-subtitle" ng-bind-html='artSubTitle'></div>
+	          </div>
+	        </div>
+
+	        <div class="art_desc" ng-if="!isHeaderImage">
+	          <!--<div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>-->
+	          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+	        </div>
+	      </a>
+	      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+	        <div ng-if="mediaGalleryType == 'imageGallery'">
+            <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+	        </div>
+	        <div ng-if="mediaGalleryType == 'videoGallery'">
+            <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+	        </div>
+	        <div ng-if="mediaGalleryType == 'documentGallery'">
+            <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+	        </div>
+	      </div>
+      </div>
+
+      <div ng-if="sharedType == 'event'" class="feed_content wth-nothumb">
+		<a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.sharedCommunity.label|urlEncode}}', commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+        	<div class="art_desc">
+          		<div class="left_part">
+                <feed-event-thumb event="eventBlock"></feed-event-thumb>
+          		</div>
+          		<div class="right_part">
+            		<div ng-if="artTitle != '' && !isIEbrowser" class="post-evt-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis>  </div>
+            		<div ng-if="artSubTitle != '' && !isIEbrowser" class="post-evt-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+
+                        <div ng-if="artTitle != '' && isIEbrowser" class="post-evt-title" ng-bind-html="artTitle" >  </div>
+            		<div ng-if="artSubTitle != '' && isIEbrowser" class="post-evt-subtitle" ng-bind-html="artSubTitle"></div>
+          		</div>
+        	</div>
+      	</a>
+      </div>
+      <div ng-if="sharedType == 'document'" class="feed_content wth-nothumb">
+		<a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.sharedCommunity.label|urlEncode}}', commuid: feed.sharedCommunity.uid, activetab: feed.sharedCommunityTab.uid, articleid: feed.referenceUid,track: 'viewdetail',referer: referer})">
+        	<div class="art_desc">
+          		<div ng-if="mediaGalleryFiles.length > 0" class="left_part">
+            		<div ng-if="mediaGalleryFiles.length == 0" class="floatl thumb-single-file feedthumb_72">
+                    <thumbnail file="mediaGalleryFiles[0]"></thumbnail>
+            		</div>
+
+            		<div ng-if="mediaGalleryFiles.length > 0" class="feedthumb_72 thumb-more-files">
+              			<div class="disp_table">
+                			<div class="tblc">
+                  				<span>
+                    				{{mediaGalleryFiles.length}}
+                  				</span>
+                			</div>
+              			</div>
+            		</div>
+          		</div>
+
+          		<div class="right_part file_info">
+            		<div ng-if="artTitle != '' && !isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis>  </div> <!--art_title-->
+            		<div ng-if="artSubTitle != '' && !isIEbrowser" class="post-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+
+                        <div ng-if="artTitle != '' && isIEbrowser" class="post-title" ng-bind-html="artTitle">  </div> <!--art_title-->
+            		<div ng-if="artSubTitle != '' && isIEbrowser" class="post-subtitle" ng-bind-html="artSubTitle" > </div>
+          		</div>
+        	</div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+      </div>
+      </div>
+    </div><!-- feed_content -->
+
+    <div ng-if="feed.type == 'document'" class="feed_content wth-nothumb" afkl-lazy-image="{{headerImg.imageGridviewThumb}}" ng-class="(headerImg.imageGridviewThumb)? '':'nobg-'+feed.type" afkl-lazy-image-options="{background: true}">
+      <a target-blank="{{openInNewTab}}" ui-sref="app.communityHomeWithArticle({ name:  '{{feed.community.label|urlEncode}}' , commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="art_desc">
+          <div ng-if="mediaGalleryFiles.length > 0" class="left_part">
+            <div ng-if="mediaGalleryFiles.length == 0" class="floatl thumb-single-file feedthumb_72">
+              <thumbnail file="mediaGalleryFiles[0]"></thumbnail>
+            </div>
+
+            <div ng-if="mediaGalleryFiles.length > 0" class="feedthumb_72 thumb-more-files">
+              <div class="disp_table">
+                <div class="tblc">
+                  <span>
+                    {{mediaGalleryFiles.length}}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="right_part file_info">
+            <div ng-if="artTitle != '' && !isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis>  </div> <!--art_title-->
+            <div ng-if="artSubTitle != '' && !isIEbrowser" class="post-subtitle" data-ng-bind="artSubTitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+
+            <div ng-if="artTitle != '' && isIEbrowser" class="post-title" ng-bind-html="artTitle">  </div> <!--art_title-->
+            <div ng-if="artSubTitle != '' && isIEbrowser" class="post-subtitle" ng-bind-html="artSubTitle"> </div>
+          </div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+
+      </div>
+    </div>
+    
+    <!-- Grand Article -->
+  	<div ng-if="feed.type == 'grandArticle' && (!headerImg.smallImage || headerImg.smallImage == false)" class="feed_content afkl-lazy-wrapper" ng-class="(isHeaderImage || mediaGalleryType == 'imageGallery'  ? 'wth-bkthumb' : 'wth-nothumb') + ' ' +(headerImg.imageGridviewThumb ? '':'nobg-'+feed.type)" ng-init="wallImage = (headerImg.imageGridviewThumb ? headerImg.imageGridviewThumb : (mediaGalleryFiles[0].isInternal ? mediaGalleryFiles[0].thumbGalleryUrl : '../mages/media/gdrive_thumb_gallery.png'))" afkl-lazy-image="{{wallImage}}" afkl-lazy-image-options="{background: true}">
+      <a ng-if="feed.template.name == 'Template 1'" target-blank="{{openInNewTab}}" ui-sref="app.grandArticleTemplate1({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="info-wrapper" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div title="{{artTitle}}" ng-if="!isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div title="{{artTitle}}" ng-if="isIEbrowser" class="post-title" ng-bind-html="artTitle"></div>
+            <div title="{{artSubTitle}}" class="post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-if="!isHeaderImage">
+
+          <div ng-if="isIEbrowser" class="post-title" ng-bind-html="artText"></div>
+          <div ng-if="!isIEbrowser" class="post-title" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <a ng-if="feed.template.name == 'Template 2'" target-blank="{{openInNewTab}}" ui-sref="app.grandArticleTemplate2({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="info-wrapper" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div title="{{artTitle}}" ng-if="!isIEbrowser" class="post-title" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div title="{{artTitle}}" ng-if="isIEbrowser" class="post-title" ng-bind-html="artTitle"></div>
+            <div title="{{artSubTitle}}" class="post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-if="!isHeaderImage">
+
+          <div ng-if="isIEbrowser" class="post-title" ng-bind-html="artText"></div>
+          <div ng-if="!isIEbrowser" class="post-title" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="videos" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'linkEmbed'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="linkEmbed" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content -->
+
+	<div ng-if="feed.type == 'grandArticle' && headerImg.smallImage==true" ng-style="{'background-color': headerImg.imageGridviewThumbBackgroundColor,}" class="feed_content" ng-class="(isHeaderImage ? 'wth-bkthumb' : 'wth-nothumb') + ' ' + (headerImg.smallImage ? 'grid-smallimg' : '')" afkl-lazy-image="{{headerImg.imageGridviewThumb}}" afkl-lazy-image-options="{background: true}">   
+      <a ng-if="feed.template.name == 'Template 1'" target-blank="{{openInNewTab}}" ui-sref="app.grandArticleTemplate1({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div class="grid-smallimg-title post-title" ng-if="!isIEbrowser" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div class="grid-smallimg-title post-title" ng-if="isIEbrowser" ng-bind-html="artTitle"></div>
+            <div class="grid-smallimg-subtitle post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-hide="isHeaderImage">
+          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <a ng-if="feed.template.name == 'Template 2'" target-blank="{{openInNewTab}}" ui-sref="app.grandArticleTemplate2({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})">
+        <div class="" ng-hide="artTitle == '' && artSubTitle == ''">
+          <div class="info-layer" ng-style="headerImageColor">
+            <div class="grid-smallimg-title post-title" ng-if="!isIEbrowser" data-ng-bind="artTitle" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div class="grid-smallimg-title post-title" ng-if="isIEbrowser" ng-bind-html="artTitle"></div>
+            <div class="grid-smallimg-subtitle post-subtitle" ng-bind-html='artSubTitle'></div>
+          </div>
+        </div>
+
+        <div class="art_desc" ng-hide="isHeaderImage">
+          <div class="excerpt" data-ng-bind="artText" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div>
+      </a>
+      <div class="grid-gallery" ng-if="mediaGalleryFiles.length > 0" style="float: left; width: 100%; margin-top: 10px;">
+        <div ng-if="mediaGalleryType == 'imageGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="images" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'videoGallery'">
+          <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="videos" other="{feed: feed}"></div>
+        </div>
+        <div ng-if="mediaGalleryType == 'documentGallery'">
+          <div img-gallery feedthumb="feedthumb_130" showthumbcnt="3" datalist="mediaGalleryFiles" gallerytype="documents" other="{feed: feed}"></div>
+        </div>
+      </div>
+    </div><!-- feed_content small Image -->
+
+
+  </div>
+  <div class="activity-bar">
+    <div class="tbltd-l">
+
+      <a ng-if="showTumbType == 'community'" ui-sref="app.communityHome({name:  '{{feed.community.label|urlEncode}}', commuid: feed.community.uid})">
+        <div class="com_icon" profile-photo="{url: feed.community.headerLogoUrl, firstName: feed.community.label}"></div>
+      </a>
+      <a ng-if="showTumbType == 'user' && !isShowWroteFor" ui-sref="app.myprofile({uid: feed.lastActivityUser.uid, activetab: 'About'})">
+        <div class="user-image circle-image" profile-photo="{url: feed.lastActivityUser.headerLogoUrl, firstName: feed.lastActivityUser.firstName, lastName: feed.lastActivityUser.lastName}"></div>
+     	<img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.lastActivityUser.badge" ng-src="{{feed.lastActivityUser.badge.image.url}}">
+      </a>
+      <a ng-if="showTumbType == 'user' && isShowWroteFor" ui-sref="app.myprofile({uid: feed.wroteFor.uid, activetab: 'About'})">
+        <div class="user-image circle-image" profile-photo="{url: feed.wroteFor.headerLogoUrl, firstName: feed.wroteFor.firstName, lastName: feed.wroteFor.lastName}"></div>
+     	<img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.wroteFor.badge" ng-src="{{feed.wroteFor.badge.image.url}}">
+      </a>
+	  <a ng-if="showTumbType == 'author' && !$ctrl.isPinnedTab && (feed.isOwner || (!feed.isOwner && !feed.isTransferred))" ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+            <div class="user-image circle-image" profile-photo="{url: feed.author.headerLogoUrl, firstName: feed.author.firstName, lastName: feed.author.lastName}"></div>
+            <img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.author.badge" ng-src="{{feed.author.badge.image.url}}">
+      </a>
+      <a ng-if="showTumbType == 'author' && !$ctrl.isPinnedTab && !feed.isOwner && feed.isTransferred" ui-sref="app.myprofile({uid: feed.wroteFor.uid, activetab: 'About'})">
+            <div class="user-image circle-image" profile-photo="{url: feed.wroteFor.headerLogoUrl, firstName: feed.wroteFor.firstName, lastName: feed.wroteFor.lastName}"></div>
+            <img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.wroteFor.badge" ng-src="{{feed.wroteFor.badge.image.url}}">
+      </a>
+	  <!-- Specially for CTS : card 906 - Pin Module -->
+      <a once-if="showTumbType == 'author' && $ctrl.isPinnedTab" ui-sref="app.myprofile({uid: feed.lastActivityUser.uid, activetab: 'About'})">
+           <div class="user-image circle-image" profile-photo="{url: feed.lastActivityUser.headerLogoUrl, firstName: feed.lastActivityUser.firstName, lastName: feed.lastActivityUser.lastName,nochache: true}"></div>
+           <img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.lastActivityUser.badge" ng-src="{{feed.lastActivityUser.badge.image.url}}">
+      </a>
+     <!-- END Specially for CTS : card 906 - Pin Module -->
+
+      <feed-user-info
+                action-sentence="actSentence"
+                enable-tootip="{{enableTootip}}"
+                uid-user-tooltip="userDetail.uid"
+                index="$ctrl.index"
+                type-view="gridview"
+      ></feed-user-info>
+    </div>
+    <div class="tbltd-r">
+
+      <div class="fc3 other-info">
+      	<span ng-if="showLastActivityDate == false && !$ctrl.isPinnedTab">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+		<!-- Specially for CTS : card 906 - Pin Module -->
+        <span ng-if="showLastActivityDate == false && $ctrl.isPinnedTab">{{feed.lastActivityDate | date: $root.fullDateFormat}}</span>
+        <!-- END Specially for CTS : card 906 - Pin Module -->
+        <span ng-if="showLastActivityDate == true">{{feed.lastActivityDate | date: $root.fullDateFormat}}</span>
+     </div>
+    </div>
+  </div>
+  <feed-controls
+        show-comment-label = "false"
+        feed ="feed"
+        on-click-delete-feed="deleteFeed(feed.uid)"
+    ></feed-controls>
+  <!--<ng-include ng-init="tpl_cmntboxid = 'grildliitem'+$index; tpl_feedid= feed.uid; tpl_showtext=false; allowComment = feed.allowComment;allowShare=feed.allowShare" src="'../app/views/blocks/feed_controls.tpl.html'"></ng-include>-->
+ </div>

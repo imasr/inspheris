@@ -1,0 +1,88 @@
+<div>
+	<div class="container-drag container-index-{{moreoption}}" style=''>
+				<div class="img_canvas hori_center rotate">
+					<img src='{{src}}' data-adaptive-background="{{moreoption}}" />
+				</div>
+	</div>
+
+
+	<div class="clearifix"></div>
+
+	<div class="row">
+
+		<div class="col-sm-12">
+		<div class="slider-wrapper">
+		  <div class="row margintop">
+		    <div class="col-sm-6">
+					<ul class="list-inline">
+						<!-- <li><i class="fa fa-picture-o"></i></li>
+						<li style="width:100%;"><input type="range" class="cropit-image-zoom-input range" autocomplete="off" ng-change="changeSize(rangeValue)" ng-model="rangeValue" min="10" max="{{maxRanger}}" step="1"></li>
+						<li><i class="fa fa-picture-o fa-2x"></i></li> -->
+						<li>
+							<span style="float:left;"><i class="fa fa-picture-o"></i></span>
+							<span style="display:inline-flex;width:78%;">
+								<input type="range" class="cropit-image-zoom-input range" autocomplete="off" ng-change="changeSize(rangeValue)" ng-model="rangeValue" min="10" max="{{maxRanger}}" step="1">
+							</span>
+							<span style="float:right;"><i class="fa fa-picture-o fa-2x"></i></span>
+						</li>
+						<li>
+							<span class="clk" ng-click="rotateLeft()" data-toggle="tooltip" data-placement="top" title="{{'Rotate Left' | translate}}"><i class="fa fa-undo fa-rotate-left"></i></span>
+							<span class="clk" style="margin:10px;"><i class="fa fa-dot-circle-o" data-toggle="tooltip" data-placement="top" title="{{'Position Center' | translate}}" ng-click="makeCenter()"></i></span>
+							<span class="clk" ng-click="rotateRight()" data-toggle="tooltip" data-placement="top" title="{{'Rotate Right' | translate}}"><i class="fa fa-repeat fa-rotate-right"></i></span>
+						</li>
+					</ul>
+			</div>
+
+    <div class="col-sm-6">
+
+			<ul class="list-inline pull-right btn-actions">
+				<!-- <li class="clk" ng-click="rotateLeft()" data-toggle="tooltip" data-placement="top" title="{{'Rotate Left' | translate}}"><i class="fa fa-undo fa-rotate-left"></i></li>
+				<li class="clk" ng-click="rotateRight()" data-toggle="tooltip" data-placement="top" title="{{'Rotate Right' | translate}}"><i class="fa fa-repeat fa-rotate-right"></i></li>
+				<li class="clk"><i class="fa fa-dot-circle-o" data-toggle="tooltip" data-placement="top" title="{{'Position Center' | translate}}" ng-click="makeCenter()"></i></li> -->
+				<li class="clk" ng-click="chooseColor()" data-toggle="tooltip" data-placement="top" title="{{'Choose background color' | translate}}"><span class="color-box color-picker" style="background:#000;"></span>
+					<div style="position:absolute;" ng-show="showCustom">
+						<input ng-click="$event.stopPropagation()" colorpicker="rgba" ng-model="customColor" ng-change="changeColor(customColor)" class="" value="" type="text"  style="padding: 5px;border:1px solid #aaa;border-radius:3px;" />
+					</div>
+				</li>
+				<!--
+				<li><span class="color-box reset" style="background:#000;"></span></li>
+				<li><span class="color-box auto-color" style="background:#000;"></span></li>
+				 -->
+				<li><span class="btn btn-default btn-xs" ng-click="autoFill()" data-toggle="tooltip" data-placement="top" title="{{'Auto fill background color' | translate}}">Auto BG</span></li>
+				<li><span class="btn btn-danger btn-xs" ng-click="reset()" data-toggle="tooltip" data-placement="top" title="{{'Clear' | translate}}">Clear</span></li>
+			</ul>
+			</div>
+			</div>
+		</div>
+	</div>
+
+
+	</div><!--row END-->
+
+
+
+	<div class="images-manager-button hide">
+		<div>
+			<p>{{'Rotate image' | translate}}:</p>
+			<div ng-click="rotateLeft()" class="ins_btn_ctext">
+						<span>{{'Rotate Left' | translate}}</span>
+			</div>
+			<div ng-click="rotateRight()" class="ins_btn_ctext">
+						<span>{{'Rotate Right' | translate}}</span>
+			</div>
+			<div style="clear:both;"></div>
+			<hr style="margin: 5px 0px 5px 15px"/>
+			<p>{{'Choose background color' | translate}}:</p>
+			<div>
+				<label for="autoColor{{moreoption}}"><input type="radio" id="autoColor{{moreoption}}" name="color{{moreoption}}" ng-click="autoFill()" />{{'Auto fill background color' | translate}}</label><br />
+				<label for="chooseColor{{moreoption}}"><input type="radio" id="chooseColor{{moreoption}}" name="color{{moreoption}}" ng-click="chooseColor()"/>{{'Choose background color' | translate}}</label>
+				<div ng-show="showCustom">
+					<input colorpicker="rgba" ng-model="customColor" ng-change="changeColor(customColor)" class="" value="" type="text"  style="padding: 5px;border:1px solid #aaa;border-radius:3px;" />
+				</div>
+				<br />
+				<button class="btn btn-default navbar-btn ng-scope" ng-click="reset()" translate type="button">{{'Reset' | translate}}</button>
+			</div>
+		</div>
+
+	</div>
+</div>

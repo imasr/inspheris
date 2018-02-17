@@ -1,0 +1,34 @@
+<div id="" class="ins_popup medium_popup crop_image_popup" ng-controller="ImagesManagerCtrl"><!--wide_popup  style="min-width: 620px;"-->
+	<div class="popup_header floatl">
+	    <div class="popup_title">{{'Mangerment_Image' | translate}}</div>
+	    <div class="close_btn" ng-click="closeImageManagerPopup()"> X </div>
+	</div>
+
+	<div class="popup_wrapper">
+			<ul class="crimg_list">
+			<li ng-if="imageLoader">
+				<div class="loader">{{'Loading' | translate}}...</div>
+			</li>
+
+			<li ng-if="remoteImg.isReady" ng-repeat="cdm in imageDimentions">
+
+				<h4 ng-if="cdm.title">{{cdm.title |translate}}</h4>
+				<!--  <div class="selector" style='width:{{cdm.w}}px;height:{{cdm.h}}px;border:1px solid black;'>
+					<div class="img-draggable img_canvas hori_center">
+						<img src='{{remoteImg.url | safeurl}}' />
+					</div>
+				</div>-->
+				<div class="img_canvas hori_center tac" style="width:100%;">
+				<images-manager src='{{remoteImg.url | safeurl}}'  mdfimgsrc="{{cdm.url}}" mdfimgposx="{{cdm.posX}}" mdfimgposy="{{cdm.posY}}" mdfbgcolor="{{cdm.backgroundColor}}" mdfimgangle="{{cdm.angle}}"
+				resizable='resizable(width,height,moreoption)' backgroundcolor='backgroundColor(color,moreoption)' rotateangle='rotate(angle,moreoption)'  movepos='movingPosition(left, top, moreoption)' imgwidth="{{truewidth}}" imgheight="{{trueheight}}" truewidth="{{cdm.w}}" trueheight="{{cdm.h}}" moreoption="{{$index}}"></images-manager>
+				</div>
+			</li>
+
+			<li ng-show="remoteImg.isReady">
+				<div class="ins_btn_ctext" ng-click="saveImages()">
+					<span>OK</span>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

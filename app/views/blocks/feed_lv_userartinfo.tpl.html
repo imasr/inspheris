@@ -1,0 +1,41 @@
+<div ng-if="($ctrl.typeView != '' && $ctrl.typeView == 'gridview')" class="acti-info">
+        <div ng-if="$ctrl.enableTootip" class="tblc clk" ng-init="uidUser = $ctrl.uidUserTooltip;" data-placement="top" data-template-url="../views/blocks/mini_userfinfo.tpl.html" data-content="" data-trigger="click" data-auto-close="1" bs-popover>
+         	<p style="display: none;" id="tootip-{{$ctrl.index}}">&nbsp;</p>
+        </div>
+        <div ng-if="$ctrl.actionSentence" class="acti-sentence fc3" ng-html-compile="$ctrl.actionSentence" data-index="{{$ctrl.index}}"></div>
+</div>
+
+<div ng-if="($ctrl.typeView != '' && $ctrl.typeView == 'listview')" class="feed_user_action">
+  <div class="disp_table width100">
+    <div class="tblr">
+      <div class="tblc">
+     	<div ng-if="$ctrl.enableTootip" class="tblc clk" ng-init="uidUser = $ctrl.uidUserTooltip;" data-placement="top" data-template-url="../views/blocks/mini_userfinfo.tpl.html" data-content="" data-trigger="click" data-auto-close="1" bs-popover>
+           <p  style="display: none;" id="tootip-{{$ctrl.index}}">&nbsp;</p>
+        </div>
+        <div ng-if="$ctrl.actionSentence"   class="acti-sentence tooltip-supported" ng-html-compile="$ctrl.actionSentence" data-index="{{$ctrl.index}}"></div>
+      </div>
+      <div ng-if="$ctrl.showFeedStatus" style="min-width:120px;" class="tblc" ng-class="{'fsb_1': $ctrl.selectedFeedStatus.val == 'Draft','fsb_2': $ctrl.selectedFeedStatus.val == 'publish','fsb_3': $ctrl.selectedFeedStatus.val == 'Archived'}">
+    
+        <div class="btn-group ins_dropdown status-dropdown width100">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <span class="btn-lbl">{{$ctrl.selectedFeedStatus.text | translate}}</span>
+            </button>
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              <div ng-if="!$ctrl.feedStausLoader">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>  
+              </div>
+              <div ng-if="$ctrl.feedStausLoader">
+                <i class="fa fa-spinner fa-spin"></i>
+              </div>
+            </button>
+            
+            <ul class="dropdown-menu statusDraft" role="menu">
+              <li class="clk" ng-repeat = "opn in $ctrl.feedStatusSelection" ng-click="$ctrl.onChange({option:opn})"><span>{{opn.text | translate}}</span></li>
+            </ul>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>

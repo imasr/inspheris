@@ -1,0 +1,24 @@
+<div class="ins_popup wide_popup tour-operator" ng-controller="FollowerCtrl">
+  <div class="popup_header floatl">
+      <p class="popup_title" translate>My Followers</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+  
+   <div class="popup_wrapper floatl width100" style="padding: 10px;">
+
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="follower in modalData.data">
+            <div class=" gv-community-feed comm_li_to afkl-lazy-wrapper">
+					<div class="disp_table width100" style="text-align:center;">
+						<div class="tblr">  
+							<div style="width:100px;height: 100px; margin:5px auto;" class="org-result-profile-pic circle-image" profile-photo="{url: follower.headerLogoUrl, firstName: follower.firstName, lastName: follower.lastName}"></div>
+							<img style="position: absolute;z-index: 1;left: 100px;top: -15px;width: 40px;height: 40px;" ng-if="$root.isShowUserBadge && follower.badge" src="{{follower.badge.image.url}}">
+							<a target="_blank" ui-sref="app.myprofile({uid: follower.uid, activetab: 'About'})">
+				              <span style="" >{{follower.firstName}} {{follower.lastName}}</span>
+				            </a>
+						</div>
+					</div>
+			</div>
+		</div>
+
+  </div>
+</div>

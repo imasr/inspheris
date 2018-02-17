@@ -1,0 +1,17 @@
+<div class="ins_popup medium_popup" >
+  <div class="popup_header floatl">
+      <p class="popup_title">Video Player</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+
+    <div class="video_url_container floatl width100">
+          <custom-videogular-directive data="videoPreviewData"></custom-videogular-directive>
+          
+    <div class="floatl width100 mart20">
+      <div class="ins_btn_ctext" ng-click="closeThisDialog({flag: 'ok', data: videoPreviewData})">
+        <span>OK</span>
+      </div>
+    </div>
+  </div>
+
+</div>

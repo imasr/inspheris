@@ -1,0 +1,39 @@
+<div class="marl10 martop10 clearfix" ng-if="flag.hideInput">
+    <div class = "input-group">
+        <input type = "text" class = "form-control" ng-model="location" placeholder="Video Location">
+
+        <span class = "input-group-btn">
+            <button class = "btn btn-info" ng-click="playThisVideo(location)" type = "button">
+                OK
+            </button>
+        </span>
+
+    </div>
+</div>
+<div class="videogular-container video-div clearfix">
+    <videogular vg-theme="config.theme" vg-player-ready="onPlayerReady($API)" vg-preload>
+        <vg-media vg-src="config.sources"
+                  vg-tracks="config.tracks" >
+        </vg-media>
+        <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-scrub-bar>
+                <vg-scrub-bar-buffer></vg-scrub-bar-buffer>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display>
+                <span class="video-time-display" ng-if="currentTime > 0">{{ currentTime | videoPlayerTimeString }}</span>
+                <span class="video-time-display" ng-if="currentTime == 0">{{ totalTime | videoPlayerTimeString }}</span>
+            </vg-time-display>
+            <vg-volume>
+                <vg-mute-button></vg-mute-button>
+                <vg-volume-bar></vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
+        </vg-controls>
+
+        <vg-overlay-play></vg-overlay-play>
+        <vg-poster vg-url='config.plugins.poster'></vg-poster>
+        <vg-buffering></vg-buffering>
+    </videogular>
+</div>

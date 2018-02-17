@@ -1,0 +1,95 @@
+
+<div ng-init="community=$ctrl.community"  class="comm_li gv-community-feed afkl-lazy-wrapper" ng-class="{'commli_banner' : (community.gridviewThumbBannerUrl != '')}" afkl-lazy-image="{{community.gridviewThumbBannerUrl}}" afkl-lazy-image-options="{background: true}">
+  <div ng-if="community.gridviewThumbBannerUrl != ''" class="bg_overlay"> </div>
+  
+  <!--
+  <a target-blank="{{openInNewTab}}" ui-sref="communityHome({name: community.label, commuid: community.uid})">
+    <div class="disp_table width100">
+      <div class="tblr">
+        <div class="tblc com-feed-thumb" ng-if="community.headerLogoUrl" ng-class="{'private-community': community.privated == '1'}">
+          <img class="width100" src="{{community.headerLogoUrl}}"/>
+        </div>
+        <div class="tblc comm-feed-content">
+          <div class="content-wrap">
+              <div class="ctitle" ng-bind-html="(community.label | highlight:$root.highlightText)"> </div>
+            <div class="cdesc ellipses" data-ng-bind="(community.description | highlight:$root.highlightText)" data-ellipsis-symbol="..." data-ellipsis></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </a>
+  -->
+  <a ng-if="!showCommunityToggle" ui-sref="app.communityHome({ name: '{{community.label|urlEncode}}', commuid: community.uid })">
+    <!-- to display community on listing page -->
+    <community-title community="community"></community-title>
+  </a>
+
+  <a ng-if="showCommunityToggle" href="javascript: void(0)" ng-click="toggleCommSelection(community)">
+    <!-- to display community on community select popup -->
+    <community-title community="community"></community-title>
+  </a>
+
+  <!--
+  <div class="left_part" ng-if="community.headerLogoUrl">
+    <img class="comm_li_thumb" src="{{community.headerLogoUrl}}"/>
+  </div>
+  <div class="right_part">
+    <div class="comm_desc_wraper">
+      <a ui-sref="communityHome({name: community.label, commuid: community.uid})">
+        <div class="ctitle"> {{community.label}} </div>
+      </a>
+      <div class="desc ellipses" data-ng-bind="community.description" data-ellipsis-symbol="..." data-ellipsis></div>
+    </div>  
+  </div>
+  -->
+
+  <div class="comm_cntrl_inline">
+      <ul class="list-inline pull-left">
+        <li>
+          <div class="comm_li_btn memb_cnt" translate-title="Subscriber">
+            <span ng-bind="community.followerCount"></span> 
+          </div>
+        </li>
+        <li>
+          <div class="comm_li_btn art_cnt" translate-title="Contributors">
+            <span ng-bind="community.contributorCount"></span> 
+          </div>
+        </li>
+        <!-- <li ng-if="isSubscirbed">
+          <div class="comm_li_btn" ng-attr-title="{{showSubscribeBtn.title | translate}}" ng-click="subscribe(showSubscribeBtn.val)">            
+            <i class="setting-round fa" ng-class="{'fa-plus': showSubscribeBtn.val == 'subscribe', 'fa-minus': showSubscribeBtn.val == 'not subscribe'}"></i>
+          </div>
+        </li> -->
+      </ul>
+
+      <ul class="list-inline pull-right">
+        <!-- <li ng-if="community.statusOfCurrentUser == 'NotFollower'">
+          <div class="comm_li_btn_icon disp_table clk"  translate-title="Follow">
+            <div class="tblc_m" ng-click="followCommunity('follow')">
+              <i class="fa fa-plus-square"></i>
+            </div>
+          </div>
+        </li>
+
+        <li ng-if="community.statusOfCurrentUser == 'Follower'">
+          <div class="comm_li_btn_icon disp_table clk" translate-title="Unfollow">
+            <div class="tblc_m" ng-click="followCommunity('unfollow')">
+              <i class="fa fa-check-square"></i>
+            </div>
+          </div>
+        </li> -->
+
+        <li>
+          <div ng-if="community.canEdit" class="comm_li_btn_icon disp_table clk" ng-click="editCommunity()" translate-title="Community Manager">
+            <div class="tblc_m">
+              <i class="fa fa-cog"></i>
+            </div>
+          </div>
+        </li>      
+      </ul>
+      <div class="clearifix"></div>
+  </div>
+  
+  
+</div>
+

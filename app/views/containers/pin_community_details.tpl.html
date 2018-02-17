@@ -1,0 +1,145 @@
+<!-- Case : there are no any pinned communities -->
+<div class="row" ng-if="!$ctrl.pinnedCommunities || $ctrl.pinnedCommunities.length == 0">
+	<div class="col-sm-6 col-xs-12">
+    	<div class="custom_community">
+    		<div class="disp_table widget-title cust_comm_title">
+         		<div class="tblr">
+                	<div class="pincom-title"><a href="#" class="post-title fc3" translate>There is no the pinned community</a></div>
+                  	<div class="tblc_m icn clk" ng-if="$ctrl.userCanPinCommunity" ng-click="pinCommunity()">
+               			<i class="fa fa-cog clk"></i>
+                  	</div>
+             	</div>
+    		</div>
+           	<div class="widget-body">
+          		<ul class="list-unstyled">
+                	<li class="pincom-title" translate>No contents</li>
+             	</ul>
+        	</div>          
+      	</div><!--custom_community-->
+  	</div><!--col-sm-4 END-->
+
+   	<div class="col-sm-6 col-xs-12">
+    	<div class="custom_community">
+        	<div class="disp_table widget-title cust_comm_title">
+       			<div class="tblr">
+               		<div class="tblc_m title"><a href="#" class="pincom-title" translate>There is no the pinned community</a></div>
+                   	<div class="tblc_m icn" ng-if="$ctrl.userCanPinCommunity" ng-click="pinCommunity()">
+                   		<i class="fa fa-cog clk"></i>
+                 	</div>
+            	</div>
+           	</div>
+           	<div class="widget-body">
+           		<ul class="list-unstyled">
+           			<li class="pincom-title" translate>No contents</li>
+               	</ul>
+          	</div>          
+		</div><!--custom_community-->
+ 	</div><!--col-sm-4 END-->
+</div><!-- END Case : there are no any pinned communities -->
+
+<!-- END Case : there are one pinned community -->
+<div class="row" ng-if="$ctrl.pinnedCommunities && $ctrl.pinnedCommunities.length == 1">
+	<div class="col-sm-6 col-xs-12">
+   		<div class="custom_community">
+     		<div class="disp_table widget-title cust_comm_title marb10">
+          		<div class="tblr">
+               		<div class="tblc_m icn icon_pin_community">
+						<a class="widget_comm_icon" ui-sref="app.communityHomeWithTab({name: $ctrl.pinnedCommunities[0].community.label, commuid: $ctrl.pinnedCommunities[0].community.uid, activetab: $ctrl.pinnedCommunities[0].communityTab.uid})"> 
+                    		<div class="com_icon">
+                           		<img ng-src="{{$ctrl.pinnedCommunities[0].community.headerLogoUrl}}">
+                         	</div>
+                       	</a>    
+                  	</div>
+                   	<div class="tblc_m title clk" ui-sref="app.communityHomeWithTab({name: $ctrl.pinnedCommunities[0].community.label, commuid: $ctrl.pinnedCommunities[0].community.uid, activetab: $ctrl.pinnedCommunities[0].communityTab.uid})">{{$ctrl.pinnedCommunities[0].title}}</div>
+                    <div class="tblc_m icn clk" ng-if="$ctrl.userCanPinCommunity" ng-click="editThePinnedCommunity($ctrl.pinnedCommunities[0].id)">
+                    	<i class="fa fa-cog"></i>
+                    </div>
+             	</div>
+      		</div>
+           	<div class="widget-body">
+          		<ul class="list-unstyled border-up" ng-if="$ctrl.pinnedCommunities[0].contents && $ctrl.pinnedCommunities[0].contents.length > 0" ng-repeat="content in $ctrl.pinnedCommunities[0].contents">
+              		<li>
+               			<div class="pin-comm">
+                        	<div class="pin-comm-ico">
+                            	<img ng-if="content.type == 'article'" ng-src="images/create_article/text.png">
+                               	<img ng-if="content.type == 'event'" ng-src="images/create_article/event.png">
+                         		<img ng-if="content.type == 'document'" ng-src="images/create_article/doc.png">
+                               	<img ng-if="content.type == 'imageGallery'" ng-src="images/create_article/img.png">
+                             	<img ng-if="content.type == 'quickpost'" ng-src="images/create_article/text.png">
+                    		</div>
+                           	<div class="pin-comm-desc mxln2">
+                            	<span class="pincom-date">{{content.creationDate| date: $root.simpleDateFormat}}</span> | <a ui-sref="app.communityHomeWithArticle({ name: content.community.label, commuid: content.community.uid, activetab: content.communityTab.uid, articleid: content.uid,track: 'viewdetail',referer: referer})" class="pincom-title">{{content.title}}</a>
+                            </div>
+                   		</div>
+              		</li>           
+       			</ul>
+               	<ul class="list-unstyled" ng-if="!$ctrl.pinnedCommunities[0].contents || $ctrl.pinnedCommunities[0].contents.length == 0">
+            		<li class="pincom-title">No contents</li>
+             	</ul>
+     		</div>          
+ 		</div><!--custom_community-->
+	</div><!--col-sm-4 END-->
+   	<div class="col-sm-6 col-xs-12">
+  		<div class="custom_community">
+       		<div class="disp_table widget-title cust_comm_title">
+           		<div class="tblr">
+               		<div class="tblc_m title"><a href="#" class="pincom-title">There is no the pinned community</a></div>
+                   	<div class="tblc_m icn clk" ng-if="$ctrl.userCanPinCommunity" ng-click="pinCommunity()">
+                   		<i class="fa fa-cog clk"></i>
+                   	</div>
+         		</div>
+          	</div>
+           	<div class="widget-body">
+           		<ul class="list-unstyled">
+             		<li class="pincom-title">No contents</li>
+          		</ul>
+   			</div>          
+  		</div><!--custom_community-->
+  	</div><!--col-sm-4 END-->
+</div><!--row END-->
+<!-- END Case : there are one pinned community -->
+
+<!-- END Case : there are full two pinned communities -->
+<div class="row" ng-if="$ctrl.pinnedCommunities && $ctrl.pinnedCommunities.length > 1" >
+	<div class="col-sm-6 col-xs-12" ng-repeat = "pinnedCommunity in $ctrl.pinnedCommunities">
+    	<div class="custom_community">
+       		<div class="disp_table widget-title cust_comm_title marb10">
+          		<div class="tblr">
+               		<div class="tblc_m icn icon_pin_community">
+						<a class="widget_comm_icon" ui-sref="app.communityHomeWithTab({name: pinnedCommunity.community.label, commuid: pinnedCommunity.community.uid, activetab: pinnedCommunity.communityTab.uid})"> 
+                      		<div class="com_icon">
+                           		<img ng-src="{{pinnedCommunity.community.headerLogoUrl}}">
+                       		</div>
+               			</a>    
+					</div>
+                   	<div class="tblc_m title clk" ui-sref="app.communityHomeWithTab({name: pinnedCommunity.community.label, commuid: pinnedCommunity.community.uid, activetab: pinnedCommunity.communityTab.uid})">{{pinnedCommunity.title}}</div>
+                   	<div class="tblc_m icn clk" ng-if="$ctrl.userCanPinCommunity" ng-click="editThePinnedCommunity(pinnedCommunity.id)">
+                   		<i class="fa fa-cog"></i>
+                	</div>
+				</div>
+			</div>
+      		<div class="widget-body">
+           		<ul class="list-unstyled border-up" ng-if="pinnedCommunity.contents && pinnedCommunity.contents.length > 0" ng-repeat="content in pinnedCommunity.contents">
+                	<li>
+                   		<div class="pin-comm">
+                       		<div class="pin-comm-ico">
+                      			<img ng-if="content.type == 'article'" ng-src="images/create_article/text.png">
+                          		<img ng-if="content.type == 'event'" ng-src="images/create_article/event.png">
+                               	<img ng-if="content.type == 'document'" ng-src="images/create_article/doc.png">
+                               	<img ng-if="content.type == 'imageGallery'" ng-src="images/create_article/img.png">
+                               	<img ng-if="content.type == 'quickpost'" ng-src="images/create_article/text.png">
+                       		</div>
+                            <div class="pin-comm-desc mxln2">
+                          		<span class="pincom-date">{{content.creationDate| date: $root.simpleDateFormat}}</span> | <a ui-sref="app.communityHomeWithArticle({ name: content.community.label, commuid: content.community.uid, activetab: content.communityTab.uid, articleid: content.uid,track: 'viewdetail',referer: referer})" class="pincom-title">{{content.title}}</a>
+                          	</div>
+                     	</div>
+               		</li>           
+          		</ul>
+               	<ul class="list-unstyled" ng-if="!pinnedCommunity.contents || pinnedCommunity.contents.length == 0">
+               		<li class="pincom-title">No contents</li>
+          		</ul>
+        	</div>          
+ 		</div><!--custom_community-->
+	</div><!--col-sm-4 END-->
+</div><!--row END-->
+<!-- END Case : there are full two pinned communities -->

@@ -1,0 +1,22 @@
+<div class="panel panel-default widget my_followers marb20">
+  <div class="disp_table widget-title">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_user">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+      <div class="tblc_m title">
+        {{'User Actions' | translate}}
+      </div>
+      <div class="tblc_m icn">
+        <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body" ng-show="isWidgetOpen">
+	<ul class="widget_ulli">
+    	 <li href="javascript: void(0)" ng-click="$root.openProfileCustomFieldPopup()"> <span translate>Configure Profile Custom Fields</span> </li>
+    </ul>	
+  </div>
+</div>

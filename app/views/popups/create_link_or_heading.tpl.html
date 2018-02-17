@@ -1,0 +1,32 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CreateLinkOrHeadingCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title" once-text="'Create Heading' | translate"></p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<div ng-show="modalData.type == 'heading'">
+			<input class="ins_input_tex marb10" ng-model="heading" type="text" placeholder="{{'Heading' | translate}}">
+
+			<!--<span class="ins_checkbox">
+				<input type="checkbox"  id="isfooter29BD3" name="isfooter29BD3" class="css-checkbox" ng-model="isFooter">
+				<label for="isfooter29BD3" class="css-label" translate>Footer</label>
+			</span>-->
+		</div>
+		<div ng-show="modalData.type == 'link'">
+		  	<input class="ins_input_tex marb10" ng-model="linkTitle" type="text" placeholder="{{'Title' | translate}}">
+
+		  	<input class="ins_input_tex marb10" ng-model="link" type="text" placeholder="{{'Link' | translate}}">
+
+		  	<div class="width100" dropdown-select="headingList" dropdown-model="selectedHeading" dropdown-onchange="headingChanged(selected)" dropdown-item-label="heading"></div>
+		</div>
+
+		<div class="floatl width100">
+			<div class="ins_btn_ctext" ng-click="done()">
+				<span class="ng-binding">OK</span>
+			</div>
+		</div>
+
+	</div>
+</div>

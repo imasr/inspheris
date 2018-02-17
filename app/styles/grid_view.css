@@ -1,0 +1,453 @@
+.select_widget,
+.select_widget .dropdown-menu {
+    width: 100%;
+}
+.select_widget .btn-default {
+    color: #969ba1;
+    background-color: #fff;
+    border-color: #edeff0;
+    border-radius: 0px;
+    width: 88%;
+    height: 40px;
+    text-align: left;
+}
+.select_widget .dropdown-toggle {
+    height: 40px;
+    width: 12%;
+    text-align: center;
+}
+.select_widget .btn-default:hover,
+.select_widget .btn-default:focus,
+.select_widget .btn-default:active,
+.select_widget .btn-default.active,
+.select_widget .open > .dropdown-toggle.btn-default {
+    color: #969ba1;
+    background-color: #fff;
+    border-color: #edeff0;
+}
+.grid_small_li {
+    width: 100%;
+    height: 318px;
+    margin-bottom: 25px;
+    position: relative;
+    border: 1px solid #e4e7ea;
+}
+#content_slider .grid_small_li {
+    height: 276px;
+}
+.grid_wide_li {
+    width: 100%;
+    height: 318px;
+    margin-bottom: 25px;
+    position: relative;
+    border: 1px solid #e4e7ea;
+}
+.grid_art_title {
+    color: #3d4347;
+    font-size: 18px;
+    font-weight: bold;
+}
+.grid_toolbar_outer {
+    width: 100%;
+    height: 40px;
+    float: left;
+}
+.grid_toolbar_outer .art_control_wraper {
+    position: relative;
+    width: 100%;
+    border-top: 1px solid #f0f2f2;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.grid_toolbar {
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid #e4e7ea;
+}
+.grid_toolbar .btn_comment {
+    margin-left: 0px;
+}
+.grid_toolbar .btn_seprator {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.grid_toolbar .art_btn {
+    margin-left: 0px;
+}
+.grid_wide_li .grid_bkg_img,
+.grid_small_li .grid_bkg_img {
+    width: 100%;
+    height: 100%;
+}
+.grid_feed_art {
+    width: 100%;
+    height: 276px;
+    float: left;
+    position: relative;
+}
+.grid_feed_note {
+    width: 100%;
+    height: 276px;
+    float: left;
+    position: relative;
+}
+.grid_feed_gallery {
+    width: 100%;
+    height: 276px;
+    float: left;
+    position: relative;
+}
+.grid_feed_nothumb {
+    width: 100%;
+    height: 276px;
+    float: left;
+    position: relative;
+}
+.grid_feed_note .grid_note_wrapper {
+    width: 100%;
+    height: 72px;
+    margin-top: 118px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.grid_feed_note .grid_li_title {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.grid_feed_gallery .grid_li_title {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.grid_feed_art .grid_user_action,
+.grid_feed_note .grid_user_action,
+.grid_feed_nothumb .grid_user_action,
+.grid_feed_gallery .grid_user_action {
+    color: #7f8386;
+}
+.grid_feed_art .grid_li_title {
+    /*background-color: rgba(0,0,0,0.2);*/
+    
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.grid_feed_nothumb .grid_li_title {
+    height: 40px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+.grid_feed_art .grid_art_text {
+    position: absolute;
+    bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    width: 100%;
+    color: #fff;
+    overflow: hidden;
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+    /* FF3.6+ */
+    
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(0, 0, 0, 0)), color-stop(100%, rgba(0, 0, 0, 0.75)));
+    /* Chrome,Safari4+ */
+    
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+    /* Chrome10+,Safari5.1+ */
+    
+    background: -o-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+    /* Opera 11.10+ */
+    
+    background: -ms-linear-gradient(top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+    /* IE10+ */
+    
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.75) 100%);
+    /* W3C */
+    
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#a6000000', GradientType=0);
+    /* IE6-9 */
+}
+.grid_art_text .art_title {
+    color: #fff;
+}
+.grid_art_text .art_sub_title {
+    color: #fff;
+}
+.grid_art_text h3 {
+    color: #fff;
+}
+.grid_art_text h4 {
+    color: #d9d9d9;
+}
+.grid_art_text .list_ritch_text {
+    max-height: 40px;
+    color: #fff;
+}
+.grid_feed_info {
+    position: absolute;
+    ;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    top: 0px;
+}
+.grid_user_action {
+    color: #5b5f62;
+    max-width: 170px;
+    min-width: 150px;
+    line-height: 19px;
+    height: 40px;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.grid_wide_li .grid_action_unm {
+    width: 65px;
+    position: relative;
+}
+.grid_action_unm a {
+    position: relative;
+    color: #36bfff;
+    text-decoration: none;
+}
+.grid_action_comm {
+    max-width: 50px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-left: 5px;
+}
+.grid_action_comm a {
+    color: #16b3fd;
+    text-decoration: none;
+}
+.grid_action_comm:after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -o-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+}
+.grid_action_acti {
+    /*max-width: 110px;*/
+    
+    overflow: hidden;
+    white-space: nowrap;
+}
+.grid_nothumb_art {
+    width: 100%;
+    height: 100px;
+    margin-top: 118px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.grid_quickpost_desc {
+    width: 100%;
+    height: 150px;
+    margin-top: 118px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.grid_nothumb_art h3 {
+    color: #4c555f;
+}
+.grid_nothumb_art p {
+    color: #8f9294;
+}
+.grid_nothumb_art .list_ritch_text {
+    color: #5e5e5e;
+    line-height: 1.5em;
+    max-height: 3em;
+}
+.grid_quickpost_desc .list_ritch_text {
+    color: #5e5e5e;
+}
+.grid_gallery_wrapper {
+    width: 100%;
+    height: 115px;
+    margin-top: 118px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.grid_img_gallery {
+    height: 100%;
+    display: table;
+    margin: 0 auto;
+}
+.grid_img_gallery .feedthumb_90 {
+    float: left;
+}
+.feedthumb_90 .list_gallery_more {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    line-height: 90px;
+    color: #fff;
+    font-size: 34px;
+    background-color: rgba(56, 183, 234, 0.8);
+}
+.grid_more_feed {
+    margin-bottom: 30px;
+}
+.fg_note_container {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+.fg_note_container .feedthumb_72 {
+    float: left;
+    background-color: #f1f2f3;
+}
+.fg_docu_container {
+    width: 100%;
+    height: 100%;
+    float: left;
+}
+.fg_docu_container .feedthumb_72 {
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    background-color: #f1f2f3;
+}
+.grid_feed_art .grid_user_action {
+    background-color: #fff;
+}
+.grid_feed_art .user_action_btns {
+    background-color: #fff;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.grid_user_action span {
+    float: left;
+}
+.grid_action_unm {
+    width: 5em;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    margin-right: 5px;
+    color: #36bfff;
+}
+.grid_action_unm:after {
+    content: "";
+    pointer-events: none;
+    position: absolute;
+    width: 20px;
+    height: 100%;
+    top: 0;
+    right: 0;
+    background-image: -webkit-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -moz-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -ms-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: -o-linear-gradient(right, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0));
+}
+.grid_art_subtitle {
+    font-size: 14px;
+    color: #8f9294;
+    font-weight: bold;
+}
+/*--------------- grid comment box --------------*/
+
+.grid_wide_li .comment_wrapper,
+.grid_small_li .comment_wrapper {
+    display: block;
+    top: 100%;
+    position: absolute;
+    z-index: 100;
+    outline: 1px solid #f0f2f2;
+}
+.grid_small_li .comment_box,
+.grid_small_li .comment_action,
+.grid_small_li .flcmnt_files {
+    width: 95%;
+}
+.grid_small_li .ufiles_area {
+    max-height: 200px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.grid_li.comment_box_hide .comment_wrapper {
+    display: none;
+}
+@media (min-width: 1200px) {
+    /**/
+    
+    .grid_wide_li .grid_li_title {
+        width: 300px;
+    }
+    .grid_small_li .grid_li_title {
+        width: 93%;
+    }
+}
+/*-------------- Temp CSS-----------*/
+
+.feed_grid {
+    width: 100%;
+    float: left;
+    position: relative;
+    margin-bottom: 10px;
+    border: 1px solid #e4e7ea;
+}
+.comment_box_hide .comment_wrapper {
+    display: none;
+}
+.feed_grid .grid_li_title {
+    width: 100%;
+    position: absolute;
+    padding: 10px;
+    z-index: 50;
+}
+.feed_grid .grid_li_title .grid_user_action,
+.feed_grid .grid_li_title .user_action_btns {
+    background-color: #fff;
+}
+.feed_grid .grid_li_title .user_action_btns {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.feed_grid .content: {
+    width: 100%;
+    float: left;
+}
+.feed_grid .grid_bkg_img {
+    width: 100%;
+    height: 100%;
+}
+/***************************************/
+
+.clamped {
+    line-height: 1.5;
+    overflow: hidden;
+    position: relative;
+}
+.clamped-2 {
+    /* Clamp to 2 lines, ie line-height x 2: */
+    
+    max-height: 3em;
+}
+.ellipsis {
+    background: #fff;
+    bottom: 0;
+    position: absolute;
+    right: 0;
+}
+.fill {
+    background: #fff;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}

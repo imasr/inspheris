@@ -1,0 +1,35 @@
+<div class="ins_popup custom_popup food-truck" ng-controller="FoodTruckCtrl">
+	<div class="popup_header floatl">
+		<p class="popup_title">
+			<span class="widget-icon icon-foodtruck"></span> <span>{{widget.title}}</span>
+		</p>
+		<div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})">X</div>
+	</div>
+
+	<div class="popup_wrapper">
+		<div class="row">
+			<div class="col-md-4 hidden-sm hidden-xs">
+				<img ng-src="{{widget.food.image.thumbGalleryUrl}}" class="img-responsive widget_image marb20" />
+				<p>{{widget.food.lastUpdatedDate | date: $root.dateFormat}}</p>
+			</div>
+
+			<div class="col-md-8 col-sm-12 col-xs-12">
+
+				<div class="foodtruck-menu-body" ng-if="widget.food.options && widget.food.options.length > 0">
+					<div class="foodtruck-menu-section" ng-repeat="option in widget.food.options">
+						<!-- Item starts -->
+						<div class="foodtruck-menu-item">
+							<div class="foodtruck-menu-item-name">{{option.name}}</div>
+							<div class="foodtruck-menu-item-price" ng-if="option.price">{{option.price}} €</div>
+						</div>
+						<!-- Item ends -->
+					</div>
+				</div>
+
+				<p class="fc1" ng-if="widget.food.description">{{widget.food.description}}</p>
+
+			</div>
+		</div>
+		<!--row END-->
+	</div>
+</div>

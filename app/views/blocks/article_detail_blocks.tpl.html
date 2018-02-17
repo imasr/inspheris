@@ -1,0 +1,287 @@
+<div ng-repeat="block in feed.blocks" ng-switch on="block.type" class="article_detail">
+	<!-- ritch text -->
+	<div ng-switch-when="richText" class="block_group" class="richtext">
+		<div ng-include="'../app/views/article_blocks/ritchtext_block.tpl.html'" ng-init="rtext = block.content"></div>
+	</div>
+
+	<div ng-switch-when="wiki" class="block_group wiki">
+		<h2 ng-bind-html="block.title"></h2>
+		<div ng-include="'../app/views/article_blocks/ritchtext_block.tpl.html'" ng-init="rtext = block.content"></div>  	
+	</div>
+
+	<div ng-switch-when="text" class="block_group text">
+		<div ng-include="'../app/views/article_blocks/ritchtext_block.tpl.html'" ng-init="rtext = feed.parseText"></div>  	
+	</div>
+
+	<div ng-switch-when="ImageGallery" class="block_group imagegallery">
+      	<div class="list_img_gallery" ng-if="block.images.length > 1  && !imgGalleryTpl">
+					<div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.images" gallerytype="images" other="{feed: feed}"></div>
+      	</div>
+
+ 		<div class="list_img_gallery" ng-if="block.images.length > 1 && imgGalleryTpl == 'tpl2'">
+        	<div ng-include="'../app/views/blocks/generic_gallery2.tpl.html'" ng-init="tpl_imgarr = block.images;"></div>
+      	</div>
+
+      	<div ng-if="block.images.length == 1 && block.images[0].isInternal">
+			<div ng-include="'../app/views/article_blocks/image_block.tpl.html'" ng-init="img_path= block.images[0].path"></div>
+ 		</div>
+ 		<div ng-if="block.images.length == 1 && !block.images[0].isInternal">
+			<div class="bl_image">
+				<a target="_blank" href="{{block.images[0].path}}"><img class="header_img" src="../images/media/gdrive_thumb_gallery.png"></a>
+			</div>
+ 		</div>
+    </div>
+
+    <div ng-switch-when="imageGallery" class="block_group imagegallery">
+		<div class="list_img_gallery" ng-if="block.images.length > 1 && !imgGalleryTpl">
+			<div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.images" gallerytype="images" other="{feed: feed}"></div>
+		</div>	
+
+ 		<div class="list_img_gallery" ng-if="block.images.length > 1 && imgGalleryTpl == 'tpl2'">
+        	<div ng-include="'../app/views/blocks/generic_gallery2.tpl.html'" ng-init="tpl_imgarr = block.images;"></div>
+      	</div>
+
+      	<div ng-if="block.images.length == 1">
+			<div ng-include="'../app/views/article_blocks/image_block.tpl.html'" ng-init="img_path= block.images[0].path">
+			</div>
+ 		</div>
+    </div>
+
+    <div ng-switch-when="documentGallery" class="block_group documentgallery">
+      <div class="list_img_gallery">
+				<div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.documents" gallerytype="documents" other="{feed: feed}"></div>
+      </div>
+    </div>
+
+    <div ng-switch-when="document" class="block_group documentgallery">
+		<div class="left_part">
+			<div class="feedthumb_72">
+				<thumbnail file="block" ></thumbnail>
+			</div>
+		</div>
+		<div class="right_part file_info">
+			<div class="post-title" data-ng-bind="block.caption" data-ellipsis-symbol="..." data-ellipsis>  </div> <!--art_title-->
+
+			<div ng-if="block.creationDate" ng-init="temptitle = 'Uploaded '+ (feed.creationDate|timeago)" class="post-subtitle" data-ng-bind="temptitle" data-ellipsis-symbol="..." data-ellipsis> </div>
+		</div>
+    </div>
+
+    <div ng-switch-when="videoGallery" class="block_group videogallery">
+      <div class="list_img_gallery">
+				<div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.videos" gallerytype="videos" other="{feed: feed}"></div>
+      </div>
+    </div>
+
+    <div ng-switch-when="url" class="block_group url">
+      <a href="{{block.path}}">{{block.path}}</a>
+    </div>
+
+    <div ng-switch-when="quote" class="block_group quote">
+      <q>{{block.content}}</q>
+    </div>
+
+	<div ng-switch-when="image" class="block_group imagegallery">
+		<div ng-include="'../app/views/article_blocks/image_block.tpl.html'" ng-init="img_path= $root.siteUrl+block.path">
+		</div>
+	</div>
+
+	<div ng-switch-when="video" class="block_group videogallery">
+		<div class="vdo_preview_box floatl marb10">
+          <div ng-if="videoPreview != 'invalid'" ng-bind-html="block.embedVideo | unsafehtml">
+            
+          </div>
+	    </div>
+	</div>
+
+	<div ng-switch-when="event" class="block_group event">
+		    <div class="left_part hide">
+					<feed-event-thumb event="block"></feed-event-thumb>
+        </div>
+        <div class="right_part hide">
+            <div class="post-evt-title" data-ng-bind="block.title" data-ellipsis-symbol="..." data-ellipsis>  </div>
+            <div class="post-evt-subtitle" data-ng-bind="block.location" data-ellipsis-symbol="..." data-ellipsis></div>
+            <div class="mart10 marb10">
+            <p><span translate>Start_Date</span> : <span>{{block.dateFrom | date:'mediumDate'}}</span></p>
+            <p ng-if="(block.dateFrom | date:'HH:mm') != '00:00'"><span translate>Start_Time</span> : <span>{{block.dateFrom | date:'HH:mm'}}</span></p>
+
+            <p ng-if="block.dateTo"><span translate>End_Date</span> : <span>{{block.dateTo | date:'mediumDate'}}</span></p>
+            <p ng-if="block.dateTo && (block.dateTo | date:'HH:mm') != '00:00'"><span translate>End_Time</span> : <span>{{block.dateTo | date:'HH:mm'}}</span></p>
+            </div>
+        </div>
+
+	<div class="event-full">
+        <div class="event-title event-title marb20">
+          <h2 class="post-evt-title mart0" data-ng-bind="block.title" data-ellipsis-symbol="..." data-ellipsis>  </h2>
+          <div class="post-evt-subtitle" data-ng-bind="block.location" data-ellipsis-symbol="..." data-ellipsis></div>
+        </div><!--event-title END-->
+
+        <div class="event-desc marb20">
+          <div class="left_part event-date-area">
+            <div class="feedthumb_140 evnt_big_date">
+              <div class="wrap-dt">
+                <span class="dt">{{block.dateFrom | date: "dd"}}</span><br/>
+                <span class="mth">{{block.dateFrom | date: "MMM"}}</span> <br/>
+
+                <span ng-if="(block.dateFrom | date:'HH:mm') != '00:00'" class="fs3 fc2">{{block.dateFrom | date:'HH:mm'}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="right_part event-map-area">
+            <!-- <div class="map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2625.5772787966534!2d2.366345915417916!3d48.8472013792864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e67202e69a76ef%3A0x846b34883b8e812d!2s243+Rue+de+Bercy%2C+75012+Paris!5e0!3m2!1sen!2sfr!4v1482243795514" width="100%" height="140" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="map-address">
+              <p>{{block.location}}</p>
+            </div> -->
+
+                  <div class="event_part">
+            
+                    <div class="mart10 marb10">
+                    <p><span translate>Start_Date</span> : <span>{{block.dateFrom | date:'mediumDate'}}</span></p>
+                    <p ng-if="(block.dateFrom | date:'HH:mm') != '00:00'"><span translate>Start_Time</span> : <span>{{block.dateFrom | date:'HH:mm'}}</span></p>
+
+                    <p ng-if="block.dateTo"><span translate>End_Date</span> : <span>{{block.dateTo | date:'mediumDate'}}</span></p>
+                    <p ng-if="block.dateTo && (block.dateTo | date:'HH:mm') != '00:00'"><span translate>End_Time</span> : <span>{{block.dateTo | date:'HH:mm'}}</span></p>
+
+                    <p>{{block.location}}</p>
+                    
+                    </div>
+
+                </div>
+          </div>
+
+          <div class="clearfix"></div>
+        </div><!--event-desc END-->
+
+
+           <div class="event-participient marb20" ng-if="block.participateEventExtension">
+			  <!-- Subscribed Actively [Total number of seats available] -->	
+              <div class="left_part" ng-if="block.participants && block.participants.length > 0">
+                <div class="feedthumb_40 tblc_m" translate>Participants</div>
+              </div>
+
+              <div class="right_part">
+              	<div ng-if="block.participants && block.participants.length > 0">
+              		<div ng-repeat="(key, value) in count track by $index">
+      					<div ng-if="($index+1) < count.length && block.participants[$index]" class="thumbwrap">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ui-sref="app.myprofile({uid: block.participants[$index].uid, activetab: 'About'})">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+				                      		<!--<img class="img-responsive img-circle" src="{{$root.getUserProfilePic(p)}}">-->
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.participants[$index].headerLogoUrl, firstName: block.participants[$index].firstName, lastName: block.participants[$index].lastName}"></div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->
+						</div>
+					
+						<div ng-if="block.participants.length == count.length && ($index+1) == count.length" class="thumbwrap">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ui-sref="app.myprofile({uid: block.participants[$index].uid, activetab: 'About'})">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.participants[$index].headerLogoUrl, firstName: block.participants[$index].firstName, lastName: block.participants[$index].lastName}"></div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->		
+						</div>
+					
+						<div ng-if="(block.participants.length > count.length) && ($index+1) == count.length">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ng-click="showAllParticipants(block.uid,'subscribed')">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.participants[$index].headerLogoUrl, firstName: block.participants[$index].firstName, lastName: block.participants[$index].lastName}"></div>
+				                      		<div class="more-people">
+				                            +{{block.participants.length - count.length + 1}}
+				                          	</div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->	
+						</div>
+					</div>		
+              </div>
+
+              <div class="floatr participate-btn">
+                  <div class="disp_blk">
+                    <div class="hori_center">
+                     
+                        <a class="btn btn-default btn-default-modified" ng-if="!block.isParticipatedEvent" ng-click="participateEvent(block,'participate')" translate>Participate</a>
+                        <a class="btn btn-danger btn-danger-modified" ng-if="block.isParticipatedEvent" ng-click="participateEvent(block,'cancel')" translate>Cancel Participation</a>
+                    
+                    </div>
+                  </div>
+                </div><!--small-profile END-->
+
+              <div class="clearfix"></div>
+          </div><!-- Subscribed Actively [Total number of seats available] END-->	
+          
+          	<!-- Waiting List [Rest users] -->
+	      	<div class="left_part" ng-if="block.waitingList && block.waitingList.length > 0">
+		        <div class="feedthumb_40 tblc_m" translate>Waiting List</div>
+	       	</div>
+	   		<div class="right_part">
+              	<div ng-if="block.waitingList && block.waitingList.length > 0">
+              		<div ng-repeat="(key, value) in count track by $index">
+      					<div ng-if="($index+1) < count.length && block.waitingList[$index]" class="thumbwrap">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ui-sref="app.myprofile({uid: block.waitingList[$index].uid, activetab: 'About'})">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.waitingList[$index].headerLogoUrl, firstName: block.waitingList[$index].firstName, lastName: block.waitingList[$index].lastName}"></div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->
+						</div>
+					
+						<div ng-if="block.waitingList.length == count.length && ($index+1) == count.length" class="thumbwrap">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ui-sref="app.myprofile({uid: block.waitingList[$index].uid, activetab: 'About'})">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.waitingList[$index].headerLogoUrl, firstName: block.waitingList[$index].firstName, lastName: block.waitingList[$index].lastName}"></div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->		
+						</div>
+					
+						<div ng-if="(block.waitingList.length > count.length) && ($index+1) == count.length">
+							<div class="floatl small-profile">
+				            	<a class="disp_blk" ng-click="showAllParticipants(block.uid,'waiting')">			                    
+				                    <div class="hori_center">
+				                      <div class="feedthumb_40">
+					                        <div class="user_image uaa_item img-circle"  profile-photo="{url: block.waitingList[$index].headerLogoUrl, firstName: block.waitingList[$index].firstName, lastName: block.waitingList[$index].lastName}"></div>
+				                      		<div class="more-people">
+				                            +{{block.waitingList.length - count.length + 1}}
+				                          	</div>
+				                      </div>
+				                    </div>
+				                  </a>
+							</div><!--small-profile END-->	
+						</div>
+					</div>		
+              </div>
+              <div class="clearfix"></div>
+          	</div><!-- Waiting List [Rest users] END-->	
+          </div>
+
+        
+      </div><!--event-full END-->
+
+
+
+	</div><!--event END-->
+	
+	<div ng-switch-when="linkEmbed" class="block_group url">
+		<div ng-if="block.links.length == 1" ng-include="'../app/views/blocks/feed_link_embed.tpl.html'" ng-init="links = block.links;"></div>
+		<div class="list_img_gallery" ng-if="block.links.length > 1">
+		  <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.links" gallerytype="linkEmbed" other="{feed: feed}"></div>
+     	</div>
+	</div>
+</div>

@@ -1,0 +1,94 @@
+<div ng-controller="AlertWidgetController" ng-if="$root.alertFeature">
+    <div class="alert-div" ng-if="alerts && alerts.length > 0">
+      <div class="alert-expand">
+                       
+          <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+                       
+      </div><!--alert-expand END-->
+      <div ng-hide="isWidgetOpen">
+      <div ng-repeat = "alert in alerts">
+      <div class="alert-content">
+        <div class="container">
+          <div class="col-sm-12">
+          <h4 class="alert-header">{{alert.title}}</h4>
+          <div ng-bind-html="alert.description | unsafehtml"></div>
+          </div>
+        </div>
+        </div><!--container END-->
+        </div>
+      </div>
+    </div>
+</div>
+ <div class="hidden-sm hidden-xs icon-fixed-right" ng-controller="SidebarMenuController" ng-if="$root.enableSidebarMenu">
+      <ul ng-if="links && links.length > 0">
+        <li ng-repeat="link in links"><a target-blank="{{link.openSameTab}}" once-href="link.link"><span class="icon-fixed-name">{{link.title}}</span><img ng-src="{{link.icon.image.url}}" alt=""></a></li>
+      </ul>
+</div><!--icon-fiexed-right-->
+<footer footerset ng-controller="FooterCtrl">
+
+
+<div class="container-fluid">
+
+<div class="footer-top">
+  <div class="row">
+
+  <div class="col-md-3 col-sm-12 col-xs-12">
+    <div class="company"><img src="/images/lively/logo.png"/> <span>v{{versionLink.versionNumber}}</span></div>
+  </div><!--text-center END-->
+
+  <div class="col-md-9 col-sm-12 col-xs-12">
+  <ul class="list-inline marb0 address">
+         <li>
+            <a href="http://www.inspheris.com" target="_blank">
+              <span class="footer-icon icon-link"></span>
+              www.inspheris.com
+              <!-- www.genfit.com -->
+              </a>
+            </li>
+
+            <li><a href="mailto:info@inspheris.com?subject=livelyDemo">
+              <span class="footer-icon icon-address"></span>
+              <span>Inspheris &bull; 38 rue des Mathurins &bull; 75008 &bull; Paris</span></a>
+              <!-- GENFIT • Parc Eurasanté • 59120 • Loos -->
+            </li>
+
+            <li><a href="tel:+33320164000">
+              <span class="footer-icon icon-mobile"></span>
+              +33 (0)9 72 35 12 70
+              </a>
+            </li>
+    </ul>
+   
+    </div>
+    
+  </div><!--row END-->
+</div><!--footer top-END-->
+
+  <div class="footer-links">
+    <div class="row">
+        <div ng-repeat="linkObj in footerLinks">
+          <ul class="list-inline mart20 marb0">
+            <li class="col-md-3 col-sm-6 col-xs-12" ng-repeat="link in linkObj.links"><a once-href="link.link" target="_blank" once-text="link.title"></a></li>
+          </ul> 
+        </div>
+    </div><!--row END-->
+  </div><!--footer-links END-->
+
+  <div class="footer-down">
+    <div class="row">
+        <div class="col-md-3 col-sm-12 col-xs-12">
+          <span>&copy; Lively 2017</span>
+        </div>
+
+        <div class="col-md-9 col-sm-12 col-xs-12">
+          <ul class="list-inline marb0 social-links">
+            <li><a href="mailto:info@inspheris.com?subject=livelyDemo"><span class="footer-icon icon-contact"></span></a></li>
+            <li><a href="http://blog.inspheris.com" target="_blank"><span class="footer-icon icon-web"></span></a></li>
+            <li><a href="http://twitter.com/inspheris" target="_blank"><span class="footer-icon icon-twitter"></span></a></li>
+          </ul>
+        </div>
+    </div><!--row END-->
+   
+  </div><!--footer-down END-->
+ </div><!--container END-->
+</footer>

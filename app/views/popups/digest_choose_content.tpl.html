@@ -1,0 +1,116 @@
+<div class="ins_popup wide_popup stat_module" style="" ng-controller="DigestChooseContentCtrl">
+   <div class="popup_header floatl">
+	    <div class="popup_title" translate>Choose Content</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	
+	
+	
+	
+		<div class="col-md-6">
+		
+			<!-- Community Selection for multiple communities -->
+			<div id="selArtComm" class="ins_btn_licon floatl" ng-click="selectCommunity()" style="margin-bottom:10px;margin-top: 10px;">
+	               <div class="icon setting_icon">
+	                <i class="fa fa-cog"></i>
+	               </div>
+	                <p>{{selectedCommLabel | translate}}</p>
+	        </div>
+	        
+	        <!-- Community Selection for ONLY ONE -->
+			<div class="required_field hide" style="margin-top: 10px;">
+				<div class="floatl width100" dropdown-select="ddSelectOptions" dropdown-model="selectedCommUid" dropdown-onchange="commSelect(selected)" dropdown-item-label="text"></div>	          
+        	</div>
+        	
+	        <!--Community tab selection  -->
+	        <div ng-show="communityForTabsSelection.length > 0" style="margin-bottom:10px;">    
+	          <div id="communityTabSelect" class="btn-group ins_dropdown width100">
+	              <button type="button" class="btn btn-default" data-toggle="dropdown">{{selectedTabsLabel}}</button>
+	              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+	                <span class="caret"></span>
+	                <span class="sr-only">Toggle Dropdown</span>
+	              </button>
+	              
+	              <ul class="dropdown-menu" role="menu">
+	                <li class="ddli-ttl" ng-repeat="com in communityForTabsSelection" ng-init="oIdx=$index">{{com.label}}
+	                  <ul>
+	                    <li class="ddli-lbl" ng-repeat="tab in com.tabs track by tab.uid" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+	                      <div class="ins_checkbox">
+	                        <input type="checkbox" name="cctbsel{{oIdx+'_'+iIdx}}" id="cctbsel{{oIdx+'_'+iIdx}}" class="css-checkbox" ng-model="tab.selected" ng-checked="tab.selected">
+	                        <label for="cctbsel{{oIdx+'_'+iIdx}}" class="css-label">{{tab.tabName}}</label>
+	                      </div>
+	                    </li>
+	                  </ul>
+	                </li>
+	              </ul>
+	          </div>
+	        </div>
+		
+			<div style="clear: both;"></div>
+			<!-- Choose content type -->
+			<div class="width100 marb10" style="margin-top:10px;" dropdown-select="contentCollections" dropdown-model="selectedContentType" dropdown-onchange="selectContentByType(selected)"  dropdown-item-label="value"></div>
+			<div style="position: relative;">
+				
+					<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10 " ng-model="searchText" type="text" style="margin: 0;" placeholder="{{'Search' | translate}}" ng-keyup="searchByKeyWord(searchText)">
+					<span class="glyphicon glyphicon-search" ng-click="" style="position: absolute;right: 10px;top: 40%;font-size: 16px;"></span>
+			</div>
+			<div class="btn-group tac mart10 marb10" style="margin: 0 auto;display: table;">
+				<button ng-repeat="item in preiodText track by $index" ng-click="select($index,item)" type="button" class="ng-class:{'active': $index == selected}; btn btn-default navbar-btn" ><span translate>{{item.name}}</span></button>
+			</div>
+			
+			<!-- Calendar picker -->
+			<div id="period-button" class="period-button" style=" display: table;margin: 0 auto;">
+					<div class="ins_btn_liconbor" style="margin-top: 8px; margin-bottom: 8px; height: 34px;width:160px;margin-right: 10px; float: left;">
+				            <div class="form-group ">
+				           		<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="dateFrom" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+				            </div>
+				     </div>
+			     
+				     <div class="ins_btn_liconbor" style="margin-top: 8px; margin-bottom: 8px; height: 34px;width:160px;float: left;">
+
+			            <div class="form-group">
+			               <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="dateTo" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+			            </div>
+      			    </div>
+				     <button style="margin-left:5px" type="button" class="btn btn-default navbar-btn" ng-click="selectPeriod(dateFrom,dateTo)" translate>Accept</button>
+			</div>
+			
+			<div>
+				<p><strong style="color:#22865a;">{{contentSelection.length}}</strong><span> <strong translate>Articles Selected</strong></span></p>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div style="height: 400px; overflow-y: scroll; margin-bottom: 20px;margin-top: 10px;">
+				<!-- Feeds render -->
+				<h5 ng-if="feeds.length <= 0">{{"No_Results_found" | translate}}</h5>
+				<div ng-if="feeds.length > 0" ng-repeat="feed in feeds" ng-include="'../app/views/popups/digest_cont_feed_lv.tpl.html'"></div>
+				<div class="cust1_feed_li_last" ng-if="showViewMoreBtn">
+		          <div class="tblr">
+		              <div class="tblc com_icon_outer">
+		
+		              </div>
+		              <div class="tblc lvfeedstatus">
+		                <div class="feed_line_outer_last"></div>
+		              </div>
+		              <div class="tblc">
+		                <div class="feed_content_wrapper">
+		                  <div class="feed_content">
+		                      <div class="view_more_feed" ng-click="loadMoreFeed()" translate>View_More_Activities
+		                      <input type="hidden" ng-model="page"/>
+		                      </div>
+		                  </div>  
+		                </div>
+		              </div>
+		          </div>
+		        </div>
+				<!--End  Feeds render -->
+			</div>
+		</div>
+	<div class="col-md-offset-4 col-md-4">
+		<div  class="ins_btn_ctext marb10" style="background-color:  #999999;border-color: #999999;" ng-click="closeThisDialog({flag: 'ok', data: contentSelection, comUIds: selectedCommunityUids, tabUids: tabUids, communities: selectedCommunities})">
+				<span translate >Ok</span>
+		</div>
+	</div>
+	
+	
+</div>

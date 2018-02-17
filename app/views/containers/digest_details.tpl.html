@@ -1,0 +1,473 @@
+<table ng-if="viewType != 'allDigest'" style="border-collapse:collapse;border-spacing:0;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;height:100%;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:100%">
+    <tbody>
+        <tr style="padding:0;text-align:left;vertical-align:top">
+            <td align="center" valign="top" style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:center;vertical-align:top;word-break:break-word">
+                <center style="width:100%">
+                    <table style="background-color:#619EC1;border-collapse:collapse;border-spacing:0;color:#fff;padding:0;text-align:inherit;vertical-align:top;width:100%">
+                        <tbody>
+                            <tr style="padding:0;text-align:left;vertical-align:top">
+                                <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                    <div style="display:block;margin:0 auto;max-width:580px;padding:3px 10px">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table style="background-color:#f0f0f0;border-collapse:collapse;border-spacing:0;padding:0;text-align:inherit;vertical-align:top;width:100%">
+                        <tbody>
+                            <tr style="padding:0;text-align:left;vertical-align:top">
+                                <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;text-align:left;vertical-align:top;word-break:break-word">
+
+                                    <div style="display:block;margin:0 auto;max-width:580px;padding:12px 16px;">
+
+                                        <p style="font-size: 12px; margin-top:0; float:left;">{{digest.sendDate | date: $root.dateFormat}}</p>
+
+                                        <div style="clear:both;"></div>
+                                        <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                            <h2 style="text-transform:uppercase;color:#619EC1;font-family:'Helvetica','Arial',sans-serif;font-size:22px;font-weight:300;line-height:28px;margin:10px 0;padding:0;vertical-align:top;word-break:break-word; text-align:center;"><a href="/#/digest/{{digest.id}}" style="text-decoration:none;color: #619EC1;">{{digest.title}}</a></h2>
+                                            <p ng-repeat="com in digest.communities" style="text-align:center; font-weight:bold;">
+                                                <a ui-sref="app.communityHome({name: com.label, commuid: com.uid})" style="background: #619EC1;text-decoration:none;color: #fff;padding: 5px 10px;" target="_blank">{{com.label}} {{com.text}}</a>
+                                            </p>
+
+                                            <div style="margin-top:30px;">
+                                                <!--  <img ng-if="!digest.headerImageUrl" src="https://cdn-images-1.medium.com/max/1400/1*278tqw9zNPe2WCAz29Wzdw.jpeg" style="border-radius:3px;clear:both;display:block;max-width:100%;outline:none;text-decoration:none;width:600px">-->
+                                                <img ng-if="digest.headerImageUrl" src="{{digest.headerImageUrl}}" style="border-radius:3px;clear:both;display:block;max-width:100%;outline:none;text-decoration:none;width:600px">
+                                                <!--image size maximum height: 150-->
+                                            </div>
+                                            <table ng-if="viewType=='Template2'" ng-repeat="feed in feeds"  width="100%" style="border-collapse:collapse;border-spacing:0;margin:12px 0;padding:0;text-align:left;vertical-align:top">
+                                                <tbody>
+                                                    <tr style="padding:0;text-align:left;vertical-align:top">
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                                        	<!-- First Block -->
+                                                        	<div once-if="$index == 0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05);border: 1px solid rgba(97, 158, 193, 0.25);background:#fafafa;border-radius: 4px;padding:20px;">
+                                                        		<div style="margin-bottom:10px;">
+
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;background: #F5F5F5;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> 
+	                                                                    <span ng-if="feed.type == 'imageGallery'" translate>a create  images galleries</span>
+	                                                                    <span ng-if="feed.type == 'document'" translate>a create  document</span>
+	                                                                    <span ng-if="feed.type == 'event'" translate>a create  event</span>
+	                                                                    <span ng-if="feed.type == 'quickpost'" translate>a create  quickpost</span>
+	                                                                    <span ng-if="feed.type == 'video'" translate>a create  video</span>
+	                                                                    <span ng-if="feed.type == 'article'" translate>a create article</span>		
+                                                                    </p>
+
+                                                                    <h2 style="font-weight:400; text-transform: uppercase; line-height: 1.4em; margin: 10px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div style="background-color: #eee; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">
+                                                                            	
+                                                                            		<ng:switch on="feed.type">
+                                                                            			<img ng-switch-when="imageGallery" src="../images/axelliance/img.png" />
+                                                                            			<img ng-switch-when="document" src="../images/axelliance/doc.png" />
+                                                                            			<img ng-switch-when="event" src="../images/axelliance/quote.png" />
+                                                                            			<img ng-switch-when="quickpost" src="../images/axelliance/text.png" />
+                                                                            			<img ng-switch-when="video" src="../images/axelliance/video.png" />
+                                                                            			<img ng-switch-when="article" src="../images/axelliance/text.png" />
+                                                                            		</ng:switch>
+                                                                            </span>
+                                                                        </div>
+                                                                        <ng:switch on="feed.type">
+                                                                        	<div ng-switch-when="imageGallery" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                           		 <span ng-repeat="block in feed.blocks" ng-if="block.images.length >=1" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.images.length}}</span>
+                                                                    	    </div>
+                                                                    	    <div ng-switch-when="document" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                           		 <span ng-repeat="block in feed.blocks"  ng-if="block.type=='documentGallery'" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.documents.length}}</span>
+                                                                    	    </div>
+                                
+                                                                        </ng:switch>
+                                                                        
+
+
+                                                                    </a>
+																    <ng:switch on="feed.type">
+                                                                        <div ng-switch-when="imageGallery">
+                                                                        	<p ng-repeat="block in feed.blocks" ng-if="block.type == 'richText'" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="document" >
+                                                                        	<p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="event" >
+                                                                        	<p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" data-ng-bind="block.title" once-if="block.title != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="quickpost" >
+                                                                        	<p style="margin:5px 0; font-size: 16px; line-height: 1.4em;">{{feed.title}}</p>
+                                                                        </div>  
+                                                                        <p ng-switch-when="video" style="margin:5px 0; font-size: 16px; line-height: 1.4em;"></p>  
+                                                                        <div ng-switch-when="article">
+                                                                        	<p ng-repeat="block in feed.blocks" ng-if="block.type == 'richText'" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>			
+                                                                    </ng:switch>
+                                                                    
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+                                                        	</div>
+                                                        	<!-- End First Block -->
+                                                        	<!-- document block -->
+                                                        	<div once-if="feed.type == 'document' && $index != 0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;background: #F5F5F5;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span translate>a create  document</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div style="background-color: #eee; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/doc.png" /></span>
+                                                                        </div>
+                                                                        <div ng-repeat="block in feed.blocks"  ng-if="block.type=='documentGallery'" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.documents.length}}</span>
+                                                                        </div>
+
+
+                                                                    </a>
+
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 14px; line-height: 1.4em;" ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                           <!-- End document block -->
+                                                            
+                                                            <!-- Article Block -->
+                                                            <div once-if="feed.type == 'article' && $index != 0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;background: #F5F5F5;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}} </a><span translate>a create article</span></p>
+																	
+																	<div ng-repeat="block in feed.blocks" >
+																		<h2 ng-if="block.type == 'heading'" style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{block.title}}</a></h2>
+	                                                                    <p  ng-if="block.type == 'heading'" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;">{{block.subTitle}}</p>
+	                                                                    <p  ng-if="block.type == 'richText'" style="margin:5px 0; font-size: 14px; line-height: 1.4em;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+																	</div>
+                                                                    
+
+                                                                    
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" 
+                                                                    style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- End Article Block -->
+                                                            <!-- Event block -->
+                                                            <div once-if="feed.type == 'event' && $index != 0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;background: #F5F5F5;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span translate>a create  event</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div style="background-color: #eee; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/quote.png" /></span>
+                                                                        </div>
+
+
+                                                                    </a>
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" 
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- End event block -->
+                                                            <!-- Images Gallery -->
+                                                            <div once-if="(feed.type == 'imageGallery' || feed.type == 'video') && $index != 0" style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;background: #F5F5F5;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span once-if="feed.type == 'imageGallery'" translate>a create  images galleries</span> <span once-if="feed.type == 'video'" translate>a create  video</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div style="background-color: #eee; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span once-if="feed.type == 'imageGallery'" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/img.png" /></span>
+                                                                            <span once-if="feed.type == 'video'" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/video.png" /></span>
+                                                                        </div>
+                                                                        <div ng-repeat="block in feed.blocks" ng-if="block.images.length >= 1 && feed.type == 'imageGallery'" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span  style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.images.length}}</span>
+                                                                        </div>
+
+
+                                                                    </a>
+
+                                                                    <!-- <p style="margin:5px 0; font-size: 14px; line-height: 1.4em;">Excerpt will go here like this. Just a little description to show how it is seen on live... we limit number of words to show here</p> -->
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                            <!-- End Images Gallery -->
+                                                           
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <!-- Template 1 -->
+                                            <table ng-if="viewType=='Template1'" ng-repeat="feed in feeds" width="100%" style="border-collapse:collapse;border-spacing:0;margin:12px 0;padding:0;text-align:left;vertical-align:top">
+                                                <tbody>
+                                                    <tr once-if="$index == 0" style="padding:0;text-align:left;vertical-align:top">
+                                                        <td  style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                                            <!-- First Block -->
+                                                            <div  style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05);border: 1px solid rgba(97, 158, 193, 0.25);background:#fafafa;border-radius: 4px;padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <div style="background-color: #eee; padding: 5px;border-radius: 4px; display: inline-block;">
+                                                                        <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">
+                                                                        	<ng:switch on="feed.type">
+                                                                         			<img ng-switch-when="imageGallery" src="../images/axelliance/img.png" />
+                                                                         			<img ng-switch-when="document" src="../images/axelliance/doc.png" />
+                                                                         			<img ng-switch-when="event" src="../images/axelliance/quote.png" />
+                                                                         			<img ng-switch-when="quickpost" src="../images/axelliance/text.png" />
+                                                                         			<img ng-switch-when="video" src="../images/axelliance/video.png" />
+                                                                         			<img ng-switch-when="article" src="../images/axelliance/text.png" />
+                                                                            </ng:switch>
+                                                                        </span>
+                                                                    </div>
+                                                                    <p style="font-size: 10px;line-height: 14px;margin: 5px 0 10px 0px;"><span style="padding: 5px;border-radius: 4px;color: #555;">{{feed.publicationStartDate | date: $root.dateFormat}}</span></p>
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> 
+                                                                    	<span ng-if="feed.type == 'imageGallery'" translate>a create  images galleries</span>
+	                                                                    <span ng-if="feed.type == 'document'" translate>a create  document</span>
+	                                                                    <span ng-if="feed.type == 'event'" translate>a create  event</span>
+	                                                                    <span ng-if="feed.type == 'quickpost'" translate>a create  quickpost</span>
+	                                                                    <span ng-if="feed.type == 'video'" translate>a create  video</span>
+	                                                                    <span ng-if="feed.type == 'article'" translate>a create article</span>		
+                                                                    </p>
+
+                                                                    <h2 style="font-weight:400; text-transform: uppercase; line-height: 1.4em; margin: 10px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <ng:switch on="feed.type">
+	                                                                        <div ng-switch-when="imageGallery" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+	                                                                            <span ng-repeat="block in feed.blocks" ng-if="block.images.length >=1" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.images.length}}</span>
+	                                                                        </div>
+	                                                                        <div ng-switch-when="document" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+	                                                                            <span ng-repeat="block in feed.blocks" ng-if="block.type=='documentGallery'" style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.documents.length}}</span>
+	                                                                        </div>
+                                                                        </ng:switch>
+                                                                    </a>
+
+                                                                    <ng:switch on="feed.type">
+                                                                        <div ng-switch-when="imageGallery">
+                                                                        	<p ng-repeat="block in feed.blocks" ng-if="block.type == 'richText'" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="document" >
+                                                                        	<p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="event" >
+                                                                        	<p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" data-ng-bind="block.title" once-if="block.title != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>
+                                                                        <div ng-switch-when="quickpost" >
+                                                                        	<p style="margin:5px 0; font-size: 16px; line-height: 1.4em;">{{feed.title}}</p>
+                                                                        </div>  
+                                                                        <p ng-switch-when="video" style="margin:5px 0; font-size: 16px; line-height: 1.4em;"></p>
+                                                                        <div ng-switch-when="article" >
+                                                                        	<p ng-repeat="block in feed.blocks" style="margin:5px 0; font-size: 16px; line-height: 1.4em;" ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                                                                        </div>  			
+                                                                    </ng:switch>
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                           </td> 
+                                                            
+                                                            
+                                                    </tr>
+                                                    <!-- End first block -->
+                                                    <!-- Article block -->
+                                                    <tr once-if="feed.type == 'article' && $index != 0" style="padding:0;text-align:left;vertical-align:top">
+                                                    	<td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+		                                                            <div style="background-color: #eee; padding: 5px;border-radius: 4px; display: inline-block;">
+		                                                                <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/text.png" /></span>
+		                                                            </div>
+		                                                            <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.dateFormat}}</span>
+		                                                        </td>
+		                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+		                                                            <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:10px 20px;">
+		                                                                <div style="margin-bottom:10px;">
+		
+		                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span translate>a create article</span></p>
+																			
+																			<div ng-repeat="block in feed.blocks" >
+			                                                                    <h2 ng-if="block.type == 'heading'" style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"  style="color:#3685b3;text-decoration:none" target="_blank">{{block.title}}</a></h2>
+			                                                                    <p  ng-if="block.type == 'heading'" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;">{{block.subTitle}}</p>
+			                                                                    <p  ng-if="block.type == 'richText'" style="margin:5px 0; font-size: 14px; line-height: 1.4em;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+																			</div>
+		                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+		                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+		
+		                                                                </div>
+		
+		                                                            </div>
+		                                                      </td>
+                                                            
+                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <!--End  Article block -->
+                                                    <!-- Event block -->
+                                                    <tr once-if="feed.type == 'event' && $index != 0" style="padding:0;text-align:left;vertical-align:top">
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                                                            <div style="background-color: #eee; padding: 5px;border-radius: 4px; display: inline-block;">
+                                                                <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;"><img src="../images/axelliance/quote.png" /></span>
+                                                            </div>
+                                                            <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.dateFormat}}</span>
+                                                        </td>
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                                            <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:10px 20px;">
+                                                                <div style="margin-bottom:10px;">
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span translate>a create  event</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"  style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- End event block -->
+                                                    <!-- Images Gallery block -->
+                                                    <tr once-if="(feed.type == 'imageGallery' || feed.type == 'video') && $index != 0" style="padding:0;text-align:left;vertical-align:top">
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                                                            <div style="background-color: #eee; padding: 5px;border-radius: 4px; display: inline-block;">
+                                                                <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">
+																		<img once-if="feed.type == 'imageGallery'" src="../images/axelliance/img.png" />
+                                                                        <img once-if="feed.type == 'video'" src="../images/axelliance/video.png" />
+                                                                </span>
+                                                            </div>
+                                                            <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.dateFormat}}</span>
+                                                        </td>
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                                            <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})"style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span once-if="feed.type == 'imageGallery'" translate>a create  images galleries</span><span once-if="feed.type == 'video'" translate>a create  video</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"  style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div ng-repeat="block in feed.blocks" ng-if="block.images.length >= 1 && feed.type == 'imageGallery'" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.images.length}}</span>
+                                                                        </div>
+                                                                        </div>
+
+                                                                    </a>
+
+                                                                    <!-- <p style="margin:5px 0; font-size: 14px; line-height: 1.4em;">Excerpt will go here like this. Just a little description to show how it is seen on live... we limit number of words to show here</p> -->
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- End Images Gallery Block -->
+                                                    <!-- Documents Block -->
+                                                     <tr once-if="feed.type == 'document' && $index != 0" style="padding:0;text-align:left;vertical-align:top">
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                                                            <div style="background-color: #eee; padding: 5px;border-radius: 4px; display: inline-block;">
+                                                                <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">
+																		<img src="../images/axelliance/doc.png" />
+                                                                </span>
+                                                            </div>
+                                                            <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.dateFormat}}</span>
+                                                        </td>
+                                                        <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                                            <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                                                                <div style="margin-bottom:10px;">
+
+
+                                                                    <p style="margin:5px 0;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})"style="color:#3685B3;text-decoration:none" target="_blank">{{feed.author.firstName}} {{feed.author.lastName}}</a> <span translate>a create  document</span></p>
+
+                                                                    <h2 style="font-weight:bold; line-height: 1.4em; margin: 5px 0; font-size: 14px;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"  style="color:#3685b3;text-decoration:none" target="_blank">{{feed.title}}</a></h2>
+                                                                    <p ng-repeat="block in feed.blocks" style="margin:5px 0 10px 0; font-style: italic; font-weight: bold;" ng-if="block.type=='heading'">{{block.subTitle}}</p>
+                                                                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                                                                        <div ng-repeat="block in feed.blocks" ng-if="block.type=='documentGallery'" style="background-color: #E6F0F5; padding: 10px;border-radius: 4px; display: inline-block;">
+                                                                            <span style="background: #fff;border-radius: 50%;width: 40px;line-height: 40px;height: 40px;display: inline-block;font-size: 24px;display: table-cell;vertical-align: middle;text-align: center;">{{block.documents.length}}</span>
+                                                                        </div>
+
+                                                                    </a>
+
+                                                                    <p style="font-size: 10px;margin: 10px 0 10px 0px;"><span style="background: #F5F5F5;border-radius: 4px;color: #555;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})"
+                                                                     style="background-color:#619EC1;padding:5px 10px 5px 10px;border-radius:3px;line-height:15px!important;letter-spacing:0.125em;text-transform:uppercase;font-size:11px;font-family:'Open Sans',Arial,sans-serif;font-weight:bold;color:#ffffff;text-decoration:none;display:inline-block;line-height:18px!important" target="_blank" translate>Read More </a></span></p>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <!-- End Documents Block -->
+                                                </tbody>
+                                            </table>
+                                            <!-- End Template 1   -->
+
+                                        </div>
+
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- <table style="border-collapse:collapse;border-spacing:0;padding:0;text-align:inherit;vertical-align:top;width:100%">
+                        <tbody>
+                            <tr style="padding:0;text-align:left;vertical-align:top">
+                                <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                    <div style="display:block;margin:0 auto;max-width:580px;padding:12px 16px;">
+                                        <p style="color:#9b9b9b;font-family:'Helvetica','Arial',sans-serif;font-size:11px;font-weight:normal;line-height:16px;margin:0;margin-bottom:10px;padding:0;text-align:center"><a href="#" style="color:#9b9b9b;text-decoration:none" target="_blank">Change Digest preferences.</a></p>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                     -->
+                </center>
+            </td>
+        </tr>
+    </tbody>
+</table>

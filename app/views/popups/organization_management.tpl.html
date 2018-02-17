@@ -1,0 +1,37 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="OrganizationManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Organization_Manager' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<button type="button" class="btn btn-default navbar-btn" ng-click="showCreateOrganizationModal()">{{'Create_Organization' | translate}}</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+	      <ul class="list-group">
+	        <li class="list-group-item" ng-if="organizations.length <= 0">
+	          <span><strong>{{'Loading' | translate}}...</strong></span>
+	        </li>
+	        <li class="list-group-item" ng-repeat="org in organizations">
+	        	<div class="disp_table">
+	        		<div class="tblr">
+			        	<div class="tblc">
+			        		Name: <span>{{org.name}}</span>
+			        		<br>
+			        		Leve: <span>{{org.level}}</span>
+				           	<br> 
+							<span class="badge" title="{{ 'edit' | translate }}" ng-click="openEditOrganizationPopup(org)">
+								<i class="fa fa-pencil-square-o"></i>
+							</span>
+							<span class="badge" title="{{ 'delete' | translate }}" ng-click="deleteOrganization(org)">
+								<i class="fa fa-trash-o"></i>
+							</span>
+			        	</div>
+	        		</div>
+	        	</div>
+	        </li>
+	      </ul>
+	    </div>
+	</div>
+</div>

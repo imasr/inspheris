@@ -1,0 +1,16 @@
+<!-- rtobj {type: 'richText', content: ''} -->
+<div class="editblock_wrap">
+    <div class="conrol_wrapper floatl"> 
+      <div class="inner_wrap floatr">
+        <div title="{{'Add Block' | translate}}" class="ins_small_sqbtn floatl add" ng-click="addContentBlock('ritchText');"></div>
+        <div title="{{'Drag/Drop' | translate}}" class="ins_small_sqbtn floatl move"></div>
+        <div title="{{'Remove' | translate}}" class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+      </div>
+    </div>
+    <div class="floatl wysiwyg_wrapper fixed">
+      <!--
+      <div text-angular ng-model="rtobj.content" ta-toolbar="[['quote'],['p'],['bold','italics','strikethrough','underline'],['ul','ol','indent','outdent'],['insertImage','insertVideo','insertLink']]"></div>
+      -->
+      <textarea class="fixed" ckeditor="$root.textEditorOptns" ng-model="rtobj.content" ready="function(){}"></textarea>
+    </div>
+</div>

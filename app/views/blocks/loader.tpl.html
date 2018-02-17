@@ -1,0 +1,7 @@
+<div class="hori_center">
+	<div class="loader">{{ 'Loading' | translate }}...</div>
+</div>
+<div class="hori_center">
+	<span ng-if="modalStatus.message" class="fc1 fs1">{{modalStatus.message | translate}}</span>
+	<span ng-if="!modalStatus.message" class="fc1 fs1" translate>Loading...</span>
+</div>

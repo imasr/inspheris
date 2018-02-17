@@ -1,0 +1,37 @@
+<div class="widget-article-controls insWidget">
+		<ul class="list-inline">
+		 	<li>
+		 		<div class="art_btn btn_comment floatl" ng-click="setCommentFocus()">
+		            <div class="btn_icon">
+		            	<i class="fa fa-comment"></i>
+		            </div>
+		            <div class="btn-lbl-wrap">
+			          <span class="lbl btn-lbl-txt"> {{'Comment' | translate}} </span>
+			          <!-- <span class="cnt-txt">(2)</span> -->
+			        </div>
+		        </div>
+		 	</li>
+		 	<li>
+		 		<div class="art_btn btn_like floatl" ng-click="addLike()" analytics-on="click" analytics-event="Like" analytics-category="Like">
+	                <div class="btn_icon">
+	                	<i class="fa fa-heart"></i>
+	                </div>
+	                <div class="btn-lbl-wrap">
+			          <span class="lbl btn-lbl-txt"> {{'Like' | translate}} </span>
+			          <!-- <span class="cnt-txt">(2)</span> -->
+			        </div>
+	            </div>
+		 	</li>
+		 	<li>
+		 		<div class="art_btn btn_share floatl" ng-click="$root.shareFeedPopup(feed)">
+	                <div class="btn_icon">
+	                	<i class="fa fa-share-alt"></i>
+	                </div>
+	                <div class="btn-lbl-wrap">
+			          <span class="lbl btn-lbl-txt"> {{'Share' | translate}} </span>
+			          <!-- <span class="cnt-txt">(2)</span> -->
+			        </div>
+	            </div>
+		 	</li>
+		</ul>
+</div>

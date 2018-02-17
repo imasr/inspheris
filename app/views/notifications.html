@@ -1,0 +1,14 @@
+
+<div class="container min-content-ht">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 marbottom40" infinite-scroll="showMoreNotifications()">
+  
+    <ul class="default-list mart20">                 
+      <li ng-repeat="notification in pageData.notifications">
+        <div ng-include="'../app/views/containers/notification_li.tpl.html'"></div>
+      </li>
+    </ul>
+    <div class="hori_center fa-loader mart10 marb10" ng-if="pageData.isLoading">
+        <i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span>
+    </div>
+  </div>
+</div>

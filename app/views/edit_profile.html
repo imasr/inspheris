@@ -1,0 +1,303 @@
+<div class="stickyhalf" sticky-top="{{stickyCoverPrams.top}}" sticky-offset="{{stickyCoverPrams.offset}}" sticky-cover>
+  <div class="stickyhalf-child width100">
+    <div ng-include="'../app/views/blocks/account_cover.tpl.html'"></div>
+
+    <div ng-include="'../app/views/blocks/second_menu.tpl.html'"></div>
+  </div>
+</div>
+
+<div class="container" ng-show="(pageData.feeds.length <= 0) && !(currentTab.tabType.toLowerCase() == 'about')">
+  <div class="row content dotted">
+      <div class="tblc_m">
+        <h5 ng-if="pageData.status == 2 && pageData.communities.communities.length <= 0">{{"No_Results_found" | translate}}</h5>
+         <h5 ng-if="pageData.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+         <h5 class="rclor" ng-if="pageData.status == 3" translate>something_went_wrong</h5>
+      </div>
+  </div>
+</div>
+
+
+<div class="container list_view no_padd_lr martop60 min-content-ht" ng-show="(activeView == 'list') && (pageData.feeds.length > 0)">
+  <div class="full-content"><!--row-->
+
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+        <div ng-if="$root.isQuicpostBlockEnabled" ng-include="'../app/views/containers/create_quickpost.tpl.html'"></div>
+      
+
+        <div class="lable_today" style="display: none;">{{ 'Today' | translate }}</div>
+        
+        <div ng-repeat="feed in pageData.feeds">
+          <feed-list-view feed="feed" index="$index" show-feed-status="feedStatusDropDown"></feed-list-view>
+           <!--ng-init="showFeedStatus = feedStatusDropDown" ng-include="'../app/views/containers/feed_lv.tpl.html'">-->
+        </div>
+        
+        <div class="cust1_feed_li_last" ng-if="totalFeeds == total">
+          <div class="tblr">
+              <div class="tblc com_icon_outer hidden-sm hidden-xs">
+
+              </div>
+              <div class="tblc lvfeedstatus">
+                <div class="feed_line_outer_last"></div>
+              </div>
+              <div class="tblc">
+                <div class="feed_content_wrapper">
+                  <div class="feed_content">
+                      <div class="view_more_feed" ng-click="viewMoreFeed()">{{'View_More_Activities' | translate}}
+                      <input type="hidden" ng-model="page"/>
+                     </div>
+                  </div>  
+                </div>
+              </div>
+          </div>
+        </div>
+      </div><!-- /.col-lg-6 -->
+      
+
+      <div class="col-lg-4 col-md-4 hidden-sm hidden-xs">
+
+          <div class="panel panel-default widget hide" id="widget2">
+              <div class="disp_table widget-title">
+                <div class="tblr">
+                  <div class="tblc_m title">
+                    Widget Name
+                  </div>
+                  <div class="tblc_m icn">
+                    <i class="fa fa-minus clk" onclick="widgetToggle('widget2');"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body">
+                <img src="images/media/widget_247x218.png" class="img-responsive widget_image" />
+                <div class="widget_text">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div>
+              </div>
+          </div>
+
+          <div class="panel panel-default widget hide" id="widget3">
+              <div class="disp_table widget-title">
+                <div class="tblr">
+                  <div class="tblc_m title">
+                    Apps
+                  </div>
+                  <div class="tblc_m icn">
+                    <i class="fa fa-minus clk" onclick="widgetToggle('widget3');"></i>
+                  </div>
+                </div>
+              </div>
+
+              <div class="panel-body">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ligula odio, sodales vel sollicitudin id, venenatis ac erat.
+              </div>
+          </div>
+
+      </div><!-- /.col-lg-6 -->
+
+  </div><!-- /.row -->
+</div>
+
+
+<div ng-show="(activeView == 'grid') && (pageData.feeds.length > 0)" class="container grid_view min-content-ht">
+  <div class="row">
+    <div class="col-lg-8">
+      <!-- input outer was here -->
+      <div ng-if="$root.isQuicpostBlockEnabled" ng-include="'../app/views/containers/create_quickpost.tpl.html'"></div>
+    </div><!-- col-lg-8 -->
+
+    <div class="col-lg-4">
+      <div class="btn-group select_widget">
+        <button type="button" class="btn btn-default">Select widget</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+          <!-- Dropdown menu links -->
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+        </ul>
+      </div>
+    </div><!-- col-lg-4 -->
+  </div><!-- row -->
+
+  <div class="row" ng-if="pageData.feeds.length > 0">
+    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 marb20" ng-repeat="feed in pageData.feeds">
+      <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+      <!--<div ng-include="'../app/views/containers/feed_gv.tpl.html'"></div>-->
+    </div>
+  </div><!-- row -->
+
+  <div class="row">
+    <div class="col-lg-12" ng-if="totalFeeds == total">
+      <div class="view_more_feed grid_more_feed" ng-click="viewMoreFeed()">{{'View_More_Activities' | translate}}
+    <input type="hidden" ng-model="page"/>
+    </div>
+    </div>
+  </div>
+</div><!-- Grid_view -->
+
+<div class="container min-content-ht martop60 marb10" ng-if="currentTab.tabType.toLowerCase() == 'about'">
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+      <div class="profile-desc dotted">
+
+      <h3>General Information</h3>
+       <h4>{{userProfileData.firstName}} {{userProfileData.lastName}}</h4>
+       
+        <table class="table borderless">
+          <tr>
+            <td><i class="fa fa-user"></i></td>
+            <td><span class="p-title">{{'Display_Name' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.displayName}}</td>
+          </tr>
+
+          <tr>
+            <td><i class="fa fa-envelope"></i></td>
+            <td><span class="p-title">{{'email' | translate}}</span></td>
+            <td>:</td>
+            <td><a href="mailto:{{userProfileData.email}}">{{userProfileData.email}}</a></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">Address</span></td>
+            <td>:</td>
+            <td>{{userProfileData.address}}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">{{'office' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.office}}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">{{'town' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.town}}</td>
+          </tr>
+
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">{{'company' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.company}}</td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">{{'position' | translate}}</span></td>
+            <td>:</td>
+            <td><span ng-repeat="position in userProfileData.positions"> {{position.name}}    
+            <span ng-if="$index < userProfileData.positions.length - 1"> , </span>    
+        </span></td>
+          </tr>
+
+          <tr>
+            <td></td>
+            <td><span class="p-title">{{'skills' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.speciality}}</td>
+          </tr>
+
+
+          <tr>
+            <td><i class="fa fa-phone"></i></td>
+            <td><span class="p-title">{{'telephone' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.telephone}}</td>
+          </tr>
+
+
+
+          <tr>
+            <td><i class="fa fa-mobile"></i></td>
+            <td><span class="p-title">{{'mobilephone' | translate}}</span></td>
+            <td>:</td>
+            <td>{{userProfileData.mobilephone}}</td>
+          </tr>
+
+
+          <tr>
+            <td>#</td>
+            <td><span class="p-title">{{'hashTag' | translate}}</span></td>
+            <td>:</td>
+            <td><span ng-repeat="tag in userProfileData.hashTags">{{tag}}    
+            <span class="tg" ng-if="$index < userProfileData.hashTags.length - 1"> , </span>    
+        </span>
+      </td>
+          </tr>
+
+        </table>
+        
+      </div><!--profile-desc END-->
+
+
+      <div class="profile-desc dotted">
+        <h3>My Communities</h3>
+        <div class="clearfix">
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12" ng-repeat="comm in usersCommunities.data">
+            <community-list-feed community="comm" ></community-list-feed>
+          </div>
+
+          <p ng-if="usersCommunities.status == 1" translate>Loading...</p>
+          <p ng-if="usersCommunities.status == 2 && usersCommunities.data.length <= 0" translate>No_Results_found</p>
+          <p class="rclor" ng-if="usersCommunities.status == 3" translate>something_went_wrong</p>
+        </div>
+      </div><!--profile-desc END-->
+
+      <div class="profile-desc dotted">
+        <h3>My Social Links</h3>
+
+        <table class="table borderless">
+          <tr>
+            <td><i class="fa fa-linkedin-square"></i></td>
+            <td><span class="p-title">Linkedin</span></td>
+            <td>:</td>
+            <td><a href="#" target="_blank">http://#</a></td>
+          </tr>
+
+          <tr>
+            <td><i class="fa fa-tumblr-square"></i></td>
+            <td><span class="p-title">Tumblr</span></td>
+            <td>:</td>
+            <td><a href="#" target="_blank">http://#</a></td>
+          </tr>
+
+          <tr>
+            <td><i class="fa fa-twitter-square"></i></td>
+            <td><span class="p-title">Twitter</span></td>
+            <td>:</td>
+            <td><a href="#" target="_blank">http://#</a></td>
+          </tr>
+
+          <tr>
+            <td><i class="fa fa-facebook-square"></i></td>
+            <td><span class="p-title">Facebook</span></td>
+            <td>:</td>
+            <td><a href="#" target="_blank">http://#</a></td>
+          </tr>
+        </table>
+
+        
+
+
+
+      </div><!--profile-desc END-->
+
+  </div>
+  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+    <!--<div ng-if="userProfileData" ng-init="userProfileData = userProfileData;" ng-include="'../app/views/widgets/user_information.tpl.html'"></div>-->
+
+    <div ng-if="userProfileData.followers" ng-init="followersData = userProfileData.followers" ng-include="'../app/views/widgets/my_followers.tpl.html'"></div>
+  </div>
+</div>
+
+
+     

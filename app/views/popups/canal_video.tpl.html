@@ -1,0 +1,28 @@
+<div class="ins_popup medium_popup" ng-click="handleClickEvent($event)" style="height:600px;">
+  
+  <div class="popup_header floatl">
+      <p class="popup_title">{{'Canal Video' | translate}}</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+
+  <div class="video_url_container floatl width100">
+    <input class="ins_input_tex floatl width100 margin_bottom" ng-model="canalUrl" type="Video Url" placeholder="video number">
+    <!-- <input class="ins_input_tex floatl width100 margin_bottom" ng-model="videoTitle" type="text" placeholder="video title"> -->
+    <input type="button" class="ins_btn_ctext marb10" value="ok" ng-click="bindCanalvdo()">   
+    <div class="vdo_preview_box floatl marb10" style="height:350px;">
+         <!--  <p ng-if="videoPreview == 'invalid'">{{'Video_Preview' | translate}}</p> -->
+         <!--   <div ng-bind-html="videoPreview | unsafehtml">
+                
+          </div>
+          -->
+           <canal:player videoid="{{canalUrl}}"></canal:player> 
+
+    </div>
+    <div class="floatl width100">
+      <div class="ins_btn_ctext" ng-class="{'disabled': !isValidVideo}" ng-click="done()">
+        <span>OK</span>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,35 @@
+<div ng-controller="CommunityFeedCtrl" class="list-group-item comm_li" ng-class="{'commli_banner' : (bannerUrl != '')}" style="background-image: url({{bannerUrl}});">
+  <div ng-if="bannerUrl != ''" class="bg_overlay"> </div>
+  <div class="left_part" ng-if="community.logoUrl">
+    <img class="comm_li_thumb" src="{{$root.siteUrl+community.logoUrl}}"/>
+  </div>
+  <div class="right_part">
+    <div class="comm_desc_wraper">
+      <!-- <a href="#/community/{{community.label}}/{{community.uid}}"><h4> {{community.label}} </h4></a> -->
+      <a href="#/community/{{community.label}}/{{community.uid}}">
+        <div class="art_title"> {{community.label}} </div>
+      </a>
+      <p>{{community.description}}</p>
+    </div>  
+  </div>
+  
+  <div class="comm_cntrl_wrapper">
+    <div class="comm_cntrl_out">
+      <div class="floatr">
+        <div class="comm_li_btn memb_cnt">
+          <span>
+            {{community.followerCount}}
+          </span> 
+        </div>
+        <div class="comm_li_btn art_cnt">
+          <span>
+            {{community.contributorCount}}
+          </span> 
+        </div>
+        <div class="comm_li_btn add_btn">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

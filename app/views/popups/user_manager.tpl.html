@@ -1,0 +1,50 @@
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="UserManagerCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'User_Manager' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<button type="button" class="btn btn-default navbar-btn" ng-click="showCreateUserModal('create', null)">{{'Create_User' | translate}}</button>
+
+		<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+	      <ul class="list-group">
+	        <li class="list-group-item" ng-if="users.length <= 0">
+	          <span><strong>{{'Loading' | translate}}...</strong></span>
+	        </li>
+	        <li class="list-group-item" ng-repeat="user in users">
+	        	<div class="disp_table">
+	        		<div class="tblr">
+			        	<div class="tblc padr10">
+			        		<div class="img-circle feedthumb_72" profile-photo="{url: user.headerLogoUrl, firstName: user.firstName, lastName: user.lastName}"></div>
+			        	</div>
+			        	<div class="tblc">
+			        		<div>{{user.displayName}}</div>
+			        		<br>
+			        		<strong>{{'First_Name' | translate}}:</strong> <span>{{user.firstName}}</span>
+				           	<br> 
+				           	<strong>{{'Last_Name' | translate}}:</strong> <span>{{user.lastName}}</span>
+				           	<br>
+
+							<br>
+							<a href="javascript: void(0)" ng-click="showCustomActions({type: 'user', action:'add_position', data: user})" translate>Add_Positions</a> |
+							<a href="javascript: void(0)" ng-click="showCustomActions({type: 'user', action:'add_organization', data: user})" translate>Add organizations</a> |
+							<a href="javascript: void(0)" ng-click="showCustomActions({type: 'user', action:'add_competencies', data: user})" translate>Add competencies</a> |
+							<span class="badge" title="{{ 'edit' | translate }}" ng-click="showCreateUserModal('edit', user)">
+								<i class="fa fa-pencil-square-o"></i>
+							</span>
+							<span class="badge" title="{{ 'delete' | translate }}" ng-click="deleteUser(user)">
+								<i class="fa fa-trash-o"></i>
+							</span>
+			        	</div>
+	        		</div>
+	        	</div>
+	        </li>
+	        <li class="list-group-item" ng-if="md.showViewMoreBtn">
+	        	<a href="javascript: void(0)" ng-click="getUserList()" translate>View_more_results</a>
+	        </li>
+	      </ul>
+	    </div>
+	</div>
+</div>

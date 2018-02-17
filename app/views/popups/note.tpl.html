@@ -1,0 +1,12 @@
+<div class="ins_popup custom_popup note_module note-grid-popup"  ng-controller="NoteCtrl" style="">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Notes de service</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+    <div class="report-details col-md-12" style="padding-bottom: 15px;">
+		<button type="button" class="btn btn-default navbar-btn" style="margin-top: 20px;" ng-click="createNote()" translate>Create note de service</button>
+		<div id=gridnotes ui-grid="gridNotes" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>		
+	</div>
+</div>

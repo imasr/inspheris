@@ -1,0 +1,215 @@
+<div class="width100 disp_blk user-details-block" ng-class="{'search-result-highlight': ppl.searchResult}">
+
+        <!-- <div class="circular-profile">
+          <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ppl)" class="text-center">
+            
+            <div class="hori_center">
+              <div class="org-result-profile-pic" profile-photo="{url: ppl.headerLogoUrl, firstName: ppl.firstName, lastName: ppl.lastName}"></div>
+              
+            </div>
+          </a>
+
+          <div class="post-title text-center">
+            <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ppl)">
+              <span once-html="(ppl.firstName +' '+ppl.lastName) | highlight:$root.highlightText"></span>
+            </a>
+          </div>
+          
+          
+          <div class="rest-detail">
+
+            <table class="table table-borderless table-condensed">
+              
+
+              <tr once-if="ppl.telephone">
+                <td class="label-gray">
+                    <span>{{'Telephone' | translate}}:&nbsp;&nbsp;</span> 
+                </td>
+                <td>
+                  <div class="mxln1" show-phone-number="{{ppl.telephone}}"></div>
+                </td>
+              </tr>
+
+
+              <tr once-if="ppl.mobilephone">
+                <td class="label-gray">
+                    <span translate>mobilephone</span>:&nbsp;&nbsp;
+                </td>
+                <td>
+                  <div class="mxln1" show-phone-number="{{ppl.mobilephone}}"></div>
+                </td>
+              </tr>
+
+
+              <tr once-if="ppl.email">
+                <td class="label-gray">
+                    <span translate>email</span>:&nbsp;&nbsp;
+                </td>
+                <td>
+                  
+                  <a once-if="ppl.email" ng-href="mailto:{{ppl.email}}" class="uilink mxln1 lbl width100">
+              <div data-ng-bind="ppl.email.toLowerCase() | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis></div>
+            </a>
+
+                </td>
+              </tr>
+
+            </table>
+
+            
+      </div>
+
+
+        </div>  -->
+
+
+
+  <div class="width100 disp_table detail-wrapper">
+    <div class="width100"><!--tblr-->
+      <div class="tblc padr10">
+        <div class="uthumb">
+          <!--<a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ppl)">
+            <img block-right-click once-alt="'photo'" class="width100" once-src="ppl.logoUrl">
+            <div block-right-click afkl-lazy-image="{{ppl.logoUrl}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1"></div>
+          </a>-->
+
+          <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ppl)" class="text-center">
+            
+            <div class="hori_center">
+              <div class="org-result-profile-pic" profile-photo="{url: ppl.headerLogoUrl, firstName: ppl.firstName, lastName: ppl.lastName}"></div>
+              <img style="position: absolute;z-index: 1;top: -15px;left: 50px;width: 40px;height: 40px;" ng-if="$root.isShowUserBadge && ppl.badge" src="{{ppl.badge.image.url}}">
+            </div>
+          </a>
+
+        </div> 
+      </div>
+      <div class="tblc">
+          <div class="post-title mxln2">
+            <a target-blank="{{openInNewTab}}" once-href="$root.generateLink('userProfilePage', ppl)">
+              <span class="semibold" once-html="(ppl.firstName +' '+ppl.lastName) | highlight:$root.highlightText"></span>
+            </a>
+          </div>
+          <!-- <div class="post-subtitle" once-text="position.name"></div> -->
+
+          <div  class="lbl disp_table hide" once-if="ppl.department" once-wait-for="ppl">
+            <div class="tblc">
+              <span>{{'Department' | translate}}:&nbsp;&nbsp;</span> 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.department" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1" data-ng-bind="ppl.department | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+
+          <div ng-repeat="position in ppl.positions" once-if="ppl.positions" once-wait-for="ppl">
+            <div class="lbl disp_table">
+              <div class="tblc hide">
+                <span>{{'position' | translate}} :&nbsp;&nbsp;</span> 
+              </div>
+              <div class="tblc clk" ng-init="title = position.name" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                <div class="uilink mxln1" data-ng-bind="position.name | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+              </div>
+            </div>
+          </div>
+
+		<div  class="lbl disp_table" once-if="ppl.zipCode" once-wait-for="ppl">
+            <div class="tblc">
+              <span once-text="'Zip code' | translate"></span> :&nbsp;&nbsp;
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.zipCode" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1" data-ng-bind="ppl.zipCode | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+          
+          <div  class="lbl disp_table hide" once-if="ppl.telephone" once-wait-for="ppl">
+            <div class="tblc">
+              <span once-text="'Telephone' | translate"></span> :&nbsp;&nbsp;
+            </div>
+            <div class="tblc clk" show-phone-number="{{ppl.telephone}}"></div>
+          </div>
+
+          <div  class="lbl disp_table hide" once-if="ppl.mobilephone" once-wait-for="ppl">
+            <div class="tblc">
+              <span once-text="'mobilephone' | translate"></span>:&nbsp;&nbsp;
+            </div>
+            <div class="tblc clk" show-phone-number="{{ppl.mobilephone}}"></div>
+          </div>
+
+          <!-- <div once-if="ppl.office" class="lbl disp_table">
+            <div class="tblc">
+              <span once-text="'Office' | translate"></span>:&nbsp;&nbsp; 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.office" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="mxln1" data-ng-bind="ppl.office | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div> -->
+          
+          <!-- <div ng-repeat="position in ppl.positions">
+            <div class="lbl disp_table">
+              <div class="tblc">
+                <span>{{'Position' | translate}}:&nbsp;&nbsp;</span> 
+              </div>
+              <div class="tblc clk" ng-init="title = position.name" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                <div class="uilink mxln1" data-ng-bind="position.name | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+              </div>
+            </div>
+          </div>
+
+          <div once-if="ppl.division" class="lbl disp_table">
+            <div class="tblc">
+              <span>{{'Service' | translate}}:&nbsp;&nbsp;</span> 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.division" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="mxln1" data-ng-bind="ppl.division | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+          
+         
+
+          <div class="lbl disp_table">
+            <div class="tblc">
+              <span>{{'Emplacement' | translate}}:&nbsp;&nbsp;</span> 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.office" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1" data-ng-bind="ppl.office | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+
+          <div  class="lbl disp_table">
+            <div class="tblc">
+              <span>{{'Department' | translate}}:&nbsp;&nbsp;</span> 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.department" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1" data-ng-bind="ppl.department | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div>
+
+          <div  class="lbl disp_table">
+            <div class="tblc">
+              <span>{{"speciality" | translate}}:&nbsp;&nbsp;</span> 
+            </div>
+            <div class="tblc clk" ng-init="title = ppl.speciality" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1" data-ng-bind="ppl.speciality | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>
+          </div> -->
+      </div>
+    </div>
+
+
+    <div once-if="ppl.email" class="lbl directory-email disp_table hide">
+            <div class="tblc">
+              <!-- <span><img src="../images/canal/email.svg"></span>  -->
+              <span class="lnr lnr-envelope"></span> &nbsp;
+            </div>
+            <!--<div class="tblc clk" ng-init="title = ppl.email" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+              <div class="uilink mxln1 lbl" data-ng-bind="ppl.email | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis> </div>
+            </div>-->
+
+            <a once-if="ppl.email" ng-href="mailto:{{ppl.email}}" class="uilink mxln1 lbl width100">
+              <div data-ng-bind="ppl.email.toLowerCase() | highlight:$root.highlightText" data-ellipsis-symbol="..." data-ellipsis></div>
+            </a>
+          </div>
+
+
+
+  </div>
+</div>

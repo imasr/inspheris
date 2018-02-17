@@ -1,0 +1,15 @@
+<div>
+    <div class="media-thumb-wrap width100 ht100">
+        <div class=" width100 ht100">
+        	<span ng-if="!$ctrl.mediaType && ($ctrl.file.isInternal == true || $ctrl.file.isGdrive == false)">
+            	<img class="hori_center" set-icon-file="{fileName: $ctrl.file.fileName, url: $ctrl.file.thumbGalleryUrl, internal : $ctrl.file.isInternal ? $ctrl.file.isInternal : true, mineType : $ctrl.file.fileType}">	
+            </span>
+            <span ng-if="$ctrl.file.isInternal == false && !$ctrl.mediaType">
+            	<img class="hori_center" src="../images/media/gdrive_thumb_gallery.png">	
+            </span>
+            <span ng-if="$ctrl.file.isInternal == false && $ctrl.mediaType && $ctrl.mediaType == 'yammerEmbed'">
+            	<img class="hori_center" src="../images/media/yammer_thumb.png">	
+            </span>
+        </div>
+    </div>
+</div>

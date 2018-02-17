@@ -1,0 +1,185 @@
+<div class="ins_popup popup_art_img">
+
+	 <div class="popup_header floatl">
+	 	<div class="user_image floatl"> <img src="{{$root.siteUrl + artPopupData.author.thumbLogoUrl}}"> </div>
+	 	<span>{{artPopupData.author.displayName}}</span>
+	 	<div class="close_btn" ng-click="closeArtPopup();"> X </div>	
+	 </div>
+
+	 <div class="popup_content floatl">
+	 	<div class="popup_nav floatl">
+	 		<div class="nav_btn floatl">&#x2190; {{ 'Previous_Article' | translate }} </div>
+	 		<div class="nav_btn floatr">{{ 'Next_Article' | translate }} &#x2192;</div>
+	 	</div>
+
+	 	<!-- show when article has image, title and subtitle -->
+	 	<div ng-if="artPopupData.content.image" class="popup_img_wrapper floatl">
+	 		<img src="{{$root.siteUrl + artPopupData.content.image.path}}">
+	 		<div class="popup_art_title">
+                  <h3 ng-if="artPopupData.content.heading.title" class="grid_art_title"> {{artPopupData.content.heading.title}} </h3>
+                  <h4 ng-if="artPopupData.content.heading.subtitle" class="grid_art_subtitle">{{artPopupData.content.heading.subtitle}}</h4>
+          	</div>
+	 	</div>
+
+	 	<!-- Left bar -->
+	 	<div class="popup_lbar floatl">
+	 		<div class="wrapper floatl">
+	 			<!-- show if there is no image in article -->
+	 			<div ng-if="!artPopupData.content.image">
+        			<h3 class="grid_art_title"> Réseaux sociaux et stratégie RP. </h3>
+        			<h4 class="grid_art_subtitle">Vestibulum sagittis consectetur tortor</h4>
+        		</div>
+
+        		<!-- show if image gallery -->
+				<div ng-if="artPopupData.type == 'ImageGallery'" class="pp_image_gallery floatl">
+                	<img ng-repeat="img in artPopupData.content.imageGallery.images" ng-class="{true: 'wide_img', false: 'small_img'}[$index == 0]" src="{{$root.siteUrl + img.path}}"/>
+                </div>
+
+                <!-- bind the article text -->
+                <div class="art_text" ng-if="artPopupData.content.richtext.data" ng-bind-html="artPopupData.content.richtext.data">
+                		
+                </div>
+                
+                <div class="pp_doc_list" ng-if="artPopupData.type == 'document'">
+                	<div class="doc_wrapper floatl">
+			 			<img class="feedthumb_72 floatl" src="images/media/ppt.png">
+			 			<div>
+			 				<div class="art_title"> Monoprix revalorise les fruits oubliés</div>
+				 			<div class="art_sub_title">Version 4</div>
+				 			<div class="user_info floatl">
+					 			<div class="user_image floatl"> <img src="images/media/user.png"> </div>
+					 			<span>{{ 'by' | translate }} <a href="#">Aron Samers</a> {{ 'yesterday' | translate }} 12:45</span>
+					 		</div>	
+			 			</div>
+			 			
+				 		<div class="download_btn">
+				 			
+				 		</div>
+			 		</div>
+
+			 		<div class="doc_wrapper floatl">
+			 			<img class="feedthumb_72 floatl" src="images/media/ppt.png">
+			 			<div>
+			 				<div class="art_title"> Monoprix revalorise les fruits oubliés</div>
+				 			<div class="art_sub_title">Version 4</div>
+				 			<div class="user_info floatl">
+					 			<div class="user_image floatl"> <img src="images/media/user.png"> </div>
+					 			<span>{{ 'by' | translate }} <a href="#">Aron Samers</a> {{ 'yesterday' | translate }} 12:45</span>
+					 		</div>	
+			 			</div>
+			 			
+				 		<div class="download_btn">
+				 			
+				 		</div>
+			 		</div>
+
+			 		<div class="doc_wrapper floatl">
+			 			<img class="feedthumb_72 floatl" src="images/media/ppt.png">
+			 			<div>
+			 				<div class="art_title"> Monoprix revalorise les fruits oubliés</div>
+				 			<div class="art_sub_title">Version 4</div>
+				 			<div class="user_info floatl">
+					 			<div class="user_image floatl"> <img src="images/media/user.png"> </div>
+					 			<span>{{ 'by' | translate }} <a href="#">Aron Samers</a> {{ 'yesterday' | translate }} 12:45</span>
+					 		</div>	
+			 			</div>
+			 			
+				 		<div class="download_btn">
+				 			
+				 		</div>
+			 		</div>
+                </div>
+
+                <div class="art_control_wraper">
+
+                      <div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed.uid)">
+                        <div class="btn_icon">
+                        	<!-- <i class="fa fa-comment"></i> -->
+                        </div>
+                        <p>{{ 'Comment' | translate }} <span class="gray_font">(10)</span> </p>
+                      </div>
+
+
+                      
+
+                      <span class="btn_seprator floatl">•</span>
+                      <div class="art_btn btn_like floatl ng-scope" data-placement="top" title="Title" data-content="Hello Popover<br />This is a multiline message!" data-template-url="views/templates/popup_userslist.html" data-trigger="hover" bs-popover="">
+                        <div class="btn_icon">
+                        	<!-- <i class="fa fa-heart"></i> -->
+                        </div>
+                        <p>{{ 'Like' | translate }} <span class="gray_font">(5)</span> </p>
+                      </div>
+
+                      <span class="btn_seprator floatl"> • </span>
+                      <div class="art_btn btn_share floatl">
+                        <div class="btn_icon">
+                        	<!-- <i class="fa fa-share-alt"></i> -->
+                        </div>
+                        <p>{{ 'Share' | translate }}<span class="gray_font">(1)</span> </p>
+                      </div>
+
+                      <span class="btn_seprator floatl"> • </span>
+                      <div class="art_btn btn_hashtag floatl">
+                        <!-- <div class="btn_icon">#</div> -->
+                        <p>Hashtag</p>
+                      </div> 
+
+                      <span class="btn_seprator floatl ng-hide" ng-show="feed.type == 'document'"> • </span>
+                      <div class="art_btn btn_download floatl ng-hide" ng-show="feed.type == 'document'">
+                        <a href="$root.siteUrl">
+                          <!-- <div class="btn_icon"> </div> -->
+                          <p>{{ 'Download' | translate }}</p>
+                        </a>
+                      </div>
+
+                </div> 
+	 		</div><!-- wrapper -->
+	 		
+	 		<ng-include src="'../app/views/comment_wrapper.html'" ng-controller="CommentWrapperCtrl"></ng-include>
+
+	 	</div>
+
+	 	<!-- Right bar -->
+	 	<div class="popup_rbar floatr">
+	 		<div class="user_info floatl">
+	 			<div class="user_image floatl"> <img src="images/media/user.png"> </div>
+	 			<span>{{ 'by' | translate }} <a href="#">Aron Samers</a> {{ 'yesterday' | translate }} 12:45</span>
+	 		</div>
+
+	 		<div class="outline_btn floatl pp_edit_btn">
+	 			{{ 'Edit' | translate }}
+	 		</div>
+
+	 		<div class="pp_btn_list floatl">
+	 			<div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed.uid)">
+                    <div class="btn_icon">
+                    	<!-- <i class="fa fa-comment"></i> -->
+                    </div>
+                    <p>{{ 'Comment' | translate }}</p>
+                </div>
+                <div class="art_btn btn_like floatl">
+                    <div class="btn_icon">
+                    	<!-- <i class="fa fa-heart"></i> -->
+                    </div>
+                    <p>{{ 'Like' | translate }}</p>
+                </div>
+                <div class="art_btn btn_share floatl">
+                    <div class="btn_icon">
+                    	<!-- <i class="fa fa-share-alt"></i> -->
+                    </div>
+                    <p>{{ 'Share' | translate }}</p>
+                </div>
+	 		</div>
+	 		<div class="pp_hashtag_list floatl" ng-if="artPopupData.hashtags.length > 0">
+	 			<h4># Hashtags: </h4>
+	 			<!--
+	 			<span class="tags">#books</span>
+	 			<span class="tags">#book</span>
+	 			<span class="tags">#Test</span>
+	 			<span class="tags">#agent</span> -->
+
+	 			<span class="tags" ng-repeat="hash in artPopupData.hashtags">{{hash}}</span>
+	 		</div>
+	 	</div>
+	 </div>
+</div>

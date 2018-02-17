@@ -1,0 +1,110 @@
+<div class="static-article">
+    <div id="hors_format">
+        <main id="article_container" class="article-container">
+            <article itemscope>
+                <div class="container-general">
+                    <div class="close-btn-article" ui-sref="app.home"> 
+                        <i class="fa fa-times"></i> 
+                    </div>
+                    <header>
+                        <div ng-if="feed.headerImg && feed.headerImg.smallImage==false" class="article-bg background-zoomer" ng-style="{'background-image' : 'url('+feed.headerImg.imageHeader+')'}"></div>
+                        <div ng-if="feed.headerImg && feed.headerImg.smallImage==true" class="article-bg background-zoomer" 
+                         	 ng-style="{'background-image' : 'url('+feed.headerImg.imageHeader+')','background-color' : feed.headerImg.imageHeaderColor,'left' : feed.headerImg.imageHeaderPosX + '%', 'top' : feed.headerImg.imageHeaderPosY + '%','position': 'absolute'}">
+                        </div>
+                        <div class="titre parallaxe" data-coef="0.62" data-top="200"> 
+                            <h1>{{feed.artTitle}}</h1>
+                        </div>
+                    </header>
+                    <div class="intro">
+                        <div class="inner-intro">
+                            <!--Author Section Start-->
+                            <div class="col-md-3 author-content">
+                                <div class="author-info-sec">
+                                    <div class="author-info">
+                                        <div class="user_image uaa_item img-circle" >
+                                        	<img onerror-src="images/no_image_user.png" ng-src="{{$root.getUserProfilePic(feed.author)}}" width="50px">
+                                        </div>
+                                        <div style="float: left;margin: 10px 0 0 15px;">
+                                            <div style="margin-bottom: 5px;font-size: 14px;">
+                                            	<a ng-href="{{$root.generateLink('userProfilePage', feed.author)}}" class="unm">
+                                            		{{feed.author.firstName+" "+feed.author.lastName}}
+                                            	</a>
+                                            </div>
+                                            <div style="opacity: .6; font-size: 12px;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="author-action-sec">
+                                    <!--Comment-->
+                                    <div class="art_btn btn_comment floatl" > 
+                                        <div class="btn_icon"></div> 
+                                        <div class="btn-lbl-wrap"></div>
+                                    </div>
+
+                                    <!--Like-->
+                                    <div class="art_btn btn_like floatl">
+                                        <div class="btn_icon unliked" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'"></div>
+                                        <div class="btn-lbl-wrap"></div>
+                                    </div>
+
+                                    <!--ABCD-->
+                                    <div class="art_btn btn_translate_flag floatl">
+                                        <div class="btn-group drop-down3"> 
+                                            <div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" > 
+                                                <div class="btn_icon"> 
+                                                    <span class="btn_icon"></span>
+                                                </div> 
+                                            </div>
+                                        </div> 
+                                    </div> 
+
+                                    <div class="floatr ng-scope"> 
+                                        <div class="btn_delete floatr" >
+                                            <div class="btn_icon"> </div> 
+                                        </div> 
+                                        <span class="btn_seprator floatr"> � </span>
+                                        <div class="btn_edit floatr" > 
+                                            <div class="btn_icon"></div> 
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Author Section End-->
+                            <grand-article-details blocks="feed.blocks"></grand-article-details>
+                        </div>
+                    </div>
+                    <div class="container-titres">
+                        <div ng-repeat="page in feed.grandArticlePages" class="container-titre" id="titre{{$index+1}}">
+                            <div ng-if="page.imageHeader && page.imageHeader.smallImage==false" class="article-bg top" ng-style="{'background-image' : 'url('+page.imageHeader.url+')'}"></div>
+	                        <div ng-if="page.imageHeader && page.imageHeader.smallImage==true" class="article-bg top" 
+	                         	 ng-style="{'background-image' : 'url('+page.imageHeader.url+')','background-color' : page.imageHeader.color,'left' : page.imageHeader.posX + '%', 'top' : page.imageHeader.posY + '%','position': 'absolute'}">
+	                        </div>
+                            <div class="wrapper-texte">
+                                <div class="inner-titre">
+                                    <div class="title-sec">{{page.title}}</div>
+                                    <div class="titre"> {{page.subTitle}}</div>
+                                </div>
+                                <div class="inner-texte">
+                                    <div class="texte bg article2">
+                                    	<grand-article-details blocks="page.blocks"></grand-article-details>  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav class="nav-title" ng-class="{'not-show':!x.articleMenuShow}">
+                            <div class="article-toggle-btn" ng-class="{'article-toggle-transition':!x.articleMenuShow}" ng-click="x.articleMenuShow = !x.articleMenuShow"><i class="fa fa-server" aria-hidden="true"></i></div>
+                            <div class="article-bg" ng-class="{'not-show':!x.articleMenuShow}">
+                            </div>
+                            <ul>
+                                <li ng-repeat="page in feed.summaryPages" ng-init="iIdx=$index" data-id="titre{{iIdx+1}}">
+                                    <a class="scroll-to-id button" href="#titre{{iIdx+1}}">{{page}}</a> 
+                                </li>
+                            </ul></nav>
+                    </div>
+                </div>
+            </article>
+        </main>
+
+    </div>
+</div>

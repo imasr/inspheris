@@ -1,0 +1,258 @@
+<ng-include src="'../app/views/blocks/account_cover.tpl.html'"></ng-include>
+
+<div class="row second_menu">
+<div class="container">
+    <nav class="navbar navbar-default menu_type3" role="navigation">
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav cust1m1 marleft150">
+            <li class="active"><a href="#">{{"Activities" | translate}}</a> <div class="cusborderbtm"></div> </li>
+            <li><a href="#">{{"Collections" | translate}}</a> <div class="cusborderbtm"></div> </li>
+            <li><a href="#">{{"Medias" | translate}}</a> <div class="cusborderbtm"></div> </li>
+            <li><a href="#">{{"Events" | translate}}</a> <div class="cusborderbtm"></div> </li>
+            <li><a href="#">{{"Notes" | translate}}</a> <div class="cusborderbtm"></div> </li>
+            <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown">&bull;&bull;&bull;</a>
+                      <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">First Item</a></li>
+                        <li><a href="#">Second Item</a></li>
+                        <li><a href="#">Third Item</a></li>
+                      </ul>
+            </li>
+          </ul>
+          
+        </div><!-- /.navbar-collapse -->
+    </nav>
+</div>
+</div>
+
+<div class="row">
+  <div class="container no_padd_lr">
+    <div class="popup_nav floatl">
+      <div class="nav_btn floatl">← {{"Back_to_collection" | translate}} </div>
+    </div>  
+  </div>
+</div>
+
+<div class="row martop40">
+  <div class="container no_padd_lr">
+    <div class="input-group search_wrapper bordergray floatl" id="search_community">
+        <input type="text" class="form-control" placeholder="{{'Search' | translate}}">
+        <span class="input-group-addon glyphicon glyphicon-search"></span>
+    </div>
+
+    <div class="btn-group ins_dropdown floatl" id="categoryfilter">
+        <button type="button" class="btn btn-default">{{"Categories" | translate}}</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Catagories</a></li>
+          <li><a href="#">Catagory name 1</a></li>
+          <li><a href="#">Catagory name 2</a></li>
+          <li><a href="#">Catagory name 3</a></li>
+        </ul>
+    </div>
+
+    <div class="btn-group ins_dropdown floatl" id="archivefilter">
+        <button type="button" class="btn btn-default">{{"Archives" | translate}}</button>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <span class="caret"></span>
+          <span class="sr-only">Toggle Dropdown</span>
+        </button>
+        
+        <ul class="dropdown-menu" role="menu">
+          <li><a href="#">Catagories</a></li>
+          <li><a href="#">Catagory name 1</a></li>
+          <li><a href="#">Catagory name 2</a></li>
+          <li><a href="#">Catagory name 3</a></li>
+        </ul>
+    </div>
+  </div>
+</div>
+
+<div class="container grid_view no_padd_lr martop40" id="gridViewContainer">
+  <div class="row">
+    <div class="col-lg-12">
+
+      <div class="cc_wide_li comment_box_hide grid_li">
+
+              <div class="grid_feed_art"> <!-- add this clas if there is no image, with_no_img -->
+                
+                <img class="grid_bkg_img" src="images/media/collection.png"/>
+
+                <div class="cc_wrapper"><!-- cc stands for collection control -->
+                    <div class="grid_li_title">
+                      <div class="user_image floatl"> <img src="images/media/user.png"> </div>
+
+                      <div class="grid_user_action floatl">
+                           <span translate>By</span> <a href="javascript:void(0)"><span>Ann Markinson</span></a>
+                           <span>{{"yesterday" | translate}} 11:45</span>
+                      </div>
+                    </div>
+
+                    <div class="cc_bottom">
+                      <div class="outline_btn floatl pp_edit_btn">
+                        {{"Edit" | translate}}
+                      </div>
+                      <div class="pp_btn_list floatl">
+                                <div class="art_btn btn_comment floatl ng-click-active" ng-click="showCommentBox(feed.uid)">
+                                    <div class="btn_icon">
+                                      <i class="fa fa-comment"></i>
+                                    </div>
+                                    <p>{{"Comment" | translate}}</p>
+                                </div>
+                                <div class="art_btn btn_like floatl">
+                                    <div class="btn_icon">
+                                      <i class="fa fa-heart"></i>
+                                    </div>
+                                    <p>{{"Like" | translate}}</p>
+                                </div>
+                      </div>
+                      <div class="pp_hashtag_list floatl">
+                        <h4># Hashtags: </h4>
+                        <span class="tags">#books</span>
+                        <span class="tags">#book</span>
+                        <span class="tags">#Test</span>
+                        <span class="tags">#agent</span>
+                        <span class="tags">#agent</span>
+                      </div>
+                      <div class="btn-group ins_dropdown floatl" id="add_to_col">
+                          <button type="button" class="btn btn-default">{{"Add_to_collection" | translate}}</button>
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                          </button>
+                          
+                          <ul class="dropdown-menu" role="menu">
+                            <li>
+                              <div class="input-group search_wrapper bordergray">
+                                  <input type="text" class="form-control" placeholder="Search collections...">
+                                  <span class="input-group-addon glyphicon glyphicon-search"></span>
+                              </div> 
+                            </li>
+                            <li>
+                              <div class="ins_checkbox">
+                                <input type="checkbox" name="checkbox1" id="checkbox1" class="css-checkbox" checked="checked"/>
+                                <label for="checkbox1" class="css-label">Item 1</label>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="ins_checkbox">
+                                <input type="checkbox" name="checkbox2" id="checkbox2" class="css-checkbox"/>
+                                <label for="checkbox2" class="css-label">Item 2</label> 
+                              </div>
+                            </li>
+                            <li>
+                              <div class="ins_checkbox">
+                                <input type="checkbox" name="checkbox3" id="checkbox3" class="css-checkbox"/>
+                                <label for="checkbox3" class="css-label">Item 3</label>
+                              </div>
+                            </li>
+                          </ul>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="grid_art_text">
+                        <h3 class="grid_art_title"> New Step to Create Your Company </h3>
+                        <h4 class="grid_art_subtitle"> Graphics, 1974 </h4>
+                        <p style="display: none">
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nibh metus, consectetur nec odio ut, dapibus euismod lacus. Cras quis bibendum turpis. Curabitur sed consectetur nibh, nec consequat mi. Sed viverra fermentum nibh in tempor. Praesent aliquam eget dolor nec dictum. Etiam lacinia egestas iaculis. Integer aliquet sollicitudin pellentesque. Phasellus dignissim ligula nec erat suscipit, et hendrerit augue molestie. Fusce egestas ullamcorper odio, sed suscipit mauris sagittis ut. Cras vehicula odio et lorem dapibus, vel porta nibh mattis. Phasellus et viverra magna.
+                        </p>
+                </div>
+              </div>
+      </div>
+
+    </div>
+  </div>
+  <!--
+  <div class="floatl" style="width: 66.666666667%">
+    <ng-include src="'../app/views/gridfeedsmall_li.html'"></ng-include>
+  </div>
+  -->
+  <div class="floatl" style="width: 66.666666667%">
+    <div class="col-lg-6" ng-repeat="feed in feeds">
+      <feed-grid-view feed="feed" index="$index"></feed-grid-view>
+      <!--<ng-include src="'../app/views/containers/feed_gv.tpl.html'"></ng-include>-->
+    </div>
+  </div>
+
+  <div class="floatl" style="width: 33.333333333%">
+      <div class="col-lg-12">
+            <div class="panel panel-default widget" id="widget1">
+                  <div class="panel-heading" translate>Forum</div>
+                  <div class="panel-body pad10">
+                      <div class="msg_list_wrapper floatl">
+                        <div class="disp_table msg_list_li">
+                          <div class="tblc">
+                            <div class="com_icon_outer">
+                                <img class="com_icon" src="images/feed/community_icon.png">
+                                <div class="fc3 fs3">
+                                  8h ago
+                                </div>
+                            </div>  
+                          </div>
+                          <div class="tblc">
+                            <div class="msg_content">
+                              <div class="msg_inner">
+                                <!-- <div class="arrow"> </div>  -->
+                                <span class="msgtitle">Sophie Linsie</span>
+                                <p class="msgtext"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent convallis vel justo eu sagittis. Nunc erat neque, eleifend non turpis a, tristique dapibus elit. Morbi interdum facilisis arcu. </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="disp_table msg_list_li">
+                          <div class="tblc">
+                            <div class="com_icon_outer">
+                                <img class="com_icon" src="images/feed/community_icon.png">
+                                <div class="fc3 fs3">
+                                  8h ago
+                                </div>
+                            </div>  
+                          </div>
+                          <div class="tblc">
+                            <div class="msg_content">
+                              <div class="msg_inner">
+                                <!-- <div class="arrow"> </div>  -->
+                                <span class="msgtitle">Sophie Linsie</span>
+                                <p class="msgtext"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent convallis vel justo eu sagittis. Nunc erat neque, eleifend non turpis a, tristique dapibus elit. Morbi interdum facilisis arcu. </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="disp_table msg_list_li">
+                          <div class="tblc">
+                            <div class="com_icon_outer">
+                                <img class="com_icon" src="images/feed/community_icon.png">
+                                <div class="fc3 fs3">
+                                  8h ago
+                                </div>
+                            </div>  
+                          </div>
+                          <div class="tblc">
+                            <div class="msg_content">
+                              <div class="msg_inner">
+                                <!-- <div class="arrow"> </div>  -->
+                                <span class="msgtitle">Sophie Linsie</span>
+                                <p class="msgtext"> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent convallis vel justo eu sagittis. Nunc erat neque, eleifend non turpis a, tristique dapibus elit. Morbi interdum facilisis arcu. </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>  
+                  </div>
+            </div>
+      </div>
+  </div>
+</div><!-- Grid_view -->
+
+
+
+
+     

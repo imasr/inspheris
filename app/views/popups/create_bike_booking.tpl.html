@@ -1,0 +1,81 @@
+<div class="ins_popup medium_popup" ng-controller="BikeBookingWidgetCtrl">
+
+    <div class="popup_header floatl marb10">
+        <div class="popup_title">
+            <span>{{'Form'| translate}}</span>
+        </div>
+        <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+    </div>
+
+    <div class="popup_wrapper">  		
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'First_Name'| translate}}</label>  
+                <div class="col-md-9">
+                    <input class="ins_input_tex" ng-model="firstName" type="text" placeholder="{{'First_Name'| translate}}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Last_Name'| translate}}</label>  
+                <div class="col-md-9">
+                    <input class="ins_input_tex" ng-model="lastName" type="text" placeholder="{{'Last_Name'| translate}}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'email'| translate}}</label>  
+                <div class="col-md-9">
+                    <input class="ins_input_tex" ng-model="email" type="text" placeholder="{{'email'| translate}}">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Start_Date'| translate}}</label> 
+                <div class="col-md-9">	
+                    <div class="ins_btn_liconbor col-md-7 no-border">				
+                        <div class="icn clk" style="width: 24px; height: 94%;">      
+                        </div>
+                        <div class="form-group right">
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date'| translate}}" ng-model="publishDates.startDt" data-min-date="today" data-max-date="{{publishDates.endDt}}" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="ins_btn_liconbor col-md-5 no-border">
+                        <div class="icn" style="width: 24px; height: 94%;">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control timepicker_licon" placeholder="{{'Start_Time'| translate}}" size="8" ng-model="publishDates.startTime" name="time" bs-timepicker>
+                        </div>
+                    </div> 
+                </div>       
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'End_Date'| translate}}</label> 
+                <div class="col-md-9">	
+                    <div class="ins_btn_liconbor col-xs-12 col-md-7 no-border">				
+                        <div class="icn clk" style="width: 24px; height: 94%;">
+                        </div>
+                        <div class="form-group right">
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date'| translate}}" ng-model="publishDates.endDt" data-min-date="{{publishDates.startDt}}" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="ins_btn_liconbor col-xs-12 col-md-5 no-border">
+                        <div class="icn" style="width: 24px; height: 94%;">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control timepicker_licon" placeholder="{{'End_Time'| translate}}" size="8" ng-model="publishDates.endTime" name="time" bs-timepicker>
+                        </div>
+                    </div> 
+                </div>       
+            </div>
+        </div>
+        <div class="floatl width100 marb10">
+            <div class="ins_btn_ctext" ng-click="createBooking()">
+                <span translate>Validate</span>
+            </div>
+        </div>
+    </div>
+</div>

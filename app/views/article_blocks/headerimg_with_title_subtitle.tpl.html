@@ -1,0 +1,63 @@
+<div ng-if="smallImage==false"  class="bl_hiwtst">
+	<img class="header_img" ng-src="{{img_path}}">
+	<div class="bl_info">
+		<h2 ng-if="atitle" class="bl_title">
+			{{atitle}}
+		</h2>
+		<h3 ng-if="asubtitle" class="bl_subtitle">
+			{{asubtitle}}
+		</h3>
+	</div>
+</div>
+<div ng-if="smallImage==true"  class="customImage" ng-style="{'background-color' : backgroundColor, 'padding-top' : heightRatio}">
+	<img class="img-responsive" ng-src="{{img_path}}" ng-style="{'left' : posX + '%', 'top' : posY + '%','position': 'absolute'}">
+	<div class="customImage-title">
+		<h2 ng-if="atitle" class="bl_title">
+			{{atitle}}
+		</h2>
+		<h3 ng-if="asubtitle" class="bl_subtitle">
+			{{asubtitle}}
+		</h3>
+	</div>
+</div>
+
+<div class="articlecoversocial insWidget">
+		<ul class="list-inline">
+		 	<li>
+		 		<div class="art_btn btn_comment floatl" ng-click="setCommentFocus()">
+		            <div class="btn_icon">
+		            	<span class="feed-icon feed-comment"></span>
+		            </div>
+		            <span class="lbl cnt-txt" ng-if="feed.commentCount > 0">({{feed.commentCount}})</span>
+		            <!-- <div class="btn-lbl-wrap">
+			          <span class="lbl btn-lbl-txt"> {{'Comment' | translate}} </span>
+			        </div> -->
+		        </div>
+		 	</li>
+			<li>
+			  <feed-controls
+                feed ="feed"
+				view-in-file="true"
+            ></feed-controls>
+			</li>
+		 	<!-- <li class="hide">
+		 		<div class="art_btn btn_share floatl" ng-click="$root.shareFeedPopup(feed)">
+	                <div class="btn_icon">
+	                	<i class="fa fa-share-alt"></i>
+	                </div>
+	                <div class="btn-lbl-wrap">
+			          <span class="lbl btn-lbl-txt"> {{'Share' | translate}} </span>
+			        </div>
+	            </div>
+		 	</li> -->
+
+		 	<li>
+		 		<div class="art_btn btn_hashtag floatl" ng-if="feed.hashtags.length > 0" ng-init="userlistData = {type: 'feedHashtags'}" data-placement="top" data-template-url="../app/views/popup_userslist.html" data-trigger="click" data-auto-close="1" data-delay="100,500" data-container=".btn_hashtag" bs-popover><!--data-delay="<show>,<hide>" -->
+        		<div class="btn_icon">
+          			<i class="fa fa-hash">#</i>
+        		</div>
+      			</div> 
+		 	</li>
+		 	
+		</ul>
+</div>

@@ -1,0 +1,29 @@
+
+<div class="modal-dialog" ng-controller="TermsOfUseCtrl">
+    <div class="modal-content">
+        <div class="popup_header">
+            <p class="popup_title">Conditions générales </p>
+            <!--<button type="button" style="outline: none;" ng-disabled="!terms.agree" class="btn close_btn" ng-click="closeThisDialog('cancel')"> X </button>-->  
+        </div>
+        
+        <div class="modal-body"> 
+            <div class="terms-text">
+                <p>
+                    Par ailleurs, l’utilisation du réseau social d’entreprise devra se 
+                    faire dans le respect de la  <a href="#" class="policy-link" ng-click="showPolicyPopup()">charte éthique</a>
+                </p>
+                
+            </div>
+            
+            <div>
+                <input type='checkbox' ng-model="terms.agree" style="width: 20px; height: 20px;"> 
+                <span class="accept-text">J’ai lu et j’accepte la charte éthique du réseau social d’entreprise, et que mes données soient utilisées tel qu’indiqué ci-dessus
+                </span>
+            </div>
+        </div>
+        
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-disabled="!terms.agree" ng-click="sign()">Fermer</button>
+        </div>
+    </div>
+</div>

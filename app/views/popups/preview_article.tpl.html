@@ -1,0 +1,37 @@
+<div class="ins_popup wide_popup" ng-controller="PreviewArticleCtrl">
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Article_Preview' | translate}}</p>
+	    <div class="close_btn" ng-click="closePreviewArticle()"> X </div>  
+	</div>
+
+	<div class="create_art_container">
+		<div class="row article_detail_wrapper" ng-class="{zenMode: zenModeImages.top != '', atStandard: zenModeImages.top == ''}">
+			<!-- template class can be: atStandard, zenMode -->
+			<div class="article_top_image" ng-if="zenModeImages.top != ''">
+				<div class="wrapper">
+					<div class="white_overlay"></div>
+					<img class="header_img" src="{{zenModeImages.top.path}}">
+				</div>
+			</div>
+
+			<div>
+			  	<div class="container_artdetail">
+				 	<div class="block_group">
+						<!-- article header with image -->
+						<ng-include ng-if="headerImageFlag == 'yes'" ng-init="img_path= headingBlock.imageHeader; atitle = headingBlock.title; asubtitle = headingBlock.subTitle;" src="'../app/views/article_blocks/headerimg_with_title_subtitle.tpl.html'"></ng-include>
+						<!-- article header without image -->
+						<ng-include ng-if="headerImageFlag == 'no'" ng-init="atitle = headingBlock.title; asubtitle = headingBlock.subTitle;" src="'../app/views/article_blocks/heading_with_title_subtitle.tpl.html'"></ng-include>
+					</div>	
+				 	<ng-include src="'../app/views/blocks/article_detail_blocks.tpl.html'"></ng-include>
+				</div>
+			</div>
+
+			<div class="article_bottom_image" ng-if="zenModeImages.bottom != ''">
+					<div class="wrapper">
+						<div class="white_overlay"></div>
+						<img class="header_img" src="{{zenModeImages.bottom.path}}">
+					</div>
+			</div>
+		</div>
+	</div>
+</div>

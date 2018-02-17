@@ -1,0 +1,19 @@
+<div class="widget-note-services popup-note">
+	<!-- Single Day Notes -->
+	<!-- <div ng-if="$ctrl.singleDayNoteDatas.length > 0" class="widget-note-services-title" translate>Single Day Notes</div> -->
+    <div ng-if="$ctrl.singleDayNoteDatas.length > 0" ng-repeat="note in $ctrl.singleDayNoteDatas" class="pos-rel">
+    	<note-details-info note="note" index="$index" is-single-day="true"></note-details-info>
+    </div>
+    
+    <!-- Periodic Notes -->
+   	<!-- <div ng-if="$ctrl.periodicNoteDatas.length > 0" class="widget-note-services-title" translate>Periodic Notes</div> -->
+    <div ng-if="$ctrl.periodicNoteDatas.length > 0" ng-repeat="note in $ctrl.periodicNoteDatas" class="pos-rel">
+		<note-details-info note="note" index="$index" is-single-day="false"></note-details-info>
+    </div>
+    
+    <!-- Permanent Notes  -->
+    <!-- <div ng-if="$ctrl.permanentNoteDatas.length > 0" class="widget-note-services-title" translate>Permanent Notes</div> -->
+    <div ng-if="$ctrl.permanentNoteDatas.length > 0" ng-repeat="note in $ctrl.permanentNoteDatas" class="permanent-notes-div pos-rel">
+		<note-details-info note="note" index="$index" is-single-day="false"></note-details-info>
+    </div>
+</div>

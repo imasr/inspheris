@@ -1,0 +1,110 @@
+<div class="pin-article">
+	<!-- Article has image header -->
+	<div ng-if="$ctrl.pinnedContent.heading.imageHeader" class="pin-header" style="background: url({{$ctrl.pinnedContent.heading.imageHeader}}) top center; background-size: cover;">
+		<div class="pin-date">
+			<span class="icon icon-pin"></span>
+			<span class="pdate" ng-if="!$ctrl.showLastActivityDate">{{$ctrl.pinnedContent.publicationStartDate | date: $root.fullDateFormat}}</span>
+			<span class="pdate" ng-if="$ctrl.showLastActivityDate">{{$ctrl.pinnedContent.lastActivityDate | date: $root.fullDateFormat}}</span>
+		</div>
+
+		<div class=" pin_article_header">
+    		<h5 class="mxln2" ng-if="$ctrl.pinnedContent.heading.title">
+    			<a ui-sref="app.communityHomeWithArticle({ name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid, activetab: $ctrl.pinnedContent.communityTab.uid, articleid: $ctrl.pinnedContent.uid,track: 'viewdetail',referer: referer})">
+ 					{{$ctrl.pinnedContent.heading.title}}
+ 				</a>
+			</h5>
+			<!-- <h3 class="mxln2" ng-if="pinnedContent.heading.subTitle">
+ 				{{pinnedContent.heading.subTitle}}
+			</h3> -->
+		</div>
+
+	</div><!--pin-header END-->
+	<!-- End Article has image header -->
+	
+	<!-- Article has not image header -->
+	<div ng-if="!$ctrl.pinnedContent.heading.imageHeader" class="pin-header">
+		<div class="pin-date">
+			<span class="icon icon-pin"></span>
+			<span class="pdate" ng-if="!$ctrl.showLastActivityDate">{{$ctrl.pinnedContent.publicationStartDate | date: $root.fullDateFormat}}</span>
+			<span class="pdate" ng-if="$ctrl.showLastActivityDate">{{$ctrl.pinnedContent.lastActivityDate | date: $root.fullDateFormat}}</span>
+		</div>
+
+		<div class=" pin_article_header">
+    		<h2 class="mxln2" ng-if="$ctrl.pinnedContent.heading.title">
+ 				<a ui-sref="app.communityHomeWithArticle({ name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid, activetab: $ctrl.pinnedContent.communityTab.uid, articleid: $ctrl.pinnedContent.uid,track: 'viewdetail',referer: referer})">
+						{{$ctrl.pinnedContent.heading.title}}
+				</a>
+			</h2>
+			<h3 class="mxln2" ng-if="$ctrl.pinnedContent.heading.subTitle">
+ 				{{$ctrl.pinnedContent.heading.subTitle}}
+			</h3>
+		</div>
+
+	</div><!--pin-header END-->
+	<!-- End Article has image header -->
+
+	<div class="pin-body">
+		<p ng-if="$ctrl.pinnedContent.richText.content">
+			<span class="pin_excerpt marb20">{{$ctrl.pinnedContent.richText.content}}</span>
+			<a ui-sref="app.communityHomeWithArticle({ name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid, activetab: $ctrl.pinnedContent.communityTab.uid, articleid: $ctrl.pinnedContent.uid,track: 'readmore',referer: referer})">
+  				<span translate>read+</span>
+			</a>
+		</p>						
+
+		<div class="pin_footer">
+			<div class="pin_comm">
+				<a once-if="$ctrl.showTumbType == 'community'" ui-sref="app.communityHome({name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid})">
+	            	<div class="com_icon" profile-photo="{url: $ctrl.pinnedContent.community.headerLogoUrl, firstName: $ctrl.pinnedContent.community.label}"></div>
+	          	</a>
+				 <a  once-if="$ctrl.showTumbType == 'author'" class="disp_blk pin_com_icon" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.author.uid, activetab: 'About'})">
+	            	<div class="com_icon" profile-photo="{url: $ctrl.pinnedContent.author.headerLogoUrl, firstName: $ctrl.pinnedContent.author.firstName, lastName: $ctrl.pinnedContent.author.lastName}"></div>
+	         	</a>
+	         
+					<a once-if="$ctrl.showTumbType == 'user'" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.lastActivityUser.uid, activetab: 'About'})">
+	            	<div class="com_icon circle-image" profile-photo="{url: $ctrl.pinnedContent.lastActivityUser.headerLogoUrl, firstName: $ctrl.pinnedContent.lastActivityUser.firstName, lastName: $ctrl.pinnedContent.lastActivityUser.lastName,nochache: true}"></div>
+	         	</a>
+			</div>
+
+			<div class="pin_social">
+				<!-- show on home page && community home page -->
+				<div class="pin_act" ng-if="$ctrl.showLastActivityUser">
+					<a ng-if="$ctrl.enableTootip" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.lastActivityUser.uid, activetab: 'About'})" ng-init="userDetail = $ctrl.pinnedContent.lastActivityUser" data-placement="top" data-template="../views/blocks/mini_userfinfo.tpl.html" data-trigger="hover" trigger="hover" bs-popover>{{$ctrl.pinnedContent.lastActivityUser.firstName}} {{$ctrl.pinnedContent.lastActivityUser.lastName}}</a>
+					<a ng-if="!$ctrl.enableTootip" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.lastActivityUser.uid, activetab: 'About'})">{{$ctrl.pinnedContent.lastActivityUser.firstName}} {{$ctrl.pinnedContent.lastActivityUser.lastName}}</a>  
+					<span ng-if="$ctrl.pinnedContent.lastAction == 'create' || $ctrl.pinnedContent.lastAction == 'edit'" translate>has published an article in</span>
+					<span ng-if="$ctrl.pinnedContent.lastAction == 'comment'" translate>has commented an article in</span>  
+					<a ui-sref="app.communityHome({name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid})" class="gnm">{{$ctrl.pinnedContent.community.label}}</a>
+				</div>
+				<!-- END show on home page && community home page -->
+				
+				<!-- show on community tab page -->
+				<div class="pin_act" ng-if="!$ctrl.showLastActivityUser">
+					<a ng-if="$ctrl.enableTootip" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.author.uid, activetab: 'About'})" ng-init="userDetail = $ctrl.pinnedContent.author" data-placement="top" data-template="../views/blocks/mini_userfinfo.tpl.html" data-trigger="hover" trigger="hover" bs-popover>{{$ctrl.pinnedContent.author.firstName}} {{$ctrl.pinnedContent.author.lastName}}</a>
+					<a ng-if="!$ctrl.enableTootip" ui-sref="app.myprofile({uid: $ctrl.pinnedContent.author.uid, activetab: 'About'})">{{$ctrl.pinnedContent.author.firstName}} {{$ctrl.pinnedContent.author.lastName}}</a>  
+						<span translate>has published an article in</span> 
+					<a ui-sref="app.communityHome({name: $ctrl.pinnedContent.community.label, commuid: $ctrl.pinnedContent.community.uid})" class="gnm">{{$ctrl.pinnedContent.community.label}}</a>
+				</div>
+				<!-- END show on community tab page -->
+				<div class="pin_action">
+					<feed-controls
+            			feed-index = "$index"
+            			show-comment-label = "false"
+            			keep-open = "true"
+            			referer-community = "referer"
+            			show-full-comments = "showFullComments"
+            			feed ="$ctrl.pinnedContent"
+            			on-click-delete-feed="deleteFeed($ctrl.pinnedContent.uid)"
+            			show-view-label="false"
+    				></feed-controls>
+					<!-- <div ng-init="keepopen = true; tpl_cmntboxid = pinnedContent.uid; feedindex = $index; tpl_feedid= pinnedContent.uid; tpl_showtext=false; allowComment = pinnedContent.allowComment; showAllComments = true;allowShare=pinnedContent.allowShare;feed= pinnedContent" ng-include="'../app/views/blocks/feed_controls.tpl.html'"></div> -->
+
+				</div>
+			</div>
+
+			
+			<div class="clearfix"></div>
+		</div>
+			            		
+	</div><!--pin-header END-->
+</div><!--pin-article END-->
+
+

@@ -1,0 +1,8 @@
+<div>
+	<div class="img-gal-tpl2" ng-click="$root.showGalleryPopup(tpl_imgarr, 'images')">
+		<div  ng-repeat="img in tpl_imgarr">
+			<img ng-if="$index == 0" class="fst-thumb" ng-src="{{img.path}}"><!--http://upload.wikimedia.org/wikipedia/commons/2/25/Natural_monument_Hroby_in_summer_2011_(12).JPG-->
+			<img class="rest-thumb" ng-if="$index != 0" ng-src="{{img.thumbGalleryUrl}}"><!--src="http://upload.wikimedia.org/wikipedia/commons/7/77/Rainbowbeeeater.jpg"-->
+		</div>
+	</div>
+</div>

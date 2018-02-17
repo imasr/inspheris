@@ -1,0 +1,24 @@
+<div class="ins_popup wide_popup birthday-popup" ng-controller="BirthdayCtrl">
+  <div class="popup_header floatl">
+      <p class="popup_title" translate>Birthdays</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+  
+   <div class="popup_wrapper floatl width100" style="padding: 10px;">
+
+		<div class="col-lg-2 col-md-2 col-sm-4 col-xs-6" ng-repeat="birthday in modalData.data">
+            <div class=" gv-community-feed comm_li_to afkl-lazy-wrapper">
+					<div class="disp_table width100" style="text-align:center; width:150px; height: 165px; font-size: 12px; ">
+						<div class="tblr">  
+							<div style="margin:5px auto;" class="org-result-profile-pic circle-image" profile-photo="{url: birthday.headerLogoUrl, firstName: birthday.firstName, lastName: birthday.lastName}"></div>
+							
+							<a target="_blank" ui-sref="app.myprofile({uid: birthday.uid, activetab: 'About'})">
+				              <span style="" >{{birthday.firstName}} {{birthday.lastName}}</span>
+				              <p class="fc1 fs3">{{birthday.dateOfBirth | date: $root.birthdayDateFormat}}</p>
+				            </a>
+						</div>
+					</div>
+			</div>
+		</div>
+  </div>
+</div>

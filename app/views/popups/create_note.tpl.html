@@ -1,0 +1,145 @@
+<div class="ins_popup medium_popup" ng-controller="CreateNoteCtrl">
+
+    <div class="popup_header floatl marb10">
+        <div class="popup_title">
+            <span ng-if="modalData.action == 'create'">{{'Create note de service'| translate}}</span>
+            <span ng-if="modalData.action == 'edit'">{{'Edit Note de service'| translate}}</span>
+        </div>
+        <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+    </div>
+
+    <div class="popup_wrapper">  		
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Title'| translate}}</label>  
+                <div class="col-md-9">
+                    <input class="ins_input_tex" ng-model="title" type="text" placeholder="{{'Title'| translate}}">
+                </div>
+            </div>
+            <div class="form-group hide">
+                <label class="col-md-3 control-label" for="textinput">{{'Priority'| translate}}</label>  
+                <div class="col-md-9 dd-shadow">
+                    <div class="floatl" dropdown-select="priorityValues" dropdown-model="prioritySelected" dropdown-onchange="selectPriority(selected)" dropdown-item-label="value" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Community'| translate}}</label>  
+                <div class="col-md-9 dd-shadow">
+                    <div class="floatl" dropdown-select="communities" dropdown-model="communitySelected" dropdown-onchange="selectCommunity(selected)" dropdown-item-label="label" style="width: 100%;"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Groups'| translate}}</label>  
+                <div class="col-md-9 btn-group ins_dropdown open"><!-- style="width:65%;padding-left: 15px;"-->
+                    <div class="floatl btn-group ins_dropdown singlebar width100" ng-class="groupDisable ? 'disable-group' : ''">
+                        <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select group</button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li class="ddli-lbl ng-scope" ng-repeat="group in groups" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                                <div class="ins_checkbox">
+                                    <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="group.selected" ng-checked="group.selected"
+                                           ng-click="chooseGroup($event, group.id)">
+                                    <label for="cctbsel{{iIdx}}" class="css-label">{{group.name}} (<span ng-if="!group.active" translate>Inactive</span><span ng-if="group.active" translate>Active</span>)</label>
+                                </div>
+                            </li>		
+                        </ul>
+                    </div>
+                </div>		
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Message'| translate}}</label>  
+                <div class="col-md-9">
+                    <textarea class="ins_input_tex" rows="8" ng-model="message" placeholder="{{'Message'| translate}}" style="min-height: 100px;"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Start_Date'| translate}}</label> 
+                <div class="col-md-9">	
+                    <div class="ins_btn_liconbor col-md-7 no-border">				
+                        <div class="icn clk" style="width: 24px; height: 94%;">
+                            <!--<i class="fa fa-calendar"></i>-->
+                        </div>
+                        <div class="form-group right">
+                            <!--data-min-date="today"-->
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date'| translate}}" ng-model="publishDates.startDt" data-max-date="{{publishDates.endDt}}" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="ins_btn_liconbor col-md-5 no-border">
+                        <div class="icn" style="width: 24px; height: 94%;">
+                            <!--<i class="fa fa-clock-o"></i>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control timepicker_licon" placeholder="{{'Start_Time'| translate}}" size="8" ng-model="publishDates.startTime" name="time" bs-timepicker>
+                        </div>
+                    </div> 
+                </div>       
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'End_Date'| translate}}</label> 
+                <div class="col-md-9">	
+                    <div class="ins_btn_liconbor col-xs-12 col-md-7 no-border">				
+                        <div class="icn clk" style="width: 24px; height: 94%;">
+                            <!--<i class="fa fa-calendar"></i>-->
+                        </div>
+                        <div class="form-group right">
+                            <!--bs-datepicker-->
+                            <!--data-min-date="today"-->
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date'| translate}}" ng-model="publishDates.endDt" data-min-date="{{publishDates.startDt}}" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="ins_btn_liconbor col-xs-12 col-md-5 no-border">
+                        <div class="icn" style="width: 24px; height: 94%;">
+                            <!--<i class="fa fa-clock-o"></i>-->
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control timepicker_licon" placeholder="{{'End_Time'| translate}}" size="8" ng-model="publishDates.endTime" name="time" bs-timepicker>
+                        </div>
+                    </div> 
+                </div>       
+            </div>
+            <div class="form-group">
+                <label class="col-md-3 control-label" for="textinput">{{'Attachment'| translate}}</label>  
+                <div class="col-md-9">
+                    <div style="margin-bottom: 50px;">
+                        <div ng-class="blockActive == 'video' ? 'qp-active' : ''" class="fl_attach vdo" ng-click="selectTypeAttachment('video', $event)"></div>
+                        <div ng-class="blockActive == 'document' ? 'qp-active' : ''" class="fl_attach doc" ng-click="selectTypeAttachment('document', $event)"></div>
+                        <div ng-class="blockActive == 'image' ? 'qp-active' : ''" class="fl_attach img" ng-click="selectTypeAttachment('image', $event)"></div>
+                        <div ng-class="blockActive == 'link' ? 'qp-active' : ''" class="fl_attach link" ng-click="selectTypeAttachment('link', $event)"></div>
+                    </div>
+                    
+                    <!--<ng:switch on="attachmentType">-->
+                        <div class="note-media">
+                            <div ng-if="attachmentType=='video' || videos.files.length>=1">
+                                <media-gallery-upload-panel attachment="videos" media-type="videos.type" on-add-block="addContentBlock(videos.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel>
+                            </div>
+                            <div ng-if="attachmentType=='document' || documents.files.length>=1">
+                                <media-gallery-upload-panel attachment="documents" media-type="documents.type" on-add-block="addContentBlock(documents.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+                            </div>
+                            <div ng-if="attachmentType=='image' || images.files.length>=1">
+                                <media-gallery-upload-panel attachment="images" media-type="images.type" on-add-block="addContentBlock(images.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+                            </div>                            
+                            <div ng-if="attachmentType=='link' || links.links.length>=1">
+                                <media-gallery-upload-panel attachment="links" media-type="links.type" on-add-block="addContentBlock(links.type)" on-remove="removeBlock(index, event)"></media-gallery-upload-panel> 
+                            </div>                            
+                        </div>
+                    <!--</ng:switch>-->
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-md-6 control-label" for="textinput">{{'Include On Profile Calendar'| translate}}</label>  
+                <div class="col-md-3">
+                    <input type="checkbox" ng-model="includeOnProfileCalendar" id="ntincludeOnProfileCalendar" name="ntincludeOnProfileCalendar" class="css-checkbox">
+                </div>
+            </div>
+        </div>
+        <div class="floatl width100 marb10">
+            <div class="ins_btn_ctext" ng-click="createNote()">
+                <span>OK</span>
+            </div>
+        </div>
+    </div>
+</div>

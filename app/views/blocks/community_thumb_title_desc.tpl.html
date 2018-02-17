@@ -1,0 +1,26 @@
+<div class="disp_table width100">
+  <div class="tblr">
+    <!--
+    <div class="tblc com-feed-thumb" ng-if="$ctrl.community.headerLogoUrl" ng-class="{'private-community': $ctrl.community.privated == '1'}">
+      <img class="width100" src="{{$ctrl.community.headerLogoUrl}}"/>
+    </div>
+    -->
+    <div ng-if="$ctrl.community.headerLogoUrl" class="tblc com-feed-thumb afkl-lazy-wrapper afkl-img-ratio-1-1" ng-class="{'private-community': $ctrl.community.privated == '1'}" afkl-lazy-image="{{$ctrl.community.headerLogoUrl}}"></div>
+
+    <div class="tblc comm-feed-content">
+      <div class="content-wrap">
+        <!--<a ui-sref="$ctrl.communityHome({name: $ctrl.community.label, commuid: $ctrl.community.uid})">-->
+          <div class="ctitle mxln2" ng-bind-html="($ctrl.community.label | highlight:$root.highlightText)"> </div>
+          <!--
+          <div class="ctitle mxln2 fadetxt" ng-bind-html="($ctrl.community.label | highlight:$root.highlightText)"> </div>
+          -->
+        <!--</a>-->
+        <div class="cdesc ellipses mxln2" data-ng-bind="($ctrl.community.description | highlight:$root.highlightText)" data-ellipsis-symbol="..." data-ellipsis></div>
+      </div><!--content-wrap-->
+
+
+      
+      
+    </div><!--tblc c0mm-feed-content-->
+  </div>
+</div>

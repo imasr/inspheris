@@ -1,0 +1,84 @@
+ <div class="gridfeedtpl2">
+    <div class="feed_content wth-nothumb">
+      <a target-blank="{{openInNewTab}}" href="{{file.webViewLink}}">
+        <div class="art_desc" style="height:60px;padding: 5px;" >
+         <div  class="left_part">
+            <div  class="floatl feedthumb_40">
+            <img src={{getImage(file.mimeType);}} class="hori_center img-responsive ng-isolate-scope"/>
+            </div>
+
+            <!-- <div ng-if="mediaGalleryFiles.length > 1" class="feedthumb_72 thumb-more-files">
+              <div class="disp_table">
+                <div class="tblc">
+                  <span>
+                    {{mediaGalleryFiles.length}}
+                  </span>
+                </div>
+              </div>
+            </div>-->
+          </div>
+
+          <div class="right_part file_info">
+            <div ng-if="file.name != ''" class="post-title" ><span style="word-wrap: break-word;" once-html="file.name | highlight:$root.highlightText"></span></div> <!--art_title-->
+            <div ng-if="file.communityName != ''" class="tblc comm-feed-content">
+			      <div class="content-wrap">
+			        <!-- <a ui-sref="app.communityHome({name:  '{{file.communityName|urlEncode}}', commuid: file.communityUid})">
+			          <div>
+			          	<span style="color: #333;font-size:11px;" translate>In</span>
+			          	<!-- <span class="uppercase" style="font-weight: 700;"> {{file.communityName}}</span> -->
+                  <!-- <span> {{file.communityName}}</span>
+			          </div>
+			        </a> -->
+			        <!-- <a ui-sref="app.communityHomeWithTab({name: file.communityName, commuid: file.communityUid, activetab: file.tabUid})">
+				        <div>
+					        <span style="color: #333;font-size:11px;" translate>Tab</span>
+					        <!-- <span class="uppercase" style="font-weight: 700;"> {{file.tabName}}</span>  -->
+                  <!-- <span > {{file.tabName}}</span>
+				        </div>
+			        </a> -->
+			      </div><!--content-wrap-->
+    		</div>
+
+      </div>
+        </div>
+        <div class="activity-bar" style="font-size:11px;">
+          <div class="tbltd-l">
+          <a ui-sref="app.myprofile({uid: file.author.uid, activetab: 'About'})">
+                  <div class="user-image circle-image" profile-photo="{url: '/api/mediamanager?file=attachments/831a065f-3792-4c7b-b80e-6920babb21c8/OBE3AF0_-_Edited_(1)_0.jpg', firstName: file.author.firstName, lastName: file.author.lastName}"></div>
+                  <img style="position: absolute;z-index: 1;top: 300px;left: 20px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && file.author.badge" src="{{file.author.badge.image.url}}">
+                  Inspheris inspheris
+                  <div>
+                   <span style="color: #333;font-size:11px;" translate>In</span>
+                   <!-- <span class="uppercase" style="font-weight: 700;"> {{file.communityName}}</span> -->
+                    <span> {{file.communityName}}</span>
+                 </div>
+                 <div>
+                  <span style="color: #333;font-size:11px;" translate>Tab</span>
+                  <!-- <span class="uppercase" style="font-weight: 700;"> {{file.tabName}}</span>  -->
+                   <span > {{file.tabName}}</span>
+                </div>
+            </a>
+            <feed-user-info
+                      action-sentence="actSentence"
+                      enable-tootip="{{enableTootip}}"
+                      uid-user-tooltip="userDetail.uid"
+                      index="$ctrl.index"
+                      type-view="gridview"
+            ></feed-user-info>
+          </div>
+          <div class="tbltd-r">
+
+            <div class="fc3 other-info">
+              <!-- <span >{{file.fileUploadedDate | date: $root.fullDateFormat}}</span> -->
+              <span >19 mar 2017, 04:57</span>
+           </div>
+          </div>
+        </div>
+        <div class="hide" ng-include="'../app/views/blocks/feed.tpl.html'"></div>
+          <!-- <feed-controls show-comment-label = "false" feed ="file"></feed-controls> -->
+
+        </div>
+     <div style="height:35px;float: left;width: 100%;padding: 5px;"></div>
+      </a>
+    </div>
+</div>

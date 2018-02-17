@@ -1,0 +1,40 @@
+<div class="popover pp_uli_out" ng-controller="MemberViewerCtrl">
+	<div class="arrow">	
+	</div>
+	<span class="fc1" ng-if="md.status == 1"><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></span>
+	<span class="rclor" ng-if="md.status == 3" translate>something_went_wrong</span>
+
+	<ul ng-if="md.status == 2" class="media-list">
+		<li ng-if="userlistData.type == 'feedLikes'" class="media" ng-repeat="like in feed.likes">
+			<a class="pull-left" ui-sref="app.myprofile({uid: like.author.uid, activetab: 'About'})">
+			  	<div class="media-object thumb28x28" profile-photo="{url: like.author.headerLogoUrl, firstName: like.author.firstName, lastName: like.author.lastName}"></div>
+				<img style="position: absolute;z-index: 1;left: 100px;top: -15px;width: 40px;height: 40px;" ng-if="$root.isShowUserBadge && like.author.badge" ng-src="{{like.author.badge.image.url}}">
+			</a>
+			<a ui-sref="app.myprofile({uid: like.author.uid, activetab: 'About'})">
+			    <div class="media-body">
+			      <p class="media-heading" ng-bind="like.author.displayName"></p>
+			    </div>
+			</a>
+		</li>
+
+		<li ng-if="userlistData.type == 'followerList' || userlistData.type == 'contributorList'" class="media" ng-repeat="ppl in md.data">
+			<a class="pull-left" ui-sref="app.myprofile({uid: ppl.member.uid, activetab: 'About'})">
+			  	<div class="media-object thumb28x28" profile-photo="{url: ppl.member.headerLogoUrl, firstName: ppl.member.firstName, lastName: ppl.member.lastName}"></div>
+			  	<img style="position: absolute;z-index: 1;left: 100px;top: -15px;width: 40px;height: 40px;" ng-if="$root.isShowUserBadge && ppl.member.badge" ng-src="{{ppl.member.badge.image.url}}">
+			</a>
+			<a ui-sref="app.myprofile({uid: ppl.member.uid, activetab: 'About'})">
+			    <div class="media-body">
+			      <p class="media-heading" ng-bind="ppl.member.displayName"></p>
+			    </div>
+			</a>
+		</li>
+
+		<li ng-if="userlistData.type == 'feedHashtags'" class="media" ng-repeat="hash in feed.hashtags">
+		    <div class="media-body">
+		      	<a ui-sref="app.search.category({type: 'general', filter: 'all', category: 'global', text: hash, page: 0,internalSearch: true})">
+			      	<p class="media-heading" ng-bind="hash"></p>
+			   	</a>
+		    </div>
+		</li>
+	</ul>
+</div>

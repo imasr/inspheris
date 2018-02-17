@@ -1,0 +1,396 @@
+<!-- attachmentArr {[{index: imgIndex, file: f, src: ''}] }; -->
+<div class="texteditor_outer">
+<div class="editblock_wrap" >
+  <div class="conrol_wrapper floatl">
+    <div class="inner_wrap floatr">
+      <div class="ins_small_sqbtn floatl add hide" ng-click="$ctrl.onAddBlock({type:$ctrl.mediaType})"></div>
+      <div class="ins_small_sqbtn floatl move hide"></div>
+      <div class="ins_small_sqbtn floatl remove" ng-click="$ctrl.onRemove({index:$index, event:$event})"></div>
+    </div>
+  </div>
+  <!--
+  <input class="ins_input_tex floatl marb10 fixed"fixed type="text" ng-model="blocktitle.title" placeholder="{{'Title' | translate}}">
+  -->
+
+<!--
+  <div ng-if="type == 'images'" class="ca_browse_block floatl fixed">
+    <div class="btn_wrapper floatl">
+      <div class="cad_btn floatl width50">
+        <span>Image URL</span>
+      </div>
+
+      <div class="cad_btn floatl width50">
+        <div class="dropdown ins-ddbtn">
+          <span class="dropdown-toggle" data-toggle="dropdown">{{ 'Browse_Images' | translate }}</span>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="showBrowseImagePopup($index)"><a>Browse all</a></li>
+            <li><a>Google Drive</a></li>
+            <li><a href="#">Dropbox</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div ng-if="type=='documents'" class="ca_browse_block floatl fixed">
+      <div class="btn_wrapper floatl">
+        <div class="cad_btn floatl width50">
+          <input type="file" class="file_select" ng-file-select="docBlockAdddocs($files, $index)" multiple="multiple" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;">
+          <span>Upload Document</span>
+        </div>
+        <div class="cad_btn floatl width50">
+          <div class="dropdown ins-ddbtn">
+          <span class="dropdown-toggle" data-toggle="dropdown">Browse Document</span>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="showBrowseDocumentPopup($index)"><a>Browse all</a></li>
+            <li><a>Google Drive</a></li>
+            <li><a href="#">Dropbox</a></li>
+          </ul>
+          </div>
+        </div>
+
+      </div>
+  </div>
+
+  <div ng-if="type=='videos'" class="ca_browse_block floatl fixed">
+        <div class="btn_wrapper floatl">
+          <div class="cad_btn floatl width50" ng-click="showPopupVideoUrl($index)">
+            <span>Video URL</span>
+          </div>
+          <div class="cad_btn floatl width50">
+            <span>Browse Video</span>
+          </div>
+        </div>
+  </div>
+-->
+  <div class="files_wrapper width100 floatl fixed">
+    <!-- image files -->
+    <ul ng-if="($ctrl.mediaType == 'ImageGallery' || $ctrl.mediaType == 'imageGallery' || $ctrl.mediaType == 'images')" ui-sortable="sortableAttachedImges" ng-model="attachment.files" class="hsortlist" cat="t1">
+      <li class="itw_opn" ng-repeat="attachment in attachment.files" ng-class="{showinfo : attachment.uploadStatus == 1 || attachment.uploadStatus == 0}">
+        <div class="itw_ctrl">
+          <div class="btn_edit floatl unsortable" ng-click="editFileDetails($index)">
+           <div class="btn_icon">
+            <!--<span class="lnr lnr-pencil"></span>-->
+           </div>
+
+           <span class="btn_seprator floatl"> • </span>
+          </div>
+
+          <div class="btn_delete floatl unsortable" ng-click="imgBlockRemoveImgs($index, $event)">
+            <div class="btn_icon">
+              <!--<span class="lnr lnr-trash"></span>-->
+            </div>
+          </div>
+          <span class="btn_seprator floatl"> • </span>
+          <div class="btn_move floatl ng-click-active">
+              <div class="btn_icon">
+                  <span class="lnr lnr-move"></span>
+               </div>
+          </div>
+        </div>
+
+        <div class="abswrap">
+          <div class="absinr">
+            <thumbnail file="attachment" ></thumbnail>
+          </div>
+
+          <div class="itw_info">
+            <!--<p>{{attachment.uploadStatus}}</p>-->
+            <p ng-if="attachment.uploadStatus == 0 || attachment.uploadStatus == 2 || attachment.uploadStatus == 3" data-ng-bind="attachment.fileName" data-ellipsis-symbol="..."></p>
+            <div ng-if="attachment.uploadStatus == 1" class="loader">{{'Loading' | translate}}...</div>
+          </div>
+        </div>
+      </li>
+      <!--
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ng-file-select="imgBlockAddImgs($files, $index)" multiple accept="image/*">
+        </div>
+        <p>Upload Images</p>
+      </li>
+      -->
+
+      <!--
+      <li class="itw_opn upload_more upload_square unsortable">
+          <div class="abswrap">
+            <div class="absinr">
+              <div class="tp_btn">
+                <div class="disp_table width100 ht100">
+                  <div ngf-drop ngf-select ng-model="imgFiles" ng-model-rejected="imgFiles" ngf-change="imgBlockAddImgs($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;"></div>
+
+                  <div class="tblc_m width100 ht100">
+                    <span class="floatl width100 plus_icon">+</span>
+                    <span class="floatl width100">{{'Upload' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="btm_btn disp_table">
+                <div class="tblc_m">
+                  <div class="dropdown ins-ddbtn">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                      {{'Browse' | translate}}
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                      <li ng-click="showBrowseImagePopup($index)"><a>{{'Browse_All' | translate}}</a></li>
+                      <li><a>Google Drive</a></li>
+                      <li><a href="#">Dropbox</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </li>
+      -->
+      <li class="itw_opn unsortable">
+        <div class="abswrap">
+            <image-upload only-remote-files="{{$ctrl.onlyRemoteFiles}}"></image-upload>
+          </div>
+      </li>
+    </ul>
+	</div>
+  <div class="files_wrapper width100 floatl fixed">
+    <!-- document files -->
+    <ul ng-if="($ctrl.mediaType == 'documentGallery'||$ctrl.mediaType=='documents')" ui-sortable="sortableAttachedImges" ng-model="attachment.files" class="hsortlist">
+      <li class="itw_opn" ng-repeat="attachment in attachment.files" ng-class="{showinfo : attachment.uploadStatus == 1 || attachment.uploadStatus == 0}">
+        <div class="itw_ctrl">
+          <!-- document files -->
+          <div class="btn_edit floatl unsortable" ng-click="editFileDetails($index)">
+           <div class="btn_icon">
+            <!-- <span class="lnr lnr-pencil"></span> -->
+           </div>
+
+           <span class="btn_seprator floatl"> • </span>
+          </div>
+          <div class="btn_delete floatl unsortable" ng-click="docBlockRemoveDocs($index, $event)">
+            <div class="btn_icon">
+              <!-- <span class="lnr lnr-trash"></span> -->
+            </div>
+          </div>
+
+          <span class="btn_seprator floatl"> • </span>
+          <div class="btn_move floatl">
+              <div class="btn_icon">
+                  <span class="lnr lnr-move"></span>
+               </div>
+          </div>
+        </div>
+        <div class="abswrap">
+          <div class="absinr">
+            <thumbnail file="attachment" ></thumbnail>
+          </div>
+
+          <div class="itw_info">
+            <p ng-if="attachment.uploadStatus == 0 || attachment.uploadStatus == 2 || attachment.uploadStatus == 3" data-ng-bind="attachment.fileName" data-ellipsis-symbol="..."></p>
+            <div ng-if="attachment.uploadStatus == 1" class="loader">{ 'Loading' | translate }}...</div>
+          </div>
+        </div>
+      </li>
+
+      <!--
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ng-file-select="docBlockAdddocs($files, $index)" multiple="multiple" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;">
+        </div>
+        <p>Documents</p>
+      </li>
+      -->
+      <!--
+      <li class="itw_opn upload_more upload_square unsortable">
+          <div class="abswrap">
+            <div class="absinr">
+              <div class="tp_btn">
+                <div class="disp_table width100 ht100">
+                  <div  ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="docBlockAdddocs($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'{{acceptableFiles}}'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;"></div>
+                  <div class="tblc_m width100 ht100">
+                    <span class="floatl width100 plus_icon">+</span>
+                    <span class="floatl width100">{{'Upload' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="btm_btn disp_table">
+                <div class="tblc_m">
+                  <div class="dropdown ins-ddbtn">
+                    <span class="dropdown-toggle" data-toggle="dropdown">
+                      {{'Browse' | translate}}
+                    </span>
+                    <ul class="dropdown-menu" role="menu">
+                      <li ng-click="showBrowseDocumentPopup($index)"><a>{{ 'Browse_all' | translate }}</a></li>
+                      <li><a>Google Drive</a></li>
+                      <li><a href="#">Dropbox</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </li>
+      -->
+      <li class="itw_opn unsortable">
+        <div class="abswrap">
+          <document-upload only-remote-files="{{$ctrl.onlyRemoteFiles}}"></document-upload>
+        </div>
+	   </div>
+      </li>
+    </ul>
+
+   <div class="files_wrapper width100 floatl fixed">
+    <!-- video files -->
+    <ul ng-if="($ctrl.mediaType == 'VideoGallery' || $ctrl.mediaType == 'videoGallery'||$ctrl.mediaType=='videos')" ui-sortable="sortableAttachedImges" ng-model="attachment.files" class="hsortlist">
+      <li class="itw_opn bgvdo unsortable" ng-repeat="attachment in attachment.files" no-cache-background-image="{{attachment.thumbUrl}}">
+        <div>
+          <img class="play-btn" src="images/play.png">
+          <div class="itw_ctrl">
+            <div class="btn_delete floatl" ng-click="vdoBlockRemoveVdos($index, $event)">
+              <div class="btn_icon">
+                <!-- <i class="fa fa-trash-o"></i> -->
+              </div>
+            </div>
+            <!--
+            <span class="btn_seprator floatl"> • </span>
+            <div class="btn_move floatl ng-click-active">
+                <div class="btn_icon">
+                    <i class="fa fa-arrows"></i>
+                 </div>
+            </div>
+            -->
+          </div>
+          <div class="itw_info" ng-if="attachment.embedVideoTitle">
+            <p data-ng-bind="attachment.embedVideoTitle" data-ellipsis-symbol="..."><p>
+          </div>
+        </div>
+      </li>
+
+      <!--
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ng-file-select="vdoBlockAddVdos($files, $index)" multiple accept="video/*;capture=camcorder">
+        </div>
+        <p>Upload Videos</p>
+      </li>
+      -->
+      <!--
+      <li class="itw_opn upload_more upload_square unsortable">
+          <div class="abswrap">
+            <div class="absinr">
+              <div class="tp_btn">
+                <div class="disp_table width100 ht100">
+                  <div ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="vdoBlockAddVdos($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'video/*;capture=camcorder'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;"></div>
+
+                  <div class="tblc_m width100 ht100">
+                    <span class="floatl width100 plus_icon">+</span>
+                    <span class="floatl width100">{{'Upload' | translate}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="btm_btn disp_table">
+                <div class="tblc_m">
+                  <div class="dropdown ins-ddbtn">
+                    <span class="dropdown-toggle" data-toggle="dropdown"> {{'Browse' | translate}}</span>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a>{{'Browse_All' | translate}}</a></li>
+                      <li><a>Google Drive</a></li>
+                      <li><a href="#">Dropbox</a></li>
+                      <li ng-click="showPopupVideoUrl($index)" ><a>URL</a></li>
+                    </ul>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </li>
+      -->
+
+
+      <li class="itw_opn unsortable">
+        <div class="abswrap">
+          <video-upload on-click="showPopupVideoUrl($index)" on-upload="vdoBlockAddVdos($files, $event)"></video-upload>
+        </div>
+      </li>
+
+      <li class="itw_opn unsortable hide">
+        <div class="abswrap">
+          <div ng-include="'../app/views/containers/upload_square_video_canal.tpl.html'">
+          </div>
+        </div>
+        </div>
+      </li>
+    </ul>
+
+   <div class="files_wrapper width100 floatl fixed">
+     <!-- links  -->
+     <ul ng-if="$ctrl.mediaType=='linkEmbed'" ui-sortable="sortableAttachedImges" ng-model="attachment.files" class="hsortlist">
+      <li class="itw_opn bgvdo unsortable" ng-repeat="attachment in attachment.links" ng-style="{'background-image': 'url('+attachment.thumbnail_url+')'}">
+        <div>
+          <div class="itw_ctrl">
+            <div class="btn_delete floatr" ng-click="linkEmbedBlockRemoveVdos($index, $event)">
+              <div class="btn_icon">
+                <!-- <i class="fa fa-trash-o"></i> -->
+              </div>
+            </div>
+          </div>
+          <div class="itw_info" ng-if="attachment.title">
+            <p data-ng-bind="attachment.title" data-ellipsis-symbol="..."><p>
+          </div>
+        </div>
+        <div ng-if="!attachment.thumbnail_url" style="max-width: 100px; overflow: hidden;position:absolute;top:50%;left:50%;transform: translate(-50%, -50%);color:#fff;">
+          	<span>{{attachment.subTitle}}</span>
+        </div>
+      </li>
+
+      <li class="itw_opn unsortable">
+        <div class="abswrap">
+          <link-embed-upload on-click="showPopupLinkEmbed($index)"></link-embed-upload>
+       </div>
+      </li>
+     </ul>
+   </div>
+   <div class="files_wrapper width100 floatl fixed">
+     <!-- links  -->
+     <ul ng-if="$ctrl.mediaType=='yammerEmbed'" ui-sortable="sortableAttachedImges" ng-model="attachment.files" class="hsortlist">
+      <li class="itw_opn" ng-repeat="attachment in attachment.yammerdata" ng-class="{showinfo : attachment.uploadStatus == 1 || attachment.uploadStatus == 0}">
+        <div class="itw_ctrl">
+          <!-- document files -->
+          <div class="btn_edit floatl unsortable" ng-click="editFileDetails($index)">
+           <div class="btn_icon">
+            <!-- <span class="lnr lnr-pencil"></span> -->
+           </div>
+
+           <span class="btn_seprator floatl"> • </span>
+          </div>
+          <div class="btn_delete floatl unsortable" ng-click="docBlockRemoveDocs($index, $event)">
+            <div class="btn_icon">
+              
+            </div>
+          </div>
+
+          <span class="btn_seprator floatl"> • </span>
+          <div class="btn_move floatl">
+              <div class="btn_icon">
+                  <span class="lnr lnr-move"></span>
+               </div>
+          </div>
+        </div>
+        <div class="abswrap">
+          <div class="absinr">
+            <thumbnail file="attachment" media-type="'yammerEmbed'"></thumbnail>
+          </div>
+
+          <div class="itw_info">
+            <p ng-if="attachment.uploadStatus == 0 || attachment.uploadStatus == 2 || attachment.uploadStatus == 3" data-ng-bind="attachment.fileName" data-ellipsis-symbol="..."></p>
+            <div ng-if="attachment.uploadStatus == 1" class="loader">{ 'Loading' | translate }}...</div>
+          </div>
+        </div>
+      </li>
+
+
+      <li class="itw_opn unsortable">
+        <div class="abswrap">
+            <yammer-embed-upload on-click="showYammerLogin($index)"></yammer-embed-upload>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+</div>
+
+

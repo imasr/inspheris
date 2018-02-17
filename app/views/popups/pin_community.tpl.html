@@ -1,0 +1,43 @@
+<div class="ins_popup medium_popup" ng-controller="PinCommunityCtrl">
+  
+	<div class="popup_header floatl">
+		<div class="popup_title">{{'Pin Community' | translate}}</div>
+		<div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper">	
+		<div class="form-horizontal">
+	  		<div class="form-group">
+			  <label class="col-md-3 control-label" for="textinput">{{'Title' | translate}}</label>  
+			  <div class="col-md-9">
+			  <input class="ins_input_tex" ng-model="title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">
+			  </div>
+			</div>
+
+			<div class="form-group">
+			  <label class="col-md-3 control-label" for="textinput">{{'Community' | translate}}</label>  
+			  <div class="col-md-9">
+			  	<div class="width100" dropdown-select="comSelectOptions" dropdown-model="selectedCommUid" dropdown-item-label="text" dropdown-onchange="commSelect(selected)"></div>
+			  </div>
+			</div>
+
+			<div class="form-group">
+			  <label class="col-md-3 control-label" for="textinput">{{'Community Tab' | translate}}</label>  
+			  <div class="col-md-9">
+			  	<div class="width100" dropdown-select="tabSelectOptions" dropdown-model="selectedTabUid" dropdown-item-label="tabName" dropdown-onchange="tabSelect(selected)"></div>
+			  </div>
+			</div>
+	    </div>
+	    
+		<div class="floatl width100 marb10">
+			<div class="doble_btn_wraper floatl margin_bottom">
+            	<div class="ins_btn_ctext floatl" ng-click="pinCommunity()">
+              		<span>{{'OK' | translate}}</span>
+            	</div>
+            	<div class="ins_btn_ctext floatr" ng-click="closeThisDialog({flag: 'cancel', data: null})">
+              		<span>{{'Close' | translate}}</span>
+            	</div>  
+          	</div>
+		</div>
+  </div>
+</div>

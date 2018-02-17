@@ -1,0 +1,205 @@
+<div class="ins_popup medium_popup create_widget_popup" ng-controller="CreateWidgetCtrl">
+	<div class="popup_header floatl">
+	    <div class="popup_title">{{ "Create Widget" | translate }}</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper">
+		<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="widgetTitle" type="text" placeholder="{{'Title' | translate}}">
+
+		<div class="width100 marb10" dropdown-select="widgetTypeSelection" dropdown-model="selectedWidgetType" dropdown-onchange="widgetTypeChanged(selected)" dropdown-item-label="val"></div>
+		<div ng-show="showOptionsToDisplayOn" class="width100 marb10" dropdown-select="displaySelection" dropdown-model="selectedDisplay" dropdown-onchange="displayChanged(selected)" dropdown-item-label="value"></div>
+		<div ng-show="selectedDisplay.value === 'Community'" class="btn-group ins_dropdown width100 marb10" dropdown-select="ddSelectOptions" dropdown-model="selectedCommUid" dropdown-onchange="quickpostCommSelecte(selected)" dropdown-item-label="text"></div>
+		
+		<!-- <div class="btn-group ins_dropdown width100 marb10">
+			<button type="button" class="btn btn-default">{{selectedCommunity.label | translate}}</button>
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<span class="caret"></span>
+				<span class="sr-only">Toggle Dropdown</span>
+			</button>
+              
+            <ul class="dropdown-menu" role="menu">
+                <li class="ddli-lbl" ng-repeat="com in communitySelection" ng-click="stopPropagation($event)">
+	                <div class="ins_checkbox">
+		                <input type="checkbox" name="{{com.uid}}" id="{{com.uid}}" class="css-checkbox" ng-model="com.selected" ng-checked="com.selected">
+		                <label for="{{com.uid}}" class="css-label">{{com.label}}</label>
+		            </div>
+                </li>
+            </ul>
+        </div> -->
+
+        <div class="ins_checkbox marb10">
+            <input type="checkbox" name="isWidgetActive" id="isWidgetActive" class="css-checkbox" ng-model="isWidgetActive">
+            <label for="isWidgetActive" class="css-label" translate="Active"></label>
+		</div>
+
+		<div class="width100 marb10" ng-if="widgetData">
+			<ul class="vsortlist">
+	          <li class="vsortlist_item" ng-switch="selectedWidgetType.val">
+	            <!-- ritchtext block -->
+	            <div ng-switch-when="FCKEditor" class="required_field width100 floatl">
+	              <div class="texteditor_outer">
+	                  <ng-include ng-init="rtobj = widgetData" src="'../app/views/blocks/edit_richtext_block.tpl.html'"></ng-include>
+	              </div>
+	            </div>
+
+	            <!-- image block -->
+	            <div ng-switch-when="ImageGallery" class="required_field width100 floatl">
+	              <!--<div class="texteditor_outer">-->
+	                <!--<ng-include ng-init="attachment = widgetData; type = 'images';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>-->
+					<media-gallery-upload-panel attachment="widgetData" media-type="selectedWidgetType.val" on-add-block="addContentBlock(selectedWidgetType.val)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>
+	              <!--</div>-->
+	            </div>
+
+	            <!-- video block -->
+	            <div ng-switch-when="VideoGallery" class="required_field width100 floatl">
+					<media-gallery-upload-panel attachment="widgetData" media-type="selectedWidgetType.val" on-add-block="addContentBlock(selectedWidgetType.val)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>
+	              <!--<div class="texteditor_outer">
+	                <ng-include ng-init="attachment = widgetData; type = 'videos';" src="'../app/views/blocks/generic_add_media_gallery.tpl.html'"></ng-include>
+	              </div>-->
+	            </div>
+
+	            <!-- Regular Calendar Block -->
+	            <div ng-switch-when="RegularCalendar" class="width100 floatl">
+	            	<div ng-repeat="evt in widgetData">
+						<input class="ins_input_tex marb10" ng-model="evt.eventName" type="text" placeholder="{{'Title' | translate}}">
+
+						<input class="ins_input_tex marb10" ng-model="evt.eventLink" type="text" placeholder="{{'Link' | translate}}">
+
+						<div class="form-group right">
+							<input type="text" class="form-control lpinput" placeholder="{{'Start_Date' | translate}}" ng-model="evt.startDate" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" bs-datepicker>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control lpinput" placeholder="{{'Start_Time' | translate}}" size="8" ng-model="evt.startTime" data-minute-step="1" data-date-type="number" bs-timepicker>
+						</div>
+
+						<div class="form-group right">
+							<input type="text" class="form-control lpinput" placeholder="{{'End_Date' | translate}}" ng-model="evt.endDate" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" bs-datepicker>
+						</div>
+						<div class="form-group">
+							<input type="text" class="form-control lpinput" placeholder="{{'End_Time' | translate}}" size="8" ng-model="evt.endTime" data-minute-step="1" data-date-type="number" bs-timepicker>
+						</div>
+						<a href="javascript: void(0)" ng-click="removeEvent($index,evt.uid)" translate>Delete</a>
+						<hr>
+		          	</div>
+
+		          	<button type="button" class="btn btn-default navbar-btn" ng-click="addEvent()" translate>Add Event</button>
+
+	            </div>
+				
+				<!-- Poll Widget -->
+	            <div ng-switch-when="Poll" class="width100 floatl">
+	            	<div class="row well well-sm" ng-repeat="q in widgetData" style="margin:5px 0px;">
+	            		<div class="col-lg-12 col-md-12" style="padding-right:0px;">
+	            			<div class="row">
+	            				<input class="ins_input_tex marb8" style="width : 490px;" ng-model="q.question" type="text" placeholder="{{'Question' | translate}}">
+	            				<!-- <input type="checkbox" name="questionActive" class="css-checkbox" ng-model="q.active"> 
+           					 	<label for="questionActive" translate="Active"></label>-->
+	            				<button type="button" class="btn btn-primary" ng-click="addAnswer($index)" translate>Add Answer</button>
+	            				<div ng-repeat="a in q.answers">
+	            					<input class="ins_input_tex marb8" style="width : 390px;" ng-model="a.answer" type="text" placeholder="{{'Answer Option' | translate}}">
+	            					<!-- <input type="checkbox" name="answerActive" class="css-checkbox" ng-model="a.active">
+           					 		<label for="answerActive" translate="Active"></label>-->
+	            					<span class="del_btn " ng-click="removeAnswer($parent.$index,$index,a.id)" style="margin-left:10px;cursor:pointer;color:#245aa2;"><i class="fa fa-trash-o"></i></span>
+	            					</br>
+	            				</div>
+	            			</div>
+	            			<a href="javascript: void(0)" ng-click="removeQuestion($index,q.id)" translate>Delete</a>						
+	            		</div>						
+					</div>			
+	            	<hr>				
+					<button type="button" class="btn btn-default navbar-btn" ng-click="addQuestion()" translate>Add Question</button>
+	            </div>
+	            
+	            <!-- upload CSV file to -->
+	            <div ng-switch-when="AutomatedCalendar">
+	            	<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="calendarPath" type="text" placeholder="{{'Path' | translate}}">
+	          		<!--
+	          		<div style="width: 200px;">
+				        <div class="ins_btn_ctext">
+				        	<div ng-file-drop ng-file-select class="file_select" ng-file-change="csvFileSelected($files, $event)" ng-multiple="false" ng-accept="'.csv, text/csv'" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 1; position: absolute;" drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}"></div>
+				         	<span>{{'Upload CSV file' | translate}}</span>
+				        </div>
+				    </div>
+				    -->
+	            </div>
+	            
+	            <!-- RSS block -->
+	            <div ng-switch-when="RSS">
+					<input name="rssLink" class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="rss.link" type="text" placeholder="{{'RSS Link' | translate}}">
+					<input name="rssNumber" class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="rss.numberOfFeeds" type="number" placeholder="{{'Number of feed' | translate}}">
+	            </div>
+	            
+	            <!-- FoodTruck block -->
+	            <div ng-switch-when="FoodTruck">
+	            	<div class="res-rectangle" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="logoImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="width:130px; margin:0 auto; padding-top: 130px">
+						<div class="rect-content">
+							<img ng-if="logo && logo.url" src="{{logo.url}}">
+							<img ng-if="logoUrl" src="{{logo.url}}">
+							<div ng-if="!logo && !logoUrl" class="disp_table">
+								<div class="tblc">
+									<div class="no-img-thumb"></div>
+										<span class="lbl">{{'Image' | translate}}</span>
+									</div>
+								</div>
+							</div>
+					</div>
+						
+	            	<textarea class="ins_input_tex" rows="4" ng-model="widgetData.description" placeholder="{{'Description' | translate}}" style="min-height: 100px;"></textarea>
+	        		<div ui-sortable="sortableOptions" ng-model="widgetData.options">
+		        		<div ng-repeat="option in widgetData.options" class="row well well-sm" style="padding-right:0px;margin:5px 0px;">
+		        			<div class="col-lg-12 col-md-12" style="padding-right:0px;">
+		            			<div class="row">
+		            				<span class="required_input">  
+				            			<input class="ins_input_tex marb8" style="width : 300px;" ng-model="option.name" type="text" placeholder="{{'Name' | translate}}" required>
+				            		</span>	
+				            		<input class="ins_input_tex marb8" style="width : 150px;" ng-model="option.price" type="text" placeholder="{{'Price' | translate}}">	    	    
+				            		<span class="del_btn " ng-click="removeFoodOption($index,option.id)" style="margin-left:10px;cursor:pointer;color:#245aa2;"><i class="fa fa-trash-o"></i></span>	
+		            			</div>
+		            		</div>            		
+		            	</div>
+	            	</div>
+	            	<button type="button" class="btn btn-primary" ng-click="addFoodOption($index)" translate>Add Food</button>					
+	            </div>
+	            
+	        	<!-- CountdownClock block -->
+	            <div ng-switch-when="CountdownClock" class="width100 floatl">
+	            	<input class="ins_input_tex marb10" ng-model="widgetData.startMessage" type="text" placeholder="{{'Start Message' | translate}}">
+
+					<input class="ins_input_tex marb10" ng-model="widgetData.endMessage" type="text" placeholder="{{'End Message' | translate}}">
+					
+	            	<div class="form-group right">
+						<input type="text" class="form-control lpinput" placeholder="{{'Start_Date' | translate}}" ng-model="widgetData.startDate" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" bs-datepicker>
+					</div>
+					<div class="form-group">
+						<input type="text" class="form-control lpinput" placeholder="{{'Start_Time' | translate}}" size="8" ng-model="widgetData.startTime" data-minute-step="1" data-date-type="number" bs-timepicker>
+					</div>
+	            </div>
+	            
+	       		<!-- BikeBooking block -->
+	            <div ng-switch-when="BikeBooking">
+	            	<div class="res-rectangle" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="logoImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="width:130px; margin:0 auto; padding-top: 130px">
+						<div class="rect-content">
+							<img ng-if="logo && logo.url" src="{{logo.url}}">
+							<img ng-if="logoUrl" src="{{logo.url}}">
+							<div ng-if="!logo && !logoUrl" class="disp_table">
+								<div class="tblc">
+									<div class="no-img-thumb"></div>
+										<span class="lbl">{{'Image' | translate}}</span>
+									</div>
+								</div>
+							</div>
+					</div>
+	            </div>
+	            
+	          </li>
+	        </ul>
+		</div>
+
+		<div class="floatl width100 marb10">
+			<div class="ins_btn_ctext" ng-click="doneCreateWidget()" ng-class="{'disabled': isPublishing}">
+				<span>{{ "Publish" | translate }}</span>
+			</div>
+		</div>
+	</div>
+</div>

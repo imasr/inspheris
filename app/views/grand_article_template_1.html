@@ -1,0 +1,111 @@
+<main class="main-container">
+    <div class="close-btn-article" ui-sref="app.home"> 
+        <i class="fa fa-times"></i> 
+    </div>
+    
+    <article class="articles">
+   		<div class="item" id="item1">
+			<div class="background-container article-bg fixed">
+	    		<div ng-if="feed.grandArticlePages[0].imageHeader && feed.grandArticlePages[0].imageHeader.smallImage==false" class="bg" ng-style="{'background-image' : 'url('+feed.grandArticlePages[0].imageHeader.url+')'}"></div>
+	    		<div ng-if="feed.grandArticlePages[0].imageHeader && feed.grandArticlePages[0].imageHeader.smallImage==true" class="bg"
+					ng-style="{'background-image' : 'url('+feed.grandArticlePages[0].imageHeader.url+')','background-color' : feed.grandArticlePages[0].imageHeader.color,'left' : feed.grandArticlePages[0].imageHeader.posX + '%', 'top' : feed.grandArticlePages[0].imageHeader.posY + '%','position': 'absolute'}"></div>
+	      	</div>
+	      	<div class="header">
+	       		<div class="container-text">
+	            	<p class="subtitle">{{feed.grandArticlePages[0].title}}</p>
+	       		</div>
+	     	</div>
+	       	<div class="box-container">
+	       		<!--Author Section Start-->
+	    		<div class="col-md-3 author-content">
+					<div class="author-info-sec">
+				    	<div class="author-info">
+				        	<div class="user_image uaa_item img-circle" >
+				           		<img onerror-src="images/no_image_user.png" ng-src="{{$root.getUserProfilePic(feed.author)}}" width="50px">
+				         	</div>
+				          	<div style="float: left;margin: 10px 0 0 15px;">
+				           		<div style="margin-bottom: 5px;font-size: 14px;">
+				               		<a ng-href="{{$root.generateLink('userProfilePage', feed.author)}}" class="unm">{{feed.author.firstName+" "+feed.author.lastName}}</a>
+				           		</div>
+				             	<div style="opacity: .6; font-size: 12px;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</div>
+				   			</div>
+				 		</div>
+					</div>
+	        		<div class="author-action-sec">
+	           			<!--Comment-->
+				       	<div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed, showFullComments)"> 
+				        	<div class="btn_icon"></div> 
+				         	<div class="btn-lbl-wrap"></div>
+				    	</div>
+	
+				   		<!--Like-->
+				    	<div class="art_btn btn_like floatl">
+				        	<div class="btn_icon unliked" ng-click="addLike(tpl_feedid);" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'"></div>
+				          	<div class="btn-lbl-wrap"></div>
+				     	</div>
+	
+				  		<!--ABCD-->
+				     	<div class="art_btn btn_translate_flag floatl">
+				       		<div class="btn-group drop-down3"> 
+				            	<div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" ng-click="showLanguageDropdown()"> 
+				                	<div class="btn_icon"> 
+				                    	<span class="btn_icon"></span>
+				               		</div> 
+				             	</div>
+				      		</div> 
+				    	</div> 
+	
+				  		<div class="floatr ng-scope"> 
+				       		<div class="btn_delete floatr" ng-click="$ctrl.onClickDeleteFeed({uid: feed.uid});">
+				            	<div class="btn_icon"> </div> 
+				       		</div> 
+				          	<span class="btn_seprator floatr"> • </span>
+				          	<div class="btn_edit floatr" ng-click="$root.editArticle(feed)"> 
+				            	<div class="btn_icon"></div> 
+				          	</div> 
+				  		</div>
+	   				</div>
+	  			</div>
+	    		<!--Author Section End-->
+	    			
+	          	<div class="container-text">
+	           		<div class="inner-text article1">
+	           			<grand-article-details blocks="feed.grandArticlePages[0].blocks"></grand-article-details>
+	           		</div>
+	          	</div>
+	 		</div>
+ 		</div>
+	 	<div ng-repeat="page in feed.grandArticlePages" ng-if="feed.grandArticlePages.length > 1 && $index > 0 && $index < feed.grandArticlePages.length" class="item" id="item{{$index+1}}">
+	   		<div class="background-container article-bg">
+	        	<div ng-if="page.imageHeader && page.imageHeader.smallImage==false" class="bg" ng-style="{'background-image' : 'url('+page.imageHeader.url+')'}"></div>
+	    		<div ng-if="page.imageHeader && page.imageHeader.smallImage==true" class="bg"
+					ng-style="{'background-image' : 'url('+page.imageHeader.url+')','background-color' : page.imageHeader.color,'left' : page.imageHeader.posX + '%', 'top' : page.imageHeader.posY + '%','position': 'absolute'}">
+				</div>        	
+	     	</div>
+	       	<div class="header">
+	        	<div class="container-text">
+	            	<p class="subtitle">{{page.title}} </p>
+	       		</div>
+	    	</div>
+	      	<div class="box-container">
+	        	<div class="container-text">
+	           		<div class="inner-text article1">
+	               		<grand-article-details blocks="page.blocks"></grand-article-details>
+	            	</div>
+	         	</div>
+	    	</div>
+		</div>
+		
+		<!-- Summary Of Pages -->
+        <div class="nav fixed">
+            <div class="menu-opener layout-hambergertocross"><span></span></div>
+            <div class="title">
+                <h1> {{feed.artTitle}} </h1>
+                <div ng-bind-html="feed.artText | unsafehtml"></div>
+            </div>
+            <ul>
+                <li ng-repeat="page in feed.summaryPages" ng-init="iIdx=$index" id="article{{iIdx+1}}"><a class="scroll-to-id" href="#item{{iIdx+1}}">{{page}}</a></li>
+            </ul>
+        </div>
+    </article>
+</main>

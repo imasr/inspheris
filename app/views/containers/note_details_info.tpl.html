@@ -1,0 +1,111 @@
+<div class="row row-eq-height note-row-popup" ng-class="{'mart-10':$first}">
+	<div class="col-md-2 left-border note-left" >
+  		<center>
+  			<div class="tblc_m icn left-date">
+  				<div ng-if="!$ctrl.isSingleDay">
+	           		<div class="note-from">
+	               		<span class="note-left-date">{{$ctrl.note.dateFrom| date: "dd"}}</span>
+	                  	<span class="note-left-month">{{$ctrl.note.dateFrom| date: "MMM"}}</span>
+	              	</div>
+	          		<div class="note-to">
+	                	<span class="note-left-date">{{$ctrl.note.dateTo| date: "dd"}}</span>
+	                    <span class="note-left-month">{{$ctrl.note.dateTo| date: "MMM"}}</span>
+	                </div>  
+                </div>
+                <div ng-if="$ctrl.isSingleDay">
+                	<div class="note-from">
+	               		<span class="note-left-date">{{$ctrl.note.dateFrom| date: "dd"}}</span>
+	                  	<span class="note-left-month">{{$ctrl.note.dateFrom| date: "MMM"}}</span>
+	              	</div>
+                </div>  
+			</div>
+		</center>
+   	</div>
+           
+	<div class="col-md-10 right-border right-border-all popupNote{{$ctrl.index}}" ng-class="{'show-more-less-pop':(moreLess[$ctrl.index] != $ctrl.index)}" >
+    	<div class="note-title"><strong>{{$ctrl.note.title}}</strong></div>
+       	<div class="note-text">{{$ctrl.note.content}}</div>
+      	<div class="widthAll">
+      		<div ng-repeat="block in $ctrl.note.blocks">
+           		<div ng-if="$ctrl.note.blocks.length == 1" class="single-type-file">
+                	<div ng-if="block.type == 'linkEmbed'">
+                    	<!--For quickpost with Embed Link  -->
+                    	<div  ng-if="block.links.length == 1" class="left_part marbot"  style="text-align:center;">
+                        	<div ng-if="block.links[0].thumbnail_url" afkl-lazy-image="{{block.links[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_72 tblc_m" ></div>
+                  			<div ng-if="!block.links[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_72 tblc_m" >{{block.links[0].subTitle}}</div>
+                   		</div>
+                   		
+                        <div class="right_part marbot">
+                       		<div ng-if="block.links.length == 1" style="margin-bottom: 5px;">
+                           		<a href="{{block.links[0].path}}"  target="_blank">
+                           			<div class="post-title" style="color:#1b1b1b">{{block.links[0].title}}</div>
+                                   	<div style=" max-height: 35px;" data-ng-bind="block.links[0].description" once-if="block.links[0].description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+                               		<img ng-if="block.links[0].favicon != ''" ng-src="{{block.links[0].favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><a href="{{block.links[0].location}}" target="_blank">{{block.links[0].location}}</a>
+                            	</a>
+                         	</div> 
+                     	</div>
+                     	
+                       	<div class="fl_gallery_container" ng-if="block.links.length > 1">
+                    		<div class="list_img_gallery">
+                         		<div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.links" gallerytype="linkEmbed"></div>
+                         	</div>
+                       	</div>                	
+            		</div>
+            		
+                    <div ng-if="block.type == 'documentGallery'" class="block_group documentgallery marbot">
+                    	<div class="list_img_gallery">
+                   			<div ng-include="'../app/views/blocks/feed_img_gallery.tpl.html'" ng-init="tpl_imgarr = block.documents;
+                                                            feedthumb = 'feedthumb_130';
+                                                            thumbcnt = 4;
+                                                            gallerytype = 'documents';"></div>
+                    	</div>
+        			</div>
+        			
+                  	<div ng-if="block.type == 'ImageGallery'" class="fl_gallery_container marbot">
+                    	<div class="list_img_gallery">
+                    		<div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.images" gallerytype="images"></div>
+                 		</div>
+      				</div>
+      				
+                  	<div ng-if="block.type == 'videoGallery'" class="fl_gallery_container marbot">
+               			<div class="list_img_gallery">
+                  			<div img-gallery feedthumb="feedthumb_90" showthumbcnt="4" datalist="block.videos" gallerytype="videos"></div>
+              			</div>
+            		</div>            		
+       			</div>
+       			
+            	<div ng-if="note.blocks.length > 1">
+               		<div class="">
+                   		<div class="list_img_gallery" style="float: none">
+              				<div ng-if="block.type == 'linkEmbed'" title="Links">
+                       			<!--For quickpost with Embed Link  -->
+                           		<div  ng-if="block.links.length == 1" class="set-width25"  style="text-align:center;overflow: hidden;">
+                               		<a href="{{block.links[0].path}}"  target="_blank">
+                               			<div ng-if="block.links[0].thumbnail_url" afkl-lazy-image="{{block.links[0].thumbnail_url}}" class="afkl-lazy-wrapper afkl-img-ratio-1-1 tblc_m" ></div>
+                                     	<div ng-if="!block.links[0].thumbnail_url" class="afkl-lazy-wrapper afkl-img-ratio-1-1 feedthumb_85 tblc_m" >{{block.links[0].subTitle}}</div>
+                              		</a>
+              					</div>
+                                <div class="set-width25" ng-if="block.links.length > 1" img-gallery feedthumb="feedthumb_90" showthumbcnt="1" datalist="block.links" gallerytype="linkEmbed"></div>
+                          	</div>
+                                    
+              				<div ng-if="block.type == 'documentGallery'" title="Documents" ng-include="'../app/views/blocks/feed_img_gallery.tpl.html'" ng-init="tpl_imgarr = block.documents;
+                                                            feedthumb = 'feedthumb_130';
+                                                            setclass = 'set-width25';
+                                                            thumbcnt = 1;
+                                                            gallerytype = 'documents';"></div>
+                        	<div  class="set-width25" ng-if="block.type == 'ImageGallery'" title="Images" img-gallery feedthumb="feedthumb_90" showthumbcnt="1" datalist="block.images" gallerytype="images"></div>
+                          	<div class="set-width25" ng-if="block.type == 'videoGallery'" title="Videos" img-gallery feedthumb="feedthumb_90" showthumbcnt="1" datalist="block.videos" gallerytype="videos"></div>
+                    	</div>
+          			</div>
+				</div>
+       		</div>
+     	</div>
+   </div>
+</div>
+
+<div class="show-more-link {{checkHeight($ctrl.index);}}"  ng-click="showHideMoreText($ctrl.index);" >
+	<a ng-if="moreLess[$ctrl.index] != $ctrl.index" style="color: #0d7e74;" translate>More</a>
+	<a ng-if="moreLess[$ctrl.index] == $ctrl.index" style="color: #0d7e74;" translate="">Less</a>
+</div>
+
+   

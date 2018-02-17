@@ -1,0 +1,90 @@
+{
+  "name": "inspheris-project",
+  "version": "4.5.1",
+  "dependencies": {
+    "angular": "1.6.2",
+    "json3": "~3.3.1",
+    "es5-shim": "~3.1.0",
+    "bootstrap": "~3.2.0",
+    "angular-resource": "1.6.2",
+    "angular-cookies": "1.6.2",
+    "angular-sanitize": "1.6.2",
+    "angular-animate": "1.6.2",
+    "angular-touch": "1.6.2",
+    "angular-strap": "2.3.12",
+    "angular-bootstrap-datetimepicker": "latest",
+    "ng-file-upload": "~4.0.4",
+    "font-awesome": "~4.3.0",
+    "ngDialog": "~0.3.0",
+    "angular-loading-bar": "~0.6.0",
+    "angular-notify": "~2.5.0",
+    "ng-tags-input": "~2.3.0",
+    "angular-translate": "2.14.0",
+    "angular-translate-loader-static-files": "2.14.0",
+    "angular-ui-calendar": "latest",
+    "angular-elastic": "~2.4.2",
+    "angular-ui-router": "0.4.0",
+    "angular-off-canvas": "~0.1.0",
+    "angular-off-click": "~0.0.6",
+    "angular-bindonce": "~0.3.3",
+    "ngInfiniteScroll": "~1.2.1",
+    "angular-filter": "~0.5.4",
+    "angular-dynamic-locale": "0.1.30",
+    "afkl-lazy-image": "~0.1.0",
+    "jquery": "~2.1.4",
+    "ment.io": "~0.9.24",
+    "angulartics": "~0.18.0",
+    "angulartics-adobe-analytics": "0.1.0",
+    "highcharts": "4.2.5",
+    "angular-ui-grid": "3.1.1",
+    "angular-bootstrap-toggle-switch": "0.5.6",
+    "videogular": "^1.4.4",
+    "videogular-themes-default": "^1.4.4",
+    "videogular-controls": "^1.4.4",
+    "videogular-buffering": "^1.4.4",
+    "videogular-overlay-play": "^1.4.4",
+    "videogular-poster": "^1.4.4",
+    "videogular-ima-ads": "^1.4.4",
+    "videogular-angulartics": "^1.4.4",
+    "angular-bootstrap": "latest"
+  },
+  "devDependencies": {
+    "angular-mocks": "1.6.2",
+    "angular-scenario": "1.6.2",
+    "jquery": "2.2.3",
+    "html5shiv": "~3.7.2",
+    "angular-bootstrap-datetimepicker": "1.0.1",
+    "moment": "2.12.0",
+    "angular-ui-calendar": "1.0.1",
+    "angular-off-click": "0.0.9",
+    "angular-filter": "0.5.8"
+  },
+  "overrides": {
+    "videogular-themes-default": {
+      "main": [
+        "videogular.css"
+      ]
+    }
+  },
+  "appPath": "app",
+  "resolutions": {
+    "angular": "1.6.2",
+    "angular-translate": "~2.6.1",
+    "angulartics": "~0.18.0"
+  },
+  "homepage": "https://github.com/inspheris/v4-fe",
+  "authors": [
+    "Inspheris Team"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,41 @@
+<div class="widget-translate" ng-controller="LanguageSelectorCtrl">
+  <p translate>Automated_Translation</p>
+  <!--
+  <div id="selVisibleComm" class="floatl" dropdown-select="$root.languages" dropdown-model="selectedLangFrom" dropdown-item-label="name" dropdown-onchange="toggleFromLanSelection(selected)"></div>
+  -->
+  <div class="btn-group ins_ddwc floatl">
+    <button type="button" class="btn btn-default btn-label">{{selectedLangFromLabel | translate}}</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    
+    <ul class="dropdown-menu" role="menu" ng-click="preventDefault($event)">
+      <li ng-repeat="lang in $root.languages">
+        <div class="ins_checkbox">
+          <input type="checkbox" name="{{'autolfrm'+$index}}" id="{{'autolfrm'+$index}}" class="css-checkbox" ng-checked="selectedLangFrom == lang.code" ng-click="toggleFromLanSelection(lang)">
+          <label for="{{'autolfrm'+$index}}" class="css-label" translate>{{lang.name}}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <p class="tolbl floatl">{{'to' | translate}}</p>
+
+  <div class="btn-group ins_ddwc floatl">
+    <button type="button" class="btn btn-default btn-label">{{selectedLangToLabel.join() | translate}}</button>
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+      <span class="caret"></span>
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    
+    <ul class="dropdown-menu" role="menu" ng-click="preventDefault($event)">
+      <li ng-repeat="lang in allLanguagesTo">
+        <div class="ins_checkbox">
+          <input type="checkbox" name="{{'autolto'+$index}}" id="{{'autolto'+$index}}" class="css-checkbox" ng-checked="selectedLangTo.indexOf(lang.code) > -1" ng-click="toggleToLanSelection(lang)">
+          <label for="{{'autolto'+$index}}" class="css-label" translate>{{lang.name}}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

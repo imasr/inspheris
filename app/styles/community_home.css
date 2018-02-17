@@ -1,0 +1,44 @@
+.ver_seprator {
+    width: 1px;
+    height: 32%;
+    background-color: #fff;
+    position: absolute;
+    right: 0px;
+    top: 34%;
+}
+.user_image_m .thumbnail {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+.tpl_with_banner .user_image_m .thumbnail>img {
+    width: 130px;
+    height: 130px;
+    /*border: 1px solid #e9e9e9;*/
+}
+.tpl_no_banner .ver_seprator {
+    background-color: #4a5662;
+}
+/*CSS of second menu*/
+
+.menu_type3 .cust1m1:first-child {
+    border-left: 1px solid #e4e7ea;
+}
+.cty-name-active li {
+    display: none;
+}
+.cty-name-active li.active {
+    display: block;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.cty-name-active li.active span {
+    color: #e24d53;
+    font-size: 16px;
+}
+/**community page dropdown**/
+
+.comm-group-dropdown .dropdown-menu:before {
+    left: 10px;
+}

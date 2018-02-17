@@ -1,0 +1,57 @@
+<div class="cust1_feed_li bl_lv_feed">
+  <div class="tblr">
+    <div class="tblc com_icon_outer">
+
+          <a ng-if="showTumbType == 'community'" ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})">
+            <div class="com_icon" profile-photo="{url: feed.community.headerLogoUrl, firstName: feed.community.label}"></div>
+          </a>
+          <a ng-if="showTumbType == 'user' && !isShowWroteFor" ui-sref="app.myprofile({uid: feed.lastActivityUser.uid, activetab: 'About'})">
+            <div class="com_icon circle-image" profile-photo="{url: feed.lastActivityUser.headerLogoUrl, firstName: feed.lastActivityUser.firstName, lastName: feed.lastActivityUser.lastName,nochache: true}"></div>
+            <img style="position: absolute;z-index: 1;left: 30px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.lastActivityUser.badge" ng-src="{{feed.lastActivityUser.badge.image.url}}">
+          </a>
+          <a ng-if="showTumbType == 'user' && isShowWroteFor" ui-sref="app.myprofile({uid: feed.wroteFor.uid, activetab: 'About'})">
+            <div class="com_icon circle-image" profile-photo="{url: feed.wroteFor.headerLogoUrl, firstName: feed.wroteFor.firstName, lastName: feed.wroteFor.lastName,nochache: true}"></div>
+            <img style="position: absolute;z-index: 1;left: 30px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.wroteFor.badge" ng-src="{{feed.wroteFor.badge.image.url}}">
+          </a>
+          <a ng-if="showTumbType == 'author' && !$ctrl.isPinnedTab && (feed.isOwner || (!feed.isOwner && !feed.isTransferred))" ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+            <div class="com_icon circle-image" profile-photo="{url: feed.author.headerLogoUrl, firstName: feed.author.firstName, lastName: feed.author.lastName}"></div>
+            <img style="position: absolute;z-index: 1;left: 30px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.author.badge" ng-src="{{feed.author.badge.image.url}}">
+          </a>
+           <a ng-if="showTumbType == 'author' && !$ctrl.isPinnedTab && !feed.isOwner && feed.isTransferred" ui-sref="app.myprofile({uid: feed.wroteFor.uid, activetab: 'About'})">
+            <div class="com_icon circle-image" profile-photo="{url: feed.wroteFor.headerLogoUrl, firstName: feed.wroteFor.firstName, lastName: feed.wroteFor.lastName}"></div>
+            <img style="position: absolute;z-index: 1;left: 30px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.wroteFor.badge" ng-src="{{feed.wroteFor.badge.image.url}}">
+          </a>
+		  <!-- Specially for CTS : card 906 - Pin Module -->
+          <a once-if="showTumbType == 'author' && $ctrl.isPinnedTab" ui-sref="app.myprofile({uid: feed.lastActivityUser.uid, activetab: 'About'})">
+           <div class="com_icon circle-image" profile-photo="{url: feed.lastActivityUser.headerLogoUrl, firstName: feed.lastActivityUser.firstName, lastName: feed.lastActivityUser.lastName,nochache: true}"></div>
+           <img style="position: absolute;z-index: 1;left: 30px;width: 25px;height: 25px;" ng-if="$root.isShowUserBadge && feed.lastActivityUser.badge" ng-src="{{feed.lastActivityUser.badge.image.url}}">
+          </a>
+          <!-- END Specially for CTS : card 906 - Pin Module -->
+
+          <div class="fc3 other-info">
+          	<span ng-if="showLastActivityDate == false && !$ctrl.isPinnedTab">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+			<!-- Specially for CTS : card 906 - Pin Module -->
+          	<span ng-if="showLastActivityDate == false && $ctrl.isPinnedTab">{{feed.lastActivityDate | date: $root.fullDateFormat}}</span>
+          	<!-- END Specially for CTS : card 906 - Pin Module -->
+        	<span ng-if="showLastActivityDate == true">{{feed.lastActivityDate | date: $root.fullDateFormat}}</span>
+          </div>
+    </div>
+    <div class="tblc feed_line_outer hidden-xs">
+      <div>
+        <div class="feed_status">
+              
+        </div>
+      </div>
+    </div>
+    <div class="tblc">
+      <div class="feed_content_wrapper">
+
+          <div class="arrow hidden-sm hidden-xs"> </div>
+          <div once-if="feed">
+              <feed-content-list-view user-detail="userDetail" index="$ctrl.index" show-feed-status="$ctrl.showFeedStatus" feed ="feed" show-controls="true" show-article-info-bar="true"></feed-content-list-view>
+          </div>  
+          <!--<div once-if="feed" ng-init="userDetail = userDetail;feed = feed; showControls = true; showArtInfoBar = true;" ng-include="'../app/views/blocks/lv_feed_content.tpl.html'"> </div>-->
+      </div>
+    </div>
+  </div>
+</div>

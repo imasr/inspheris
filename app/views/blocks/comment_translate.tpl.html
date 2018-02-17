@@ -1,0 +1,21 @@
+<div class="popover translate_popover feed_translate_modal" ng-controller="CommentTranslateCtrl"><!--class: pp_uli_out -->
+	<div class="arrow">	
+	</div>
+	<div class="translated_content floatl width100">
+		<div class="loader" ng-show="translationStatus == 0">{{ 'Loading' | translate }}...</div>
+		<p ng-show="translationStatus == 2" style="color:red"><span ng-if="message">{{message | translate}}</span><span ng-if="!message">{{ 'Error_in_fetching_translated_data' | translate }}.</span></p>
+		<div ng-if="translationStatus == 1"><div once-html="translatedComment.parseText"></div></div>
+	</div>
+	
+	<div class="translate_controls">
+		<div class="floatl selectwob" dropdown-select="fromLangOptions" dropdown-model="fromLangSelected" dropdown-item-label="name" dropdown-onchange="fromLangChanged(selected)"></div>
+
+		<div class="tlrarrow floatl"><i class="fa fa-arrow-right"></i></div>
+
+		<div class="floatl selectwob" dropdown-select="toLangOptions" dropdown-model="toLangSelected" dropdown-item-label="name" dropdown-onchange="toLangChanged(selected)"></div>
+
+		<div class="floatr translater_info">
+			<p class="floatl lbl">{{ 'Translated_By' | translate }}:</p> <p class="floatl tservice">{{ 'GOOGLE_TRANSLATE' | translate }}</p>
+		</div>
+	</div>
+</div>

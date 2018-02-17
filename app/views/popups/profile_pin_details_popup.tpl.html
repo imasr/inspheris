@@ -1,0 +1,25 @@
+<div class="ins_popup wide_popup" ng-controller="ViewUserPinnedPostDetailsCtrl" >
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Pin Details' | translate}}</p>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="create_art_container">
+		<!-- <div class="row article_detail_wrapper atStandard"> -->
+			<div class="container_artdetail">
+				<div class="image-block">
+					<img ng-if="pin.pinType == 'Text'" style="height: auto;max-width: 100%;border-radius: 6px 6px 0 0;" ng-src="{{pin.image.url}}">
+					<div ng-if="pin.pinType == 'Video'" ng-bind-html="pin.video.embedVideo | unsafehtml" class="video_details_card"></div>
+				</div>	
+				<div class="article_detail">
+					<div class="bl_info">
+						<h2 class="bl_title">
+							{{pin.title}}
+						</h2>
+						<div class="bl_ritchtext" ng-bind-html="pin.description | unsafehtml"></div>
+					</div>
+				</div>
+			</div>
+		<!--</div> -->
+	</div>
+</div>

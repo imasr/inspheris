@@ -1,0 +1,25 @@
+<div class="ins_popup wide_popup tour-operator" ng-controller="VisitorCtrl">
+  
+  <div class="popup_header floatl">
+      <p class="popup_title" translate>Visitor</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+  
+   <div class="popup_wrapper floatl width100" style="padding: 10px;">
+
+		<div class="col-lg-3 col-md-3 col-sm-6 col-xs-12" ng-repeat="visitor in visitors">
+            <div class=" gv-community-feed comm_li_to afkl-lazy-wrapper">
+					<div class="disp_table width100" style="text-align:center;">
+						<div class="tblr">  
+							<div style="width:100px;height: 100px; margin:5px auto;" class="org-result-profile-pic" profile-photo="{url: visitor.headerLogoUrl, firstName: visitor.firstName, lastName: visitor.lastName}"></div>
+							
+							<a target="_blank" ui-sref="app.myprofile({uid: visitor.uid, activetab: 'About'})">
+				              <span style="" >{{visitor.firstName}} {{visitor.lastName}}</span>
+				            </a>
+						</div>
+					</div>
+			</div>
+		</div>
+
+  </div>
+</div>

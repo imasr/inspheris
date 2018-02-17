@@ -1,0 +1,44 @@
+<div class="ins_popup medium_popup share_feed_popup" ng-controller="ShareArtPopupCtrl">
+  
+    <div class="popup_header floatl">
+        <div class="popup_title" translate>Share</div>
+        <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+    </div>
+
+    <div class="popup_wrapper">
+        <div class="title floatl" translate>Shared_Content</div>
+
+        <div ng-if="feed">
+			<feed-content-list-view feed ="feed" show-controls="false" show-article-info-bar="true"></feed-content-list-view>
+		</div>    
+        <!--<div ng-if="feed" ng-init="feed = feed; showControls = false; showArtInfoBar = true;" ng-controller="FeedCtrl" ng-include="'../app/views/blocks/lv_feed_content.tpl.html'"></div>-->
+
+        <div class="title floatl" translate>To_Whom?</div>
+        <div class="comm_wrapper">
+            <div class="radio_wrapper">
+                <div class="radio_btn floatl">
+                    <input type="radio" name="radiog_dark" id="shr2comm" class="css-radio" ng-model="shareAction" value="share">
+                    <label for="shr2comm" class="css-label radGroup2" translate>Share_to_a_community</label>
+                </div>
+                <div ng-if="$root.userData.role != 'GlobalCommunityManager'">
+                <div class="radio_btn floatl">
+                    <input type="radio" name="radiog_dark" id="cpy2comm" class="css-radio" ng-model="shareAction" value="copy">
+                    <label for="cpy2comm" class="css-label radGroup2" translate>Copy_to_a_community</label>
+                </div>
+                </div>
+            </div>
+            <div class="comm_list floatl width100 pad10 bordergray">
+                <div class="ins_checkbox" ng-repeat="comm in communitiesData">
+                    <input type="checkbox" name="checkbox{{$index}}" id="checkbox{{$index}}" class="css-checkbox" ng-click="communitySelected(comm)"/>
+                    <label for="checkbox{{$index}}" class="css-label">{{comm.label}}
+                    	<span ng-if="comm.privated == 1">({{'private' | translate}})</span>
+                    	<span ng-if="comm.privated == 0">({{'public' | translate}})</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="ins_btn_ctext done_share floatr" ng-click="shareDone()" translate analytics-on="click" analytics-event="Share" analytics-category="Share">Share</div>
+    </div>
+
+</div>

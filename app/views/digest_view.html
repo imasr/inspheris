@@ -1,0 +1,28 @@
+<table ng-if="viewType == 'allDigest'" style="border-collapse:collapse;border-spacing:0;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;height:100%;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:100%">
+    <tbody ng-repeat="digest in digests">
+        <tr style="padding:0;text-align:left;vertical-align:top;cursor: pointer;" ng-click="showDigest(digest.id)">
+            <td align="center" valign="top" style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:center;vertical-align:top;word-break:break-word">
+                <center style="width:100%">
+                    <table style="background-color:#619EC1;border-collapse:collapse;border-spacing:0;color:#fff;padding:0;text-align:inherit;vertical-align:top;width:80%;margin: 10px 0;">
+                        <tbody>
+                            <tr style="padding:0;text-align:left;vertical-align:top">
+                                <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                                    <div style="display:block;margin:0 auto;max-width:580px;padding:3px 16px">
+                                        <h2 style="text-transform:uppercase;color:#fff;font-family:'Helvetica','Arial',sans-serif;font-size:18px;font-weight:bold;line-height:19px;margin:10px 0;padding:0;vertical-align:top;word-break:break-word;">{{digest.title}} <span style="font-size: 10px; float:right;">{{digest.sendDate | date: $root.dateFormat}}</span></h2>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </td>
+        </tr>
+    </tbody>
+    <div ng-if="digests.length==0 && viewType=='allDigest'" style=" text-align: center;padding:10px 0;">
+             <h3 tranlates>Do not have any Digest in here</h3>
+     </div>
+</table>
+
+ <ng-include ng-init="digests = digests; feeds=feeds" src="'../app/views/containers/digest_details.tpl.html'"></ng-include>
+
+

@@ -1,0 +1,48 @@
+<!-- this popup is used for adding positinos, organizations and competencies to user -->
+<div class="ins_popup medium_popup carousel_manager_popup" ng-controller="CustomActionsCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>{{md.popupTitle}}</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<div class="marb10" ng-if="md.status == '1'" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+
+		<div ng-show="md.status == '2'">
+			<div  ng-show="md.data.type == 'user'">
+				<ul ng-show="md.data.action == 'add_position'" class="vsortlist">
+					<li class="vsortlist_item" ng-repeat="p in positions">
+						<div class="ins_checkbox">
+				            <input type="checkbox" name="E3C95{{$index}}" id="E3C95{{$index}}" class="css-checkbox" ng-click="positionToggle(p)" ng-checked="selectedPositions.indexOf(p) > -1">
+				            <label for="E3C95{{$index}}" class="css-label" ng-bind="p.name"></label>
+				        </div>
+					</li>
+				</ul>
+
+				<ul ng-show="md.data.action == 'add_competencies'" class="vsortlist">
+					<li class="vsortlist_item" ng-repeat="c in competencies">
+						<div class="ins_checkbox">
+				            <input type="checkbox" name="3AA53{{$index}}" id="3AA53{{$index}}" class="css-checkbox" ng-click="competencyToggle(c)" ng-checked="selectedCompetencies.indexOf(c) > -1">
+				            <label for="3AA53{{$index}}" class="css-label" ng-bind="c.longLabel"></label>
+				        </div>
+					</li>
+				</ul>
+
+				<div ng-show="md.data.action == 'add_organization'">
+					<div class="form-group">
+					  	<div dropdown-select="divisions" dropdown-model="divisionsSelected" dropdown-onchange="selectDivision(divisions, selected.uid)" dropdown-item-label="name"></div>
+					</div>
+					<div ng-show="services" class="form-group">
+					  	<div dropdown-select="services" dropdown-model="serviceSelected" dropdown-onchange="selectService(selected)" dropdown-item-label="name"></div>
+					</div>
+				</div>
+			</div>
+			<div class="width100 marb10 hori_center" style="max-width: 150px;">
+				<div class="ins_btn_ctext" ng-click="done()">
+					<span>OK</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

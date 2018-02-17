@@ -1,0 +1,114 @@
+<div class="panel-group ins_collapse" bs-collapse data-start-collapsed="false">
+        <div class="panel panel-default">
+          <div class="panel-heading clk">
+                <div bs-collapse-toggle class="ins_btn_licon">
+                 <div class="icon setting_icon">
+                  <i class="fa fa-cog"></i>
+                 </div>
+                  <p>{{'create_article_more_option' | translate}}</p>
+                </div>
+          </div>
+
+          <div class="panel-collapse" bs-collapse-target>
+            <div class="panel-body">
+                <ul class="margin_bottom" id="ca_more_optns">
+                  <li>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.allowComment" name="allowcntflag" id="allowcntflag" class="css-checkbox" checked="checked">
+                      <label for="allowcntflag" class="css-label">{{'Do_Allow_Comments' | translate}}</label>
+                    </div>
+                  </li>
+                  <li class="hide" ng-show="$root.isShowFullCalendar">
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.displayInCommunityCalendar" name="pubincommcal" id="pubincommcal" class="css-checkbox" checked="checked">
+                      <label for="pubincommcal" class="css-label">{{"Publish in community calendar" | translate}}</label>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.newsFeedIt" id="newsfeedit" name="newsfeedit" class="css-checkbox" >
+                      <label for="newsfeedit" class="css-label">{{ 'Newsfeed_it' | translate }}</label>
+                    </div>
+                  </li>
+                  <li ng-show="$root.isShowFullCalendar">
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.displayEventOnCommunity" id="displayEventOnCommunity" name="displayEventOnCommunity" class="css-checkbox">
+                      <label for="displayEventOnCommunity" class="css-label">{{ 'Publish event in this community calendar' | translate }}</label>
+                    </div>
+                  </li>
+                   <li ng-show="$root.isShowFullCalendar">
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.displayEventOnHomePage" id="displayEventOnHomePage" name="displayEventOnHomePage" class="css-checkbox">
+                      <label for="displayEventOnHomePage" class="css-label">{{ 'Publish event in the home page calendar' | translate }}</label>
+                    </div>
+                  </li>
+                  <!--
+                  <hr>
+                  <li>
+                      <p><b>Publication Start</b></p>
+                      <div class="form-group right">
+                        <input type="text" ng-model="$parent.publishStartDt" class="form-control datepicker_licon" placeholder="Start Date" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" data-min-date="today" bs-datepicker>
+                      </div>
+                      <div class="form-group right">
+                        <input type="text" ng-model="$parent.publishStartTime" class="form-control timepicker_licon" placeholder="Start Time" size="8" ng-model="time" name="time" bs-timepicker>
+                      </div>
+                  </li>
+
+
+                  <li>
+                      <p><b>Publication End</b></p>
+                      <div class="form-group right">
+                        <input type="text" class="form-control datepicker_licon" placeholder="End Date" ng-model="$parent.publishEndDt" data-date-format="mediumDate" data-date-type="number"  data-autoclose="1" name="date2" data-min-date="today" bs-datepicker>
+                      </div>
+
+                      <div class="form-group right">
+                        <input type="text" ng-model="$parent.publishEndTime" class="form-control timepicker_licon" placeholder="End Time" size="8" ng-model="time" name="time" bs-timepicker>
+                      </div>
+                  </li>
+                  -->
+
+                  <!--
+                  <hr>
+                  <li>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.addTwitterBlock" id="addtwtrblk" name="addtwtrblk" class="css-checkbox">
+                      <label for="addtwtrblk" class="css-label">Twitter block</label>
+                    </div>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.addGplusBlock" id="gplusblk" name="gplusblk" class="css-checkbox">
+                      <label for="gplusblk" class="css-label">Google+ block</label>
+                    </div>
+                  </li>
+                  <hr>
+                  <li>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.addFacebookBlock" name="fbblk" id="fbblk" class="css-checkbox">
+                      <label for="fbblk" class="css-label">Facebook block</label>
+                    </div>
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="addSharepointBlock" name="sharepntblk" id="sharepntblk" class="css-checkbox">
+                      <label for="sharepntblk" class="css-label">Sharepoint block</label>
+                    </div>
+                  </li>
+                  -->
+                  <li>
+                    <div ng-show="$parent.shareWithTab" class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.authorizeShare" id="shareAuthorize" name="shareAuthorize" class="css-checkbox">
+                      <label for="shareAuthorize" class="css-label">{{ 'Authorized Share' | translate }}</label>
+                    </div>
+                    <div ng-show="!$parent.shareWithTab" class="ins_checkbox"  onclick="return false;">
+                      <input type="checkbox" ng-model="$parent.authorizeShare" id="shareAuthorize" name="shareAuthorize" class="css-checkbox">
+                      <label for="shareAuthorize" class="css-label" style="cursor:not-allowed ">{{ 'Authorized Share' | translate }}</label>
+                    </div>
+                  </li>
+                  <li ng-show="$root.enablePinArticleFeature && userCanPinContent && $parent.popupData.type == 'article'">
+                    <div class="ins_checkbox">
+                      <input type="checkbox" ng-model="$parent.isPin" id="sPin" name="sPin" class="css-checkbox">
+                      <label for="sPin" class="css-label">{{ 'Pin this article on page' | translate }}</label>
+                    </div>
+                  </li>
+                </ul>
+            </div>
+          </div>
+        </div>
+</div>

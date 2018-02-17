@@ -1,0 +1,92 @@
+<div class="ins_popup custom_popup stat_module " id="allNoteIE"  ng-controller="AllNotDeServivesCtrl" style="">
+
+    <div class="popup_header floatl">
+        <div class="popup_title"><span translate>All Notes of users</span></div>
+        <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+    </div>
+
+    <div class="report-details mart20 col-md-12">
+        <uib-tabset>
+            <!-- Tab "Mes notes de services" -->
+            <uib-tab select="tabSelected('service')">
+                <!-- Heading -->
+                <uib-tab-heading>
+                    <span translate>Mes notes de service</span>
+                </uib-tab-heading>
+                <!-- Content of heading -->
+                <div class="col-md-6">
+                    <input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="searchText" type="text" placeholder="{{'Search'| translate}}">					
+                    <div class="ins_btn_licon col-md-12 marb10" style="margin-bottom:10px;cursor: pointer;height:auto">
+                        <p>{{'Choose Date'| translate}}</p>
+                        <div class="form-group col-md-6" ng-class="{'has-error': datepickerForm.date2.$invalid}" >
+                            <!--data-min-date="today"-->
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date'| translate}}" ng-model="startDt" data-date-format="mediumDate" data-date-type="number" data-max-date="{{endDt}}" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                        <div class="form-group col-md-6" ng-class="{'has-error': datepickerForm.date2.$invalid}" >
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date'| translate}}" ng-model="endDt" data-date-format="mediumDate" data-date-type="number" data-min-date="{{startDt}}" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 clr-bth">
+                        <div class="btn btn-default width100 marb10 col-md-6" ng-click="searchAllNotes(searchText, startDt, endDt)">
+                            <span translate>Search</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="btn btn-danger width100 marb10" ng-click="closeThisDialog({flag: 'cancel', data: null})">
+                            <span translate>cancel</span>
+                        </div>
+                    </div>    		
+                </div>
+                <div class="col-md-6" id="iecss" style="height: 450px;overflow-y: auto;">
+                    <div class=" marb10 note-part">
+                        <h4 ng-if="singleDayNoteDatas.length <= 0 && periodicNoteDatas.length <= 0 && permanentNoteDatas.length <= 0" style="display: table-cell;vertical-align: middle;text-align: center;" translate>There are no notes</h4>				
+                        <div ng-if="(singleDayNoteDatas.length > 0 || periodicNoteDatas.length > 0 || permanentNoteDatas.length > 0) && tab.service">
+                        	<note-details single-day-note-datas="singleDayNoteDatas" periodic-note-datas="periodicNoteDatas" permanent-note-datas="permanentNoteDatas"></note-details>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab><!-- END Tab "Mes notes de service" -->
+
+            <!-- Tab "Ma direction" -->
+            <uib-tab heading="Ma direction" select="tabSelected('direction')">
+                <!-- Content of heading -->
+                <div class="col-md-6 dd-shadow mart10">
+                    <input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="searchText" type="text" placeholder="{{'Search'| translate}}">
+                    <div class="width100 marb10" dropdown-select="sites" dropdown-model="selectedSite" dropdown-item-label="name"></div>					
+                    <div class="ins_btn_licon col-md-12 marb10" style="margin-bottom:10px;cursor: pointer; height: auto;">
+                        <p>{{'Choose Date'| translate}}</p>
+                        <div class="form-group col-md-6" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                            <!--data-min-date="today"-->
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date'| translate}}" ng-model="startDt" data-date-format="mediumDate" data-date-type="number" data-max-date="{{endDt}}" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                        <div class="form-group col-md-6" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+                            <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date'| translate}}" ng-model="endDt" data-date-format="mediumDate" data-date-type="number" data-min-date="{{startDt}}" data-autoclose="1" name="date2" bs-datepicker>
+                        </div>
+                    </div>			       		       
+
+                    <div class="col-md-6">
+                        <div class="btn btn-default width100 marb10 col-md-6" ng-click="searchNotesByDirection(searchText, startDt, endDt, selectedSite)">
+                            <span translate>Search</span>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="btn btn-danger width100 marb10" ng-click="closeThisDialog({flag: 'cancel', data: null})">
+                            <span translate>cancel</span>
+                        </div>
+                    </div>    		
+                </div>
+                <div class="col-md-6" style="height: 450px;overflow-y: auto;">
+                    <div class=" marb10 note-part">
+                        <h4 ng-if="singleDayNoteDatas.length <= 0 && periodicNoteDatas.length <= 0 && permanentNoteDatas.length <= 0" style="display: table-cell;vertical-align: middle;text-align: center;" translate>There are no notes</h4>				
+                        <div ng-if="(singleDayNoteDatas.length > 0 || periodicNoteDatas.length > 0 || permanentNoteDatas.length > 0) && !tab.service">
+                        	<note-details single-day-note-datas="singleDayNoteDatas" periodic-note-datas="periodicNoteDatas" permanent-note-datas="permanentNoteDatas"></note-details>
+                        </div>
+                    </div>
+                </div>
+            </uib-tab><!-- END Tab "Ma direction" -->
+        </uib-tabset>
+    </div>
+</div>

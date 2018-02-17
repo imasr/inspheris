@@ -1,0 +1,125 @@
+ <!--<div id="widgetCarousel" class="carousel slide" data-interval="false">
+                 
+               <ol class="carousel-indicators">
+                    <li data-target="#widgetCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#widgetCarousel" data-slide-to="1"></li>
+                    <li data-target="#widgetCarousel" data-slide-to="2"></li>
+                </ol>
+                 
+                
+                <div class="carousel-inner">
+                  <div class="item active">
+                  <div class="row">
+                    <div class="col-sm-6">
+                    </div>
+                    
+                    <div class="col-sm-6">
+                    </div>
+                  </div>
+                </div>
+                    
+                <div class="item">
+                  <div class="row">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                  </div>
+                </div>
+                 
+                 
+                </div>
+
+                  <a data-slide="prev" href="#widgetCarousel" class="left carousel-control">‹</a>
+                  <a data-slide="next" href="#widgetCarousel" class="right carousel-control">›</a>
+        </div>-->
+        <!--.Carousel-->
+
+
+
+
+        <div class="col-sm-6 col-xs-12" bindonce ng-repeat="wgt in activeWidgets" ng-switch="wgt.type">
+            <div ng-switch-when="AutomatedCalendar">
+              <automated-calendar-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></automated-calendar-widget>
+            </div>
+            <div ng-switch-when="FCKEditor">
+              <fckeditor-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></fckeditor-widget>
+            </div>
+            <div ng-switch-when="ImageGallery">
+              <image-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt" ></image-gallery-widget>
+            </div>
+            <div ng-switch-when="VideoGallery">
+              <video-gallery-widget user-can-edit-widget="userCanEditWidget" widget="wgt"></video-gallery-widget>
+            </div>
+          </div>
+
+
+
+
+          <div class="col-sm-6 col-xs-12 panel panel-default widget hide" ng-controller="SimpleWidgetController">
+              <div class="disp_table widget-title">
+                <div class="tblr">
+                  <div class="tblc_m icn">
+                    <i class="fa fa-lightbulb-o"></i>
+                  </div>
+                  <div class="tblc_m title">
+                    Chiffres du mois
+                  </div>
+                  <div class="tblc_m icn">
+                    <i class="fa fa-minus clk" ng-click="widgetToggle()"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body text-center" style="padding: 10px;" ng-show="isWidgetOpen">
+                <h3 class="num-title">1500
+                <span>Lorem ipsum doler</span></h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed a gravida massa.</p>
+              </div>
+          </div>
+
+
+          <div class="col-sm-6 col-xs-12 panel panel-default widget hide" ng-controller="SimpleWidgetController">
+              <div class="disp_table widget-title">
+                <div class="tblr">
+                  <div class="tblc_m icn">
+                    <i class="fa fa-archive"></i>
+                  </div>
+                  <div class="tblc_m title">
+                    Kit de survie
+                  </div>
+                  <div class="tblc_m icn">
+                    <i class="fa fa-minus clk" ng-click="widgetToggle()"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body panel-col text-center" style="padding: 10px;" ng-show="isWidgetOpen">
+                <img src="../images/siec/kit-image.png" class="img-responsive widget_image" />
+              </div>
+          </div>
+
+          <div class="col-sm-6 col-xs-12 panel panel-default widget hide" ng-controller="SimpleWidgetController">
+              <div class="disp_table widget-title">
+                <div class="tblr">
+                  <div class="tblc_m icn">
+                    <i class="fa fa-pencil"></i>
+                  </div>
+                  <div class="tblc_m title">
+                    Mes applis pratiques
+                  </div>
+                  <div class="tblc_m icn">
+                    <i class="fa fa-minus clk" ng-click="widgetToggle()"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-body" style="padding: 10px;" ng-show="isWidgetOpen">
+                <ul>
+                  <li><a target="_blank" href="http://horoquartz:8080/webquartz/auth/auth.do?d=1219828889409">- Horoquartz</a></li>
+                  <li><a target="_blank" href="http://pf11.boost-asp.com/eAgoraSiec/Default.aspx">- E-Agora</a></li>
+                  <li><a target="_blank" href="http://dev/stock2010/login.asp?portail=2">- E-Assistance</a></li>
+                </ul>
+                
+              </div>
+          </div>
+          

@@ -1,0 +1,36 @@
+<div ng-controller="SearchContentFilterCtrl">
+  <div class="panel panel-default widget" id="widgetsfilt" ng-if="wdt_view == 0">
+      <div class="disp_table widget-title">
+        <div class="tblr">
+          <div class="tblc_m icn">
+            <div class="icon_widget icon_filter">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+          <div class="tblc_m title">
+            {{'Filter_Content_Type' | translate}}
+          </div>
+          <div class="tblc_m icn">
+            <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+          </div>
+        </div>
+      </div>
+      <div class="panel-body" style="padding: 10px;">
+         <ul class="content-filter">
+           <li ng-repeat="wdata in searchTypes" ng-click="setSearchType(wdata)" ng-class="{'active': (selectedType.val == wdata.val)}">
+             <a>
+               <span class="lbl">{{wdata.title}}</span> 
+               <span class="bge">{{wdata.count}}</span>
+             </a>
+           </li>
+         </ul>
+      </div>
+  </div>
+
+  <!-- dropdwon view of widget: wdt_view == 1 -->
+  <div ng-if="wdt_view == 1" class="floatl width100">
+      <div class="floatl width100 margin_bottom" dropdown-select="searchTypes" dropdown-model="selectedType" dropdown-item-label="title" dropdown-onchange="setSearchType(selected)"></div>
+  </div>
+</div>
+
+

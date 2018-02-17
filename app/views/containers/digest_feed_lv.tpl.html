@@ -1,0 +1,135 @@
+<table width="100%" style="border-collapse:collapse;border-spacing:0;margin:12px 0;padding:0;text-align:left;vertical-align:top">
+    <tbody>
+
+        <!-- Quick post -->
+        <tr once-if="feed.type == 'quickpost'" style="padding:0;text-align:left;vertical-align:top">
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                <a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+                    <img src="{{feed.author.headerLogoUrl}}" height="54" width="54" style="border-radius:3px;clear:both;display:block;float:left;min-height:54px;max-width:100%;outline:none;text-decoration:none;width:54px">
+                </a>
+                <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+            </td>
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                    <div style="margin-bottom:10px;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank"><strong>{{feed.author.firstName}} {{feed.author.lastName}} </strong></a><span translate>published an Quickpost in</span><a ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})" style="color:#3685b3;text-decoration:none" target="_blank"> {{feed.community.label}}</a></div>
+
+                    <p style="margin:5px 0;">
+                        <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#666;text-decoration:none;" target="_blank">
+                            {{feed.title}}
+                        </a>
+                    </p>
+
+
+                </div>
+
+            </td>
+        </tr>
+        <!--End Quick post -->
+        <!-- Article post -->
+        <tr once-if="feed.type == 'article'" style="padding:0;text-align:left;vertical-align:top">
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                <a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+                    <img src="{{feed.author.headerLogoUrl}}" height="54" width="54" style="border-radius:3px;clear:both;display:block;float:left;min-height:54px;max-width:100%;outline:none;text-decoration:none;width:54px">
+                </a>
+                <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+            </td>
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                    <div style="margin-bottom:10px;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank"><strong>{{feed.author.firstName}} {{feed.author.lastName}}</strong></a> <span translate>published an article in</span> <a ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.community.label}}</a></div>
+                    <div ng-repeat="block in feed.blocks">
+                        <div ng-if="block.type == 'heading'">
+                            <p style="margin:5px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})" style="color:#666;text-decoration:none;" target="_blank"><strong>{{block.title}}</strong></a></p>
+
+                            <a ng-if="block.imageHeader" ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'viewdetail',referer: referer})" style="display: inline-block;">
+                                <img src="{{block.imageHeader}}" height="110" width="100%" style="border-radius:3px;clear:both;display:block;float:left;min-height:110px;max-width:100%;outline:none;text-decoration:none;width:100%">
+                            </a>
+                        </div>
+
+
+                        <p ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!--End Article post -->
+        <!-- Image Gallery -->
+        <tr once-if="feed.type == 'imageGallery'" style="padding:0;text-align:left;vertical-align:top">
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                <a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+                    <img src="{{feed.author.headerLogoUrl}}" height="54" width="54" style="border-radius:3px;clear:both;display:block;float:left;min-height:54px;max-width:100%;outline:none;text-decoration:none;width:54px">
+                </a>
+                <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+            </td>
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                    <div style="margin-bottom:10px;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank"><strong>{{feed.author.firstName}} {{feed.author.lastName}}</strong></a> <span translate>a create  images galleries in</span> <a ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.community.label}}</a></div>
+
+                    <p style="margin:5px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#666;text-decoration:none" target="_blank"><strong>{{feed.title}}</strong></a></p>
+                    <div ng-repeat="block in feed.blocks">
+                        <div class="list_img_gallery" ng-if="block.images.length > 1 " style="margin:5px 0;">
+                            <div img-gallery feedthumb="feedthumb_130" showthumbcnt="4" datalist="block.images" gallerytype="images" other="{feed: feed}"></div>
+                        </div>
+
+                        <div ng-if="block.images.length == 1" style="margin:5px 0;">
+                            <div ng-include="'../app/views/article_blocks/image_block.tpl.html'" ng-init="img_path= block.images[0].path"></div>
+                        </div>
+                        <p ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <!--End  Image Gallery -->
+        <!-- Document  -->
+        <tr once-if="feed.type == 'document'" style="padding:0;text-align:left;vertical-align:top">
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                <a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+                    <img src="{{feed.author.headerLogoUrl}}" height="54" width="54" style="border-radius:3px;clear:both;display:block;float:left;min-height:54px;max-width:100%;outline:none;text-decoration:none;width:54px">
+                </a>
+                <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+            </td>
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                    <div style="margin-bottom:10px;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank"><strong>{{feed.author.firstName}} {{feed.author.lastName}}</strong></a> <span translate>a create  document in</span> <a ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})" style="color:#3685b3;text-decoration:none" target="_blank">{{feed.community.label}}</a></div>
+
+                    <p style="margin:5px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#666;text-decoration:none;" target="_blank"><strong>{{feed.title}}</strong></a></p>
+
+                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                        <div ng-repeat="block in feed.blocks">
+                            <div ng-if="block.type=='documentGallery'" style="background-color: #eee; padding: 10px;border-radius: 4px;">
+                                <span style="background: #fff;border-radius: 50%;width: 50px;height: 50px;display: inline-block;font-size: 30px;display: table-cell;vertical-align: middle;text-align: center;">{{block.documents.length}}</span>
+                            </div>
+                        </div>
+                    </a>
+                    <div ng-repeat="block in feed.blocks"><p ng-if="block.type == 'richText'" style="margin:5px 0;" data-ng-bind="block.content" once-if="block.content != ''" data-ellipsis-symbol="..." data-ellipsis></p></div>
+                </div>
+            </td>
+        </tr>
+        <!-- End document -->
+        <!-- Event post -->
+        <tr once-if="feed.type == 'event'" style="padding:0;text-align:left;vertical-align:top">
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;width:70px;word-break:break-word">
+                <a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})">
+                    <img src="{{feed.author.headerLogoUrl}}" height="54" width="54" style="border-radius:3px;clear:both;display:block;float:left;min-height:54px;max-width:100%;outline:none;text-decoration:none;width:54px">
+                </a>
+                <span style="font-size: 10px;display: inline-block;line-height: 14px;margin: 5px 0;">{{feed.publicationStartDate | date: $root.fullDateFormat}}</span>
+            </td>
+            <td style="border-collapse:collapse;color:#4d4d4d;font-family:'Helvetica','Arial',sans-serif;font-size:14px;font-weight:normal;line-height:19px;margin:0;padding:0;text-align:left;vertical-align:top;word-break:break-word">
+                <div style="box-shadow: 0 0 10px 0 rgba(0,0,0,.05); border: 1px solid rgba(0,0,0,.1); background:#fff; border-radius: 4px; padding:20px;">
+                    <div style="margin-bottom:10px;"><a ui-sref="app.myprofile({uid: feed.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank"><strong>{{feed.author.firstName}} {{feed.author.lastName}}</strong></a> <span translate>a create  event in</span> <a ui-sref="app.communityHome({name: feed.community.label, commuid: feed.community.uid})" style="color:#3685b3;text-decoration:none" target="_blank"> {{feed.community.label}}</a></div>
+
+                    <p style="margin:5px 0;"><a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="color:#666;text-decoration:none;" target="_blank"><strong>{{feed.title}}</strong></a></p>
+
+                    <a ui-sref="app.communityHomeWithArticle({ name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid, articleid: feed.uid,track: 'readmore',referer: referer})" style="display: inline-block;text-decoration: none;color: #333;">
+                        <div ng-repeat="block in feed.blocks">
+                            <feed-event-thumb event="block"></feed-event-thumb>
+                            <p style="margin:5px 0;" data-ng-bind="block.location" once-if="block.location != ''" data-ellipsis-symbol="..." data-ellipsis></p>
+                        </div>
+                    </a>
+                </div>
+
+            </td>
+        </tr>
+        <!--End Event post -->
+    </tbody>
+</table>

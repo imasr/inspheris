@@ -1,0 +1,198 @@
+<div class="ins_popup medium_popup" ng-controller="CreateCarouselCtrl">
+  
+  <div class="popup_header floatl">
+      <div class="popup_title">{{'Create_carousel' | translate}}</div>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+  </div>
+
+  <div class="popup_wrapper">
+  	<div class="marb10" ng-if="md.status == '1'" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+
+  	<div ng-show="md.status == '2'">
+	  	<div class="marb10" dropdown-select="sliderTypes" dropdown-model="selctedSliderType" dropdown-onchange="sliderTypeChanged(selected)" dropdown-item-label="text" style="margin:0px;"></div>
+	  	<!--  <select ng-model="selectedTemplates">
+	  		<option ng-repeat="value in templates" value="{{value}}">{{value}}</option>
+  		  </select>
+	  	</select>
+	  	-->
+	  	<div ng-show="selctedSliderType.value == 'advertisement'" style="margin:0px;">
+			<div class="floatl marb10" dropdown-select="templates" dropdown-model="selectedTemplate" dropdown-onchange="templateChanged(selected)" dropdown-item-label="name"></div>
+			<a style="padding-left:10px;color:#e27e40;cursor:pointer;" ng-click="viewTemplate(selectedTemplate)">
+				<span ng-hide="editTemplate">{{'Edit template' | translate}}</span>
+				<span ng-show="editTemplate">{{'Cancel' | translate}}</span>
+			</a>
+		</div>
+		<br />
+		<div ng-show="editTemplate" style="margin-top:5px;margin-bottom:5px;">
+			<div>
+				<div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Title color</span> <br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.titleColor" ng-change="changeColor(selectedTemplate.titleColor)" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Subtitle color </span><br/> <input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.subTitleColor"/>
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Description color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.descriptionColor"  />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Background </span><br/><input colorpicker class="width100 marb10" value="" type="text" ng-model="selectedTemplate.informationBackground" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Link color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.linkColor" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Link background </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.linkBackground"/>
+					</div>
+				</div>
+				<hr>
+				<div>
+					<div style="padding:5px;">
+						<span translate>Date text </span><br/><input class="ins_input_tex marb10 width100" ng-model="selectedTemplate.dateText" type="text"  placeholder="{{'Template Date Text' | translate}}">
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Date color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.dateColor" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Date text color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.dateTextColor" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Date background </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.dateBackground" />
+					</div>
+				</div>
+				<hr>
+				<div>
+					<div style="padding:5px;">
+						<span translate>Price text </span><br/><input class="ins_input_tex marb10 width100" ng-model="selectedTemplate.priceText" type="text"  placeholder="{{'Template Price Text' | translate}}">
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Price color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.priceColor"/>
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Price text color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.priceTextColor"/>
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Price background </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.priceBackground" />
+					</div>
+				</div>
+				<hr>
+				<div>
+					<div style="padding:5px;">
+						<span translate>Discount text </span><br/><input class="ins_input_tex marb10 width100" ng-model="selectedTemplate.discountText" type="text"  placeholder="{{'Template Discount Text' | translate}}">
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Discount color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.discountColor"/>
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Discount text color </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.discountTextColor" />
+					</div>
+					<div class="col-md-4" style="padding:5px;">
+						<span translate>Discount background </span><br/><input colorpicker class="marb10" value="" type="text" ng-model="selectedTemplate.discountBackground" />
+					</div>
+				</div>
+			</div>
+				<div class="floatl width100 mart10 marb10">
+					<div class="ins_btn_ctext marb10" ng-click="saveTemplate(selectedTemplate)">
+						<span>{{'Save Template' | translate}}</span>
+					</div>
+				</div>
+		</div>
+		<div ng-hide="editTemplate">
+			<input class="ins_input_tex marb10" ng-model="title" type="text" placeholder="{{'Title' | translate}}">
+			<input class="ins_input_tex marb10" ng-model="subTitle" type="text" placeholder="{{'Subtitle' | translate}}">
+			<input class="ins_input_tex marb10" ng-model="description" type="text" placeholder="{{'Description' | translate}}" ng-show="selctedSliderType.value == 'advertisement'">
+			<div ng-show="selctedSliderType.value == 'advertisement'" style="margin-top:5px;margin-bottom:5px;">	
+				<input class="ins_input_tex marb10" style="width:initial;" ng-model="adDate" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" bs-datepicker type="text" placeholder="{{'Advertisement Date' | translate}}">
+				<input class="ins_input_tex marb10" style="width:35%;"  ng-model="adDiscount" type="text"  placeholder="{{'Advertisement Discount' | translate}}">
+				<input class="ins_input_tex marb10" style="width:initial;" ng-model="adPrice" type="text"  placeholder="{{'Advertisement Price' | translate}}">
+			</div>
+			
+			<input class="ins_input_tex marb10" ng-model="url" type="text" placeholder="URL">
+
+
+			<p translate>Title color</p>
+			<input colorpicker="rgba" class="width100" value="" type="text" ng-model="titleColor" style="padding: 5px;" />
+
+			<p translate>Background color</p>
+			<input colorpicker="rgba" class="width100" value="" type="text" ng-model="backgroundColor" style="padding: 5px;" />
+
+
+			<div class="ins_checkbox">
+			  <input type="checkbox" ng-model="displayTitle" name="displaytitle" id="displaytitle" class="css-checkbox">
+			  <label for="displaytitle" class="css-label" translate>Display title</label>
+			</div>
+			
+			<div class="ins_checkbox">
+		      <input type="checkbox" ng-model="notDisplayBackgroundColor" name="notDisplayBackgroundColor" id="notDisplayBackgroundColor" class="css-checkbox">
+		      <label for="notDisplayBackgroundColor" class="css-label" translate>Not Display Background Color</label>
+		    </div>
+
+			<div class="ins_checkbox">
+			  <input type="checkbox" ng-model="openNewTab" name="openTabOptn" id="openTabOptn" class="css-checkbox">
+			  <label for="openTabOptn" class="css-label" translate>Open in new tab</label>
+			</div>
+
+
+			<div ng-show="selctedSliderType.value == 'image' || selctedSliderType.value == 'advertisement'">
+				<div class="res-rectangle" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="onLevel1ImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="padding-top: 23.21%">
+					<div class="rect-content">
+						<img ng-if="imageLevel1" src="{{imageLevel1.urls[1]}}">
+						<div ng-if="!imageLevel1" class="disp_table">
+							<div class="tblc">
+								<div class="no-img-thumb"></div>
+								<span class="lbl" ><span translate>Level1 image size</span> {{valImg1.width}}x{{valImg1.height}} px</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="floatl width100 mart10 marb10" ng-show="imageLevel1">
+					<div class="ins_btn_ctext" ng-click="recropLevel1Image()">
+						<span>Recrop Level1 image</span>
+					</div>
+				</div>
+
+
+
+				<div class="res-rectangle margin_bottom" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="onLevel2ImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable"  style="width: 226px; height: 132px; margin: 10px auto;"><!--style="padding-top: 75.17%"-->
+						<img ng-if="imageLevel2" src="{{imageLevel2.urls[1]}}">
+						<div ng-if="!imageLevel2" class="disp_table">
+							<div class="tblc">
+								<div class="no-img-thumb"></div>
+								<span class="lbl" ><span translate>Level2 image size</span> {{valImg2.width}}x{{valImg2.height}} px</span>
+							</div>
+						</div>
+				</div>
+				<div class="floatl width100" ng-show="imageLevel2">
+					<div class="ins_btn_ctext" ng-click="recropLevel2Image()">
+						<span>Recrop Level2 image</span>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="floatl width100" ng-show="selctedSliderType.value == 'video'">
+				<div class="ins_btn_ctext" ng-click="openVideoUrlModal()">
+					<span>{{ 'Add_embeded_video' | translate }}</span>
+				</div>
+			</div>
+			<div class="floatl width100" ng-show="selctedSliderType.value == 'video'">
+				<div class="vdo_preview_box floatl marb10">
+				  <p ng-if="!embededVideo">{{ 'Video_Preview' | translate }} </p>
+				  <div ng-bind-html="embededVideo.embedVideo | unsafehtml"></div>
+				</div>
+			</div>
+
+			<div class="floatl width100 mart10 marb10">
+				<div class="ins_btn_ctext" ng-click="doneCarousel()">
+					<span>OK</span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div ng-if="md.status == '3'">
+		<p class="rclor mart10 marb10" translate>something_went_wrong</p>
+	</div>
+
+  </div>
+</div>

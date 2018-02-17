@@ -1,0 +1,163 @@
+<!-- itemobj {type: 'image', path:'', attachedImgs: [{index: imgIndex, file: f, src: ''}] }; -->
+<div class="editblock_wrap">
+  <div class="conrol_wrapper floatl"> 
+    <div class="inner_wrap floatr">
+      <div class="ins_small_sqbtn floatl add" ng-click="addContentBlock('images')"></div>
+      <div class="ins_small_sqbtn floatl move"></div>
+      <div class="ins_small_sqbtn floatl remove" ng-click="removeBlock($index)"></div>
+    </div>
+  </div>
+
+  <input class="ins_input_tex floatl marb10 fixed" type="text" ng-model="blocktitle" placeholder="{{'Title' | translate}}">
+
+  <div ng-if="type == 'images'" class="ca_browse_block floatl fixed">
+    <div class="btn_wrapper floatl">
+      <div class="cad_btn floatl width50" ng-click="showImageUrlPopup($index)">
+        {{'Image_URL' | translate}}
+      </div>
+      <!-- <div class="cad_btn floatl width50" ng-click="showBrowseImagePopup($index)">
+        Browse Image
+      </div> -->
+      <div class="cad_btn floatl width50">
+        <div class="dropdown ins-ddbtn">
+          <p class="dropdown-toggle" data-toggle="dropdown">{{ 'Browse_Images' | translate }}</p>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="showBrowseImagePopup($index)"><a>{{ 'Browse_all' | translate }}</a></li>
+            <li ng-click="showImageUrlPopup($index)"><a>Google Drive</a></li>
+            <li ng-click="cropImagesPopup($index)"><a href="#">Dropbox</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div ng-if="type=='documents'" class="ca_browse_block floatl fixed">
+      <div class="btn_wrapper floatl">
+        <div class="cad_btn floatl width50">
+          <input type="file" class="file_select" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="docBlockAdddocs($files, $index)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'.doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf'" ngf-drop-available="dropAvailable" style="top: 0px; bottom: 0px; left: 0px; right: 0px; width: 100%; opacity: 0; position: absolute;"> <!-- ng-file-select="docBlockAdddocs($files, $index)" multiple="multiple" accept=".doc, .docx, .xls, .xlsx, .ppt, .pptx, application/pdf" -->
+          {{ 'Download_Document' | translate }}
+        </div>
+        <!-- <div class="cad_btn floatl width50" ng-click="showBrowseDocumentPopup($index)">
+          Browse Document
+        </div> -->
+        <div class="cad_btn floatl width50">
+          <div class="dropdown ins-ddbtn">
+          <p class="dropdown-toggle" data-toggle="dropdown">{{ 'Browse_Documents' | translate }}</p>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-click="showBrowseDocumentPopup($index)"><a>{{ 'Browse_all' | translate }}</a></li>
+            <li ng-click="showImageUrlPopup($index)"><a>Google Drive</a></li>
+            <li><a href="#">Dropbox</a></li>
+          </ul>
+        </div>
+        </div>
+        
+      </div>
+  </div>
+
+  <div ng-if="type=='videos'" class="ca_browse_block floatl fixed">
+        <div class="btn_wrapper floatl">
+          <div class="cad_btn floatl width50" ng-click="showPopupVideoUrl($index)">
+            {{ 'Video_URL' | translate }}
+          </div>
+          <div class="cad_btn floatl width50">
+            {{ 'Browse_Video' | translate }}
+          </div>
+        </div>
+  </div>
+
+  <div class="files_wrapper width100 floatl fixed">
+    <ul ng-if="type == 'images'" ui-sortable="sortableAttachedImges" ng-model="itemobj.attachedImgs" class="hsortlist" cat="t1">
+     
+      <li class="itw_opn" ng-repeat="attachment in itemobj.attachedImgs" ng-class="{showinfo : attachment.uploadStatus == 1 || attachment.uploadStatus == 0}">
+        <div>
+          <img src="{{attachment.thumbGalleryUrl}}" ng-click="showGalleryPopup([attachment])">
+          <div class="itw_ctrl">
+            <div class="btn_delete floatl" ng-click="imgBlockRemoveImgs($parent.$index, $index)">
+              <div class="btn_icon">
+                <i class="fa fa-trash-o"></i>
+              </div>
+            </div>
+            <span class="btn_seprator floatl"> • </span>
+            <div class="btn_move floatl ng-click-active">
+                <div class="btn_icon">
+                    <i class="fa fa-arrows"></i>
+                 </div>
+            </div>
+          </div>
+        </div>
+        <div class="itw_info">
+            <!--<p>{{attachment.uploadStatus}}</p>-->
+            <p ng-if="attachment.uploadStatus == 0 || attachment.uploadStatus == 2">{{attachment.fileName}}</p>
+            <div ng-if="attachment.uploadStatus == 1" class="loader">{{ 'Loading' | translate }}...</div>
+        </div>
+      </li>
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="imgBlockAddImgs($files, $index)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="true" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable"> <!-- ng-file-select="imgBlockAddImgs($files, $index)" multiple accept="image/*" -->
+        </div>
+        <p>{{ 'Upload_Images' | translate }}</p>
+      </li>
+    </ul>
+
+    <ul ng-if="type=='documents'" ui-sortable="sortableAttachedImges" ng-model="itemobj.attachedDocs" class="hsortlist">
+      <li class="itw_opn" ng-repeat="attachment in itemobj.attachedDocs">
+        <div>
+          <img src="images/media/ppt.png">
+          <div class="itw_ctrl">
+            <div class="btn_delete floatl" ng-click="docBlockRemoveDocs($parent.$index, $index)">
+              <div class="btn_icon">
+                <i class="fa fa-trash-o"></i>
+              </div>
+            </div>
+            <span class="btn_seprator floatl"> • </span>
+            <div class="btn_move floatl">
+                <div class="btn_icon">
+                    <i class="fa fa-arrows"></i>
+                 </div>
+            </div>
+          </div>
+          <div>
+            <img set-icon-src="{type: attachment.fileType, url: attachment.thumbGalleryUrl}">
+          </div>
+          <div class="itw_info">
+            <p> {{attachment.fileName}} </p>
+          </div>
+        </div>
+      </li>
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ng-file-select="imgBlockAddImgs($files, $index)" multiple accept="image/*">
+        </div>
+        <p>{{ 'Documents' | translate }}</p>
+      </li>
+    </ul>
+
+    <ul ng-if="type=='videos'" ui-sortable="sortableAttachedImges" ng-model="itemobj.attachedImgs" class="hsortlist">
+      <li class="itw_opn bgvdo" ng-repeat="attachment in itemobj.embedVideo" ng-style="{'background-image': 'url('+attachment.thumbnail_url+')'}">
+        <div>
+          <img src="images/play.png">
+          <div class="itw_ctrl">
+            <div class="btn_delete floatl" ng-click="vdoBlockRemoveVdos($parent.$index, $index)">
+                <div class="btn_icon">
+                  <i class="fa fa-trash-o"></i>
+                </div>
+            </div>
+            <span class="btn_seprator floatl"> • </span>
+            <div class="btn_move floatl ng-click-active">
+                <div class="btn_icon">
+                    <i class="fa fa-arrows"></i>
+                 </div>
+            </div>
+          </div>
+          <div class="itw_info">
+            <p> image.jpg <p>
+          </div>
+        </div>
+      </li>
+      <li class="itw_opn upload_more unsortable">
+        <div class="file_select" type="file" ng-file-select="imgBlockAddImgs($files, $index)" multiple accept="video/*;capture=camcorder">
+        </div>
+        <p>{{ 'Upload_Videos' | translate }}</p>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,187 @@
+<div ng-class="$index == 0 ? 'col-lg-8':'col-lg-4'" ng-repeat="feed in feeds" id="{{feed.uid}}">
+
+      <div ng-class="$index == 0 ? 'grid_wide_li':'grid_small_li'" class="comment_box_hide grid_li" id="grildliitem{{$index}}" ng-switch="feed.type">
+
+        <div ng-switch-when="article" ng-class="feed.content.image.path ? 'grid_feed_art':'grid_feed_nothumb'">
+          
+          <img ng-show="feed.content.image.path" class="grid_bkg_img" src="{{$root.siteUrl+feed.content.image.path}}"/>
+          
+          <!-- show feed info: who, when and in which community published it -->
+          <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+          <div ng-class="feed.content.image.path ? 'grid_art_text':'grid_nothumb_art'">
+
+                  <!--
+                  <h3 class="grid_art_title"> {{feed.content.heading.title}} </h3>
+                  <h4 class="grid_art_subtitle" ng-bind-html="feed.content.heading.subtitle">  </h4>
+                  <div class="list_ritch_text ng-scope ng-binding" ng-if="feed.content.richtext.data" ng-bind-html="feed.content.richtext.data">Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                  <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et</div>
+                  -->
+
+                  <ng-include ng-if="feed.content.heading.title" ng-init="titleblock = feed.content.heading.title" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                  <ng-include ng-if="feed.content.heading.subtitle" ng-init="subtitleblock = feed.content.heading.subtitle" src="'../app/views/blocks/feed_subtitle.tpl.html'"></ng-include>
+                        
+                  <ng-include ng-if="feed.content.richtext.data" ng-init="ritchtextblock = feed.content.richtext.data" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+
+          </div>
+        </div>
+
+        <div ng-switch-when="quickpost" class="grid_feed_nothumb">
+          
+          <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+          <div class="grid_quickpost_desc">
+                  <!--
+                  <div class="list_ritch_text ng-scope ng-binding" ng-if="feed.content.text.text" ng-bind-html="feed.content.text.text">
+                    Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                    <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et
+                    Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                    <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et
+                    Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                    <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et
+                    Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                    <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et
+                    Le mardi 25&nbsp;Juin, La direction de la communication organisera un séminaire autour des réseaux sociaux et de la stratégie RP.
+                    <strong>Le séminaire en un clin d'oeil</strong> ; L'émergence des médias et
+                  </div>
+                  -->
+                  <ng-include ng-if="feed.content.text.text" ng-init="ritchtextblock = feed.content.text.text" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+          </div>
+        </div>
+
+        <div ng-switch-when="wiki" class="grid_feed_art" ng-class="feed.content.image.path ? 'grid_feed_art':'grid_feed_nothumb'">
+          
+          <img class="grid_bkg_img" src="{{$root.siteUrl+feed.content.image.path}}"/>
+          
+          <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+          <div class="grid_art_text">
+            <!--
+            <h3 class="grid_art_title"> {{feed.content.heading.title}} </h3>
+            <h4 class="grid_art_subtitle" ng-bind-html="feed.content.heading.subtitle">  </h4>
+            -->
+            <ng-include ng-if="feed.content.heading.title" ng-init="titleblock = feed.content.heading.title" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+            <ng-include ng-if="feed.content.heading.subtitle" ng-init="subtitleblock = feed.content.heading.subtitle" src="'../app/views/blocks/feed_subtitle.tpl.html'"></ng-include>
+          </div>
+        </div>
+
+        <div class="grid_feed_note" ng-switch-when="document">
+            <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+                <div class="left_part">
+                  <div class="feedthumb_72">
+                    <thumbnail ng-if="feed.content.document" file="feed.content.document"></thumbnail>
+                    <thumbnail ng-if="feed.content.image" file="feed.content.image"></thumbnail>  
+                  </div>
+                </div>
+
+                <div class="right_part file_info">
+                  <ng-include ng-if="feed.content.document.caption" ng-init="titleblock = feed.content.document.caption" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                  <ng-include ng-if="feed.content.image.caption" ng-init="titleblock = feed.content.image.caption" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+                        
+                  <ng-include ng-if="feed.creationDate" ng-init="ritchtextblock = 'Uploaded'+ feed.creationDate|timeago" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+                </div>
+                                          
+              </div>
+            </div>
+        </div>
+
+        <div class="grid_feed_note" ng-switch-when="event">
+
+            <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+            <div class="grid_note_wrapper">
+              <div class="fg_note_container">
+                <div class="left_part">
+                  <feed-event-thumb event="feed.content.event"></feed-event-thumb>
+                </div>
+                <div class="right_part">
+                  <ng-include ng-if="feed.content.event.title" ng-init="titleblock = feed.content.event.title" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+                  <ng-include ng-if="feed.content.event.location" ng-init="ritchtextblock = feed.content.event.location" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+
+                  <!--<p class="list_ritch_text"> <span class="gray_font">{{feed.content.event.location}}</span> </p>-->
+                </div>                 
+              </div>
+            </div>
+        </div>
+
+        <div class="grid_feed_gallery" ng-switch-when="ImageGallery">
+            <ng-include ng-init="tpl_uinfo = feed" src="'../app/views/blocks/feed_gv_userartinfo.tpl.html'"></ng-include>
+
+            <div class="grid_gallery_wrapper">
+              <!--<h3 class="grid_art_title"> {{feed.content.imageGallery.name}} </h3>-->
+              <ng-include ng-if="feed.content.imageGallery.name" ng-init="titleblock = feed.content.imageGallery.name" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+
+              <div class="grid_img_gallery">
+                <div img-gallery feedthumb="feedthumb_90" showthumbcnt="3" datalist="feed.content.imageGallery.images" gallerytype="images" other="{feed: feed}"></div>               
+              </div>
+            </div>
+        </div>
+
+        <div class="grid_toolbar_outer">
+          <feed-controls
+            show-comment-label = "false"
+            feed ="feed"
+            on-click-delete-feed="deleteFeed(feed.uid)"
+          ></feed-controls>
+          <!--<ng-include ng-init="tpl_cmntboxid = 'grildliitem'+$index; tpl_feedid= feed.uid; tpl_showtext=false;" src="'../app/views/blocks/feed_controls.tpl.html'"></ng-include>-->
+
+          <!--
+          <div class="grid_toolbar">
+            
+                        <div class="art_btn btn_comment floatl" ng-click="showCommentBox('grildliitem{{$index}}')">
+                          <div class="btn_icon">
+                            <i class="fa fa-comment"></i>
+                          </div>
+                          <p><span ng-if="feed.commentCount > 0" class="gray_font">({{feed.commentCount}})</span> </p>
+                        </div>
+
+                        <span class="btn_seprator floatl">&bull;</span>
+                        <div class="art_btn btn_like floatl" data-placement="top" data-template-url="views/popup_userslist.html" data-trigger="hover" ng-attr-data-trigger="{{(feed.likeCount > 0)?'hover':''}}" bs-popover>
+                          <div class="btn_icon">
+                            <i class="fa fa-heart"></i>
+                          </div>
+                          <p><span ng-if="feed.likeCount > 0" class="gray_font">({{feed.likeCount}})</span> </p>
+                        </div>
+
+                        <span class="btn_seprator floatl"> &bull; </span>
+                        <div class="art_btn btn_share floatl" ng-click="showSharePopup(feed);">
+                          <div class="btn_icon">
+                            <i class="fa fa-share-alt"></i>
+                          </div>
+                          <p><span class="gray_font">(1)</span> </p>
+                        </div>
+                        
+                        <span class="btn_seprator floatl" ng-if="feed.hashtags.length > 0"> &bull; </span>
+                        <div class="art_btn btn_hashtag floatl" ng-if="feed.hashtags.length > 0" data-placement="top" data-template-url="views/popup_hashtags.html" data-trigger="hover" trigger="hover" bs-popover>
+                          <div class="btn_icon">#</div>
+                        </div>
+
+                        <span class="btn_seprator floatl" ng-show="feed.language != 'ENG'"> &bull; </span>
+                        <div class="art_btn btn_lang floatl" ng-show="feed.language != 'ENG'">
+                            <div class="btn_icon">
+                              <i class="fa fa-globe"></i>
+                            </div>
+                        </div>
+
+                        <span class="btn_seprator floatl" ng-show="feed.type == 'document'"> &bull; </span>
+                        <div class="art_btn btn_download floatl" ng-show="feed.type == 'document'">
+                          <a href="{{$root.siteUrl+feed.blocks[0].document.path}}">
+                            <div class="btn_icon"> </div>
+                          </a>
+                        </div>
+          </div>
+          -->
+        </div><!-- grid_toolbar_outer -->
+
+        <ng-include src="'../app/views/comment_wrapper.html'" ng-controller="CommentWrapperCtrl"></ng-include>
+
+      </div><!-- grid small li -->
+      
+</div><!-- col-lg-4 -->

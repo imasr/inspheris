@@ -1,0 +1,142 @@
+<div class="noti_li" ng-controller="NotificationFeedCtrl">
+    <div class="clearfix notify-width" >
+      <div class="nclose hide">
+        <i class="fa fa-times"></i>
+      </div>
+      <div class="noti-left-panel">
+        <div class="com_icon_outer">
+          <a ui-sref="app.myprofile({uid: notification.sourceUser.uid, activetab: 'About'})">
+            <div class="com_icon img-circle" profile-photo="{url: notification.sourceUser.headerLogoUrl, firstName: notification.sourceUser.firstName, lastName: notification.sourceUser.lastName}"></div>
+          </a>
+        </div>
+      </div>
+
+      <div class="noti-right-panel"  ng-switch="notification.action">
+
+      <a ng-if="!digestlink && !userActivitiesLink && !userProfileLink && !userPinnedPostlink" ng-href="{{article.link}}" >
+        <div ng-switch-when="like"  translate="user_has_liked_your_contenttype" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="comment"  translate="user_has_commented_your_contenttype" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="like comment"  translate="user_has_liked_your_comment" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="create article"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="create event"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="create quickpost"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="create document"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+		
+		<div ng-switch-when="create imageGallery"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+		
+		<div ng-switch-when="create grandArticle"  translate="user_has_created_an_contenttype_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="follow to community"  translate="user_started_following_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="subscribe to community"  translate="user_subscribed_community" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create article"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create document"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create quickpost"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create wiki"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create event"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="accept to create imageGallery"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+        
+        <div ng-switch-when="accept to create grandArticle"  translate="accept_to_create_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="ask to create article"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create document"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create quickpost"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create wiki"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create event"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create imageGallery"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to create grandArticle"  translate="ask_to_create_content" translate-values="translatePrams"></div>
+        
+        <div ng-switch-when="ask to revalidate article"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate document"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate quickpost"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate wiki"  translate="ask_to_crevalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate event"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate imageGallery"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="ask to revalidate grandArticle"  translate="ask_to_revalidate_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="modify article"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify document"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify quickpost"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify wiki"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify event"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify imageGallery"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="modify grandArticle"  translate="user_modified_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="archive article"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive document"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive quickpost"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive wiki"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive event"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive imageGallery"  translate="user_modified_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="archive grandArticle"  translate="user_modified_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="share article" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share document" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share quickpost" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share wiki" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share event" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share imageGallery" translate="user_shared_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="share grandArticle" translate="user_shared_content" translate-values="translatePrams"></div>
+
+        <div ng-switch-when="copy article" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy document" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy quickpost" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy wiki" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy event" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy imageGallery" translate="user_copy_content" translate-values="translatePrams"></div>
+        <div ng-switch-when="copy grandArticle" translate="user_copy_content" translate-values="translatePrams"></div>
+		<div ng-switch-when="mentioned in comment" translate="user_mention_comment" translate-values="translatePrams"></div>
+		<div ng-switch-when="mentioned in quickpost" translate="user_mention_quickpost" translate-values="translatePrams"></div>		
+		<div ng-switch-when="requested community"  translate="user_requested_creating_community" translate-values="translatePrams"></div>
+        <!--  <div ng-if="article" class="title" once-html="article.title">-->
+          <!-- <a ng-href="{{article.link}}" once-html="article.title"></a> -->
+        <!--</div>-->
+        <!--
+        <span class="time" translate="timeago_dt_format" translate-values="{{notification.creationDate|timeagolocal}}"></span>
+        -->
+        <div ng-switch-when="visit"  translate="user_visited_profile" translate-values="translatePrams"></div>        
+        <div ng-switch-when="visitor"  translate="user_visitor_profile" translate-values="translatePrams"></div>
+        <div ng-switch-when="participate" ng-if="counter == 1" translate="a_user_participated_event" translate-values="translatePrams"></div>        
+        <div ng-switch-when="cancel"  ng-if="counter == 1" translate="a_user_canceled_the_participation_event" translate-values="translatePrams"></div>
+         <div ng-switch-when="participate" ng-if="counter > 1" translate="users_participated_event" translate-values="translatePrams"></div>        
+        <div ng-switch-when="cancel"  ng-if="counter > 1" translate="users_canceled_the_participation_event" translate-values="translatePrams"></div>
+        <div ng-if="(notification.action == 'visitor')">
+        	<span class="time" once-text="nd.visitorCreationDate"></span>
+        </div>
+        <div  ng-if="(notification.action != 'visitor')">
+        	<span class="time" once-text="nd.creationDate"></span>
+        </div>        
+        </a>
+        <a ng-if="digestlink" ng-href="{{digestlink}}" >
+        	<div ng-switch-when="create digest"  translate="user_creating_digest" translate-values="translatePrams"></div>
+        	<div ng-switch-when="preview digest"  translate="user_preview_digest" translate-values="translatePrams"></div>
+        	<span class="time" once-text="nd.creationDate"></span>
+        </a>
+        <a ng-if="userActivitiesLink" ng-href="{{userActivitiesLink}}" >
+        	<div ng-switch-when="write content on profile"  translate="user_wrote_content_on_profile" translate-values="translatePrams"></div>
+        	<span class="time" once-text="nd.creationDate"></span>
+        </a>
+        <a ng-if="userProfileLink" ng-href="{{userProfileLink}}" >
+        	 <div ng-switch-when="follow to user"  translate="user_followed_profile" translate-values="translatePrams"></div>
+        	<div ng-switch-when="unfollow to user"  translate="user_unfollowed_profile" translate-values="translatePrams"></div>      
+        	<span class="time" once-text="nd.creationDate"></span>
+        </a>
+    	<a ng-if="userPinnedPostlink" ng-href="{{userPinnedPostlink}}" >	
+        	<div ng-switch-when="like the user pinned post"  translate="user_liked_the_pinned_post" translate-values="translatePrams"></div>      
+        	<span class="time" once-text="nd.creationDate"></span>
+        </a>
+      </div>
+  </div>
+</div>

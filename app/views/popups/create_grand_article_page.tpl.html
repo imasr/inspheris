@@ -1,0 +1,123 @@
+<div class="ins_popup wide_popup" ng-controller="CreateGrandArticlePageCtrl">
+
+  <div class="popup_header floatl">
+      <div class="popup_title">{{'Create Grand Article Page' | translate}}</div>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+  </div>
+  
+  <div class="create_art_container">
+  	<div class="row">
+    	<div ng-if="modalStatus.status == 1 || modalStatus.status == 0" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+    	<h5 class="rclor" ng-if="modalStatus.status == 3" translate>something_went_wrong</h5>
+    	<div ng-show="modalStatus.status == 2">
+      		<div class="col-md-8 col-sm-12 col-xs-12 left_side">
+
+        	<div class="required_field">
+            	<input class="ins_input_tex" ng-model="headingBlock.title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">
+
+            	<div class="letter_cnt floatr"> {{$root.uiConfig.maxTitleLen - headingBlock.title.length}} <span once-text="'characters_left' | translate"></span></div>
+        	</div>
+
+        	<div class="no_required_field">
+            	<input class="ins_input_tex" ng-model="headingBlock.subTitle" type="text" placeholder="{{'Subtitle' | translate}}">
+        	</div>
+
+        	<ul ng-show="caBlocksArray.length > 0" class="vsortlist" ui-sortable="sortableBlocks" ng-model="caBlocksArray">         
+          		<li class="vsortlist_item" ng-repeat="item in caBlocksArray" ng-switch="item.type">           
+		            <div ng-switch-when="richText" class="required_field width100 floatl">
+		              <div class="texteditor_outer">
+		                  <ng-include ng-init="rtobj = item" src="'../app/views/blocks/edit_richtext_block.tpl.html'"></ng-include>
+		              </div>
+		            </div>
+
+            		<div ng-if="(item.type == 'documentGallery' || item.type == 'imageGallery' || item.type == 'ImageGallery' || item.type == 'videoGallery' || item.type == 'linkEmbed')" class="required_field width100 floatl">
+                		<media-gallery-upload-panel attachment="item" media-type="item.type" on-add-block="addContentBlock(item.type)" on-remove="removeBlock($index, $event)"></media-gallery-upload-panel>
+           	 		</div>
+           	 		
+		            <div ng-switch-when="url" class="required_field width100 floatl">
+		              <div class="texteditor_outer">
+		                <ng-include ng-init="urlobj = item" src="'../app/views/blocks/edit_url_block.tpl.html'"></ng-include>
+		              </div>
+		            </div>
+
+		            <div ng-switch-when="quote" class="required_field width100 floatl">
+		              <div class="texteditor_outer">
+		                <ng-include ng-init="quoteobj = item" src="'../app/views/blocks/edit_quote_block.tpl.html'"></ng-include>
+		              </div>
+		            </div>
+
+		            <div ng-switch-when="event" class="required_field width100 floatl">
+		                <div class="disp_table texteditor_outer">
+		                  <ng-include ng-init="eventobj = item" src="'../app/views/blocks/edit_event_block.tpl.html'"></ng-include>
+		                </div>
+		            </div>
+          		</li>
+        	</ul>
+
+        	<div class="no_required_field">
+	          <ul class="navwitc nav nav-pills">
+	            <li class="navwitc_li atext active" ng-click="showCaSection('caText')" ng-class="{'disabled': isDisabledBlock('caText')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Text' | translate"></a>
+	            </li>
+	            <li class="navwitc_li aimage" ng-click="showCaSection('caUploadImg')" ng-class="{'disabled': isDisabledBlock('caUploadImg')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Images' | translate"></a>
+	            </li>
+	            <li class="navwitc_li avideo" ng-click="showCaSection('caUploadVdo')" ng-class="{'disabled': isDisabledBlock('caUploadVdo')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Video' | translate"></a>
+	            </li>
+	            <li class="navwitc_li adoc" ng-click="showCaSection('caUplodDocGallery')" ng-class="{'disabled': isDisabledBlock('caUplodDocGallery')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Documents' | translate"></a>
+	            </li>
+	            <li class="navwitc_li aevent" ng-click="showCaSection('caUploadEvent')" ng-class="{'disabled': isDisabledBlock('caUploadEvent')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Event' | translate"></a>
+	            </li>
+	            <li class="navwitc_li aevent" ng-click="showCaSection('caLinkEmbed')" ng-class="{'disabled': isDisabledBlock('caLinkEmbed')}">
+	              <a class="navwitc_a" href="javascript: void(0)" once-text="'Link Embed' | translate"></a>
+	            </li>
+	          </ul>
+	        </div>
+      </div>
+
+      <div class="right_side col-md-4 col-sm-12 col-xs-12">
+        <div class="div_group floatl">
+          <p><span translate>Upload an image from your computer</span> (<span translate>minimum size</span> {{modalStatus.headerImgDim.w}}X{{modalStatus.headerImgDim.h}} px)</p>
+          <div class="res-rectangle" ng-style="{'padding-top' : getHeaderImgHeight(), 'background-color' : headingBlock.backGroundThumbViewer}" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="showSelectHeaderImage($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+            <div ng-class="headingBlock.smallImage==true ? '' : 'rect-content'" ng-style="{'left' : headingBlock.imageHeaderPosX + '%', 'top' : headingBlock.imageHeaderPosY + '%'}" style="position:absolute;">
+              <img ng-if="headingBlock.imageHeader != ''" no-cache-src="{{headingBlock.imageHeader}}" ng-style="{'width' : headingBlock.imageHeaderWidth}">
+              <div ng-if="headingBlock.imageHeader == ''" class="disp_table">
+                <div class="tblc">
+                  <div class="no-img-thumb"></div>
+                  <span class="lbl" translate>Image</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="floatl width100 marb10" ng-if="headingBlock.imageHeader != ''">
+            <div class="ins_btn_ctext" ng-click="removeHeaderImage()" translate>Delete</div>
+          </div>
+
+          <div class="floatl width100" ng-show="headingBlock.uid && !headingBlock.smallImage">
+            <div class="ins_btn_ctext" ng-click="recropHeaderImage()" translate>
+              Recrop Header Image
+            </div>
+          </div>
+
+          <div class="floatl width100" ng-show="headingBlock.uid && headingBlock.smallImage">
+            <div class="ins_btn_ctext" ng-click="reModifiedHeaderImage()" translate>
+              Modified Header Image
+            </div>
+          </div>
+        </div>
+
+        <div class="div_group floatl">
+     		<div class="ins_btn_ctext floatl margin_bottom" ng-click="addPage()">
+            	<span>{{'Add' | translate}}</span>
+          	</div>
+        </div>
+
+      </div>
+    </div>
+    </div><!--row END-->
+  </div><!--create_art_container-->
+</div>

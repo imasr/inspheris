@@ -1,0 +1,12 @@
+<!--
+<div class="feedthumb_72 event_thumb"> 
+	<p class="event_thumb_day">{{event.dateFrom|getDate}}<br></p> 
+	<p class="event_thumb_month">{{event.dateFrom|getMonthName}}</p>
+</div>
+-->
+<div class="evnt_date">
+	<div class="wrap-dt">
+	  <span class="dt">{{$ctrl.event.dateFrom | date: "dd"}}</span><br>
+	  <span class="mth">{{$ctrl.event.dateFrom | date: "MMM"}}</span>
+	</div>
+</div>

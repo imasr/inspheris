@@ -1,0 +1,57 @@
+<div class="panel panel-default widget widget-agenda">
+  <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_regcalendar">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+      <div class="tblc_m title" ng-bind="$ctrl.widget.title"></div>
+      <div class="tblc_m icn">
+	    <span ng-if="$ctrl.userCanEditWidget">
+	    	<i ng-click="editWidget($ctrl.widget)" class="lnr lnr-pencil clk"></i>
+	    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    </span>
+	    <span ng-if="!$ctrl.userCanEditWidget">
+	    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    </span>
+      </div>
+    </div>
+  </div>
+            
+  <div class="panel-body" ng-show="isWidgetOpen">
+     <div class="agenda-section" bindonce ng-repeat="event in $ctrl.widget.events | groupBy: 'month' | toArray:true | orderBy:'eventDate'">
+       <div class="sec-title" translate>{{event.$key}}</div>
+       <ul class="sec-ul">
+         <li class="sec-ul-li" ng-repeat="evt in event track by $index">
+          <!-- <a target="_blank" ng-href="{{evt.eventLink}}"> -->
+            <div class="disp_table width100">
+              <div class="tblr">
+	         	<div class="tblc agd-day" >
+	         		<a target="_blank" ng-href="{{evt.eventLink}}">
+	            	<span style="color: #e84848;">{{evt.fromDate | date: "dd"}}</span>
+	          		</a>
+	          	</div>
+                
+                <div class="tblc agd-desc">
+                	<a target="_blank" ng-href="{{evt.eventLink}}">
+                    <div class='title' ng-bind="evt.eventName">
+                    </div>
+                    
+                    <div class="desc">
+                      {{evt.fromDate | date: "HH'h'mm"}} - {{evt.toDate | date: "HH'h'mm"}}
+                      <!--{{evt.fromDate | date: $root.localDateFormat}} - {{evt.toDate | date: $root.localDateFormat}}-->
+                    </div>
+                    </a>
+                </div>
+                <div class="tblc_m btn_delete text-center" ng-if="$ctrl.userCanEditWidget == true" style="width:30px;">
+                	<div class="btn_icon" ng-click="deleteEvent(evt.uid)"></div>
+                </div>
+              </div>
+            </div>
+          <!-- </a> -->
+         </li>
+       </ul>
+     </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div class="ins_popup medium_popup" ng-controller="UploadImageCtrl">
+	<div class="popup_header floatl marb10">
+		<div class="popup_title" translate>Upload image</div>
+      	<div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+  	</div>
+
+	<div class="popup_wrapper">
+		<div class="col-sm-offset-4 col-sm-4">
+			<div class="width100 floatl" style="width: 130px;">
+				<div class="res-rectangle" ngf-drop ngf-select ng-model="imgFiles" ng-model-rejected="rejImgFiles" ngf-change="onImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="padding-top: 100%">
+					<div class="rect-content">
+						<img ng-if="img" no-cache-src="{{img.urls[1]}}">
+						<div ng-if="!img" class="disp_table">
+							<div class="tblc">
+								<div class="no-img-thumb"></div>
+								<span class="lbl" >Upload Image</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="floatl width100 marb10 mart10 text-center" ng-show="img">
+			<ul class="list-inline">
+				<li><a href="javascript: void(0)" ng-click="recropImage()"><span translate>Recrop image</span></a></li>
+				<li><a href="javascript: void(0)" ngf-select ng-model="imgFiles" ngf-change="onImageSelect($files, $event)"> <span translate>Update</span> </a></li>
+			</ul>			
+		</div>
+		
+		<div class="floatl width100 marb10">
+			<div class="ins_btn_ctext" ng-click="uploadImage()">
+				<span>OK</span>
+			</div>
+		</div>
+  	</div>
+</div>

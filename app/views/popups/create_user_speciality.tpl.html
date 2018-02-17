@@ -1,0 +1,114 @@
+<div class="ins_popup wide_popup stat_module" style="" ng-controller="CreateUserSpecialityCtrl"> 
+	<div class="popup_header floatl">
+	    <div class="popup_title">
+	    	<span ng-if="modalData.action == 'create' && modalData.type == 'Project'" translate>Create a project</span>
+	    	<span ng-if="modalData.action == 'create' && modalData.type == 'Experience'" translate>Create an experience</span>
+	    	<span ng-if="modalData.action == 'edit' && modalData.type == 'Project'" translate>Edit a project</span>
+	    	<span ng-if="modalData.action == 'edit' && modalData.type == 'Experience'" translate>Edit an experience</span>
+	    </div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	
+	<div class="create_art_container">
+  		<div class="row">
+    		<div>
+      			<div class="col-md-8 col-sm-12 col-xs-12 left_side">
+        			<div class="required_field">        
+            			<input class="ins_input_tex" ng-model="title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+        			</div>
+
+        			<div class="no_required_field" ng-show="modalData.type == 'Project'">        
+            			<input class="ins_input_tex" ng-model="projectCode" type="text" placeholder="{{'Project Code' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+        			</div>
+        			
+        			<div class="no_required_field">        
+            			<input class="ins_input_tex" ng-model="position" type="text" placeholder="{{'position' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+        			</div>
+        			
+        			<div class="no_required_field">        
+            			<input class="ins_input_tex" ng-model="link" type="text" placeholder="{{'Link' | translate}}">           
+        			</div>
+        			
+        			<div class="no_required_field" ng-show="modalData.type == 'Experience'">        
+            			<input class="ins_input_tex" ng-model="location" type="text" placeholder="{{'Location' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+        			</div>
+        			
+					<div class="no_required_field editblock_wrap">
+    					<div class="floatl wysiwyg_wrapper fixed">  
+    						<textarea class="ins_input_tex" rows="30" ng-model="description" placeholder="{{'Description'| translate}}" style="min-height: 310px;min-width: 500px;"></textarea>
+    					</div>
+					</div>
+      			</div>
+
+      			<div class="right_side col-md-4 col-sm-12 col-xs-12">
+      				<div class="div_group floatl" ng-show="modalData.type == 'Project'">
+      					<div class="ins_checkbox width100 floatl marb10">
+         					<input type="checkbox" ng-model="active" id="activeproject" name="activeproject" class="css-checkbox">
+          					<label for="activeproject" class="css-label">{{'I am still on the project' | translate}}</label>
+        				</div>
+        			</div>
+        				
+        			<div class="div_group floatl">
+          				<div class="panel-group ins_collapse" bs-collapse data-start-collapsed="false">
+            				<div class="panel panel-default">
+              					<div class="panel-heading clk">
+                    				<div bs-collapse-toggle class="ins_btn_licon">
+                     					<div class="icon setting_icon">
+                      						<i class="fa fa-cog"></i>
+                    					</div>
+                      					<p>{{'Choose Date' | translate}}</p>
+                    				</div>
+              					</div>
+              					<div class="panel-collapse" bs-collapse-target>
+                					<div class="panel-body">  
+                  						<ul class="floatl margin_bottom" id="ca_more_optns">              
+                    						<li>
+                        						<p><b>{{'Start_Date' | translate}}</b></p>
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          	<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="publishDates.startDt" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+						                        </div>
+                    						</li>
+                   				 			<li>
+						                    	<p><b>{{'End_Date' | translate}}</b></p>
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          	<input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="publishDates.endDt" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" name="date2" bs-datepicker>
+						                        </div>
+                    						</li>
+                  						</ul>
+                					</div>
+              					</div>
+            				</div>
+          				</div> 
+        			</div>
+        			
+        			<div class="div_group floatl">          				
+          				<div class="res-rectangle" style="height: 200px;" ngf-drop ngf-select ng-model="imageFiles" ng-model-rejected="rejImageFiles" ngf-change="selectImage($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+            				<img ng-if="image && image.uid" no-cache-src="{{image.urls[1]}}" style="min-height: 200px;min-width: 100%;">
+              				<div ng-if="!image || !image.uid" class="disp_table">
+                				<div class="tblc">
+                					<div class="no-img-thumb"></div>
+                  					<span class="lbl" translate>Upload Image</span>
+                				</div>
+              				</div>
+          				</div>
+          				<div class="floatl width100 marb10 mart10" ng-show="image">
+							<ul class="list-inline">
+								<li><a href="javascript: void(0)" ng-click="recropImage()"><span translate>Recrop image</span></a></li>
+								<li><a href="javascript: void(0)" ngf-select ng-model="imageFiles" ngf-change="selectImage($files, $event)"> <span translate>Update</span> </a></li>
+							</ul>			
+						</div>
+        			</div>
+
+        			<div class="div_group floatl">
+          				<div class="doble_btn_wraper floatl margin_bottom">
+            				<div class="ins_btn_ctext floatl" ng-click="saveSpeciality()">
+              					<span>{{'Save' | translate}}</span>
+            				</div>
+          				</div>
+        			</div>
+        
+      			</div>
+    		</div>
+    	</div>
+	</div>
+</div>

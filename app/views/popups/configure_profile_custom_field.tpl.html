@@ -1,0 +1,45 @@
+<div class="ins_popup wide_popup" ng-controller="ProfileCustomFieldCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Configure Profile Custom Fields' | translate}}</p>
+	    <div class="close_btn" ng-click="closeConfigurePopup()"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<div ng-model="customFields">
+			<div class="row well well-sm" ng-repeat="field in customFields" style="margin:5px 0px;cursor:pointer;" ng-init="pIndex = $index">
+				<div class="col-lg-12 col-md-12" style="padding-right:0px;">
+					<div class="row">
+						<label class="col-md-2 control-label" style="padding: 7px 0 6px 5px;" for="textinput">{{field.name}}</label>
+						<input ng-if="field.type == 'Text'" class="col-md-3" style="padding: 7px 0 6px 5px;" ng-model="field.value" type="text" placeholder="{{'Value' | translate}}" style="margin-left:10px;" ng-disabled="!field.updateable">
+						<textarea ng-if="field.type == 'Textarea'" class="col-md-3" rows="8" ng-model="field.value" placeholder="{{field.name}}" style="min-height: 100px;padding: 7px 0 6px 5px;" ng-disabled="!field.updateable"></textarea>
+						<input ng-if="field.type == 'Number'" class="col-md-3" style="padding: 7px 0 6px 5px;" ng-model="field.value" type="number" placeholder="{{'Value' | translate}}" style="margin-left:10px;" ng-disabled="!field.updateable">
+						<input ng-if="field.type == 'Link'" class="col-md-3" style="padding: 7px 0 6px 5px;" ng-model="field.value" type="url" placeholder="{{'Value' | translate}}" min="0" style="margin-left:10px;" ng-disabled="!field.updateable">
+						<span ng-if="field.type == 'Dropdown'" style="width:260px;" class="col-md-3 btn-group ins_dropdown " dropdown-select="field.dropdownValues" dropdown-model="selectedValue[pIndex]" dropdown-onchange="valueChanged(selected,pIndex)" dropdown-item-label="label" ng-disabled="!field.updateable">
+						</span>
+						<input ng-if="field.type == 'Date'" type="text" class="col-md-3 datepicker_licon" style="padding: 7px 0 6px 5px;margin-left:10px;" placeholder="{{'Value' | translate}}" ng-model="field.value.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker ng-disabled="!field.updateable">					  	
+						<span class="col-md-2 ins_checkbox" style="padding: 7px 0 6px 5px;">
+							   <input type="checkbox" ng-model="field.searchable" class="css-checkbox" id="searchable{{$index}}" name="searchable{{$index}}" disabled="true">
+							   <label for="searchable{{$index}}" class="css-label">{{'Searchable' | translate}}</label>
+						</span>
+						<span class="col-md-2 ins_checkbox" style="padding: 7px 0 6px 5px;">
+							   <input type="checkbox" ng-model="field.updateable" class="css-checkbox" id="updateable{{$index}}" name="updateable{{$index}}" disabled="true">
+							   <label for="updateable{{$index}}" class="css-label">{{'Updateable' | translate}}</label>
+						</span>
+						<span class="col-md-3 ins_checkbox" style="padding: 7px 0 6px 5px;">
+							   <input type="checkbox" ng-model="field.displayOnProfile" class="css-checkbox" id="displayOnProfile{{$index}}" name="displayOnProfile{{$index}}" disabled="true">
+							   <label for="displayOnProfile{{$index}}" class="css-label">{{'Display On Profile' | translate}}</label>
+						</span>     				
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="floatl width100">
+			<div class="ins_btn_ctext marb10" ng-click="save()">
+				<span>{{'Save Changes' | translate}}</span>
+			</div>
+		</div>
+	</div>
+	
+</div>

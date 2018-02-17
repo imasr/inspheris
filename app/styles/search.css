@@ -1,0 +1,1496 @@
+.fileSearch-page .form-control {
+	border-radius: 0;
+	height: 45px;
+	padding-left: 32px;
+}
+
+.fileSearch-page .search-box .left-icon,
+.fileSearch-page .search-box .right-icon {
+	position: absolute;
+	top: 40px;
+	font-size: 18px;
+	z-index: 10;
+	color: #878990;
+	opacity: 0.5;
+}
+
+.left-icon {
+	left: 15px;
+}
+.fileSearch-page .search-box .left-icon-file{
+	position: absolute;
+	top: 37px;
+	font-size: 18px;
+	z-index: 10;
+	color: #878990;
+/*	opacity: 0.5;*/
+}
+
+.left-icon-file {
+	left: 15px;
+}
+
+
+.right-icon {
+	right: 20px;
+}
+
+.fileSearch-page li {
+	display: inline-block;
+	/*padding-bottom: 10px;*/
+}
+
+.head li {
+	font-weight: 600;
+}
+
+.fileSearch-page ul {
+	/*border-bottom: 1px solid #CCCCCC;*/
+	padding-left: 0px;
+}
+
+.name-col {
+	width: 26%;
+}
+
+
+.other-col {
+	width: 18%;
+	/*padding-left: 5px;*/
+}
+
+.fileSearch-page .child-ul .name-col {
+	width: 23%;
+	padding-top: 8px;
+	padding-bottom: 8px !important;
+}
+
+.fileSearch-page .child-ul .other-col,
+.fileSearch-page .child-ul .author-width-i,
+.fileSearch-page .child-ul .name-width-j{
+	/*width: 18%;*/
+	padding-top: 8px;
+	padding-bottom: 8px !important;
+}
+
+.fileSearch-page .action-col {
+	/*opacity: 0.5;*/
+	text-align: right;
+	padding-right: 10px;
+}
+
+/*.fileSearch-page .child-ul {
+	border-bottom: 1px dashed #CCCCCC;
+	margin-left: 20px;
+}*/
+
+.fileSearch-page .ins_dropdown.singlebar .btn-default:after {
+	font-family: FontAwesome;
+	content: "\f0dd";
+	color: #ccc;
+	text-align: center;
+	right: 5px;
+	top: 26px;
+	bottom: 10px;
+	position: absolute;
+	border-left: 0px;
+	font-size: 18px;
+}
+.head img{
+	opacity: 0.4;
+}
+
+.fileSearch-page .ins_dropdown.singlebar .btn-default {
+	width: 100% !important;
+	padding-right: 34px !important;
+	padding-left: 30px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	padding-top: 12px;
+	padding-bottom: 11px;
+	border: 1px solid #BCBCBC;
+	text-align: center;
+	border-radius: 3px;
+	padding-right: 30px;
+}
+
+/*.fileSearch-page .dropdown-menu {
+	margin-top: 0px;
+	border: none;
+	border-radius: 0;
+	padding: 10px 10px;
+	box-shadow: 0px 0px 20px rgba(0, 0, 0, .55);
+	width: 85%;
+	left: 16px;
+	min-width: 85%;
+}*/
+
+.selected-text-label {
+	background: #7E9B9C;
+	border-radius: 4px;
+	padding: 10px;
+	color: #fff;
+	/*margin-left: 15px;*/
+	font-weight: 500;
+}
+
+.fileSearch-page .search-box .btn:focus,
+.fileSearch-page .search-box .btn:active,
+.fileSearch-page .search-box .btn.active:focus {
+	/*border-color: #66afe9 !important;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);*/
+	outline: none;
+}
+
+.fileSearch-page .search-box .textarea:hover,
+.fileSearch-page .input:hover,
+.fileSearch-page .search-box .textarea:active,
+.fileSearch-page .input:active,
+.fileSearch-page .search-box .textarea:focus,
+.fileSearch-page .input:focus,
+.fileSearch-page .button:focus,
+.fileSearch-page .button:active,
+.fileSearch-page .form-control:focus,
+.fileSearch-page .form-control:active,
+.fileSearch-page .form-control:hover,
+.fileSearch-page .input,
+.fileSearch-page .form-control,
+.fileSearch-page .label:focus,
+
+.fileSearch-page .btn:active,
+
+.fileSearch-page .btn.active,
+.fileSearch-page .button:hover
+{
+    outline:0px !important;
+    -webkit-appearance:none;
+		box-shadow: none;
+		border-color: #ccc !important;
+}
+
+
+.all-files {
+	padding-bottom: 50px;
+}
+
+.all-files h4 {
+	font-weight: 600;
+	margin-left: 15px;
+	padding-bottom: 10px;
+}
+
+.fileSearch-page .datepicker {
+	min-width: 225px;
+	right: 100px !important;
+	margin-right: 100px !important;
+	float: left !important;
+}
+
+.fileSearch-page .bottom-left {
+	float: left !important;
+}
+
+.view-more-div {
+	padding-top: 30px;
+	text-align: center;
+}
+
+.view-more-div button {
+	font-weight: 600;
+	font-size: 15px;
+	padding: 14px 40px;
+	background-color: #f44336;
+	-webkit-box-shadow: 0px 10px 25px -5px rgba(250, 45, 62, 1);
+	-moz-box-shadow: 0px 10px 25px -5px rgba(250, 45, 62, 1);
+	box-shadow: 0px 10px 25px -5px rgba(250, 45, 62, 1);
+	outline: none !important;
+}
+
+@media (max-width:809px) {
+	.other-col {
+		width: 17%;
+	}
+}
+
+@media (max-width:748px) {
+	.other-col {
+		width: 15%;
+	}
+	.fileSearch-page .child-ul .other-col {
+		width: 15.7%;
+	}
+}
+
+@media (max-width: 480px) {
+	.browsefilepopup .popup_header .popup_title{
+		float: left;
+		    font-size: 13px !important;
+		    line-height: 60px;
+		    margin-left: 14px !important;
+		    color: #4c555f;
+		    font-weight: bold;
+		    width: 71% !important;
+		    max-width: % !important;
+		    white-space: nowrap;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+	}
+	/*.other-col {
+		width: 18%;
+	}
+	.name-col {
+		width: 20%;
+	}
+	.other-width{
+		width: 19% !important;
+	}
+	.name-width{
+		width: 26% !important;
+		word-break: break-all;
+	}
+	.name-break{
+		word-break: break-all;
+	}
+	.type-width{
+		width: 19% !important;
+	}
+	.author-width{
+		width: 25% !important;
+	}
+	.action-width{
+		width: 5% !important;
+	}*/
+	.fileSearch-page ul{
+		padding-left: 0px;
+	}
+	.all-files h4{
+		margin-left: 0px;
+	}
+}
+
+.fileSearch-page .row {
+	margin-right: 0;
+	margin-left: 0;
+}
+
+
+
+.widthRow {
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.uploadimage {
+	border: 1px solid #DFE7E9;
+	background-color: #DFE7E9;
+	border-radius: 25px;
+	height: 35px;
+	width: 35px;
+	margin-top: 18%;
+}
+
+.uploadarea {
+	width: 120px;
+	height: 120px;
+	border: 2px dashed #7E9B9C;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.hashtags {
+	border: 1px solid lightgray;
+	padding: 3px;
+	margin: 2px;
+	border-radius: 3px;
+}
+
+.btnHashtag {
+	padding-left: 22px;
+	padding-right: 22px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-color: #E54A4E;
+	color: #E54A4E;
+	pointer-events: none;
+}
+
+.btnpublish {
+	padding-left: 50px;
+	padding-right: 50px;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-color: #f50000;
+	background-color: #E54A4E;
+	color: white;
+	pointer-events: none;
+}
+
+.margin {
+	margin-left: -30px !important;
+}
+
+.glystyle {
+	position: relative;
+	top: 3px;
+	display: inline-block;
+	font-family: 'Glyphicons Halflings';
+	font-style: initial;
+	font-weight: 100;
+}
+
+label.required:after {
+	content: " *";
+	color: red;
+}
+
+div.asterik:before {
+	content: " *";
+	color: red;
+	margin-right: 8px;
+}
+
+.rightPadding {
+	padding-right: 0px !important;
+}
+
+.selectarea {
+	width: 171px;
+	height: 160px;
+	border:2px dashed rgba(126, 155, 156, 0.25);
+	text-align: center;
+	border-radius: 5px;
+}
+
+.tagstyle {
+	background-color: #7E9B9C;
+	padding: 10px;
+	width: 12%;
+	color: white;
+	font-size: 15px;
+	border-radius: 3px;
+}
+
+.selectimage {
+	border: 1px solid #DFE7E9;
+	background-color: #DFE7E9;
+	border-radius: 25px;
+	height: 40px;
+	width: 48px;
+	margin-top: 18%;
+	opacity:0.3;
+}
+.onhover:hover {background: white;cursor: pointer; border-radius: 4px;}
+.child-ul:hover {background: white; cursor: pointer; border-radius: 4px;}
+.paddingleft{
+	padding-left: 10px!important;
+
+}
+.padding-ul{
+	margin-bottom: 0px;
+}
+.head{
+	margin-bottom:0px;
+	border-bottom: 1px solid #CCCCCC;
+}
+.onhover{
+	border-bottom: 1px solid #CCCCCC;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+.onhover .folderweight{
+	font-weight: bold;
+}
+.onhover img, .child-ul img{
+	margin-right: 5px;
+}
+.name-width-i{
+	word-break: break-all;
+}
+
+@media (min-width: 481px) {
+	.other-width{
+		width: 18% ;
+	}
+	.author-width{
+		width: 18% ;
+	}
+	.name-width{
+		width: 36% ;
+		word-break: break-all;
+	}
+	.name-break{
+		word-break: break-all;
+	}
+	.onhover .name-width{
+		padding-left: 15px;
+	}
+	.fileSearch-page .filesearchpopup .child-ul .name-width{
+		padding-left: 45px !important;
+	}
+	.fileSearch-page .child-ul .name-width{
+		/*padding-left: 0px !important;*/
+	}
+	.filesearchcommChild .name-width{
+		padding-left: 15px !important;
+	}
+	.type-width{
+		width: 15% ;
+	}
+	.action-width{
+		width: 10% ;
+		float: right;
+	}
+	.hpanel{
+		padding-left: 15px;
+	}
+	.other-col {
+		padding-left: 5px;
+	}
+	.child-ul .name-col {
+		padding-left: 10px;
+	}
+
+}
+@media (min-width: 1200px){
+	.fileSearch-page{
+	    max-width: 1170px;
+			margin-left: auto;
+			margin-right: auto;
+	}
+}
+@media (min-width: 992px){
+	.widthsame label{
+		display: block;
+	}
+	.uploadfile{
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.hpanel{
+		min-height: 450px;
+	}
+	.filepop{
+		padding-right: 0px;
+		}
+	.widthfile{
+		/*width: 20%;*/
+	}
+	.selectarea {
+		margin-top:30%;
+		/*margin-left:-14px;*/
+		background-color:#EAEEEF;
+	}
+        .infoarea{
+          margin-top:30%;
+        }
+	.headname{
+		margin-left: -15px ;
+		margin-right: 15px ;
+	}
+	/*.menudrop{*/
+		/*width: 100% !important;*/
+	  /*left: 0px !important;*/
+		/*max-width: 320px !important;*/
+		/*overflow-y: overlay !important;*/
+	/*}*/
+	.menudrop{
+		min-width: 225px;
+		right: 5px !important;
+		left: auto;
+		padding: 10px 10px 10px 10px !important;
+	}
+	.menudrop::before{
+		top: -7px !important;
+	    right: 1px !important;
+	}
+	.right_padding{
+		padding-right:5px;
+	}
+	.left_padding{
+		padding-left:5px;
+	}
+	.padding_date{
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	.col-md-1.form-group.left.leftdate{
+		width: 12.5%;
+	}
+
+}
+/*.filesearchpopup .name-width-i span a{
+		display: inline-block;
+		padding-left: 20px;
+		padding-right: 20px;
+		margin-top: -20px;
+}*/
+@media (min-width:320px) and (max-width:373px) {
+	.filesearchpopuphead .name-width-h{
+		width: 33% !important;
+	}
+	.parent-ul .filesearchpopup{
+		padding-left: 5px !important;
+	}
+	.filesearchpopupchild{
+		margin-left:0px !important;
+	}
+	.other-width{
+		width: 16% !important;
+	}
+	.author-width{
+		width: 21% !important;
+	}
+	.name-width{
+		width: 34% !important;
+		word-break: break-all;
+		padding-right: 5px;
+	}
+	.type-width{
+		width: 15% !important;
+	}
+	.action-width{
+		width: 8% !important;
+		float: right;
+	}
+	.child-ul .name-width-j{
+		width: 30% !important;
+		padding-left: 20px;
+	}
+	ul .filesearchpopupchild .ins_checkbox{
+		margin-left: 0px !important;
+	}
+	li.author-width-i{
+		width: 23% !important;
+	}
+	.filesearchpopup .name-width-i{
+		width: 30% !important;
+		padding-left: 10px !important;
+	}
+	.child-ul .type-width-j{
+		width: 13% !important;
+		padding-left: 4px !important;
+	}
+	.child-ul .action-width-i{
+		width: 3% !important;
+	}
+	.parent-ul .action-width-i{
+		width: 4% !important;
+	}
+	.type-width-j{
+		width: 10%;
+	}
+	.author-width-j{
+		width: 10%;
+	}
+	.action-width-j{
+		width: 10%;
+	}
+	.other-width-j{
+		width: 10%;
+	}
+	.type-width-i{
+		width: 16% !important;
+	}
+}
+@media (max-width:480px) and (min-width:374px) {
+	.child-ul .type-width-j{
+		padding-left: 0px !important;
+	}
+}
+@media (max-width:768px) {
+	.filesearchpopup .name-width-i{
+		padding-left: 10px;
+	}
+}
+@media (max-width:495px) and (min-width:374px) {
+	.filesearchpopup .name-width-i{
+		width: 38% !important;
+	}
+	.filesearchpopuphead .name-width-h{
+		width: 41.7% !important;
+	}
+	.child-ul .type-width-j{
+		width: 10.5% !important;
+	}
+	.child-ul .action-width-i{
+		width: 5% !important;
+	}
+	.other-width{
+		width: 14% !important;
+	}
+	.author-width{
+		width: 23% !important;
+		margin-left: 7px;
+	}
+	.name-width{
+		width: 35% !important;
+    word-break: break-all;
+    padding-right: 5px;
+	}
+	.type-width{
+		width: 14% !important;
+	}
+	.action-width-i{
+		width: 8%;
+		float: right;
+	}
+	.action-width{
+		width: 6% !important;
+		float: right;
+	}
+	.child-ul .name-width-j{
+		width: 40.5% !important;
+		padding-left: 35px !important;
+	}
+	.fileSearch-page .author-width-i{
+		width: 21% !important;
+	}
+	.type-width-i{
+		width: 10.5% !important
+	}
+}
+@media (max-width:769px) and (min-width:600px) {
+	.child-ul .name-width-j{
+		width: 43% !important;
+		padding-left: 40px !important;
+	}
+	.filesearchpopuphead .name-width-h{
+		width: 42% !important;
+	}
+	.filesearchpopup .name-width-i{
+		width: 40% !important;
+	}
+	.filesearchpopup .type-width-h{
+		width: 18% !important;
+	}
+	.other-width-i{
+		width: 21% !important;
+	}
+	.filesearchpopup .type-width-i{
+		width: 10% !important;
+	}
+	.author-width-i{
+		width: 18% !important;
+	}
+	.child-ul .type-width-j{
+		width: 10% !important;
+	}
+	.child-ul .action-width-i{
+		width: 5% !important;
+	}
+	.type-width{
+		width: 11% !important;
+	}
+	.author-width{
+		width: 22% !important;
+	}
+	.other-width{
+		width: 16% !important;
+	}
+	.name-width{
+		width: 39% !important;
+	}
+	.action-width{
+		width: 5% !important;
+	}
+	.action-width-i{
+		width: 5% !important;
+	}
+}
+@media (max-width:599px) and (min-width:496px) {
+
+	.child-ul .name-width-j{
+		width: 42.5% !important;
+		padding-left: 35px;
+	}
+	.filesearchpopuphead .name-width-h{
+		width: 41% !important;
+	}
+	.child-ul .action-width-i{
+		width: 5% !important;
+	}
+	.other-width-i{
+		width: 17% !important;
+	}
+	.child-ul .author-width-i{
+		width: 20% !important;
+		padding-left:0px !important;
+	}
+	.filesearchpopuphead .author-width-i{
+		width: 20% !important;
+	}
+	.child-ul .type-width-j{
+		width: 10% !important;
+	}
+	.filesearchpopup .name-width-i{
+		width: 36% !important;
+	}
+	.type-width-h{
+		width: 18% !important;
+	}
+	.author-width-i{
+		width: 18% !important;
+	}
+	.filesearchpopuphead .name-width{
+		width: 46% !important;
+	}
+	.filesearchpopup .name-width{
+		width: 39% !important;
+	}
+	.filesearchpopup .action-width{
+		width: 8% !important;
+	}
+	.filesearchpopup .action-width-i{
+		width: 6% !important;
+	}
+	.filesearchpopup .other-width{
+		width: 12% !important;
+	}
+	.filesearchpopup .author-width-i{
+		width: 20% !important;
+	}
+	.type-width{
+		width: 12% !important;
+	}
+	.type-width-i{
+		width: 11% !important;
+	}
+	.author-width{
+		width: 19% !important;
+	}
+	.other-width{
+		width: 20% !important;
+	}
+	.name-width{
+		width: 38% !important;
+	}
+	.action-width{
+		width: 6% !important;
+	}
+}
+
+@media (max-width:991px) and (min-width:770px) {
+	.filesearchpopup .name-width-i{
+		width: 41% !important;
+	}
+	.filesearchpopuphead .name-width-h{
+		width: 45% !important;
+		padding-left: 0px;
+	}
+	.filesearchpopuphead .author-width-i{
+		width: 21% !important
+	}
+	.child-ul .action-width-i{
+		width: 4% !important;
+	}
+	.child-ul .author-width-i{
+		width: 21% !important;
+	}
+	.child-ul .type-width-j{
+		width: 9.5% !important;
+	}
+	.child-ul .name-width-j{
+		width: 45% !important;
+		    padding-left: 40px
+	}
+	.filesearchpopup .author-width-i{
+		width: 22% !important;
+	}
+	/*.filesearchbox {
+    width: 76% !important;
+     left: 12% !important;
+	}*/
+	.type-width{
+		width: 10% !important;
+	}
+	.author-width{
+		width: 22% !important;
+	}
+	.other-width{
+		width: 13% !important;
+	}
+	.name-width{
+		width: 41% !important;
+	}
+	.action-width{
+		width: 8% !important;
+	}
+	.action-width-i{
+		width: 4% !important;
+	}
+
+}
+@media (max-width: 991px){
+	.btnok,
+	.btnok:focus,
+	.btnok:hover,
+	.btnok:active{
+			 margin-top: 10px;
+	}
+	.widthSearchSm{
+		width: inherit;
+		 padding-left: 5px;
+		 padding-right: 5px;
+	}
+	.fileComm{
+		/*padding-right: 0px;*/
+		}
+	.filepop{
+		padding-right: 0px;
+		}
+	.menudrop{
+		width: 100%;
+		position: absolute !important;
+		padding-left: 15px!important;
+	}
+	.selectarea {
+		margin-top:0%;
+		margin-left:15px;
+		background-color:#EAEEEF;
+	}
+        .infoarea{
+            margin-top:0%;
+        }
+	.hideinsmall{
+		display: none;
+	}
+	.padding_left,.padding_right{
+		padding-left: 0px !important;
+		padding-right: 0px !important;
+	}
+}
+.padding_left{
+	padding-left: 0px !important;
+}
+.singlebar{
+	cursor: pointer;
+}
+.search-box .form-control{
+	border-radius: 3px;
+}
+.fileComm .form-group,
+.filepop .form-group,
+.filesearchbox .form-group{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+#arrowdown{
+		opacity: 0.5;
+    width: 12px;
+}
+.paddingserarch{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.paddingserarch .form-control{
+	border-radius: 3px;
+}
+.paddingLR{
+	padding-left: 0px;
+	padding-right:5px;
+}
+.searchboxcolor{
+	float: right;
+	    position: absolute;
+	    right: 27px;
+	    top: 26px;
+	    height: 43px;
+	    border: white;
+}
+.searchglyph{
+	height: 41px;
+	right: -4px;
+	margin-top: 0px !important;
+}
+.breakword{
+	word-break: break-all;
+}
+.paddingdrop{
+	    padding: 0px 0px 0px 0px!important;
+			margin-bottom: 0px !important;
+}
+/*.paddingdrop .checkbox label{
+	padding-top: 7px !important;
+	padding-bottom: 7px !important;
+}*/
+.profileimg{
+		margin-top: -2px;
+		width: 17px;
+    border-radius: 50%;
+		margin-right: 5px;
+		margin-left: 0px;
+}
+.fileimg{
+	margin-top: -2px;
+	/*width: 16px;*/
+	margin-right: 5px;
+	margin-left: 0px;
+}
+.btnfileType{
+	padding-left: 15px;
+	width: 100%;
+height: inherit;
+text-align: left;
+color: white;
+}
+.btnfileType:hover{
+	color: white;
+}
+.redbg{
+	color: red !important;
+}
+.greenbg{
+	color: black !important;
+}
+#file-results .search-background{
+	padding-bottom: 0px !important;
+}
+
+@media (min-width: 992px){
+	.parent-ul .filesearchpopup .name-width-i{
+		width: 38% !important;
+	}
+	.child-ul .name-width-j{
+		width:40.7% !important;
+		padding-left: 40px;
+	}
+	.filesearchpopuphead .name-width-h{
+		width: 40% !important;
+	}
+	.child-ul .action-width-i{
+		width: 8% !important;
+	}
+	.child-ul .type-width-j{
+		width: 12.6% !important;
+	}
+	.filesearchpopuphead .type-width-h{
+		width: 19% !important;
+	}
+	.parent-ul .filesearchpopup .type-width-i{
+		width: 12.6% !important;
+	}
+	.type-width{
+		width: 16% !important;
+	}
+	.author-width{
+		width: 20% !important;
+	}
+	.other-width{
+		width: 12% !important;
+	}
+	.name-width{
+		width: 40% !important;
+	}
+	.width10{
+		width: 20%;
+		padding-right: 0px !important;
+	}
+	.width10 .padding_right{
+		padding-right: 0px !important;
+	}
+	.widthPaddingLr{
+		width: 80%;
+	}
+	.width40{
+		width: 40%;
+	}
+	.leftpad{
+		padding-left: 0px !important;
+	}
+	.widthsame {
+		width: 20% !important;
+	}
+	.action-width-i{
+		width: 6% !important;
+		float: right;
+	}
+	.author-width-i {
+    width: 22% !important;
+	}
+	.type-width-i{
+		width: 13% !important;
+	}
+	.other-width-i{
+		width: 13% !important
+	}
+}
+@media (min-width: 481px)and (max-width:991px){
+	.hpanel {
+	    padding-left: 9px;
+	}
+	.headname {
+		margin-left: -10px;
+		margin-right: 10px;
+	}
+}
+.child-ul li .ins_checkbox{
+	position: relative;
+}
+ul.dropdown-menu.menudrop li:hover,
+ul.dropdown-menu.menudrop li .css-label:hover {
+	 background-color:  #efefef;
+	 border-radius: 4px;
+ }
+ .fileSearch-page .search-box .menudrop .btn:focus{
+	 box-shadow: none !important;
+	 border-color: #EFEFEF !important;
+ }
+ .fileSearch-page .search-box .menudrop  .btn:active,
+ .fileSearch-page .search-box .menudrop  .btn:active:focus{
+	 background-color: #EFEFEF !important;
+	 color: black !important;
+ }
+/*
+ul.dropdown-menu.menudrop li input[type="checkbox"], input[type="radio"]{
+	 width: 19px;
+	 height: 19px;
+ }
+ul.dropdown-menu.menudrop .checkbox{
+	margin-top: 0px;
+	margin-bottom: 0px;
+}*/
+.red{
+	background-color: #EFEFEF;
+	color: black;
+}
+.red:hover{
+	background-color: #EFEFEF;
+	color: black;
+}
+.grey{
+	background-color: #e24d53;
+}
+.grey:hover{
+	background-color: #e24d53;
+}
+
+/*green chebox.....................*/
+/*.control {
+	display: block;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+
+.control input {
+	position: absolute;
+	z-index: -1;
+	opacity: 0;
+}
+
+.control__indicator {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	height: 18px;
+	width: 18px;
+	background: #e6e6e6;
+	border-radius: 3px;
+}
+.control__indic {
+	top: 7px !important;
+	left:4px !important;
+}
+
+.control input:checked ~ .control__indicator {
+	background: #0ed35f;
+}
+
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+	background: #0ed35f;
+}
+
+.control input:disabled ~ .control__indicator {
+	background: #e6e6e6;
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+.control__indicator:after {
+	content: '';
+	position: absolute;
+	display: none;
+}
+
+.control input:checked ~ .control__indicator:after {
+	display: block;
+}
+
+.control--checkbox .control__indicator:after {
+	left: 5px;
+	top: 0px;
+	width: 7px;
+	height: 14px;
+	border: solid #fff;
+	border-width: 0px 1px 1px 0;
+	transform: rotate(45deg);
+}
+.checkbox label{
+	padding-left: 15px;
+	margin-left: 15px;
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+	border-color: #7b7b7b;
+}*/
+/*sdddddddddddddd*/
+
+.scrolldiv{
+	margin-top: 3px;
+}
+.scrolldiv::-webkit-scrollbar {
+    width: 3px;
+}
+
+.scrolldiv::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0);
+    border-radius: 10px;
+		  width: 3px;
+}
+
+.scrolldiv::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+		  width: 3px;
+}
+.scrolldiv {
+	max-height: 250px;
+	overflow-y: auto;
+}
+
+.filesearch .name-width span a{
+	display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.filesearch .name-width span img{
+	position: absolute;
+	margin-top: 3px;
+}
+.filesearchpopup .name-width span img,
+.filesearchpopupchild .name-width-j span img{
+	position: absolute;
+	margin-top: 3px;
+}
+.filesearchpopupchild .name-width-j span span a{
+	display: inline-block;
+    padding-left: 20px;
+    padding-right: 13px;
+}
+.filesearchpopup .name-width span a{
+		display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.filesearchcommChild .name-width span a{
+		display: inline-block;
+    padding-left: 25px;
+    padding-right: 10px;
+}
+.filesearchcommChild .name-width span img{
+	position: absolute;
+	margin-top: 3px;
+}
+.filesearchpopup .name-width .imgfolder{
+    padding-left: 25px;
+		padding-right: 5px
+		display: inline-block;
+}
+.filesearchcommParent .name-width .imgfolder{
+    padding-left: 20px;
+		display: inline-block;
+		padding-right: 5px;
+}
+.filesearchcommParent .name-width span a{
+		display: inline-block;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.filesearchcommParent .name-width span img{
+	position: absolute;
+	margin-top: 3px;
+	margin-left: -10px;
+}
+.all-files{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.profileimgLettr{
+	background-color: green;
+    padding-left: 4px;
+    color: white;
+    padding-right: 4px;
+    padding-bottom: 1px;
+    padding-top: 1px;
+    border-radius: 50%;
+		margin-right: 4px;
+}
+.togglearrow{
+	background-color: #EFEFEF;
+    height: 23px;
+    width: 23px;
+    border-radius: 4px;
+    padding-left: 5px;
+		cursor: pointer;
+}
+.paddingdrop .ins_checkbox .css-label{
+	padding-top: 9px;
+	padding-bottom: 26px;
+	width: 100%;
+}
+.paddingdrop .ins_checkbox{
+	padding-left:5px;
+}
+.paddingdrop .ins_checkbox input[type=checkbox].css-checkbox:checked +label.css-label::after{
+	top:9px;
+}
+
+.hovercolor:hover{
+	background-color: #EFEFEF !important;
+	border-radius:4px;
+}
+
+@media (min-width:992px) {
+  .right_padding .datepicker{
+    left: -135px !important;
+    width: inherit;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  .right_padding .datepicker{
+    left: -135px !important;
+    width: inherit;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  .left_padding .datepicker{
+    left: -130px !important;
+    position: absolute;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  .padding_left .datepicker,
+  .padding_right .datepicker{
+    left: -140px !important;
+    position: absolute;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+
+  .leftdate .datepicker{
+    left: -135px !important;
+    position: absolute !important;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+}
+@media (min-width:1130px) {
+  .leftdate .datepicker{
+    left: -130px !important;
+    position: absolute !important;
+  }
+}
+.fileSearch-page .datepicker::before{
+  right: 2px!important;
+}
+.filesearchpopup .ins_checkbox{
+	height: 13px !important;
+	width: 3%;
+}
+.infoarea {
+    width: 171px;
+
+    height: 100%;
+
+    /*height: 200px;*/
+    border-radius: 3px;
+
+    background-color:#EAEEEF ;
+    padding:10px;
+}
+   .textstyle{
+      font-size: 12px;
+      max-width:93px;
+   /* word-wrap: normal; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+   .shadow {
+  border:none;
+
+ 	width: 105%;
+    margin-left: -15px !important;
+    margin-right: -15px!important;
+	height: 42px;
+	margin-top: 0;
+/*	border-bottom: 1px solid #1f1209;*/
+	box-shadow: 0 20px 20px -20px #333;
+  /*margin: -50px auto 10px;*/
+}
+.btnok,
+.btnok:focus,
+.btnok:hover,
+.btnok:active{
+     padding-left:68px;
+    padding-right: 68px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-color: #E54A4E ;
+    color: #E54A4E ;
+		cursor: pointer;
+    font-weight:bold;
+}
+
+.other-width .lightGreen::after,
+.other-width-i .lightGreen::after,
+.other-width-j::after{
+	content: '';
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    position: absolute;
+    background-color: #38a738;
+    border-radius: 50%;
+    margin-top: 0px;
+    margin-left: 2px
+}
+.btn-sm,
+.btn-sm:hover,
+.btn-sm:active,
+.btn-sm:focus{
+	color: rgba(255, 59, 0, 0.59);
+	background-color: white;
+	width: 100%;
+	font-weight: 500;
+	height: 40px;
+	border:1px solid rgba(255, 59, 0, 0.59);
+}
+.btn-sm{
+	background-color: #EAEEEF;
+}
+
+.popInfoareaImg{
+	padding: 20px;
+}
+.popInfoareaImg .btn_img,
+.popInfoareaImg .btn_img:hover,
+.popInfoareaImg .btn_img:active,
+.popInfoareaImg .btn_img:focus{
+	color: rgba(255, 59, 0, 0.59);
+    background-color: white;
+    min-width: 20%;
+    font-weight: 500;
+    height: 50px;
+    border: 1px solid rgba(255, 59, 0, 0.59);
+}
+
+.inspopup-theme-level1 .ins_popup.viewer-of-vdo .ivgallery_wrap ul li.videoli{
+    height: 480px !important;
+}
+	.textstyle{
+      font-size: 12px;
+      max-width:93px;
+      white-space:nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+   }
+
+/*.name-width span span a{
+    width: 95%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}*/
+/*.fileSearch-page .name-width-i span a,
+.fileSearch-page .child-ul .name-width span a{
+	max-width: 82%;
+	    overflow: hidden;
+	    display: inline-grid;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+}*/
+.filesearchpopupchild li, .filesearchpopup li,
+.name-col, .other-col, .action-col{
+	vertical-align: top;
+}
+
+
+.filesearchpopupchild .name-width-j {
+	vertical-align: middle !important;
+}
+.popInfoarea{
+	max-width: 172px;
+	margin: 20px;
+	/*margin-left: 3%;*/
+	padding: 0px;
+	background-color: #EAEEEF;
+}
+/*...........file preview.................*/
+.inspopup-theme-level1  .ngdialog-content{
+    /*margin-top: 3% !important;*/
+	margin-top: 0% !important;
+    margin-bottom: 3% !important;
+}
+.inspopup-theme-level1 .docpreview1{
+    min-height: auto !important;
+}
+
+.inspopup-theme-level1  .ivgallery_wrap .bx-wrapper{
+	max-width: initial !important;
+	min-height: 390px ;
+}
+.inspopup-theme-level1  .ivgallery_wrap .bx-viewport .bxslider li {
+		width: 100% !important;
+		height: auto !important;
+}
+.inspopup-theme-level1  #pdf-body-viewer{
+	height: 600px !important;
+}
+
+.slider .ivgallery_wrap .imageIvagallry{
+		width: 100%;
+		border-radius: 5px;
+		min-height: 480px;
+}
+/*________________________________________*/
+
+.marginSet{
+	width: 20px !important;
+	margin-top: 0px !important;
+	margin-left: 10px !important;
+}
+.imgDrive{
+	width:13px;
+	margin-top:4px !important;
+	margin-left: 13px !important;
+}
+.imgDriveSearch{
+	width:13px;
+	margin-top:4px !important;
+	margin-left: 23px !important;
+}
+.borderChild{
+	background-image: linear-gradient(to right,#ddd, 79%, rgba(255,255,255,0) 80%);
+	background-position: bottom;
+	background-size: 9px 1px;
+	background-repeat: repeat-x;
+}
+.borderlast{
+	border-bottom:1px solid #CCCCCC;
+}
+@media (min-width:768px) {
+	.inspopup-theme-level1  .bx-viewport{
+		height: 610px !important;
+	}
+}
+.filterProfile .dropdown-menu{
+    z-index: 1;
+}

@@ -1,0 +1,31 @@
+<div class="panel panel-default widget widget-html">
+  <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_list">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+		<div class="tblc_m title" translate>
+        	Community Actions
+      	</div>
+      	<div class="tblc_m icn">
+          <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+      	</div>
+      
+    </div>
+  </div>
+  <div class="panel-body">
+    <!-- specific for canal -->
+    <!--
+    <a class="floatl" href="javascript: void(0)" ng-click="showComUserMgr()" translate>User_Manager</a>
+    <br>
+    -->
+    <ul class="widget_ulli">
+    <li href="javascript: void(0)" ng-click="$root.openWidgetManagerPopup()"> <span translate>Widget manager</span> </li>
+    <li href="javascript: void(0)" ng-click="$root.openUserManagerPopup()"> <span translate>User manager</span> </li>
+    <li href="javascript: void(0)" ng-click="$root.openStatisticReportPopup()"> <span translate>Statistiques</span> </li>
+    <li ng-if="$root.digestFeature" href="javascript: void(0)" ng-click="$root.openDigestPopup()"> <span translate>Digest</span> </li>
+    </ul>
+  </div>
+</div>

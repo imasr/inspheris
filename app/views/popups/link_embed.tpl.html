@@ -1,0 +1,37 @@
+<div class="ins_popup medium_popup" ng-click="handleClickEvent($event)">
+  
+  <div class="popup_header floatl">
+      <p class="popup_title">{{'Link_URL' | translate}}</p>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+  </div>
+
+  <div class="video_url_container floatl width100">
+    <input class="ins_input_tex floatl width100 margin_bottom" ng-model="linkEmbed" type="Link Embded" placeholder="URL">
+
+    <div class="floatl marb10" ng-class="linkData.type == 'link' ? 'link_preview_box ':''" style="background-color:none;">
+          <div ng-if="linkPreview != 'invalid'">
+          	<div>
+            <div class="" style="float:left;">
+	       		<div class="feedthumb_125x93 tblc_m">
+	       			<img src="{{linkData.thumbnail_url}}"/>
+	       			<p style="text-align:center;" ng-if="!linkData.thumbnail_url">{{linkData.subTitle}}</p>
+	       		</div>
+	       		</div>
+
+	       		<div class="right_part" style="padding-left:20px;">
+	        		<p class="post-title" >{{linkData.title}}</p>
+	        		<div style="max-height:35px;" data-ng-bind="linkData.description" once-if="linkData.description != ''" class="mxln2 excerpt" data-ellipsis-symbol="..." data-ellipsis></div>
+	        		<a href="{{linkData.location}}" target="_blank" class="fs3"><img ng-if="linkData.favicon!=''" ng-src="{{linkData.favicon}}" style="margin-right:3px;width: 16px;height: 16px;" /><p style="display: inline;">{{linkData.location}}</p></a>
+	       		</div>
+          	</div>
+            
+          </div>
+    </div>
+    <div class="floatl width100">
+      <div class="ins_btn_ctext" ng-class="{'disabled': !isValidLink}" ng-click="done()">
+        <span>OK</span>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,145 @@
+<main class="main-container">
+    <div class="close-btn-article" ui-sref="app.home"> 
+        <i class="fa fa-times"></i> 
+    </div>
+    
+    <article class="articles">
+        <div class="item" id="item1">
+            <div class="background-container article-bg fixed">
+                <div class="bg" style="background-image: url(/images/lively/staticarticle/wall1.jpg)"></div>
+            </div>
+            <div class="header">
+                <div class="container-text">
+                    <p class="subtitle">Le projet Axelliance</p>
+                </div>
+            </div>
+            <div class="box-container">
+                <!--Author Section Start-->
+    <div class="col-md-3 author-content">
+        <div class="author-info-sec">
+            <div class="author-info">
+                <div class="user_image uaa_item img-circle" ><img src="../images/no_image_user.png"></div>
+                <div style="float: left;margin: 10px 0 0 15px;">
+                    <div style="margin-bottom: 5px;font-size: 14px;">Alexandre Collet</div>
+                    <div style="opacity: .6; font-size: 12px;">17 March 2017, 12:00 PM</div>
+                </div>
+            </div>
+        </div>
+        <div class="author-action-sec">
+            <!--Comment-->
+            <div class="art_btn btn_comment floatl" ng-click="showCommentBox(feed, showFullComments)"> 
+                <div class="btn_icon"></div> 
+                <div class="btn-lbl-wrap"></div>
+            </div>
+
+            <!--Like-->
+            <div class="art_btn btn_like floatl">
+                <div class="btn_icon unliked" ng-click="addLike(tpl_feedid);" analytics-on="click" analytics-event="Like" analytics-category="Like" ng-class="feed.userLiked ? 'liked' : 'unliked'"></div>
+                <div class="btn-lbl-wrap"></div>
+            </div>
+
+            <!--ABCD-->
+            <div class="art_btn btn_translate_flag floatl">
+                <div class="btn-group drop-down3"> 
+                    <div class="dropdown-toggle art_btn btn_lang floatl" data-toggle="dropdown" ng-click="showLanguageDropdown()"> 
+                        <div class="btn_icon"> 
+                            <span class="btn_icon"></span>
+                        </div> 
+                    </div>
+                </div> 
+            </div> 
+
+            <div class="floatr ng-scope"> 
+                <div class="btn_delete floatr" ng-click="$ctrl.onClickDeleteFeed({uid: feed.uid});">
+                    <div class="btn_icon"> </div> 
+                </div> 
+                <span class="btn_seprator floatr"> • </span>
+                <div class="btn_edit floatr" ng-click="$root.editArticle(feed)"> 
+                    <div class="btn_icon"></div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+    <!--Author Section End-->
+                <div class="container-text">
+                    <div class="inner-text">
+                        <p>Axelliance est un groupe composé de 3 entités distinctes. Notre objectif était de fournir la même qualité d'information aux collaborateurs. Ainsi, notre but était de mettre à la disposition de nos utilisateurs une plateforme en mode accès libre. Nous voulions leur donner la possibilité d'accéder aux informations de tous les services, pour créer une véritable cohésion. </p>
+                        <p>Inspheris et son logiciel Lively ont très bien compris notre problématique et grâce à leur expertise, ils ont ainsi pu nous proposer une plateforme qui a répondu pleinement à nos attentes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="item" id="item2">
+            <div class="background-container article-bg">
+                <div class="bg" style="background-image: url(/images/lively/staticarticle/wall2.jpg)"></div>
+            </div>
+            <div class="header">
+                <div class="container-text">
+                    <p class="subtitle">Le résultat </p>
+                </div>
+            </div>
+            <div class="box-container">
+                <div class="container-text">
+                    <div class="inner-text">
+                        <p>Simple et efficace, l’intranet met à disposition de tous nos salariés l’information clé. Deux mois après le lancement, l’intranet a déjà était adopté par plus de la moitié de nos salariés. L'intranet nous permet également de créer des groupes de travail, ainsi chaque service a accès à son information et peut collaborer dans les espaces qui lui sont dédiés.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item" id="item3">
+            <div class="background-container article-bg">
+                <div class="bg" style="background-image: url(/images/lively/staticarticle/wall3.jpg)"></div>
+            </div>
+            <div class="header">
+                <div class="container-text">
+                    <p class="subtitle">Quelques chiffres</p>
+                </div>
+            </div>
+            <div class="box-container">
+                <div class="container-text">
+                    <div class="inner-text">
+                        <p style="color:#4ea524;">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half" aria-hidden="true"></i>
+                        </p>
+                        <p>L’accompagnement Inspheris</p>
+                        <br/>
+                        <p style="color:#4ea524;">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half" aria-hidden="true"></i>
+                        </p>
+                        <p>les réponses aux usages et besoins de Lively </li>
+                            <br/>
+                        <p style="color:#4ea524;">
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star" aria-hidden="true"></i>
+                            <i class="fa fa-star-half" aria-hidden="true"></i>
+                        </p>
+                        <p>Satisfaction globale de Lively by Inspheris</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav fixed">
+            <div class="menu-opener layout-hambergertocross"><span></span></div>
+            <div class="title">
+                <h1> Axelliance & Lively : Un projet collaboratif </h1>
+                <p>Témoignage de Sophie Jouve, Responsable Marketing Contenu & Communication Interne chez Axelliance Groupe.</p>
+            </div>
+            <ul>
+                <li id="article1"><a class="scroll-to-id" href="#item1">Le projet Axelliance</a></li>
+                <li id="article2"><a class="scroll-to-id" href="#item2">Le résultat</a></li>
+                <li id="article3"><a class="scroll-to-id" href="#item3">Quelques chiffres</a></li>
+            </ul>
+        </div>
+    </article>
+</main>

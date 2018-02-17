@@ -1,0 +1,101 @@
+<!-- to show automated calendar widget, used to show events -->
+<div bindonce class="panel panel-default widget widget-poll" ng-controller="WidgetPollCtrl">
+  <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_poll">
+              <div class="btn_icon"></div>
+            </div>
+         </div>
+      <div class="tblc_m title" ng-bind="$ctrl.widget.title">
+      </div>
+      <div class="tblc_m icn">
+      	<span ng-if="$ctrl.userCanEditWidget">
+	    	<i ng-click="editWidget($ctrl.widget)" class="lnr lnr-pencil clk"></i>
+	    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    </span>
+	    <span ng-if="!$ctrl.userCanEditWidget">
+	    	<i ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></i>
+	    </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel-body" ng-show="isWidgetOpen"> 
+  	<div class="disp_table width100 pad10" ng-if="$ctrl.userCanEditWidget == true && viewResult">
+		<div class="btn-group btn-group-xs">
+			<button type="button" class="btn btn-primary btn-results btn-xs"ng-click="viewResults()" translate>Results</button>
+			<button type="button" class="btn btn-success btn-download btn-xs" ng-click="download($ctrl.widget.uid)" translate>Download</button>			
+         </div>
+     </div>   
+
+     <div class="pad10">
+	 <div class="survey-section" ng-if="$ctrl.widget.questions.length > 0">
+       <div class="sec-title" ng-repeat="q in $ctrl.widget.questions" ng-init="v=q.votedAnswerId;name=' ' + q.votedAnswerId">       
+         <p>{{q.question}}</p>
+       <ul class="well well-sm ">		
+         <li class="sec-ul-li" ng-repeat="a in q.answers">
+            <div class="disp_table width100">
+              <div class="tblr">
+                <!-- show result wiew -->            
+              	<span ng-if="viewResult">
+              		<!-- <input type="radio" ng-model="id" name="id" value="{{a.id}}" ng-click="isSelected(a.id)"/> --> <p>{{a.answer}} </p>
+              		<div class="progress">
+        						<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{a.votedPercent}}" title= "{{a.votedTotal}}" aria-valuemin="0" aria-valuemax="100" style="width:{{a.votedPercent}}%">{{a.votedPercent}}%</div>
+      					</div>
+              	</span>
+              	
+              	<!-- show regular wiew -->     
+              	<span ng-if="!viewResult">
+              		<span ng-if="q.votedUser"> <!-- disable if user voted --> 
+              			<input type="radio" ng-model="v" name="id-{{name}}" value="{{a.id}}" ng-click="isSelected(a.id)" disabled="disabled"/> {{a.answer}} </br>
+              		</span>
+	                <span ng-if="!q.votedUser">
+	              		<input type="radio" ng-model="v" name="id-{{name}}" value="{{a.id}}" ng-click="isSelected(a.id)"/> {{a.answer}} </br>
+	              	</span>
+              	</span>
+              			
+              </div>
+            </div>
+         </li>
+         
+		 <li class="sec-ul-li">
+            <div class="disp_table width100" ng-if="viewResult == false">
+              <div class="tblr" ng-if = "q.votedUser == false">
+                <button type="button" class="btn btn-primary" style="padding: 0px 7px" ng-click="vote(q.id)" translate>Vote</button>		
+              </div>
+              <div class="tblr" ng-if = "q.votedUser == true">
+                
+                <button type="button" class="btn btn-success" style="padding: 0px 7px" translate disabled="disabled">Submitted</button>
+              </div>
+            </div>
+         </li>
+         <!-- if no questions -->
+         <li  class="sec-ul-li" ng-if="questions.length <= 0">
+            <div class="disp_table width100">
+              <div class="tblr">
+                <div class="tblc_m tac pad10">
+                  <div class='title' ng-bind="'No Questions' | translate">
+                  </div>
+                </div>
+              </div>
+            </div>
+         </li>
+       </ul>
+	   </div>
+     </div>
+     </div><!--padding-END-->
+     <div class="disp_table width100 wdt-tabs-wrap" ng-if="$ctrl.userCanEditWidget == true">
+        <div class="tblr">
+          <div class="tblc wtab" ng-click="viewQuestion()" style="cursor: pointer;">          
+            <span translate>Regular view</span>
+           <div  ng-class="{'status-bdg' : !viewResult}"> </div>
+          </div>
+          <div class="tblc wtab" ng-click="viewResults()" style="cursor: pointer;">
+            <span translate>Result view</span>
+            <div  ng-class="{'status-bdg' : viewResult}"> </div>
+          </div>
+        </div>
+     </div>
+  </div>
+</div>

@@ -1,0 +1,385 @@
+
+<div class="document_list" ng-controller="FileDetailEditCtrl">
+  <!--new Template-->
+  
+  <div class="closebtn" ng-class="{editPopen: isEditingMode}" ng-click="closeImgaVideoGalleryPopup()" style="background-color:white;color:#A7A7AF;"> X </div>
+  <div class="popwrap-cover" ng-class="{editPopen: isEditingMode}">
+  <div ng-show="!isEditingMode" class="row">
+  <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closeImgaVideoGalleryPopup()" ></div>
+      <div class="headerNEW col-md-8">
+             <div class="headertitle" ng-if="file.fileName">{{file.title}}</div>           
+      </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 rowpopdochead" ng-click="closeImgaVideoGalleryPopup()"></div>
+  </div>
+  <div ng-show="!isEditingMode" class="row ">
+  <div  class="col-md-2 col-sm-2 col-xs-2 rowpopdocbody" ng-click="closeImgaVideoGalleryPopup()"></div>
+  <div ng-show="!isEditingMode" class="marginn rowtop col-md-8" >
+      <div class="col-md-12 col-sm-12 col-xs-12"><!--style="background-color: white;"-->
+                <!-- <a href="{{file.url}}" src="{{file.url}}">
+                  <button type="button" class="btn btn-default btn-sm">
+                    <img style="width:18px;" src="../images/download.png" alt=""/> &nbsp;&nbsp;&nbsp; Download File
+                  </button>
+                </a> -->
+                <div class="col-md-12 col-sm-12 col-xs-12 tablediv">
+                <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                    <tbody >
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">Version:</td>
+                        <td class="infoTrTd2">{{file.version}} </td>
+                      </tr>
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">By:</td>
+                        <td class="infoTrTd2">
+                            <a ui-sref="app.myprofile({uid: file.author.uid, activetab: 'About'})" style="color:#3685b3;text-decoration:none" target="_blank">
+                                
+                                <img ng-if="file.author.headerLogoUrl" src="{{file.author.headerLogoUrl}}" height="17" width="17" style="border-radius:20px;clear:both;display:block;float:left;min-height:20px;max-width:100%; margin-right:7px;outline:none;text-decoration:none;width:20px">
+                                <span ng-if="!file.author.headerLogoUrl" style="text-transform: uppercase;border-radius: 50%;float: left;min-height: 20px;max-width: 100%;margin-right: 7px;outline: none;text-decoration: none;width: 20px;text-align: center;border: 1px solid #e4e7ea;background: #e7e7e7;">{{file.author.firstName.charAt(0)}}{{file.author.lastName.charAt(0)}}</span>
+    
+                                <strong>{{file.author.firstName}} {{file.author.lastName}}</strong>
+                            </a>
+                          </td>
+                      </tr>
+                  </tbody>
+                </table>
+                <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                  <tbody class="borderleft">
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">File:</td>
+                        <td class="infoTrTd2">{{file.fileName}}</td>
+                      </tr>
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">Language:</td>
+                        <td class="infoTrTd2">{{file.language}}</td>
+                      </tr>
+                       </tbody>
+                  </table>
+                <table class="info col-md-4 col-sm-4 col-xs-4 tableDivFixedHeight">
+                  <tbody class="borderleft">
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">Audience:</td>
+                        <td class="infoTrTd2">{{file.audience}}</td>
+                      </tr>
+                      <tr class="infoTr">
+                        <td class="infoTrTd1">Created:</td>
+                        <td class="infoTrTd2">{{file.uploadedDate | date}}</td>
+                      </tr>
+                  </tbody>
+              </table>
+                </div>
+  </div>
+    <div ng-if="!isEditingMode && fileslist.length >1" class="col-md-12 col-sm-12 hiddensmall filepreview">
+            <div ng-if="file.isInternal && ('pdf' == canPreview(file.url) || 'ppt' == canPreview(file.url) || 'doc' == canPreview(file.url) || 'xls' == canPreview(file.url))" class="preview-div" style="height: 500px;">
+                <ng-include  src="'../app/views/blocks/pdf_view.tpl.html'"></ng-include>
+          </div>
+          <div ng-if="file.isInternal && ('pdf' != canPreview(file.url) && 'ppt' != canPreview(file.url) && 'doc' != canPreview(file.url) && 'xls' != canPreview(file.url))" class="tac no-preview-docs">
+                <h4 translate>No preview available</h4>
+          </div>
+          <div ng-if="!file.isInternal" class="tac no-preview-docs">
+                <h4 translate>There is no preview available</h4>
+               <a target="_blank" href="{{file.path}}"><h4 translate>Open In Google Drive</h4></a>
+          </div>
+    </div><!--col-md-8 END-->
+    <div ng-if="!isEditingMode && fileslist.length ==1" class="col-md-12 col-sm-12 hiddensmall docWidth1">
+            <div ng-if="file.isInternal && ('pdf' == canPreview(file.url) || 'ppt' == canPreview(file.url) || 'doc' == canPreview(file.url) || 'xls' == canPreview(file.url))" class="preview-div" style="height: 500px;">
+                <ng-include  src="'../app/views/blocks/pdf_view.tpl.html'"></ng-include>
+          </div>
+          <div ng-if="file.isInternal && ('pdf' != canPreview(file.url) && 'ppt' != canPreview(file.url) && 'doc' != canPreview(file.url) && 'xls' != canPreview(file.url))" class="tac no-preview-docs">
+                <h4 translate>No preview available</h4>
+          </div>
+          <div ng-if="!file.isInternal" class="tac no-preview-docs">
+                <h4 translate>There is no preview available</h4>
+               <a target="_blank" href="{{file.path}}"><h4 translate>Open In Google Drive</h4></a>
+          </div>
+    </div><!--col-md-8 END-->
+  </div>
+  <div class="col-md-2 col-sm-2 col-xs-2 rowpopdocbody" ng-click="closeImgaVideoGalleryPopup()"></div>
+  </div>
+</div>
+  
+  <div class="galleryDoc" >
+  
+  </div><!--row END-->
+  <!--
+  <div ng-if="file.isInternal && fileslist.length == 1" class="onefile">
+          <span ng-if="file.path">
+            <a target="_blank" title="{{'Download' | translate}}" ng-href="{{file.path}}">
+              <button type="button" class="btn btn-default button_file">
+                <img style="width:18px;display:inline;" src="../images/download.png" alt=""/> &nbsp;&nbsp;&nbsp; Download File
+              </button>
+            </a>
+        </span>
+       <span ng-if="file.url">
+         <a target="_blank" title="{{'Download' | translate}}" ng-href="{{file.url}}">
+           <button type="button" class="btn btn-default button_file">
+             <img style="width:18px;display:inline;" src="../images/download.png" alt=""/> &nbsp;&nbsp;&nbsp; Download File
+           </button>
+         </a>
+        </span>
+  </div>
+  <div ng-if="fileslist.length == 1" style="margin-top:10px;" class="onefile">
+        <li ng-if="file.isInternal">
+          <button type="button" ng-if="showGalleryEdit" class="btn btn-default button_editfile" title="{{'Edit' | translate}}" ng-click="showFileEditorModal($index)">
+            <img style="width:23px;display:inline;" src="../images/icons/edit.png" alt=""/> &nbsp;&nbsp;&nbsp; {{'Edit File' | translate}}
+          </button>
+        </li>
+  </div>-->
+  
+  
+  
+  <div class="fixedFooter setFooter" ng-show="!isEditingMode" >
+    
+          <div class="galleryDoc">
+            <div class="row">
+                <div class="col-md-12">
+              <div ng-if="file.isInternal" class="btndiv">        
+                  <span ng-if="file.path">
+                    <a target="_blank" title="{{'Download File' | translate}}" ng-href="{{file.path}}">
+                      <button type="button" class="btn btn-default button_file">
+                        <i class="fa fa-download-new" aria-hidden="true"></i>
+                       <span> &nbsp;&nbsp;&nbsp; {{'Download File' | translate}}</span>
+                      </button>
+                    </a>
+                  </span>
+                  <span ng-if="file.url">
+                    <a target="_blank" title="{{'Download File' | translate}}" ng-href="{{file.url}}">
+                      <button type="button" class="btn btn-default button_file">
+                        <i class="fa fa-download-new" aria-hidden="true"></i>
+                        <span>  &nbsp;&nbsp;&nbsp; {{'Download File' | translate}}</span>
+                      </button>
+                    </a>
+                  </span>
+              </div>
+              
+              <div ng-if="fileslist.length > 1" class="btndiv" ng-click="downloadAll()">
+                  <span ng-if="fileslist.length > 1">
+                      <button type="button" class="btn btn-default button_file" title="{{'Download All' | translate}}">
+                        <i class="fa fa-download-new" aria-hidden="true"></i>
+                   <span>&nbsp;&nbsp;&nbsp; {{'Download All' | translate}}</span> 
+                      </button>
+                  </span>
+              </div>
+  
+              <div class="btndiv" ng-if="file.isInternal">
+                <button type="button" ng-if="showGalleryEdit" class="btn btn-default button_editfile" title="{{'Edit' | translate}}" ng-click="showFileEditorModal($index)">
+                  <i class="fa fa-pencil-square-o-new" aria-hidden="true"></i>
+                 <span> &nbsp;&nbsp;&nbsp; {{'Edit File' | translate}}</span>
+                </button>
+              </div>
+              <div class="arrowupdown" ng-if="fileslist.length > 1 && !showgallery" ng-click="showgal()"><i class="fa fa-angle-up" style="font-size:24px"></i></div>
+              <div class="arrowupdown" ng-if="fileslist.length > 1 && showgallery" ng-click="showgal()"><i class="fa fa-angle-down" style="font-size:24px"></i></div>
+              <div class="filetotal" ng-if="fileslist.length > 1">{{(selIndex + 1)}} / {{fileslist.length}}</div>
+      
+              <div class="searchFilter search-roundbox" ng-if="!isEditingMode && fileslist.length > 1 && showgallery">
+                <input type="text" class="search_light" ng-model="filterPopupData.fileName" placeholder="Search.." />
+                <i class="fa fa-search" aria-hidden="true"></i>
+              </div>
+         
+          
+          
+          </div>
+        </div>
+          </div><!--galleryDoc END-->
+      
+        <div class="row slide-files border-top fixed-slidetop" style="position:relative" ng-if="!isEditingMode && fileslist.length > 1 && showgallery">
+            <div class="col-md-12 zeroPaddingLeftRight">
+          <ul class="uploaded-list no_padd_lr"> 
+              <li ng-repeat="file in fileslist" ng-hide="(filterPopupData.fileName !== null && filterPopupData.fileName !== '' && file.fileName.toLowerCase().indexOf(filterPopupData.fileName.toLowerCase())!==0)" ng-click="clicked($index)" class="ng-class:{'active': $index == selIndex};">
+                <div class="update-nag" style="position:relative;" class="ng-class:{'active': $index == selIndex};">
+                  <div class="icon-split">
+                    <img set-icon-file="{fileName: file.fileName, url: file.thumbGalleryUrl, internal : file.isInternal, mineType : file.fileType}">
+                  </div>
+                  <div class="file-thumb-info" class="ng-class:{'active': $index == selIndex};" >
+                    <span class="mxln2 file-text" >{{file.fileName}}</span>                        
+                  </div>
+                </div>
+              </li>
+            </ul>
+            </div>
+        </div><!--files-slide END-->
+  
+    </div><!--end of fixedFooter-->
+  
+  
+  <!--old Template start-->
+    <div ng-show="isEditingMode" class="document-info-bar popupBoxdisplay">
+      <div class="disp_table marb10">
+        <div class="col-md-2">
+          <div class="floatl feedthumb_72">
+            <thumbnail file="file"></thumbnail>
+          </div>
+          <span class="fc3 fs3" ng-if="file.uploadedDate">
+            {{file.uploadedDate | date: $root.localDateFormat}}
+          </span>
+        </div>
+        <div class="col-md-8 col-sm-8 col-xs-12">
+  
+          <div ng-show="!isEditingMode && file.title" class="fc1 fs2">
+         <div class="clk" style="max-width: 275px; word-wrap: break-word;" ng-init="title = file.title" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                   <div class="mxln2" data-ng-bind="file.title" data-ellipsis-symbol="..." data-ellipsis> </div>
+             </div>
+      </div>
+          <input ng-show="isEditingMode" class="ins_input_tex floatl widht100 fc1 fs2" ng-model="fileTitle" type="text" placeholder="{{'Title' | translate}}">
+  
+          <div ng-show="!isEditingMode && file.description" class="fc1 fs2">{{file.description}}</div>
+          <textarea ng-show="isEditingMode" msd-elastic class="floatl width100 fc1 fs2" style="min-height: 100px; max-height:100px;" ng-model="fileDescription" placeholder="{{'Description' | translate}}" ng-trim="false" maxlength="500"></textarea>
+  
+          <div class="fc1 fs2">
+  
+  
+            <span ng-show="file.author">
+              <div class="auth auth1">
+              <span translate>By</span > </div>
+                <div class="auth ">
+  
+                <a ng-href="{{$root.generateLink('userProfilePage', file.author)}}" ng-click="closeImgaVideoGalleryPopup()">{{file.author.firstName}} {{file.author.lastName}}</a>
+                </div>
+            </span>
+            <span ng-show="file.uploadBy">
+              <span translate>By</span> <a ng-href="{{$root.generateLink('userProfilePage', file.uploadBy" ng-click="closeImgaVideoGalleryPopup()">{{file.uploadBy.firstName}} {{file.uploadBy.lastName}}</a>
+            </span>
+          </div>
+  
+          <div class="fc1 fs2 file-namewrap">
+            <div class="filebx-label" style="width:100px;display:inline-block;vertical-align:top;">
+              <i class="fa fa-file"></i> &nbsp;
+              <span>{{'File' | translate}}  </span>
+              <span>: &nbsp;</span>
+            </div>
+            <div class="filebx-name" style="display:inline-block;">
+              <div class="clk" style="max-width: 275px; word-wrap: break-word;" ng-init="title = file.fileName" data-placement="bottom" data-template-url="../views/blocks/tooltip.tpl.html" data-content="{{ title }}" data-trigger="click" data-auto-close="1" bs-popover>
+                <div class="mxln2" data-ng-bind="file.fileName" data-ellipsis-symbol="..." data-ellipsis> </div>
+              </div>
+            </div>
+          </div>
+         
+
+  
+          <div class="fc1 fs2">
+            <div class="tblc_m tabc_1">
+              <i class="fa fa-file"></i> &nbsp;
+              <span>{{'Version' | translate}}</span> <span>: &nbsp;</span>
+            </div>
+            <div class="tblc_m">
+              <span ng-show="!isEditingMode">{{version}}</span>
+              <input ng-show="isEditingMode" class="ins_input_tex floatl widht100 fc1 fs2" ng-model="version" type="text" placeholder="{{'Version' | translate}}">
+            </div>
+          </div>
+  
+  
+          <div class="fc1 fs2" ng-if="!isEditingMode && file.uploadBy">
+            <i class="fa fa-user"></i> &nbsp;
+            <span>{{'Presented by' | translate}}</span> <span>: &nbsp;</span> <a ng-href="{{$root.generateLink('userProfilePage', file.uploadBy)}}"><span>{{file.uploadBy.displayName}}</span></a>
+          </div>
+  
+          <div class="fc1 fs2">
+            <div class="tblc_m tabc_1">
+              <i class="fa fa-globe"></i> &nbsp;
+              <span>{{'Language' | translate}}</span> <span>: &nbsp;</span>
+            </div>
+            <div class="tblc_m">
+              <span ng-if="!isEditingMode">{{selectedLang.name | translate}}</span>
+              <div ng-if="isEditingMode" dropdown-select="langOptions" dropdown-model="selectedLang" dropdown-onchange="languageSelected(selected)" dropdown-item-label="name"></div>
+            </div>
+          </div>
+  
+          <div class="fc1 fs2">
+            <div class="tblc_m tabc_1">
+              <i class="fa fa-users"></i> &nbsp;
+              <span>{{'Audience' | translate}}</span> <span>: &nbsp;</span>
+            </div>
+            <div class="tblc_m">
+              <span ng-if="!isEditingMode">{{file.audience}}</span>
+              <input ng-show="isEditingMode" class="ins_input_tex floatl widht100 fc1 fs2" ng-model="audience" type="text" placeholder="{{'Audience' | translate}}">
+            </div>
+          </div>
+  
+          <div class="fc1 fs2"><!-- ng-show="hashTags.length>0 || isEditingMode" -->
+            <span># {{'Hashtags' | translate}}</span> <span>: &nbsp;</span>
+              <span ng-if="!isEditingMode && (hashTags.length > 0)" ng-repeat="tag in hashTags">
+                <a ui-sref="app.search.category({type: 'general', filter: 'all', category: 'global', text: tag.text, page: 0,internalSearch: true})" ng-click="closeImgaVideoGalleryPopup()">
+               <span class="tg" ng-bind="tag.text"></span> &nbsp;
+           </a>
+              </span>
+            <span></span>
+            <span ng-if="!isEditingMode && (hashTags.length <= 0)">Aucun hastag. Soyez le premier à en définir</span>
+  
+            <tags-input ng-show="isEditingMode" ng-model="hashTags" class="ti-input-sm" add-on-enter="true" placeholder="{{'Add_Hashtag' | translate}}" min-length="2" add-on-space="true" add-on-comma="true" add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'>
+              <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete>
+            </tags-input>
+  
+          </div>
+        </div>
+        <div class="col-md-1">
+          <span ng-if="file.path">
+             <a class="floatl marb10" target="_blank" title="{{'Download' | translate}}" ng-href="{{file.path}}">
+                <div class="download-btn">
+                  <i class="fa fa-download"></i>
+                </div>
+            </a>
+          </span>
+         <span ng-if="file.url">
+             <a class="floatl marb10" target="_blank" title="{{'Download' | translate}}" ng-href="{{file.url}}">
+                <div class="download-btn">
+                  <i class="fa fa-download"></i>
+                </div>
+            </a>
+          </span>
+  
+          <div ng-if="showGalleryEdit" class="download-btn floatl" title="{{'Edit' | translate}}" ng-click="showFileEditorModal($index)">
+            <i class="fa fa-pencil-square-o-new"></i>
+          </div>
+  
+  
+        </div>
+      </div>
+  
+      <div class="all-controls" ng-if="showFileEditButton" style="height:45px;">
+          <div ng-if="!showGalleryEdit && isEditingMode" class="floatl" ng-class="{'fsb_1': selectedFeedStatus.val == 'Draft', 'fsb_2': selectedFeedStatus.val == 'Pending For Validation', 'fsb_3': selectedFeedStatus.val == 'Pending for translation', 'fsb_4': selectedFeedStatus.val == 'Publication scheduled', 'fsb_5': selectedFeedStatus.val == '5', 'fsb_6': selectedFeedStatus.val == '6', 'fsb_7': selectedFeedStatus.val == 'Published and Signed', 'fsb_8': selectedFeedStatus.val == 'Archived'}" style="width: 200px; margin-bottom:20px;">
+              <div class="btn-group ins_dropdown status-dropdown width100">
+                  <button type="button" class="btn btn-default">
+                    <span class="btn-lbl">{{selectedFeedStatus.text | translate}}</span>
+                  </button>
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <div ng-if="!feedStausLoader">
+                      <span class="caret"></span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                    </div>
+                    <div ng-if="feedStausLoader">
+                      <i class="fa fa-spinner fa-spin"></i>
+                    </div>
+                  </button>
+  
+                  <ul class="dropdown-menu" role="menu">
+                    <li class="clk" ng-repeat = "opn in feedStatusSelection" ng-click="feedStautsChanged(opn)"><span>{{opn.text | translate}}</span></li>
+                  </ul>
+              </div>
+          </div>
+  
+          <div class="floatr" ng-if="file.uid"><!-- if file is already uploaded -->
+            <div ng-if="!showGalleryEdit">
+              <div ng-if="!isEditingMode" title="{{ 'delete' | translate }}" class="btn_delete floatr" ng-click="deleteFile(file.uid)">
+                 <div class="btn_icon">
+                  <!-- <i class="fa fa-trash-o"></i> -->
+                 </div>
+              </div>
+              <span ng-if="!isEditingMode" class="btn_seprator floatr"> • </span>
+              <div ng-if="!isEditingMode" class="btn_edit floatr" title="{{'Edit' | translate}}" ng-click="enableEditing(true)">
+                 <div class="btn_icon">
+                  <!-- <i class="fa fa-pencil-square-o"></i> -->
+                 </div>
+              </div>
+            </div>
+  
+            <div ng-if="isEditingMode" class="btn_text floatr" ng-click="closeThisDialog({flag: 'cancel', data: null})">
+              <span>{{'cancel' | translate}}</span>
+           </div>
+            <span ng-if="isEditingMode" class="btn_seprator floatr"> • </span>
+            <div ng-if="isEditingMode" class="btn_text floatr" ng-click="saveFileDetail()">
+               <span>{{'save' | translate}}</span>
+            </div>
+          </div>
+      </div>
+    </div><!--old Template end-->
+  
+  
+  </div>

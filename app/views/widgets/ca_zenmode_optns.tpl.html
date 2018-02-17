@@ -1,0 +1,46 @@
+<div class="panel-group ins_collapse zen_mode_optns floatl width100" ng-controller="WidgetZenmodeCtrl"  bs-collapse>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+                <div bs-collapse-toggle class="ins_btn_licon">
+                  <div class="icon zen_icon"></div>
+                  <p> {{'Zen_Mode' | translate}}</p>
+                </div>
+        </div>
+
+        <div class="panel-collapse" bs-collapse-target>
+            <div class="panel-body">
+                <div class="zen_image">
+                  <p><i>({{'image_size_cant_be_less_than_1600x600_pixels' | translate}})</i></p>
+                
+                  <div class="res-rectangle margin_bottom" ngf-drop ngf-select ng-model="bannerFiles" ng-model-rejected="rejBannerFiles" ngf-change="onTopImgSelect($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" ng-style="{'padding-top' : getZenImgHeight()}"><!-- type="file" ng-file-select ng-file-change="onTopImgSelect($files)" ng-multiple="false" accept="image/*" -->
+                    <div class="rect-content">
+                      <img ng-if="zenImages.top.data.url" src="{{zenImages.top.data.url}}">
+                      <div ng-if="!zenImages.top.data.url" class="disp_table">
+                        <div class="tblc">
+                          <div class="no-img-thumb"></div>
+                          <span class="lbl" >{{'Top_Image' | translate}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="zen_image">
+                  <p><i>({{'image_size_cant_be_less_than_1600x600_pixels' | translate}})</i></p>
+            
+                  <div class="res-rectangle margin_bottom" ngf-drop ngf-select ng-model="bannerFiles" ng-model-rejected="rejBannerFiles" ngf-change="onBottomImgSelect($files)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" ng-style="{'padding-top' : getZenImgHeight()}"><!-- type="file" ng-file-select ng-file-change="onBottomImgSelect($files)" ng-multiple="false" accept="image/*" -->
+                    <div class="rect-content">
+                      <img ng-if="zenImages.bottom.data.url" src="{{zenImages.bottom.data.url}}">
+                      <div ng-if="!zenImages.bottom.data.url" class="disp_table">
+                        <div class="tblc">
+                          <div class="no-img-thumb"></div>
+                          <span class="lbl" >{{'Bottom_Image' | translate}}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

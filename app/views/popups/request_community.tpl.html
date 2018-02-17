@@ -1,0 +1,18 @@
+<div class="ins_popup medium_popup" ng-controller="RequestCommunityCtrl">
+  
+	<div class="popup_header floatl">
+		<div class="popup_title">{{'Request_a_community' | translate}}</div>
+		<div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl" style="padding: 20px;">
+	    <input class="ins_input_tex marb10" ng-model="title" type="text" placeholder="{{'Title' | translate}}" set-title="'Title' | translate">
+
+	    <input class="ins_input_tex marb10" ng-model="description" type="text" placeholder="{{'Description' | translate}}" set-title="'Description' | translate">
+
+	    <input class="ins_input_tex marb10" ng-model="reason" type="text" placeholder="{{'Request_reason' | translate}}" set-title="'Request_reason' | translate">
+
+		<div class="ins_btn_ctext" ng-click="submit()" ng-class="{'disabled': isPublishing}"> <span>{{'Submit' | translate}}</span> </div>
+	</div>
+
+</div>

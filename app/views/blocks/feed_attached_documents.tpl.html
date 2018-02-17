@@ -1,0 +1,12 @@
+<div class="fl_docu_container" ng-repeat="docu in docarr">
+    <div class="left_part">
+        <div>
+          <img class="feedthumb_72" set-icon-src="{type: docu.fileType, url: docu.thumbGalleryUrl}">
+        </div>
+    </div>
+                          
+    <div class="right_part file_info">
+      <div class="art_title" ng-if="docu.fileName"> {{docu.fileName}} </div>
+      <div class="list_ritch_text"> <span class="gray_font">{{ 'Uploaded' | translate }} {{docu.uploadedDate|timeago}}</span> </div> 
+    </div>
+</div>

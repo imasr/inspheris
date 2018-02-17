@@ -1,0 +1,43 @@
+<div class="ins_popup small_popup select-files-popup" ng-controller="BrowseVideoCtrl">
+
+    <div class="popup_header floatl">
+        <div class="popup_title">{{ 'Select Video' | translate }}</div>
+        <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+    </div>
+
+    <div class="popup_wrapper">
+        <div id="scrollImages" class="imagelist_container floatl">
+            <ul class="imagecb_list" infinite-scroll="showMoreImages()" infinite-scroll-container='"#scrollImages"'>
+                <li>
+                    <div ng-if="allVideos.length <= 0">
+                        <div class="loader">{{ 'Loading' | translate }}...</div>	
+                    </div>
+                </li>
+                <li ng-repeat="videoObj in allVideos">
+                    <div class="left_part">
+               			<div class="btn_edit floatr hide" ng-if="$root.userData.role == 'GlobalCommunityManager'" ng-click="updateVideoThumb(videoObj);">
+                     		<div class="btn_icon">
+                            </div>
+                   		</div>
+                        <div class="ins_checkbox">
+                            
+                            <label>
+                                <input type="radio" ng-model="list.selectedVideo"value="{{videoObj}}" name="selectedVideo" id="remoteimg{{$index}}" class="css-checkbox">
+
+                                <img style="width: 50%" no-cache-src="{{videoObj.thumbUrl}}">
+                                <span class="art_title"> {{videoObj.videoName}} </span>
+                                
+                            </label>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="floatl width100">
+            <div class="ins_btn_ctext" ng-click="openVideoBrowsePreviewModal(list.selectedVideo)">
+                <span>OK</span>
+            </div>
+        </div>
+    </div>
+
+</div>

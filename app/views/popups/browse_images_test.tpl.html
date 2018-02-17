@@ -1,0 +1,99 @@
+<div class="modal fade">
+  <div class="modal-dialog small_popup">
+    <div class="modal-content">
+      <div class="modal-header popup_header no_padd">
+        <!--
+        <button type="button" class="close" ng-click="close('cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Yes or No?</h4>
+        -->
+        <div class="popup_title">{{ 'Select_Images' | translate }}</div>
+        <div class="close_btn" data-dismiss="modal" ng-click="close('cancel')"> X </div>
+      </div>
+      <div class="modal-body">
+
+        <div class="imagelist_container">
+          <div class="width100">
+            <div class="width100" dropdown-select="comSelectOptions" dropdown-model="communitySelected" dropdown-item-label="text" dropdown-onchange="whatsNewCommValChanged(selected)"></div>
+          </div>
+          <div ng-if="remoteImages.length <= 0">
+            <div class="widht100">
+                <div class="loader">{{ 'Loading' | translate }}...</div>  
+            </div>
+          </div>
+          <ul ng-if="remoteImages.length > 0" class="imagecb_list" infinite-scroll="showMoreImages()">
+            <li ng-repeat="imageobj in remoteImages">
+              <div class="left_part">
+                <div class="ins_checkbox">
+                        <!--<input type="checkbox" value="{{imageobj.id}}" name="imageobj.id" id="remoteimg{{$index}}" class="css-checkbox" ng-click="toggleImgSelection(imageobj)" ng-checked="getCheckedStatus(imageobj)"> -->
+                        <input type="checkbox" value="{{imageobj.id}}" name="imageobj.id" id="remoteimg{{$index}}" class="css-checkbox" ng-checked="getCheckedStatus(imageobj)" ng-click="toggleImgSelection(imageobj)">
+                        
+                        <label for="remoteimg{{$index}}" class="css-label"></label>
+                    </div>
+              </div>
+              <div class="right_part clkbl" ng-click="toggleImgSelection(imageobj)">
+                <!--
+                <div class="left_part">
+                  <div class="thumb_wrap">
+                    <img src="{{image.thumbUrl}}">
+                  </div>
+                </div>
+                <div class="right_part">
+                  <p>{{image.fileName}}</p>
+                </div>
+                -->
+                <!-- document container -->
+                <!--
+                  <div class="fl_docu_container">
+                        <div class="left_part" ng-init="docthmb = image">
+                          <ng-include src="'../app/views/blocks/feed_filetype_thumb.tpl.html'"></ng-include>
+                        </div>
+                      
+                      <div class="right_part file_info">
+                            <ng-include ng-init="titleblock = image.fileName" src="'../app/views/blocks/feed_title.tpl.html'"></ng-include>
+                       
+                            <ng-include ng-init="ritchtextblock = image.description" src="'../app/views/blocks/feed_richtext.tpl.html'"></ng-include>
+                      </div>
+                  
+                </div>
+                -->
+                <ng-include ng-init="imgdata = {'title': imageobj.fileName, 'thumbclass': 'feedthumb_100', 'url': imageobj.thumbGalleryUrl, 'date': '2014-10-16 07:30:46'};" src="'../app/views/blocks/feed_attached_images.tpl.html'"></ng-include>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <!-- 
+        <button type="button" ng-click="close('ok')" class="btn btn-default" data-dismiss="modal">No</button>
+        <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+        -->
+        <button type="button" ng-click="$root.openGeneralSearchPopup()">Nested popup</button>
+
+        <div class="ins_btn_ctext" ng-click="close('ok')" data-dismiss="modal">
+          <span>OK</span>
+        </div>
+      </div>
+
+      <!--
+      <div class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" ng-click="close('cancel')" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Yes or No?</h4>
+            </div>
+            <div class="modal-body">
+              <p>It's your call...</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" ng-click="close('ok')" class="btn btn-default" data-dismiss="modal">No</button>
+              <button type="button" ng-click="close('Yes')" class="btn btn-primary" data-dismiss="modal">Yes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      -->
+    </div>
+  </div>
+</div>

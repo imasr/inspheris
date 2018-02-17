@@ -1,0 +1,60 @@
+<!-- to show automated calendar widget, used to show events -->
+<div bindonce class="panel panel-default widget widget-automated-cal">
+  <div ng-class="$ctrl.userCanEditWidget==true ? 'disp_table widget-title widget-move' : 'disp_table widget-title'">
+    <div class="tblr">
+      <div class="tblc_m icn">
+            <div class="icon_widget icon_calendar">
+              <div class="btn_icon"></div>
+            </div>
+      </div>
+      <div class="tblc_m title" bo-bind="$ctrl.widget.title">
+      </div>
+      <div class="tblc_m icn">
+        <span ng-click="widgetToggle()" class="lnr lnr-chevron-up clk" toggle-class="lnr lnr-chevron-down"></span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="panel-body" ng-show="isWidgetOpen">
+     <div class="agenda-section">
+       <div class="sec-title" bo-if="$ctrl.widget.events.length > 0">
+         {{($ctrl.widget.events[0].eventDate | newDate) | date : 'EEEE, MMMM d'}}
+       </div>
+       <ul class="sec-ul">
+         <li class="sec-ul-li" ng-repeat="evt in $ctrl.widget.events">
+           <a bo-href="(evt.eventLink!='') ? evt.eventLink : 'javascript:void(0);'">
+            <div class="disp_table width100">
+              <div class="tblr">
+                <div class="tblc agd-day">
+                  <span bo-bind="(evt.eventHour | showHoursAndMins: 'hours')"></span>
+                </div>
+                <div class="tblc agd-desc">
+                  <div class='title' bo-if="evt.eventName" bo-bind="evt.eventName">
+                  </div>
+                  <div class="desc">
+                    <span bo-bind="(evt.beginHour | showHoursAndMins: 'hours')"></span> - <span bo-bind="(evt.endHour | showHoursAndMins: 'hours')"></span>
+                  </div>
+                </div>
+                <div class="tblc agd-room" bo-if="evt.meetingRoom">
+                    <span bo-bind="evt.meetingRoom"></span>
+                </div>
+              </div>
+            </div>
+           </a>
+         </li>
+         <!-- if no events -->
+         <li  class="sec-ul-li" bo-if="$ctrl.widget.events.length <= 0">
+            <div class="disp_table width100">
+              <div class="tblr">
+                <div class="tblc_m tac pad10">
+                  <div class='title' bo-bind="'No Events' | translate">
+                  </div>
+                </div>
+              </div>
+            </div>
+         </li>
+       </ul>
+     </div>
+     
+  </div>
+</div>

@@ -1,0 +1,590 @@
+<div class="ins_popup wide_popup browsefilepopup" ng-controller="FileBrowseController">
+<div class="popup_header floatl">
+   <!--
+      <div class="user_image floatl"> <img src="images/media/user.png"> </div>
+      -->
+   <div class="popup_title" style="padding-left:5px;">{{'DOCUMENT/IMAGES BROWSE AND SEARCH' | translate}}</div>
+   <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})" style="background-color:white;color:#A7A7AF;"> X </div>
+</div>
+<div class="popup_wrapper" style="padding: 20px;">
+   <div ng-if="!modalStatus" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+   <div ng-if="modalStatus">
+   <!-- <div class="col-md-12 uploadfile" style="font-weight:bold; font-size:medium;">
+      <span >{{'UPLOAD FILE/FILES' | translate}}<span>
+              {{$ctrl.data}}
+      <span class="pull-right togglearrow">
+      <i ng-class="{'fa fa-angle-up':toggleTrue,'fa fa-angle-down':!toggleTrue}" style="font-size:22px; margin-top:-1px;" aria-hidden="true" ng-click="togglePopup()"></i>
+      <span>
+   </div>
+   <div cng-if="toggleTrue"  style="margin_bottom:5%;padding-top:0px;">
+
+   <div class="fileSearch-page" style="padding-top: 30px">
+      <div class="row" style="margin-top:1%;">
+         <div class="col-md-12 search-box filepop widthRow">
+            <div class="col-md-2 form-group widthsame" >
+               <label class="required" translate>TITLE</label>
+               <input type="text" class="form-control required_field" style="padding-left: 15px;" name="title" ng-model="credentials.title" >
+            </div>
+            <div class="col-md-2 form-group widthsame" >
+               <label translate>SUBTITLE</label>
+               <input type="text" class="form-control" style="padding-left: 15px;" name="subtitle" ng-model="credentials.subtitle" >
+            </div>
+            <div class="col-md-2 form-group widthsame">
+               <label class="required" translate>COMMUNITY NAME</label>
+               <img class="left-icon" src="../images/icons/community_icon.png" alt=""/>
+               <div class="ins_dropdown open">
+                  <div class="ins_dropdown singlebar width100">
+                     <button type="button" class="btn btn-default" style="padding-left: 39px; min-height: 44px;" data-toggle="dropdown" translate></button>
+                     <ul class="dropdown-menu menudrop" role="menu">
+                        <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="community in file.communityList" ng-click="stopPropagation($event)" ng-init="comIdx = $index">
+                           <div class="ins_checkbox">
+                              <input type="checkbox" name="comm{{comIdx}}" id="comm{{comIdx}}" class="css-checkbox" ng-model="community.selected" ng-checked="community.selected"
+                                 ng-click="chooseGroup($event, community.id)">
+                              <label for="comm{{comIdx}}" class="css-label">{{community.label}}</label>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 form-group widthsame">
+               <label  class="required" translate>COMMUNITY TAB</label>
+               <img class="left-icon" src="../images/icons/communitytab_icon.png" style="top:34px;margin-left:-9px;";alt=""/>
+               <div class="ins_dropdown open">
+                  <div class="ins_dropdown singlebar width100">
+                     <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select tab</button>
+                     <ul class="dropdown-menu menudrop" role="menu">
+                        <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="file in fileType" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                           <div class="ins_checkbox">
+                              <input type="checkbox" name="cctbsel{{iIdx}}" id="cctbsel{{iIdx}}" class="css-checkbox" ng-model="group.selected" ng-checked="group.selected"
+                                 ng-click="chooseGroup($event, file.id)">
+                              <label for="cctbsel{{iIdx}}" class="css-label">{{file.name}} </label>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="col-md-2 form-group widthsame">
+               <label translate>DIRECTORY</label>
+               <i class="fa fa-folder left-icon" aria-hidden="true"></i>
+               <div class="ins_dropdown open">
+                  <div class="ins_dropdown singlebar width100">
+                     <button type="button" class="btn btn-default" style="min-height: 44px;" data-toggle="dropdown" translate>Select directory</button>
+                     <ul class="dropdown-menu menudrop" role="menu">
+                        <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="author in fileType" ng-click="stopPropagation($event)" ng-init="authIdx = $index">
+                           <div class="ins_checkbox">
+                              <input type="checkbox" name="author{{authIdx}}" id="author{{authIdx}}" class="css-checkbox" ng-model="author.selected" ng-checked="author.selected"
+                                 ng-click="chooseGroup($event, author.id)">
+                              <label for="author{{authIdx}}" class="css-label">{{author.name}}</label>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <hr style="border: 1px dashed lightgrey;margin-left: 5px;margin-right: 5px;"/>
+      </div>
+   <div class="width100 floatl" style="padding-bottom:25px;">
+      <div class="texteditor_outer" >
+         <div class="asterik" style="float:none; font-weight:bold;">
+          <span translate>FILES</span>
+            <span class="pull-right togglearrow" style="background-color:#ffffff;">
+            <i ng-class="{'fa fa-angle-up':uploadFileToggleTrue,'fa fa-angle-down':!uploadFileToggleTrue}" style="font-size:22px; margin-top:-1px;" aria-hidden="true" ng-click="fileToggle()"></i>
+            <span>
+         </div>
+         <div ng-if="uploadFileToggleTrue" class="uploadarea" style="margin-top:1%;">
+            <input type="file" style="opacity: 0; position:absolute; width:120px;height:120px; cursor:pointer;">
+            <img class="uploadimage" src="../images/icons/plus_icn.png" alt="">
+            <span style="color:#7E9B9C;font-size: 12px;font-weight: 500" translate>UPLOAD/DRAG & DROP</span>
+         </div>
+      </div>
+    </div>
+    <hr style="border:1px dashed lightgrey;margin-left: 5px;margin-right: 5px;"/>
+   </div>
+
+   <div style="padding-left:12px;">
+      <strong translate>HASHTAGS: </strong>{{'Please separate hashtags by a space character' | translate}}
+   </div>
+   <div style="padding-left:12px;">
+      <strong>{{'SAMPLE' | translate}} : </strong>#hastag1 #hastag2 #hastag3
+   </div>
+   <br>
+   <div class="row hashtags">
+      <div class="tagstyle">
+         #hastag&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-remove glystyle" style="float:right"></span>
+      </div>
+   </div>
+   <br>
+   <div class="col-md-12" style="margin-bottom:30px;">
+      <div class="row" style="padding-left:8px;">
+         <button class="btn btn-default btnHashtag" type="button" name="button" translate>Save Draft</button>
+         <button class="btn btn-default btnHashtag" style="margin-left:10px" type="button" name="button" translate>preview</button>
+         <button class="btn btn-default btnpublish" style="float:right;" type="button" name="button" translate>PUBLISH FILE/FILES</button>
+      </div>
+   </div>
+ </div>
+<br>
+ <hr class="shadow hide"></hr>-->
+
+      <!-- <community-file-search></community-file-search> -->
+      <div class="fileSearch-page" style="padding-top: 30px">
+
+<div class="row">
+   <div class="col-md-12 search-box filepop" style="padding-left:0px;">
+      <div class="col-md-2 form-group  widthsame" >
+         <label translate>FILE SEARCH</label>
+         <!-- <i class="fa fa-search right-icon" aria-hidden="true"></i> -->
+         <img class="right-icon" src="../images/icons/search-icon.png" alt="" ng-click="searchByKeyWord(q)" style="right:12px; float:right;position: absolute; cursor:pointer;"/>
+
+         <!--<img class="right-icon" src="../images/icons/search_icon.png" alt=""/>-->
+         <input type="text" placeholder="{{'Search file' | translate}}" class="form-control" style="padding-left: 15px;" ng-model="q" ng-keyup="searchByKeyWord(q)" >
+      </div>
+      <div class="col-md-4 form-group  widthsame" >
+        <label translate>COMMUNITY</label>
+                <div class="ins_dropdown open">
+                    <div class="ins_dropdown singlebar width100">
+                        <button type="button" class="btn btn-default" style="padding-left: 40px;" data-toggle="dropdown" translate>Select community</button>
+                        <img class="left-icon" src="../images/icons/community_icon.png" data-toggle="dropdown" alt=""/>
+                        <ul class="dropdown-menu menudrop" role="menu">
+                          <ul class="ng-scope" ng-click="stopPropagation($event)" >
+                            <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 24px;"/>
+                            <input type="text" placeholder="{{'search community' | translate}}" ng-model="c" class="form-control" style="padding-left:10px;padding-right:40px;height:inherit;background-color: #F5F5F5;">
+                          </ul>
+                          <div class="scrolldiv">
+                            <li class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="community in communities| filter:c" ng-click="stopPropagation($event)" ng-init="comIdx = $index">
+                              <div class="ins_checkbox" ng-class="{'redbg': community.selected, 'greenbg': !community.selected}">
+
+                                    <input type="checkbox" name="comm{{comIdx}}" id="comm{{comIdx}}" class="css-checkbox" ng-model="community.selected" ng-checked="community.selected"
+                                           ng-click="filterCommunities($event, community.uid)">
+                                    <label for="comm{{comIdx}}"
+                                    ng-class="{'redbg': community.selected, 'greenbg': !community.selected}" class="css-label">{{community.label}}</label>
+                                </div>
+
+                                <!-- <label class="control control--checkbox">{{community.label}}
+                                  <input type="checkbox" ng-model="community.selected" ng-checked="community.selected"
+                                         ng-click="filterCommunities($event, community.uid)"/>
+                                  <div class="control__indicator control__indic"></div>
+                                </label> -->
+                            </li>
+                          </div>
+                        </ul>
+                    </div>
+                </div>
+      </div>
+      <!-- <div class="col-md-2 form-group">
+         <label>COMMUNITY</label>
+         <img class="left-icon" src="../images/icons/community_icon.png" alt=""/>
+         <div class="ins_dropdown open">
+             <div class="ins_dropdown singlebar width100">
+                 <button type="button" class="btn btn-default" style="padding-left: 39px;" data-toggle="dropdown" translate>Select community</button>
+                 <ul class="dropdown-menu" role="menu">
+                     <li class="ddli-lbl ng-scope" style="display: block" ng-repeat="community in communities" ng-click="stopPropagation($event)" ng-init="comIdx = $index">
+                         <div class="ins_checkbox">
+                             <input type="checkbox" name="comm{{comIdx}}{{community.uid}}" id="comm{{comIdx}}{{community.uid}}" class="css-checkbox" ng-model="community.selected" ng-checked="community.selected"
+                                    ng-click="filterCommunities($event, community.uid)">
+                             <label for="comm{{comIdx}}{{community.uid}}" class="css-label">{{community.label}}</label>
+                         </div>
+                     </li>
+                 </ul>
+             </div>
+         </div>
+         </div> -->
+      <div class="col-md-2 form-group widthsame">
+         <label translate>FILE TYPE</label>
+
+         <div class="ins_dropdown open">
+            <div class="ins_dropdown singlebar width100">
+               <button type="button" class="btn btn-default form-control" data-toggle="dropdown" translate>Select type</button>
+               <img class="left-icon-file" src="../images/icons/book.png" data-toggle="dropdown" alt=""/>
+               <ul class="dropdown-menu menudrop" role="menu">
+                 <ul class="ng-scope" ng-click="stopPropagation($event)">
+                   <input type="button" class="btn btnfileType" style="padding-left: 15px;height: inherit;" ng-click="selectAll($event)"
+                   ng-class="{'grey': select, 'red': !select}"  value="{{'All Types' | translate}}"/>
+                 </ul>
+                 <div class="scrolldiv">
+                  <li class="ddli-lbl paddingdrop  ng-scope" style="display: block" ng-repeat="type in fileTypes" ng-click="stopPropagation($event)" ng-init="iIdx = $index">
+                    <div class="ins_checkbox" ng-class="{'redbg': type.selected, 'greenbg': !type.selected}">
+                      <!-- <label class="control control--checkbox">
+                        <img ng-if="type.name == 'Word'" src="../images/icons/word-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Image'" src="../images/icons/image-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Video'" src="../images/icons/video-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'PDF'" src="../images/icons/pdf-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Other'" src="../images/icons/xml_icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'JSON'" src="../images/icons/json_icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Powerpoint'" src="../images/icons/powerpoint-icon.png"  class="fileimg">
+                        {{type.name}}
+                        <input type="checkbox" ng-model="type.selected" ng-checked="type.selected"
+                               ng-click="filterTypes($event, type.name)"/>
+                        <div class="control__indicator control__indic"></div>
+                      </label> -->
+
+                        <input type="checkbox" name="cctbsel{{iIdx}}{{type.id}}" id="cctbsel{{iIdx}}{{type.id}}" class="css-checkbox" ng-model="type.selected" ng-checked="type.selected"
+                           ng-click="filterTypes($event, type.name)">
+                        <label for="cctbsel{{iIdx}}{{type.id}}" ng-class="{'redbg': type.selected, 'greenbg': !type.selected}" class="css-label">
+                        <img ng-if="type.name == 'Word'" src="../images/icons/word-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Image'" src="../images/icons/image-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Video'" src="../images/icons/video-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'PDF'" src="../images/icons/pdf-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Other'" src="../images/icons/xml_icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'JSON'" src="../images/icons/json_icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="fileimg">
+                        <img ng-if="type.name == 'Powerpoint'" src="../images/icons/powerpoint-icon.png"  class="fileimg">
+
+                          {{type.label | translate}}</label>
+                     </div>
+                  </li>
+                </div>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-2 form-group widthsame">
+         <label class="uppercase" translate>Uploaded by</label>
+
+         <div class="ins_dropdown open">
+            <div class="ins_dropdown singlebar width100">
+               <button type="button" class="btn btn-default" data-toggle="dropdown" translate>Select Uploaded By</button>
+               <img class="left-icon" src="../images/icons/author_icon.png" data-toggle="dropdown" alt=""/>
+               <ul class="dropdown-menu menudrop" role="menu">
+                <ul class="ng-scope" ng-click="stopPropagation($event)">
+                   <img class="right-icon" src="../images/icons/search-icon.png" alt="" style="top:18px;right: 15px;"/>
+                   <input type="text" placeholder="{{'search uploaded by' | translate}}" ng-model="p" class="form-control" style="padding-left:10px;height:inherit;background-color: #F5F5F5;">
+                 </ul>
+                 <div class="scrolldiv">
+                  <li ng-if="author.firstName" class="ddli-lbl paddingdrop ng-scope" style="display: block" ng-repeat="author in authors| filter:p" ng-click="stopPropagation($event)" ng-init="authIdx = $index">
+                    <div class="ins_checkbox" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}">
+                      <!-- <label class="control control--checkbox">
+                        <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                         <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                      {{author.firstName}} {{author.lastName}}
+                        <input type="checkbox" ng-model="author.selected" ng-checked="author.selected"
+                               ng-click="filterAuthors($event, author.uid)"/>
+                        <div class="control__indicator control__indic"></div>
+                      </label> -->
+
+                        <input type="checkbox" name="author{{authIdx}}{{author.uid}}" id="author{{authIdx}}{{author.uid}}" class="css-checkbox" ng-model="author.selected" ng-checked="author.selected"
+                           ng-click="filterAuthors($event, author.uid)">
+                        <label for="author{{authIdx}}{{author.uid}}" ng-class="{'redbg': author.selected, 'greenbg': !author.selected}" class="css-label">
+                        <img ng-if="author.headerLogoUrl" class="profileimg" src="{{author.headerLogoUrl}}" alt="">
+                         <span ng-if="!author.headerLogoUrl" class="profileimgLettr"  style="text-transform: uppercase;">{{author.firstName.charAt(0)}}</span>
+                          {{author.firstName}} {{author.lastName}}
+                        </label>
+                     </div>
+                  </li>
+                </div>
+               </ul>
+            </div>
+         </div>
+      </div>
+      <div class="col-md-2 form-group widthsame">
+         <label class="padding_date" translate>DATE</label>
+         <div class="col-md-6 form-group left  padding_left ">
+            <input type="text" placeholder="{{'from' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px;" class="form-control ng-pristine ng-untouched ng-valid ng-empty" ng-model="dateFrom" data-max-date="" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" bs-datepicker="" ng-change="filterDate()">
+         </div>
+         <div class="col-md-6 form-group left  padding_right ">
+            <input type="text" placeholder="{{'to' | translate}}" autocapitalize="off" autocorrect="off" style="padding-left: 10px" class="form-control" ng-model="dateTo" data-max-date="" data-date-format="mediumDate" data-date-type="number" data-autoclose="1" bs-datepicker ng-change="filterDate()">
+         </div>
+      </div>
+
+   </div>
+
+   <!--Display all Files/Folders in table-->
+   <div class="row">
+      <div class="col-md-10 all-files paddingLR widthPaddingLr">
+        <div class="col-md-12 paddingLR">
+
+         <h4 translate>ALL FILES</h4>
+
+
+         <div class="hpanel">
+            <ul class="head filesearchpopuphead" style="padding-left:inherit;">
+               <li class="name-col name-width-h headname pop" ng-click="sortData('fileName')" translate>
+                  Name
+                  <img src="../images/icons/dn_arrow_icon.png" alt=""/>
+               </li>
+<!--               <li class="type-col other-col type-width type-width-i" ng-click="sortData('type')" translate>Type
+                   <img src="../images/icons/dn_arrow_icon.png" alt=""/>
+               </li>-->
+               <li class="author-col other-col  author-width-i" ng-click="sortData('author')" translate>Uploaded by
+                  <img src="../images/icons/dn_arrow_icon.png" alt=""/>
+               </li>
+               <!-- <li class="type-col other-col  type-width-h" ng-click="sortData('type')" translate>Last Updated
+                   <img src="../images/icons/dn_arrow_icon.png" alt=""/>
+               </li> -->
+       			<li class="type-col other-col type-width type-width-i" translate>Source
+              	</li>
+               <li class="date-col other-col other-width-i" ng-click="sortData('date')" translate>Date
+                  <img src="../images/icons/dn_arrow_icon.png" alt=""/>
+               </li>
+               <li class="action-col action-width-i"></li>
+            </ul>
+
+            <div class="scrolldiv" style="position:relative; max-height:600px !important;">
+                <div ng-show="loadervalue"><i class="fa fa-spinner fa-pulse"></i> Loading...</div>
+
+            <ul class="parent-ul padding-ul" ng-repeat="f in files">
+              <ul class="onhover filesearchpopup hovercolor" ng-click="hiddenDiv = !hiddenDiv" style=" padding-left: 15px;">
+                <li class="ins_checkbox" style="margin-left: -5px;position: relative;margin-top: 2px;">
+                    <input type="checkbox" name="cctbsel{{$index}}" id="cctbsel{{$index}}" class="css-checkbox" ng-model="f.selected" ng-click="selectchild(f,$index); fileInfoParent(files[$index],$event,f);">
+                   <label for="cctbsel{{$index}}" class="css-label"></label>
+                 </li>
+               <li class="name-col name-width name-width-i" ng-class="{'folderweight': f.fileType == 'folder'}" style="padding-bottom: 5px;padding-left: 10px;">
+
+      					<span ng-if="f.isGdrive == true">
+              			<img ng-if="f.fileType == 'folder'" src="../images/icons/g_drive_folder_icon.png" alt=""/> <!-- gdrive folder -->
+                    <img ng-if="f.fileType != 'folder'" src="../images/icons/g_drive_file_icon.png" alt="" style="width: 18px;position: absolute;margin-left: -3px;">
+	         	        <img ng-if="f.objectFileType == 'image'" src="../images/icons/image-icon.png" alt="" class="imgDriveSearch"/>
+	       		       	<img ng-if="f.fileType == 'Word'" src="../images/icons/word-icon.png" alt="" class="imgDriveSearch"/> <!-- .doc , .docx -->
+	                   	<img ng-if="f.fileType == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="imgDriveSearch"/> <!-- .xls , .xlsx , .xlsm -->
+	                   	<img ng-if="f.fileType == 'Powerpoint'" src="../images/icons/powerpoint-icon.png" alt="" class="imgDriveSearch"/> <!-- .ppt , .pptx -->
+
+	                 	<img ng-if="f.fileExtension == 'pdf'" src="../images/icons/pdf-icon.png" alt="" class="imgDriveSearch"/> <!-- .pdf -->
+	                   	<img ng-if="f.fileExtension == 'xml'" src="../images/icons/g_drive_xml_icon.png" alt="" class="imgDriveSearch"/> <!-- .xml -->
+	                  	<img ng-if="f.fileExtension == 'json'" src="../images/icons/g_drive_json_icon.png" alt="" class="imgDriveSearch"/> <!-- .json -->
+	                  	<img ng-if="f.objectFileType == 'video'" src="../images/icons/video_icon.png" alt="" class="imgDriveSearch"/> <!-- video -->
+	                  	<img ng-if="f.objectFileType == 'document' && f.fileType != 'Word' && f.fileType != 'Excel'
+	                         	&& f.fileType != 'Powerpoint' && f.fileExtension != 'pdf' && f.fileExtension != 'xml' && f.fileExtension != 'json'"
+	                   		src="../images/icons/g_drive_file_icon.png" style="height:13px;" alt="" class="imgDriveSearch"/> <!-- other types -->
+                        <span class="pad10 imgfolder" ng-if="f.fileType == 'folder'">{{f.fileTitle}}</span>
+                           	<span class="pad10" ng-if="f.fileType != 'folder' && f.isGdrive == true">
+                         		<a style="padding-left:35px !important;" target="_blank" href="{{f.url}}">{{f.fileTitle}}</a>
+                			</span>
+                          	<span class="pad10" ng-if="f.fileType != 'folder' && f.isGdrive == false">
+                          		<a ng-click="$root.previewFile(f)">{{f.fileTitle}}</a>
+                     		</span>
+                  </span>
+                  	<span ng-if="f.isGdrive == false">
+	               		<img ng-if="f.fileType == 'folder'" src="../images/icons/folder_icon.png" alt=""/>
+	                  	<img ng-if="f.objectFileType == 'image'" src="../images/icons/image-icon.png" alt=""/>
+	                   	<img ng-if="f.fileType == 'Word'" src="../images/icons/word-icon.png" alt=""/> <!-- .doc , .docx -->
+	                	<img ng-if="f.fileType == 'Excel'" src="../images/icons/excel-icon.png" alt=""/> <!-- .xls , .xlsx , .xlsm -->
+	                  	<img ng-if="f.fileType == 'Powerpoint'" src="../images/icons/powerpoint-icon.png" alt=""/> <!-- .ppt , .pptx -->
+
+	                  	<img ng-if="f.fileExtension == 'csv'" src="../images/icons/csv_icon.png" alt=""/> <!-- .csv -->
+	                   	<img ng-if="f.fileExtension == 'pdf'" src="../images/icons/pdf-icon.png" alt=""/> <!-- .pdf -->
+	                  	<img ng-if="f.fileExtension == 'xsn'" src="../images/icons/xsn_icon.png" alt=""/> <!-- .xsn -->
+	                   	<img ng-if="f.fileExtension == 'xml'" src="../images/icons/xml_icon.png" alt=""/> <!-- .xml -->
+	                	<img ng-if="f.objectFileType == 'video'" src="../images/icons/video-icon.png" alt=""/> <!-- video -->
+                    <span class="pad10 imgfolder" ng-if="f.fileType == 'folder'">{{f.fileTitle}}</span>
+                       	<span class="pad10" ng-if="f.fileType != 'folder' && f.isGdrive == true">
+                     		<a target="_blank" href="{{f.url}}">{{f.fileTitle}}</a>
+            			</span>
+                      	<span class="pad10" ng-if="f.fileType != 'folder' && f.isGdrive == false">
+                      		<a ng-click="$root.previewFile(f)">{{f.fileTitle}}</a>
+                 		</span>
+                    </span>
+
+               </li>
+<!--               <li class="other-col type-width type-width-i">
+         			<span ng-if="f.fileType != 'folder'">{{f.fileExtension}}</span>
+         			<span class="imgfolder"  ng-if="f.fileType == 'folder'">{{f.fileType}}</span>
+         	   </li>-->
+               <li class=" author-width-i">
+               		<span ng-if="f.fileType != 'folder'">{{f.author.firstName}} {{f.author.lastName}}</span><!-- not show author for folder -->
+               		<span ng-if="f.fileType != 'folder'"></span>
+               </li>
+                <!-- <li class="other-col  type-width-i">
+         			<span ng-if="f.fileType != 'folder'" class="lightGreen">{{f.fileUploadedDate| date: $root.customDateFormat}}</span>
+         			<span class="imgfolder"  ng-if="f.fileType == 'folder'"></span>
+         	   </li> -->
+				<li class="other-col type-width type-width-i">
+ 					<span ng-if="f.isGdrive && f.fileType != 'folder'" translate>GDrive</span>
+                	<span ng-if="!f.isGdrive && f.fileType != 'folder'" translate>Local</span>
+    			</li>
+               <li class="other-col other-width-i">
+                 <span ng-if="f.fileType != 'folder'" ng-class="{'lightGreen': f.fileModifiedDate}">{{f.fileUploadedDate| date: $root.customDateFormat}}</span>
+                 <span ng-if="f.fileType == 'folder'">{{f.fileUploadedDate| date: $root.customDateFormat}}</span>
+               </li>
+               <li class="action-col action-width-i" >
+<!--                  <span ng-if="f.fileType != 'folder'" style="opacity: 0.5">
+                  <img src="../images/icons/edit_icon.png" alt=""/>
+                  <img src="../images/icons/delete_icon.png" alt=""/>
+                  </span>-->
+                  <span  class="imgfolder" ng-if="f.fileType == 'folder'">
+                  <img src="../images/icons/plus_icon.png" ng-show="!hiddenDiv" alt=""/>
+                  <img src="../images/icons/minus_icon.png" alt="" ng-show="hiddenDiv"/>
+                  </span>
+               </li>
+             </ul>
+
+               <div ng-if="f.fileType == 'folder' &&  hiddenDiv">
+
+                  <ul class="child-ul filesearchpopupchild hovercolor" ng-class="$last ? 'borderlast':'borderChild'" ng-repeat="child in f.files" style="margin-left: 15px">
+
+                    <li class="ins_checkbox" style="margin-left: 15px;position: absolute;margin-top: 10px;">
+                       <input type="checkbox" name="cctbsel{{$index}}{{child.fileUid}}" id="cctbsel{{$index}}{{child.fileUid}}" class="css-checkbox" ng-model="child.selected" ng-click="fileInfoChild(f.files[$index],$event,child)">
+
+
+                       <label for="cctbsel{{$index}}{{child.fileUid}}" class="css-label"></label>
+                       <!-- <label class="control control--checkbox">
+                         <input type="checkbox"/>
+                         <div class="control__indicator"></div>
+                       </label> -->
+                     </li>
+                     <li class="name-width name-width-j" >
+           				<span ng-if="child.isGdrive == true">
+		               		<img ng-if="child.fileType == 'folder'" src="../images/icons/g_drive_folder_icon.png" alt=""/> <!-- gdrive folder -->
+                      <img ng-if="child.fileType != 'folder'" src="../images/icons/g_drive_file_icon.png" alt="" style="width: 18px;position: absolute;margin-left: -3px;">
+			            	<img ng-if="child.objectFileType == 'image'" src="../images/icons/image-icon.png" alt="" class="imgDriveSearch"/>
+			              	<img ng-if="child.fileType == 'Word'" src="../images/icons/word-icon.png" alt="" class="imgDriveSearch"/> <!-- .doc , .docx -->
+			               	<img ng-if="child.fileType == 'Excel'" src="../images/icons/excel-icon.png" alt="" class="imgDriveSearch"/> <!-- .xls , .xlsx , .xlsm -->
+			               	<img ng-if="child.fileType == 'Powerpoint'" src="../images/icons/powerpoint-icon.png" alt="" class="imgDriveSearch"/> <!-- .ppt , .pptx -->
+
+			               	<img ng-if="child.fileExtension == 'pdf'" src="../images/icons/pdf-icon.png" alt="" class="imgDriveSearch"/> <!-- .pdf -->
+			               	<img ng-if="child.fileExtension == 'xml'" src="../images/icons/g_drive_xml_icon.png" alt="" class="imgDriveSearch"/> <!-- .xml -->
+			               	<img ng-if="child.fileExtension== 'json'" src="../images/icons/g_drive_json_icon.png" alt="" class="imgDriveSearch"/> <!-- .json -->
+			               	<img ng-if="child.objectFileType == 'video'" src="../images/icons/video-icon.png" alt="" class="imgDriveSearch"/> <!-- video -->
+			               	<img ng-if="child.objectFileType == 'document' && child.fileType != 'Word' && child.fileType != 'Excel'
+			                            	&& child.fileType != 'Powerpoint' && child.fileExtension != 'pdf' && child.fileExtension != 'xml' && child.fileExtension != 'json'"
+			                            	src="../images/icons/g_drive_file_icon.png" class="imgDriveSearch" alt=""/> <!-- other types -->
+                                    <span class="pad10" ng-if="child.fileType == 'folder'">{{child.fileTitle}}</span>
+                                    <span class="pad10" ng-if="child.fileType != 'folder' && child.isGdrive == true">
+                                    <a style="padding-left:35px !important;" target="_blank" href="{{child.url}}">{{child.fileTitle}}</a>
+                                      </span>
+                                      <span class="pad10" ng-if="child.fileType != 'folder' && child.isGdrive == false">
+                                        <a ng-click="$root.previewFile(child)">{{child.fileTitle}}</a>
+                                      </span>
+                      </span>
+                        <span ng-if="child.isGdrive == false">
+	                    	<img ng-if="child.fileType == 'folder'" src="../images/icons/folder_icon.png" alt=""/>
+	                      	<img ng-if="child.objectFileType == 'image'" src="../images/icons/image-icon.png" alt=""/>
+	                       	<img ng-if="child.fileType == 'Word'" src="../images/icons/word-icon.png" alt=""/> <!-- .doc , .docx -->
+	                     	<img ng-if="child.fileType == 'Excel'" src="../images/icons/excel-icon.png" alt=""/> <!-- .xls , .xlsx , .xlsm -->
+	                     	<img ng-if="child.fileType == 'Powerpoint'" src="../images/icons/powerpoint-icon.png" alt=""/> <!-- .ppt , .pptx -->
+
+			               	<img ng-if="child.fileExtension == 'csv'" src="../images/icons/csv_icon.png" alt=""/> <!-- .csv -->
+			              	<img ng-if="child.fileExtension == 'pdf'" src="../images/icons/pdf-icon.png" alt=""/> <!-- .pdf -->
+			            	<img ng-if="child.fileExtension == 'xsn'" src="../images/icons/xsn_icon.png" alt=""/> <!-- .xsn -->
+			               	<img ng-if="child.fileExtension == 'xml'" src="../images/icons/xml_icon.png" alt=""/> <!-- .xml -->
+			           		<img ng-if="child.objectFileType == 'video'" src="../images/icons/video-icon.png" alt=""/> <!-- video -->
+
+            			<span class="pad10" ng-if="child.fileType == 'folder'">{{child.fileTitle}}</span>
+		            	<span class="pad10" ng-if="child.fileType != 'folder' && child.isGdrive == true">
+		         			<a target="_blank" href="{{child.url}}">{{child.fileTitle}}</a>
+		               	</span>
+		              	<span class="pad10" ng-if="child.fileType != 'folder' && child.isGdrive == false">
+		                	<a ng-click="$root.previewFile(child)">{{child.fileTitle}}</a>
+		              	</span>
+                  </span>
+                     </li>
+<!--                   	 <li class="other-col type-width-i type-width-j" style="padding-left:7px;">
+                    	<span ng-if="child.fileType != 'folder'">{{child.fileExtension}}</span>
+                       	<span ng-if="child.fileType == 'folder'">{{child.fileType}}</span>
+                     </li>-->
+                     <li class=" author-width-i">
+                 		<span ng-if="child.fileType != 'folder'">{{child.author.firstName}} {{child.author.lastName}}</span><!-- not show author for folder -->
+                     	<span ng-if="child.fileType == 'folder'"></span>
+                     </li>
+                     <!-- <li class="other-col  type-width-j" style="padding-left:7px;">
+                    	<span ng-if="child.fileType != 'folder'" >{{child.fileUploadedDate | date: $root.customDateFormat}}</span>
+                       	<span ng-if="child.fileType == 'folder'"></span>
+                     </li> -->
+             					<li class="other-col type-width-i type-width-j">
+             						<span ng-if="child.isGdrive && child.fileType != 'folder'" translate>GDrive</span>
+                            		<span ng-if="!child.isGdrive && child.fileType != 'folder'" translate>Local</span>
+                				</li>
+                      <li class="other-col other-width-i">
+                       <span ng-if="child.fileType != 'folder'" ng-class="{'lightGreen': child.fileModifiedDate}">{{child.fileUploadedDate| date: $root.customDateFormat}}</span>
+                       <span ng-if="child.fileType == 'folder'">{{child.fileUploadedDate| date: $root.customDateFormat}}</span>
+                     </li>
+                     <li class="action-col action-width-i">
+<!--                        <span ng-if="child.fileType == 'folder'" style="opacity: 0.5">
+                        <img src="../images/icons/edit_icon.png" alt=""/>
+                        <img src="../images/icons/delete_icon.png" alt=""/>
+                        </span>-->
+                        <span ng-if="child.fileType == 'folder'">
+                        <img src="../images/icons/plus_icon.png" alt=""/>
+                        <img src="../images/icons/minus_icon.png" alt=""/>
+                        </span>
+                     </li>
+                  </ul>
+               </div>
+          </ul>
+          <ul>
+            <li ng-if="files.length===0 && !loadervalue" style="text-align:center; margin-top:20px;padding: 0.5em 0.75em 0.5em 0.75em;width:100%;" translate>No_Results_found</li>
+          </ul>
+            <div class="view-more-div" ng-if="showViewMoreBtn">
+               <button class="btn btn-danger" type="button" ng-click="viewMore()" translate>View More Files</button>
+            </div>
+         <!-- </div> -->
+       </div>
+      </div>
+    </div>
+     </div>
+
+      <div class="col-md-2" style="padding-left: 5px;">
+         <div class="selectarea" class="selectarea" ng-if="!fileselected && !parentSelected">
+            <!-- <input type="file" style="opacity: 0; position:absolute; width:120px;height:120px;"> -->
+            <img class="selectimage" src="../images/icons/fileview_icon.png" alt="">
+            <span style="color:#7E9B9C; display:block" translate>SELECT FILE TO VIEW INFO</span>
+         </div>
+        <div class="infoarea" ng-if="fileselected">
+              <center>
+                <a href="{{url}}" src="{{url}}"><button type="button" class="btn btn-default btn-sm">
+        <img style="width:18px;" src="../images/download.png" alt=""/> &nbsp;&nbsp;&nbsp; Download File
+      </button></a>
+             <table style=" margin-top: 8px;" ng-dblclick="$root.previewFile(child)">
+               <tbody>
+                                <tr ng-if="comunityinfo">
+                                  <td style="font-weight: bold; font-size:12px;">Community:</td>
+                                  <td class="textstyle">{{comunityinfo}}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-weight: bold; font-size:12px;">File Name:</td>
+                                  <td class="textstyle">{{fileNameinfo}}</td>
+                                </tr>
+                                  <tr>
+                                  <td style="font-weight: bold; font-size:12px;">Type:</td>
+                                  <td class="textstyle">{{typeinfo}}</td>
+                                </tr>
+                                  <tr>
+                                  <td style="font-weight: bold; font-size:12px;">By:</td>
+                                  <td class="textstyle">{{by}}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-weight: bold; font-size:12px;">Created:</td>
+                                  <td class="textstyle">{{creatadate}}</td>
+                                </tr>
+                                <tr ng-if="creatadate">
+                                  <td style="font-weight: bold; font-size:12px;">Last Updated:</td>
+                                  <td class="textstyle">{{creatadate}}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-weight: bold; font-size:12px;">Source:</td>
+                                  <td class="textstyle" ng-if="gDrive">GDrive</td>
+                                  <td class="textstyle" ng-if="!gDrive">Local</td>
+                                </tr>
+                             </tbody>
+             </table>
+        </div>
+               <div class="infoarea" ng-if="parentSelected">
+              <center>
+                <a href="{{url}}" src="{{url}}"><button type="button" class="btn btn-default btn-sm">
+        <img style="width:18px;" src="../images/download.png" alt=""/> &nbsp;&nbsp;&nbsp; Download File
+      </button></a>
+             <table style=" margin-top: 8px;">
+               <tbody>
+                    <tr>
+                      <td style="font-weight: bold; font-size:12px;">Folder Name:</td>
+                      <td class="textstyle">{{parentfileName}}</td>
+                    </tr>
+                    <tr>
+                      <td style="font-weight: bold; font-size:12px;">No of files:</td>
+                      <td class="textstyle">{{childs}}</td>
+                    </tr>
+
+                 </tbody>
+             </table>
+        </div>
+
+      </div>
+
+</div>
+</div>
+   </div>
+</div>
+<center><button class="btn btn-default btnok" type="button" name="button" ng-click="closeThisDialog({flag: 'ok', data:newArray})">{{'Ok' | translate}}</button></center>
+</div>

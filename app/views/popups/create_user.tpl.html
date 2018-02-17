@@ -1,0 +1,359 @@
+<div class="ins_popup medium_popup" ng-controller="UserCreateCtrl"><!--style="width: 400px;"-->
+  
+  <div class="popup_header floatl marb10">
+      <div class="popup_title">{{popupTitle | translate}}</div>
+      <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>
+  </div>
+
+  <div class="popup_wrapper">
+  	<!--
+  	<div class="floatl" dropdown-select="sliderTypes" dropdown-model="selctedSliderType" dropdown-onchange="sliderTypeChanged(selected)" dropdown-item-label="text"></div>
+  	-->
+
+  	<!-- show this div if we want to modify the user's attribute -->
+  	<div class="marb10" ng-if="modalStatus.status == '1'" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+
+  	<div ng-show="modalStatus.status == '2'">
+	  		
+	  	<div ng-show="modalData.type == 'info' || modalData.type == 'all'" class="form-horizontal">
+			<uib-tabset>
+				<!-- Tab "Mes notes de services" -->
+            	<uib-tab select="tabSelected('profile')">
+                	<!-- Heading -->
+                	<uib-tab-heading>
+                    	<span translate>Profile</span>
+                	</uib-tab-heading>
+	  				
+	  				<!-- first name -->
+		 			<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'First_Name' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="firstName" type="text" placeholder="{{'First_Name' | translate}}" ng-change="changeFirstName(firstName)">
+					  </div>
+					</div>
+				
+					<!-- last name -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Last_Name' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="lastName" type="text" placeholder="{{'Last_Name' | translate}}" ng-change="changeLastName(lastName)">
+					  </div>
+					</div>
+				
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Initials Name' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="initialsName.value" type="text" placeholder="{{'Initials Name' | translate}}">
+					  </div>
+					</div>
+				
+					<!-- email professional -->
+		 			<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'email' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="email" type="text" placeholder="{{'email' | translate}}" ng-change="changeEmail(email)">
+					  </div>
+					</div>
+				
+					<!-- telephone professional -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Telephone' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="telephone" type="text" placeholder="{{'Telephone' | translate}}" phone-number-input ng-change="changeTelephone(telephone)">
+					  </div>
+					</div>
+				
+					<!-- direction -->
+					<div class="form-group" ng-show="isGCM">
+					  <label class="col-md-3 control-label" for="textinput">{{'Direction' | translate}}</label>  
+					  <div class="col-md-9">
+					  	<div ng-disabled="!isGCM" class="floatl" dropdown-select="directions" dropdown-model="directionSelected" dropdown-onchange="selectDirection(selected)" dropdown-item-label="name" style="width: 100%;"></div>
+					  </div>
+					</div>
+				
+					<!-- service -->
+					<div class="form-group" ng-show="isGCM">
+					  <label class="col-md-3 control-label" for="textinput">{{'Service' | translate}}</label>  
+					  <div class="col-md-9">
+					  	<div ng-disabled="!isGCM" class="floatl" dropdown-select="services" dropdown-model="serviceSelected" dropdown-onchange="selectService(selected)" dropdown-item-label="name" style="width: 100%;"></div>
+					  </div>
+					</div>
+				
+					<div class="form-group" ng-show="isGCM">
+					  <label class="col-md-3 control-label" for="textinput">{{'position' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input ng-disabled="!isGCM" class="ins_input_tex" ng-model="positionName" type="text" placeholder="{{'position' | translate}}" ng-change="changePositionName(positionName)">
+					  </div>
+					</div>
+				
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Zip code' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="zipCode" type="text" placeholder="{{'Zip code' | translate}}" ng-change="changeZipCode(zipCode)">
+					  </div>
+					</div>
+				
+					<!-- site -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'town' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="town" type="text" placeholder="{{'town' | translate}}" ng-change="changeTown(town)">
+					  </div>
+					</div>				
+				
+					<!-- Date Of Entry -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Date Of Entry' | translate}}</label>  
+					  <div class="col-md-9">
+						<input ng-disabled="!isGCM" type="text" class="form-control datepicker_licon" placeholder="{{'Date Of Entry' | translate}}" ng-model="dateOfEntry.value.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="" data-autoclose="1" name="date2" bs-datepicker>
+					  </div>
+					</div>
+				
+					<!-- Date of birth -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Date Of Birth' | translate}}</label>  
+					  <div class="col-md-9">
+						<input ng-disabled="!isGCM" type="text" class="form-control datepicker_licon" placeholder="{{'Date Of Birth' | translate}}" ng-model="dateOfBirth.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+					  </div>
+					</div>
+				
+
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Date df' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input ng-disabled="!isGCM" class="ins_input_tex" ng-model="dateDf.value" type="text" placeholder="{{'Date df' | translate}}">
+					  </div>
+					</div>
+				
+					<!-- address -->
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'Address' | translate}}</label>  
+					  <div class="col-md-9">
+					  <input class="ins_input_tex" ng-model="address" type="text" placeholder="{{'Address' | translate}}" ng-change="changeAddress(address)">
+					  </div>
+					</div>
+
+					<div ng-if="customFields" ng-repeat="customField in fields" ng-init="pIndex = $index">
+						<div class="form-group">
+						  <label class="col-md-3 control-label" for="textinput">{{customField.name}}</label>  
+						  <div class="col-md-9">
+						  	<input ng-if="customField.type == 'Text'" class="ins_input_tex" ng-model="customField.value" type="text" placeholder="{{'Value' | translate}}" ng-disabled="!customField.updateable">
+						  	<input ng-if="customField.type == 'Date'" type="text" class="form-control datepicker_licon" placeholder="{{'Value' | translate}}" ng-model="customField.value.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>					  	
+							<textarea ng-if="customField.type == 'Textarea'" class="ins_input_tex" rows="8" ng-model="customField.value" placeholder="{{'Value' | translate}}" ng-disabled="!customField.updateable"></textarea>
+							<input ng-if="customField.type == 'Number'" class="ins_input_tex" ng-model="customField.value" type="number" placeholder="{{'Value' | translate}}" ng-disabled="!customField.updateable">
+							<input ng-if="customField.type == 'Link'" class="ins_input_tex" ng-model="customField.value" type="url" placeholder="{{'Value' | translate}}" min="0" ng-disabled="!customField.updateable">
+							<span ng-if="customField.type == 'Dropdown'" class="col-md-3 btn-group ins_dropdown " dropdown-select="customField.dropdownValues" dropdown-model="selectedValue[pIndex]" dropdown-onchange="valueChanged(selected,pIndex)" dropdown-item-label="label" ng-disabled="!customField.updateable">
+							</span>
+						  </div>
+						</div>
+					</div>
+                
+					<!-- skills -->
+				
+					<div class="form-group">
+					  <label class="col-md-3 control-label" for="textinput">{{'skills' | translate}}</label>  
+					  <div class="col-md-9">
+					  <textarea class="ins_input_tex" rows="8" ng-model="speciality" placeholder="{{'skills' | translate}}" style="min-height: 100px;" ng-change="changeSpeciality(speciality)"></textarea>
+					  </div>
+					</div>
+
+					<div class="btn-group ins_dropdown width100 dropPadd">
+		           		<button type="button" class="btn btn-default" data-toggle="dropdown">{{'Select Mes+' | translate}}</button>
+		              	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		                	<span class="caret"></span>
+		                	<span class="sr-only">Toggle Dropdown</span>
+		              	</button>
+		              
+		              	<ul class="dropdown-menu" role="menu">
+		               		<li class="ddli-lbl" ng-repeat="h in userHobbies" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+		                   		<div class="ins_checkbox">
+		                        	<input type="checkbox" name="cctbsel{{h.id+'_'+iIdx}}" id="cctbsel{{h.id+'_'+iIdx}}" class="css-checkbox" ng-model="h.selected" ng-checked="h.selected" ng-click="selectedHobby($event, h)">
+		                        	<label for="cctbsel{{h.id+'_'+iIdx}}" class="css-label">{{h.name}}</label>
+		                      	</div>
+		                   	</li>
+		               	</ul>
+		          	</div>
+
+					<div class="form-group">
+					  <!--<label class="col-md-3 control-label" for="textinput">{{'hobbies' | translate}}</label>  -->
+					  <div class="col-md-12">
+					  	<tags-input ng-model="hashTag" class="ti-input-sm" add-on-enter="true" 
+					  		placeholder="{{'me in 5 hashtags' | translate}}" min-length="2" add-on-space="true" add-on-comma="true" 
+					  		add-on-blur="true" enable-editing-last-tag="true" allowed-tags-pattern='\B#(\w*[A-Za-z_]+\w*)'
+					  		on-tag-added="changeHashTag(hashTag)" on-tag-removed="changeHashTag(hashTag)">
+			            <auto-complete source="$root.loadTags($query)" template="../app/views/blocks/hashtag_items.tpl.html"></auto-complete></tags-input>	
+					  </div>
+					</div>
+					
+				</uib-tab>
+				
+				<!-- Project tab -->
+				<uib-tab ng-show="$root.isShowUserProject && isCurrentUser" heading="{{'Projects' | translate}}" select="tabSelected('project')">
+					<button type="button" class="btn btn-default navbar-btn" ng-click="addSpeciality('Project')" translate>Add a new project</button>
+					<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+				  		<ul class="list-group">
+				        	<li class="list-group-item" ng-if="specialities.length <= 0">
+				          		<span><strong>{{'Loading' | translate}}...</strong></span>
+				        	</li>
+				        	<div ui-sortable="sortableProjectOptions" ng-model="specialities">
+				        		<table ng-repeat="project in specialities" class="table table-hover" style="border: 2px solid #ddd;">
+			                    	<tr>
+			                       		<td>
+			                           		<div class="img-part">
+			                             		<img ng-if="project.image" no-cache-src="{{project.image.url}}" style="width: 100px; height 100px;">
+			                             		<div ng-if="!project.image" style="background-color: #e7e7e7;text-align: center;font-size: 2.5em;width: 100px;height: 100px;" class="disp_table">
+                          							<div class="tblc_m">{{project.title.charAt(0)}}</div>
+                           						</div>
+			                               	</div>
+			                          	</td>
+			                          	<td>
+			                      			<div class="text-part">
+			                               		<h4>{{project.title}}</h4>
+			                               		<p ng-if="project.description">{{'Description' | translate}} : {{project.description}}</p>
+			                               		<p ng-if="project.projectCode">{{'Project Code' | translate}} : {{project.projectCode}}</p>
+			                                   	<p ng-if="project.dateFrom || project.dateTo">
+			                                   		<span ng-if="project.dateFrom">{{'From' | translate}} : {{project.dateFrom| date: $root.customDateFormat}}</span> /
+			                                   		<span ng-if="project.dateTo"> {{'To' | translate}} : {{project.dateTo| date: $root.customDateFormat}}</span>
+			                                   	</p>
+			                                  	<p ng-if="project.position">{{'position' | translate}} : {{project.position}}</p>
+			                                  	<input type="checkbox" ng-model="project.active" id="ntactive" name="ntactive" class="css-checkbox" disabled>
+          										<label for="ntactive" class="css-label"> {{'I am still on the project' | translate}}</label>
+			                          		</div>
+			                          	</td>
+			                          	<td>
+			                          		<div class="floatr">
+										        <div class="btn_delete floatr" ng-click="deleteSpeciality('Project', project.id)" title="{{ 'delete' | translate }}">
+										           <div class="btn_icon">
+										           </div>
+										        </div>
+										        <span class="btn_seprator floatr"> • </span>
+										        <div class="btn_edit floatr" ng-click="editSpeciality('Project', project.id)" title="{{ 'edit' | translate }}">
+										          <div class="btn_icon">
+										          </div>
+										        </div>
+									      	</div>
+			                          	</td>
+			                  		</tr>
+            					</table>
+				        	</div>
+				      	</ul>
+				    </div>
+				</uib-tab>
+				
+				<!-- Experience Tab -->
+				<uib-tab ng-show="$root.isShowUserExperience && isCurrentUser" heading="{{'Experiences' | translate}}" select="tabSelected('experience')">
+					<button type="button" class="btn btn-default navbar-btn" ng-click="addSpeciality('Experience')" translate>Add a new experience</button>
+					<div class="floatl width100" style="margin-top: 10px; margin-bottom: 10px;">
+				  		<ul class="list-group">
+				        	<li class="list-group-item" ng-if="specialities.length <= 0">
+				          		<span><strong>{{'Loading' | translate}}...</strong></span>
+				        	</li>
+				        	<div ui-sortable="sortableExperienceOptions" ng-model="specialities">
+				        		<table ng-repeat="experience in specialities" class="table table-hover" style="border: 2px solid #ddd;">
+			                    	<tr>
+			                       		<td>
+			                           		<div class="img-part">
+			                             		<img ng-if="experience.image" no-cache-src="{{experience.image.url}}" style="width: 100px; height 100px;">
+			                             		<div ng-if="!experience.image" style="background-color: #e7e7e7;text-align: center;font-size: 2.5em;width: 100px;height: 100px;" class="disp_table">
+                          							<div class="tblc_m">{{experience.title.charAt(0)}}</div>
+                           						</div>
+			                               	</div>
+			                          	</td>
+			                          	<td>
+			                      			<div class="text-part">
+			                               		<h4>{{experience.title}}</h4>
+			                               		<p ng-if="experience.position">{{'position' | translate}} : {{experience.position}}</p>	
+			                                   	<p ng-if="experience.dateFrom || experience.dateTo">
+			                                   		<span ng-if="experience.dateFrom">{{'From' | translate}} : {{experience.dateFrom| date: $root.customDateFormat}}</span> /
+			                                   		<span ng-if="experience.dateTo"> {{'To' | translate}} : {{experience.dateTo| date: $root.customDateFormat}}</span>
+			                                   	</p>
+			                                   	<p ng-if="experience.location">{{'Location' | translate}}: {{experience.location}}</p>
+			                                  	<p ng-if="experience.description">{{'Description' | translate}} : {{experience.description}}</p>
+
+			                          		</div>
+			                          	</td>
+			                          	<td>
+			                          		<div class="floatr">
+										        <div class="btn_delete floatr" ng-click="deleteSpeciality('Experience', experience.id)" title="{{ 'delete' | translate }}">
+										           <div class="btn_icon">
+										           </div>
+										        </div>
+										        <span class="btn_seprator floatr"> • </span>
+										        <div class="btn_edit floatr" ng-click="editSpeciality('Experience', experience.id)" title="{{ 'edit' | translate }}">
+										          <div class="btn_icon">
+										          </div>
+										        </div>
+									      	</div>
+			                          	</td>
+			                  		</tr>
+            					</table>
+				        	</div>
+				      	</ul>
+				    </div>
+				</uib-tab>
+			</uib-tabset>
+	    </div>
+
+	    <div ng-show="modalData.type == 'images'">
+
+	    <div>
+		<div class="res-rectangle" ngf-drop ngf-select ng-model="bannerFiles" ng-model-rejected="rejBannerFiles" ngf-change="onBannerIamgeSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="padding-top: 23.21%"><!-- ng-file-select ng-file-change="onBannerIamgeSelect($files, $event)" ng-multiple="false" accept="image/*" -->
+			<div class="rect-content">
+				<img ng-if="bannerImage" no-cache-src="{{bannerImage.urls[1]}}">
+				<div ng-if="!bannerImage" class="disp_table">
+					<div class="tblc">
+						<div class="no-img-thumb"></div>
+						<span class="lbl" translate>Banner image</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="floatl width100 marb10 mart10 text-center" ng-show="bannerImage">
+			<ul class="list-inline">
+				<li><a href="javascript: void(0)" ng-click="recropBannerImage()"> <span translate>Recrop banner image</span> </a></li>
+				<li><a href="javascript: void(0)" ngf-select ng-model="bannerFiles" ngf-change="onBannerIamgeSelect($files, $event)"> <span translate>Update</span> </a></li>
+			</ul>
+		</div>
+
+		<div class="col-sm-offset-4 col-sm-4">
+		<div class="width100 floatl" style="width: 130px;">
+			<div class="res-rectangle"ngf-drop ngf-select ng-model="bannerFiles" ng-model-rejected="rejBannerFiles" ngf-change="onProfileIamgeSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable" style="padding-top: 100%"><!-- ng-file-select ng-file-change="onProfileIamgeSelect($files, $event)" ng-multiple="false" accept="image/*" -->
+				<div class="rect-content">
+					<img ng-if="profileImage" no-cache-src="{{profileImage.urls[1]}}">
+					<div ng-if="!profileImage" class="disp_table">
+						<div class="tblc">
+							<div class="no-img-thumb"></div>
+							<span class="lbl" >Logo Image</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+		<div class="floatl width100 marb10 mart10 text-center" ng-show="profileImage">
+			<ul class="list-inline">
+				<li><a href="javascript: void(0)" ng-click="recropProfileIamge()"><span translate>Recrop logo image</span></a></li>
+				<li><a href="javascript: void(0)" ngf-select ng-model="bannerFiles" ngf-change="onProfileIamgeSelect($files, $event)"> <span translate>Update</span> </a></li>
+			</ul>
+			
+		</div>
+	</div><!--hidden in IE-->
+
+	</div><!--image DIV-->
+
+		<div ng-if="selectedTabName == 'profile'">
+		<div class="floatl width100 marb10 marb20">
+			<div class="ins_btn_ctext" ng-click="createUser()">
+				<span>OK</span>
+			</div>
+		</div>
+		</div><!--hidden in IE-->
+	</div>
+
+	<div ng-if="modalStatus.status == '3'">
+		<p class="rclor mart10 marb10" translate>something_went_wrong</p>
+	</div>
+
+  </div>
+</div>

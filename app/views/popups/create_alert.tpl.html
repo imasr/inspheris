@@ -1,0 +1,87 @@
+<div class="ins_popup wide_popup stat_module" style="" ng-controller="CreateAlertCtrl"> 
+	<div class="popup_header floatl">
+	    <div class="popup_title">
+	    	<span ng-if="modalData.action == 'create'" translate>Create an alert</span>
+	    	<span ng-if="modalData.action == 'edit'" translate>Edit an alert</span>
+	    </div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	
+	<div class="create_art_container">
+  		<div class="row">
+    		<div>
+      			<div class="col-md-8 col-sm-12 col-xs-12 left_side">
+        			<div class="required_field">        
+            			<input class="ins_input_tex" ng-model="title" type="text" placeholder="{{'Title' | translate}}" maxlength="{{$root.uiConfig.maxTitleLen}}">           
+        			</div>
+
+					<div class="editblock_wrap">
+    					<div class="floatl wysiwyg_wrapper fixed">  
+      						<textarea class="fixed" ckeditor="$root.textEditorOptns" ng-model="description" ready="function(){}"></textarea>
+    					</div>
+					</div>
+      			</div>
+
+      			<div class="right_side col-md-4 col-sm-12 col-xs-12">
+      				<div class="div_group floatl">
+      					<div class="ins_checkbox width100 floatl marb10">
+         					<input type="checkbox" ng-model="isActive" id="ntactive" name="ntactive" class="css-checkbox">
+          					<label for="ntactive" class="css-label">{{'Active' | translate}}</label>
+        				</div>
+        			</div>
+        				
+        			<div class="div_group floatl">
+          				<div class="panel-group ins_collapse" bs-collapse data-start-collapsed="true">
+            				<div class="panel panel-default">
+              					<div class="panel-heading clk">
+                    				<div bs-collapse-toggle class="ins_btn_licon">
+                     					<div class="icon setting_icon">
+                      						<i class="fa fa-cog"></i>
+                    					</div>
+                      					<p>{{'Manage publishing date & time' | translate}}</p>
+                    				</div>
+              					</div>
+              					<div class="panel-collapse" bs-collapse-target>
+                					<div class="panel-body">  
+                  						<ul class="floatl margin_bottom" id="ca_more_optns">              
+                    						<li>
+                        						<p><b>{{'Publication_Start' | translate}}</b></p>
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          	<input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" ng-model="publishDates.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+						                        </div>
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          	<input type="text" class="form-control timepicker_licon" placeholder="{{'Start_Time' | translate}}" size="8" ng-model="publishDates.startTime" name="time" bs-timepicker>
+						                        </div>
+                    						</li>
+                   				 			<li>
+						                    	<p><b>{{'Publication_End' | translate}}</b></p>
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          	<input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" ng-model="publishDates.endDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+						                        </div>						
+						                        <div class="form-group right" ng-class="{'has-error': datepickerForm.date2.$invalid}">
+						                          <input type="text" class="form-control timepicker_licon" placeholder="{{'End_Time' | translate}}" size="8" ng-model="publishDates.endTime" name="time" bs-timepicker>
+						                        </div>
+                    						</li>
+                  						</ul>
+                					</div>
+              					</div>
+            				</div>
+          				</div> 
+        			</div>
+
+        			<div class="div_group floatl">
+          				<div class="doble_btn_wraper floatl margin_bottom">
+            				<div class="ins_btn_ctext floatl" ng-click="publishAlert('Draft')">
+              					<span>{{'Save_Draft' | translate}}</span>
+            				</div>
+           				 	<div class="ins_btn_ctext floatr" ng-click="publishAlert('Published')">
+              					<span>{{'Publish' | translate}}</span>
+            				</div>  
+          				</div>
+        			</div>
+        
+      			</div>
+    		</div>
+    	</div>
+	</div>
+</div>

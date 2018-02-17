@@ -1,0 +1,19 @@
+<div class="off-canvas__nav" ng-controller="MainMenuCtrl as mmc">
+	<div class="ocn_content" off-click="mmc.close()" off-click-filter="'.off-canvas__content'"><!-- off-click="mmc.close()" off-click-filter="'.offcanvas-toggle'" -->
+		<div>
+	          <ul class="nav navbar-nav" ng-click="mmc.toggle()">
+	            <li active-link="active" data-href="#/"> <a href="#/">{{ 'Home' | translate }}</a></li>
+
+
+	            <li active-link="active" class="visible-sm visible-xs" ng-click="$root.openGeneralSearchPopup()" data-href="#/"> <a href="#/">{{ 'Search' | translate }}</a></li>
+
+
+	            <li active-link="active" data-href="#/communities"> <a href="#/communities">{{ 'Communities' | translate }}</a></li>
+
+	             <li active-link="active" data-href="#/collection"> <a href="#/collection">{{ 'Collections' | translate }}</a></li>
+	             
+	             <li ng-class="{'open': submenuFlag}"><a ng-click="showSubmenu()">{{ 'Custom_Link' | translate }}</a></li>
+	          </ul>
+		</div>
+	</div>
+</div>

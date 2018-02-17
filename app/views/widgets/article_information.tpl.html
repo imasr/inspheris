@@ -1,0 +1,39 @@
+<div class="panel panel-default widget widget-article-information" id="widgetarticleinfo">
+	<div class="disp_table widget-title">
+	<div class="tblr">
+	<div class="tblc_m icn">
+            <div class="icon_info icon_calendar">
+            	<div class="btn_icon"></div>
+            </div>
+         </div>
+	  <div class="tblc_m title">
+			{{ 'information' | translate }}
+	  </div>
+	  <!--<div class="tblc_m icn">
+	    <i class="fa fa-minus clk" onclick="widgetToggle('widgethashtag');"></i>
+	  </div>-->
+	</div>
+	</div>
+
+	<div class="panel-body">
+		<div class="list-information">
+		 	<!--<div class="fc1 fs1 marb10 lbl_title">
+				<strong><span>#Hashtags:</span></strong>
+			</div>-->
+			<ul>
+				<li>
+				 	<a ng-click="printArticle()"><i class="fa fa-print"></i> <span transalte>{{ 'Print to pdf' | translate }}</span></a>
+				</li>
+
+				<li>
+				 	<span translate>{{ 'Last Modified' | translate }}</span>: <span>{{feed.lastUpdateDate | date: $root.longDateFormat}}</span>
+				</li>
+
+				<li>
+				 	<span translate>{{ 'Creation Date' | translate }}</span>: <span>{{feed.creationDate | date: $root.longDateFormat}}</span>
+				</li>
+
+			</ul>
+		</div>
+	</div>
+</div>

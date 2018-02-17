@@ -1,0 +1,6 @@
+node_modules
+bower_components
+/nbproject
+.tmp/
+/app/scripts/template.js
+dist

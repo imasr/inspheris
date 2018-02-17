@@ -1,0 +1,21 @@
+<div class="ins_popup medium_popup comment_edit_popup" ng-controller="CommentViewerCtrl" afkl-image-container>
+  
+	<div class="popup_header floatl">
+	    <!--
+	    <div class="user_image floatl">
+	      <img src="images/media/user.png">
+	    </div>
+	    -->
+	    <div class="popup_title">{{ "Comments" | translate }}</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	<div class="popup_wrapper" ng-style="popWrapperStyle">
+	    <div class="marb10" ng-if="!modalStatus.isReady" ng-include="'../app/views/blocks/loader.tpl.html'"></div>
+		<div class="width100" ng-if="modalStatus.isReady">
+			<div class="feed_content_wrapper">
+				<feed-content-list-view show-view-label-in-modal="showViewInModal" feed ="feed" show-controls="true" show-art-info-bar="true" show-full-comments="true" ></feed-content-list-view>
+		        <!--<div ng-init="showViewInModal = showViewInModal; feed = feed; showControls = true; keepopen = true; showArtInfoBar = true; showAllComments = true;translate = true;showFullComments = true;" ng-include="'../app/views/blocks/lv_feed_content.tpl.html'" ng-controller="FeedCtrl"></div>-->
+		    </div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,31 @@
+<div class="ins_popup browse_image_popup" ng-controller="ChooseLocationCtrl">
+  
+	<div class="popup_header floatl">
+	    <p class="popup_title">{{'Where' | translate}}</p>
+	    <div class="close_btn" ng-click="closeChooseLocationPopup()"> X </div>  
+	</div>
+
+	<div class="popup_wrapper floatl width100" style="padding: 15px;">
+		<!--
+		 <input class="floatl width100" type="text"  ng-autocomplete="selectedlocation" ng-model="selectedlocation" options="autoCompleteOptions" details="details"/>
+		 -->
+		 <div class="ins_btn_liconbor marb10">
+          <div class="icn">
+            <i class="fa fa-map-marker"></i>
+          </div>
+          <input class="lpinput" type="text" ng-autocomplete="selectedlocation" ng-model="selectedlocation" options="autoCompleteOptions" details="details" placeholder="{{'Search_location' | translate}}"> <!--  -->
+        </div>
+
+		<div class="mapArea" style="width: 100%; float: left; height: 300px;">
+			<ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="false" options="options">
+	        	<ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
+	        	</ui-gmap-marker>
+	    	</ui-gmap-google-map>
+		</div>
+		<div class="floatl width100">
+			<div class="ins_btn_ctext" ng-click="doneLocationSelection()">
+				<span>OK</span>
+			</div>
+		</div>
+	</div>
+</div>

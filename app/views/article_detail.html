@@ -1,0 +1,169 @@
+<!--
+<div class="stickyhalf" sticky-top="-100" sticky-offset="150" sticky-cover>
+	<div class="stickyhalf-child">
+		<div ng-include="'../app/views/blocks/account_cover.tpl.html'"></div>
+
+		<div class="row second_menu">
+			<div class="container">
+			    <nav class="navbar navbar-default menu_type3" role="navigation">
+			        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			          <ul class="nav navbar-nav cust1m1 marleft150">
+			            <li class="active"><a href="#">Activities</a> <div class="cusborderbtm"></div> </li>
+			            <li><a href="#">Articles</a> <div class="cusborderbtm"></div> </li>
+			            <li><a href="#">Documents</a> <div class="cusborderbtm"></div> </li>
+			            <li><a href="#">Events</a> <div class="cusborderbtm"></div> </li>
+			            <li><a href="#">Notes</a> <div class="cusborderbtm"></div> </li>
+			            <li class="dropdown">
+			                      <a class="dropdown-toggle" data-toggle="dropdown">&bull;&bull;&bull;</a>
+			                      <ul class="dropdown-menu" role="menu">
+			                        <li><a href="#">First Item</a></li>
+			                        <li><a href="#">Second Item</a></li>
+			                        <li><a href="#">Third Item</a></li>
+			                      </ul>
+			            </li>
+			          </ul>
+			         
+			          <div class="navbar-right align-nav-center">
+			            <div class="list_icon active" id="feedListView"> </div>
+			            <div class="grid_icon" id="feedGridView"> </div>
+			          </div>
+			        </div>
+			    </nav>
+			</div>
+		</div>
+	</div>
+</div>
+-->
+
+<div class="stickyhalf" sticky-top="{{stickyCoverPrams.top}}" sticky-offset="{{stickyCoverPrams.offset}}" sticky-cover> <!-- sticky sticky-top="-100" -->
+  <div class="stickyhalf-child width100">
+    <div ng-include="'../app/views/blocks/account_cover.tpl.html'"></div>
+
+    <div ng-include="'../app/views/blocks/second_menu.tpl.html'"></div>
+  </div>
+</div>
+
+<div class="row article_detail_wrapper" ng-class="{zenMode: feed.content.topImage, atStandard: !feed.content.topImage}">
+	<!-- template class can be: atStandard, zenMode -->
+	<div class="article_top_image" ng-if="feed.content.topImage">
+		<div class="wrapper">
+			<div class="white_overlay"></div>
+			<img class="header_img" ng-src="{{$root.siteUrl+feed.content.topImage.path}}">
+		</div>
+	</div>
+
+	<div class="container no_padd_lr">
+	  <div class="row">
+	  	
+	  	<div class="container_artdetail">
+	  		<div class="col-lg-12">
+				<div class="popup_nav block_group">
+			 		<div class="nav_btn floatl"><a ui-sref="app.communityHomeWithTab({name: feed.community.label, commuid: feed.community.uid, activetab: feed.communityTab.uid})">&#8592;{{"Back_to_aritcle_list" | translate}}</a> </div>
+			 	</div>
+
+			 	<div class="block_group">
+					<!-- article header with image -->
+					<div ng-include="'../app/views/article_blocks/headerimg_with_title_subtitle.tpl.html'" ng-if="headerImageFlag" ng-init="img_path= $root.siteUrl+feed.content.heading.imageHeader; atitle = title; asubtitle = subTitle;"></div>
+					<!-- article header without image -->
+					<div ng-include="'../app/views/article_blocks/heading_with_title_subtitle.tpl.html'" ng-if="!headerImageFlag && title" ng-init="atitle = title; asubtitle = subTitle;"></div>
+				</div>
+		 	</div>
+
+		 	<div class="col-lg-8">
+			 	<!-- load all blocks -->
+		 		<div ng-include="'../app/views/blocks/article_detail_blocks.tpl.html'"></div>
+
+		 		<div class="block_group" ng-if="feed.uid">
+					<feed-controls
+							feed-index = "$index"
+							show-comment-label = "true"
+							keep-open = "true"
+							feed ="feed"
+							on-click-delete-feed="deleteFeed(feed.uid)"
+    			></feed-controls>
+			 		<!--<div ng-include="'../app/views/blocks/feed_controls.tpl.html'" ng-init="keepopen = true; tpl_cmntboxid = feed.uid; feedindex = $index; tpl_feedid= feed.uid; tpl_showtext=true; allowComment = feed.allowComment;allowShare=feed.allowShare">
+        			</div> -->
+		 		</div>
+		 	</div>
+		 	
+		 	<div class="col-lg-4">
+		 		<div ng-if="feed.author" ng-init="authorinfo = feed.author">
+			 		<div class="panel panel-default widget widget-author" id="widget7">
+						<div class="disp_table widget-title">
+						<div class="tblr">
+						  <div class="tblc_m icn">
+						    <i class="fa fa-user"></i>
+						  </div>
+						  <div class="tblc_m title">
+						    {{'Author' | translate}}
+						  </div>
+						  <div class="tblc_m icn">
+						    <i class="fa fa-minus clk" onclick="widgetToggle('widget7');"></i>
+						  </div>
+						</div>
+						</div>
+
+						<div class="panel-body">
+						 	<div class="author-detail disp_table width100">
+								<div class="tblr">
+									<div class="tblc square_uimg">
+										<img onerror-src="images/no_image_user.png" class="width100 height100" ng-src="{{$root.getUserProfilePic(feed.author)}}">
+									</div>
+									<div class="tblc">
+										<div class="desc">
+											{{'By' | translate}} <a href="#" class="unm">{{authorinfo.displayName}}</a> <span class="gray"> {{feed.creationDate|timeago}} </span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			        </div>
+				</div>		 		
+			 		
+			 	<div class="widget_group" ng-if="feed.uid">
+			 		<ul class="widget_ul">
+			 			<li class="widget_li">
+				 			<div class="bcti_btn floatl" ng-click="$root.editArticle(feed)">
+					 			<div class="hori_center">
+					 				<div class="icn feather"></div>
+					 				<span>{{'Edit' | translate}}</span>
+					 			</div>
+							</div>
+					 	</li>
+			 			<li class="widget_li">
+			 				<div ng-include="'../app/views/widgets/article_controls.tpl.html'"></div>
+			 			</li>
+			 			<li ng-if="documentArray.length > 0" class="widget_li">
+			 				<div ng-include="'../app/views/widgets/attachment_filesview.tpl.html'" ng-init="attachedDocs = documentArray"></div>
+			 			</li>
+			 			<li class="widget_li" ng-if="hashtags.length > 0">
+			 				<div ng-include="'../app/views/widgets/hashtags_list.tpl.html'"></div>
+			 			</li>
+			 		</ul>
+			 	</div>
+		 	</div>
+
+		 	<div class="at_leftpart">
+		 		
+		 	</div>
+
+		 	<div class="at_rightpart">
+				
+		 	</div>
+		 	
+		</div>
+
+	  </div><!-- /.row -->
+	</div>
+
+	<div class="article_bottom_image" ng-if="feed.content.bottomImage">
+		<div class="wrapper">
+			<div class="white_overlay"></div>
+			<img class="header_img" src="{{$root.siteUrl+feed.content.bottomImage.path}}">
+		</div>
+	</div>
+</div>
+
+
+
+

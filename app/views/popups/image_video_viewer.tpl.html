@@ -1,0 +1,43 @@
+<div class="ins_popup gallery_popup" ng-controller="imageVideoGalleryCtrl" ng-class="{'viewer-of-doc': (gallerytype == 'documents'), 'viewer-of-link': (gallerytype == 'linkEmbed'), 'viewer-of-vdo': (gallerytype == 'videos'), 'viewer-of-img': (gallerytype == 'images')}">
+
+    <!-- <div class="popup_header floatl" ng-if="popupTitle"> -->
+      <!-- <div class="popup_header floatl">
+
+        <span class="popup-heaer-icon"><i class="fa fa-file"></i></span>
+        <span class="popup_title">{{'File_Details'| translate}} AAAAAAAAAAAAAAAAAAAAAAAA</span>
+    </div> -->
+
+<!--    <div class="popup_header floatl" ng-if="popupTitle">
+       <div class="popup_title" style="padding-left:5px;">
+         <span ng-if="galArray[selectedIndex].title">{{galArray[selectedIndex].title}}</span>
+         <span ng-if="!galArray[selectedIndex].title">{{galArray[selectedIndex].fileName}}<span>
+         {{galArray[selectedIndex].videoName}}
+       </div>
+       <div class="close_btn" ng-click="closeImgaVideoGalleryPopup()" style="background-color:white;color:#A7A7AF;"> X </div>
+    </div>-->
+
+
+    <!-- <div class="close-o-btn" ng-click="closeImgaVideoGalleryPopup()">
+        <i class="fa fa-times"></i>
+    </div> -->
+    <div class="popup_wrapper">
+
+        <!--
+                <div class="ins_header floatl">
+                        My Communities
+                </div>
+        -->
+
+        <!-- <img class="preview_image" src="images/media/Cover1.png"> -->
+        <div class="docs-preview" ng-if="gallerytype == 'documents'">
+            <div ng-if="dataLoadSuccess == false" style="display: table-cell;text-align: center;position: absolute;left: 50%;top: 50%;transform: translate(-50%, -50%);">
+                <h5 ><i class="fa fa-spinner fa-pulse"></i>&nbsp;<span translate>Loading...</span></h5>
+            </div>
+            <slider ng-if="dataLoadSuccess == true" gallerytype="gallerytype" fileslist="galArray"  selectedindex ="selectedIndex" update="update(arg)" other="modalData.other"/>
+        </div>
+        <!--  <div ng-if="dataLoadSuccess==true && gallerytype=='documents'">
+                <slider gallerytype="gallerytype" fileslist="galArray"  selectedindex ="selectedIndex" other="modalData.other"/>
+        </div>-->
+        <slider ng-if="gallerytype != 'documents'" close="closeImgaVideoGalleryPopup()" gallerytype="gallerytype" fileslist="galArray" selectedindex ="selectedIndex" update="update(arg)" other="modalData.other"/>
+    </div>
+</div>

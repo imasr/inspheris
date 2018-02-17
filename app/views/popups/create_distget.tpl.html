@@ -1,0 +1,153 @@
+<div class="ins_popup wide_popup stat_module" style="" ng-controller="CreateDigestCtrl">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Create Digest</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	<div style="" class="col-md-6 " ng-show="selectedType.value == 'Custom'">
+		<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="digestTitle" ng-change="getTitle()" type="text" placeholder="{{'Digest name' | translate}}">
+		<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="emailSubject" ng-change="getEmailSubject()" type="text" placeholder="{{'Email Subject' | translate}}">
+		<div class="width100 marb10" dropdown-select="displaySelection" dropdown-model="selectedDisplay" dropdown-onchange="selectDigestDisplay(selected)"  dropdown-item-label="value"></div>
+		<div class="width100 marb10" dropdown-select="typeSelection" dropdown-model="selectedType" dropdown-onchange="selectDigestType(selected)"  dropdown-item-label="value"></div>
+		
+        <!-- Choose Content -->
+		<button type="button" class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-click="chooseContent()" type="text" style="cursor: pointer;background-color:#f1f1f1; text-align:left; ">{{'Choose content' |  translate}}</button>
+		 
+		<!-- Choose Schedule date  -->
+		<div class="ins_checkbox width100 floatl marb10">
+          <input type="checkbox" ng-model="isSchedule" id="ntscheduleit" name="ntscheduleit" class="css-checkbox">
+          <label for="ntscheduleit" class="css-label">{{'Schedule a plan' | translate}}</label>
+        </div>
+	 	<div ng-if="isSchedule" id="selScheduleDate" class="ins_btn_licon floatl" ng-click="selectScheduleDate()" style="margin-bottom:10px;cursor: pointer;height:60px;padding-top: 12px;">
+               <div class="form-group" ng-class="{'has-error': datepickerForm.date2.$invalid}" style="float:left;margin:0px 10px;">
+                 <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" style="width:212px;" ng-model="publishDates.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+               </div>
+               <div class="form-group" ng-class="{'has-error': datepickerForm.date2.$invalid}" style="float:right;margin:0px 10px;">
+                 <input type="text" class="form-control timepicker_licon" placeholder="{{'Start_Time' | translate}}" style="width:212px;" size="8" ng-model="publishDates.startTime" name="time" bs-timepicker>
+               </div>
+       	</div>
+
+<!--  Block choose header Images
+		<div class="floatl marb10" ng-style="{'width': '469.5px'}">
+        	<div class="res-rectangle" ng-style="{'padding-top' : '130px'}">
+          		<div class="rect-content" ngf-drop ngf-select ng-model="logoFiles" ng-model-rejected="rejLogoFiles" ngf-change="logoImageSelect($files, $event)" ngf-drag-over-class="{accept:'dragover', reject:'dragover-err', delay:100}" class="drop-box" ngf-multiple="false" ngf-allow-dir="true" ngf-accept="'image/*'" ngf-drop-available="dropAvailable">
+            		<img ng-if="headerImg.uid" no-cache-src="{{headerImg.urls[1]}}"> 
+            		<div ng-show="!headerImg || !headerImg.uid" class="disp_table">
+	            		<div class="disp_table">
+	             			<div class="tblc">               
+	                			<span class="lbl" >{{'Upload_Logo_Image' | translate}}</span>
+	              			</div>
+	            		</div>
+          			</div>
+        		</div>
+      		</div>
+      	</div>
+ -->
+      	
+		<div class="col-md-12">
+			<div class="ins_btn_ctext marb10 col-md-6" style="background-color:  #999999;border-color: #999999;" ng-click="doneCreateDigest('Draft')">
+					<span translate>Save as Draft</span>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="ins_btn_ctext marb10" style="background-color:  #999999;border-color: #999999;" ng-click="doneCreateDigest('Preview')">
+				<span translate>Send Preview</span>
+			</div>
+		</div>
+		
+		<div class="col-md-6" ng-if="!isSchedule">
+			<div class="ins_btn_ctext marb10 col-md-6" ng-click="doneCreateDigest('Publish')">
+					<span translate>Send now</span>
+			</div>
+		</div>
+		
+		<div class="col-md-6" ng-if="isSchedule">
+			<div class="ins_btn_ctext marb10 col-md-6" ng-click="doneCreateDigest('Scheduled')">
+					<span translate>Send later</span>
+			</div>
+		</div>
+
+
+       		
+	</div>
+	<div style="" class="col-md-6 " ng-show="selectedType.value == 'Automatic'">
+		<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="digestTitle" ng-change="getTitle()" type="text" placeholder="{{'Digest name' | translate}}">
+		<input class="ins_input_tex widht100 fc1 fs2 marb10 mart10" ng-model="emailSubject" ng-change="getEmailSubject()" type="text" placeholder="{{'Email Subject' | translate}}">
+		<div class="width100 marb10" dropdown-select="displaySelection" dropdown-model="selectedDisplay" dropdown-onchange="selectDigestDisplay(selected)"  dropdown-item-label="value"></div>
+		<div class="width100 marb10" dropdown-select="typeSelection" dropdown-model="selectedType" dropdown-onchange="selectDigestType(selected)"  dropdown-item-label="value"></div>
+		<div class="width100 marb10" dropdown-select="repeatSelection" dropdown-model="selectedRepeat" dropdown-onchange="selectDigestRepeat(selected)"  dropdown-item-label="value"></div>
+		<div ng-if="selectedRepeat.value == 'DayOfWeek' || selectedRepeat.value == 'DayOfMonth'" class="width100 marb10" dropdown-select="repeatDaySelection" dropdown-model="selectedRepeatDay" dropdown-onchange="selectDigestRepeatDay(selected)"  dropdown-item-label="name"></div>
+		<div class="width100 marb10" dropdown-select="digestContentTypeSelection" dropdown-model="selectedDigestContentType" dropdown-onchange="selectDigestContentType(selected)"  dropdown-item-label="value"></div>
+
+	 	<div id="selScheduleDate" class="ins_btn_licon floatl" style="margin-bottom:10px;cursor: pointer;height:60px;padding-top: 12px;">
+               <div class="form-group" ng-class="{'has-error': datepickerForm.date1.$invalid}" style="float:left;margin:0px 10px;">
+                 <input type="text" class="form-control datepicker_licon" placeholder="{{'Start_Date' | translate}}" style="width:210px;" ng-model="postDates.startDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date1" bs-datepicker>
+               </div>
+               <div class="form-group" ng-class="{'has-error': datepickerForm.date2.$invalid}" style="float:right;margin:0px 10px;">
+                 <input type="text" class="form-control datepicker_licon" placeholder="{{'End_Date' | translate}}" style="width:210px;" ng-model="postDates.endDt" data-date-format="mediumDate" data-date-type="number" data-min-date="today" data-autoclose="1" name="date2" bs-datepicker>
+               </div>
+       	</div>
+
+       	<div id="selArtComm" class="ins_btn_licon floatl" ng-click="selectCommunity()" style="margin-bottom:10px;margin-top: 10px;">
+			<div class="icon setting_icon">
+	    		<i class="fa fa-cog"></i>
+	       	</div>
+	      	<p>{{selectedCommLabel | translate}}</p>
+	   	</div>
+
+	   	<div ng-show="communityForTabsSelection.length > 0" style="margin-bottom:10px;">    
+	     	<div id="communityTabSelect" class="btn-group ins_dropdown width100">
+	        	<button type="button" class="btn btn-default" data-toggle="dropdown">{{selectedTabsLabel}}</button>
+	           	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		           	<span class="caret"></span>
+		          	<span class="sr-only">Toggle Dropdown</span>
+	         	</button>
+	              
+	      		<ul class="dropdown-menu" role="menu">
+	           		<li class="ddli-ttl" ng-repeat="com in communityForTabsSelection" ng-init="oIdx=$index">{{com.label}}
+	                 	<ul>
+	                    	<li class="ddli-lbl" ng-repeat="tab in com.tabs track by tab.uid" ng-click="stopPropagation($event)" ng-init="iIdx=$index">
+	                      		<div class="ins_checkbox">
+	                        		<input type="checkbox" name="cctbsel{{oIdx+'_'+iIdx}}" id="cctbsel{{oIdx+'_'+iIdx}}" class="css-checkbox" ng-model="tab.selected" ng-checked="tab.selected">
+	                        		<label for="cctbsel{{oIdx+'_'+iIdx}}" class="css-label">{{tab.tabName}}</label>
+	                      		</div>
+	                    	</li>
+	                  	</ul>
+	             	</li>
+	          	</ul>
+	   		</div>
+	 	</div>
+	 	
+		<div class="col-md-12">
+			<div class="ins_btn_ctext marb10 col-md-6" style="background-color:  #999999;border-color: #999999;" ng-click="doneCreateDigest('Draft')">
+					<span translate>Save as Draft</span>
+			</div>
+		</div>
+
+		<div class="col-md-6">
+			<div class="ins_btn_ctext marb10" style="background-color:  #999999;border-color: #999999;" ng-click="doneCreateDigest('Preview')">
+				<span translate>Send Preview</span>
+			</div>
+		</div>
+		
+		<div class="col-md-6">
+			<div class="ins_btn_ctext marb10 col-md-6" ng-click="doneCreateDigest('Publish')">
+					<span translate>Send now</span>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6" style="height: 450px;overflow-y: scroll;">
+		<div class=" marb10 mart10" style="height: 400px;display: table;width: 100%;background-color: #f1f1f1;padding: 10px;">
+				<h4 ng-show="feeds.length <= 0 || selectedDisplay.value=='Choose Template Design'" style="display: table-cell;vertical-align: middle;text-align: center;" translate>Preview</h4>
+				<!-- Feeds render -->
+					<!--  <div ng-if="feeds.length > 0" ng-repeat="feed in feeds" ng-include="'../app/views/popups/digest_cont_feed_lv.tpl.html'"></div>-->
+				<!--End  Feeds render -->
+				 <!--  <ng-include ng-if="feeds.length > 0 && selectedDisplay.value=='ListView'" ng-repeat="feed in feeds" src="'../app/views/containers/digest_feed_lv.tpl.html'"></ng-include>
+				 <ng-include ng-if="feeds.length > 0 && selectedDisplay.value=='GridView'" ng-repeat="feed in feeds" src="'../app/views/containers/digest_feed_gv.tpl.html'"></ng-include>-->
+				<!-- Feeds grid view render -->
+				<!--  <div ng-include="'../app/views/containers/digest_details.tpl.html'"  ng-if="feeds.length > 0 && selectedDisplay.value!='Choose Template Design'"  ng-init="viewType=viewType;feeds=feeds" ></div>-->
+				 <ng-include ng-show="feeds.length > 0 && selectedDisplay.value!='Choose Template Design'"   src="'../app/views/containers/digest_details.tpl.html'"></ng-include>
+		</div>
+	</div>
+</div>

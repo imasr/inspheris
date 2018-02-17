@@ -1,0 +1,11 @@
+<div class="ins_popup wide_popup stat_module" style="" ng-controller="DigestPreviewCtrl">
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Preview</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+	<div class="col-md-12"  style="height: 650px;overflow-y: scroll;min-width: 750px;">
+		<div style="height: 400px;display: table;  margin: 0 auto;">
+			<ng-include  src="'../app/views/containers/digest_details.tpl.html'"></ng-include>
+		</div>
+	</div>
+</div>

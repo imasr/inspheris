@@ -1,0 +1,12 @@
+<div class="ins_popup custom_popup alert_module"  ng-controller="AlertCtrl" style="min-width: 1050px">
+  
+	<div class="popup_header floatl">
+	    <div class="popup_title" translate>Alert</div>
+	    <div class="close_btn" ng-click="closeThisDialog({flag: 'cancel', data: null})"> X </div>  
+	</div>
+
+	<div class="report-details col-md-12">
+		<button type="button" class="btn btn-default navbar-btn" style="margin-top: 20px;" ng-click="createAlert()" translate>Create an alert</button>
+		<div id=gridalerts ui-grid="gridAlerts" ui-grid-pagination ui-grid-auto-resize ui-grid-resize-columns></div>		
+	</div>
+</div>

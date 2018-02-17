@@ -1,0 +1,38 @@
+<div class="ins_popup medium_popup document_viewer_popup" ng-controller="DocumentViewerCtrl">
+  <div class="popup_header floatl">
+      <div class="user_image floatl"> <img src="images/media/user.png"> </div>
+      <span>{{'Documents' | translate}}</span>
+      <div class="close_btn" ng-click="closeModal()"> X </div>  
+  </div>
+
+  <div class="popup_wrapper">
+  	<div class="document_list">
+  		<div class="document-info-bar" ng-repeat="doc in documents">
+		    <div class="disp_table">
+		    	<div class="tblc">
+		    		<div class="doc-thumb-wrap">
+					  	<img class="feedthumb_72" set-icon-src="{type: doc.fileType, url: doc.thumbGalleryUrl}">
+					</div>
+		    	</div>
+		    	<div class="tblc doc-meta">
+		    		<span class="doc-title">{{doc.fileName}}</span>
+		    		<span class="doc-desc">{{doc.caption}}</span>
+		    		<div class="doc-user-info">
+			    		<a class="pull-left" href="#">
+					      <img class="media-object thumb28x28" src="images/media/user.png" alt="user name" style="margin-right: 5px;">
+					    </a>
+					    {{'By' | translate}} <a href="">Aron</a> <span>{{doc.uploadedDate | timeago}}</span>
+		    		</div>
+		    	</div>
+		    	<div class="tblc doc-action">
+		    		<a href="{{doc.path}}">
+			    		<div class="download-btn">
+			    			<i class="fa fa-download"></i>
+			    		</div>
+		    		</a>
+		    	</div>
+		    </div>
+		</div>
+  	</div>
+  </div>
+</div>
